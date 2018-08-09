@@ -40,11 +40,19 @@ public class Choose {
 		//战法 火势风威
 		CommZhanFa huoshifengwei = new CommZhanFa(4,0.4f,1.11f,new Person(3),0f,2.21f);
 		//战法 十面埋伏  
-		CommZhanFa shimianmaifu = new CommZhanFa(4,0.4f,1.3f,new Person(3),0f,0f);
+		CommZhanFa shimianmaifu = new CommZhanFa(4,0.4f,1.3f,new Person(3));
 		//战法 声东击西
-		CommZhanFa shengdongjixi = new CommZhanFa(4,0.5f,2.31f,new Person(1,2),0f,0f);
+		CommZhanFa shengdongjixi = new CommZhanFa(4,0.5f,2.31f,new Person(1,2));
 		
-		System.out.println(calcVal(shimianmaifu,huoshifengwei,shengdongjixi));
+		CommZhanFa huoshifengwei1 = new CommZhanFa(4,0.4f,1.11f,new Person(3));
+		//战法 楚歌四起
+		CommZhanFa chugesiqi = new CommZhanFa(4,0.5f,2.31f,new Person(1,2));
+		
+		float a = calcVal(shimianmaifu,huoshifengwei1,chugesiqi);
+		float b = calcVal(shimianmaifu,huoshifengwei,shengdongjixi);
+		
+		System.out.println("火势风威 十面埋伏 声东击西 伤害值:" + b);
+		System.out.println("火势风威 十面埋伏 楚歌四起 伤害值:" + a);
 		return 0;
 	}
 	
