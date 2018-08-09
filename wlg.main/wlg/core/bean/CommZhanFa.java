@@ -10,7 +10,7 @@ public class CommZhanFa {
 	//伤害率
 	private float harmRate = 0;
 	//打击队伍数  eg.声东击西
-	private int[] persons;
+	private int[] persons = {0};
 	
 	//触发增益伤害率
 	private float exHarmRate= 0;
@@ -44,8 +44,27 @@ public class CommZhanFa {
 	public float getExRate() {
 		return exRate;
 	}
-	
-	public float getThisVal() {
-		return this.doneRate*this.harmRate;
+	/**
+	 * 当前战法的伤害
+	 * @return
+	 */
+	public float getPrimaryVal() {
+		float val = this.doneRate*this.harmRate;
+		float sum = 0;
+		if(persons.length>0) {
+			int len = persons.length;
+			float rate = 1/len;
+			for(int i : persons) {
+				sum += val * rate * i;
+			}
+		}
+		return sum;
+	}
+	/**
+	 * 当前战法增益伤害
+	 * @return
+	 */
+	public float getExVal(float ) {
+		
 	}
 }
