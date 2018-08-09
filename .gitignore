@@ -1,0 +1,23 @@
+#################
+## Eclipse
+#################
+
+.settings/
+.loadpath
+*.class
+*.tmp
+.gradle
+.classpath
+.project
+.settings
+.DS_Store
+
+/bin
+/build
+/logs/
+*.log
+
+*~
+tags
+/build-eclipse/
+/WEB-INF/
