@@ -1,4 +1,4 @@
-package wlg.core.bean;
+package wlg.core.bean.zhanfa;
 
 import wlg.core.calc.CalcHarm;
 
@@ -14,18 +14,23 @@ public class ZhanFa implements CalcHarm{
 	private float harmRate = 0;
 	// 打击队伍数 
 	private Person persons = new Person(1);
-	
+	//战法准备回合数
+	private int ready = 0;
 	/**
 	 * @param doneRate	发动概率
 	 * @param harmRate	伤害率
 	 * @param persons	打击队伍数
 	 */
-	public ZhanFa(float doneRate,float harmRate,Person persons) {
+	public ZhanFa(int ready,float doneRate,float harmRate,Person persons) {
+		this.ready=ready;
 		this.doneRate = doneRate;
 		this.harmRate = harmRate;
 		this.persons=persons;
 	}
 	
+	public int getReady() {
+		return ready;
+	}
 	public float getDoneRate() {
 		return doneRate;
 	}

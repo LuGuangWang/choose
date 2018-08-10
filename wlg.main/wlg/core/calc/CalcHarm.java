@@ -1,6 +1,6 @@
 package wlg.core.calc;
 
-import wlg.core.bean.ZhanFa;
+import wlg.core.bean.zhanfa.ZhanFa;
 
 public interface CalcHarm {
 	/**

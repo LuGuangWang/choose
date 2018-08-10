@@ -1,4 +1,4 @@
-package wlg.core.bean;
+package wlg.core.bean.zhanfa;
 /**
  * 带增益的战法
  * @author seven
@@ -16,8 +16,8 @@ public class ZengYiZhanFa extends ZhanFa{
 	 * @param exRate	增益发动概率
 	 * @param exHarmRate  增益伤害率
 	 */
-	public ZengYiZhanFa(float doneRate,float harmRate,Person persons,float exRate,float exHarmRate) {
-		super(doneRate,harmRate,persons);
+	public ZengYiZhanFa(int ready, float doneRate,float harmRate,Person persons,float exRate,float exHarmRate) {
+		super(ready,doneRate,harmRate,persons);
 		this.exHarmRate=exHarmRate;
 		this.exRate = exRate;
 	}
