@@ -17,7 +17,7 @@ public class CalcOneHarm {
 		float sum = 0;
 		//主要伤害
 		for(T z:zhanfa) {
-			//当前回合战法发动概率
+			//当前回合战法发动成功的概率
 			float rate = getSuccessRate(huihe, z);
 			sum += rate * z.getHarmVal();
 		}
