@@ -13,13 +13,12 @@ public class Choose {
 	 * 8回合总伤害
 	 * @return
 	 */
-	public float calcVal() {
+	public static <T extends ZhanFa> float calcVal(T... zhanfa) {
 		float sum = 0;
 		HuiHe huihe = new HuiHe();
 		for(int i=1;i<9;i++) {
 			huihe.setId(i);
-			
-			
+			sum += CalcOneHarm.calcVal(huihe, zhanfa);
 		}
 		return sum;
 	}
@@ -40,8 +39,8 @@ public class Choose {
 		//战法 楚歌四起
 		MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa(1,0.5f,1.27f,new Person(2,3));
 		
-		float b = CalcOneHarm.calcVal(shimianmaifu,huoshifengwei,shengdongjixi);
-		float a = CalcOneHarm.calcVal(shimianmaifu,huoshifengwei,chugesiqi);
+		float b = calcVal(shimianmaifu,huoshifengwei,shengdongjixi);
+		float a = calcVal(shimianmaifu,huoshifengwei,chugesiqi);
 		
 		System.out.println("火势风威 十面埋伏 声东击西 伤害值:" + b);
 		System.out.println("火势风威 十面埋伏 楚歌四起 伤害值:" + a);
