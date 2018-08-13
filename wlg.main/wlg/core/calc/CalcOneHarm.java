@@ -19,7 +19,7 @@ public class CalcOneHarm {
 		for(T z:zhanfa) {
 			//当前回合战法发动成功的概率
 			float rate = getSuccessRate(huihe, z);
-			sum += rate * z.getHarmVal() * huihe.getSolderRate();
+			sum += rate * z.getHarmVal();
 		}
 		//增益伤害
 		sum += calcExVal(huihe,zhanfa);
@@ -36,7 +36,7 @@ public class CalcOneHarm {
 					for(int j=0;j<zhanfa.length;j++) {
 						if(j!= i) {
 							float rate = getSuccessRate(huihe, zhanfa[j]);
-							sum += rate * b.getExVal(zhanfa[j])  * huihe.getSolderRate();
+							sum += rate * b.getExVal(zhanfa[j]);
 						}
 					}
 				}
@@ -53,21 +53,25 @@ public class CalcOneHarm {
 	 */
 	private static <T extends ZhanFa> float getSuccessRate(HuiHe huihe, T zhanfa) {
 		float rate = 0;
-		int ready = zhanfa.getReady()+1;
-		//首次发动战法
-		if(huihe.getId() == ready) {
+		//可以发动战法
+		if(huihe.getId() > zhanfa.getReady()) {
 			rate = 1;
-			//埋雷战法
-			if(zhanfa instanceof MaiLeiZhanFa) {
-				rate = huihe.getMaileiRate();
-			}
 		} 
-		//可能已发动过战法 存在同等或更高程度,不会叠加战法	
-		if(huihe.getId()> ready) {
-			rate = 1 - zhanfa.getDoneRate();
+		//埋雷战法
+		if(zhanfa instanceof MaiLeiZhanFa) {
+			rate = 0;
+			int ready = zhanfa.getReady()+1;
+			if(huihe.getId() == ready) {
+				rate = huihe.getMaileiRate();
+			//可能已发动过战法 存在同等或更高程度,不会叠加战法
+			}else if(huihe.getId()> ready) {
+				rate = 1 - zhanfa.getDoneRate();
+			}
+			//持续回合
+			rate = rate * ((MaiLeiZhanFa) zhanfa).getKeep();
 		}
 		
-		return rate;
+		return rate * huihe.getSolderRate();
 	}
 	
 	/**

@@ -37,7 +37,7 @@ public class Choose {
 		ZhanFa shengdongjixi = new ZhanFa(1,0.5f,2.31f,new Person(1,2));
 		
 		//战法 楚歌四起
-		MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa(1,0.5f,1.27f,new Person(2,3));
+		MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa(1,2,0.5f,1.27f,new Person(2,3));
 		
 		float b = calcVal(shimianmaifu,huoshifengwei,shengdongjixi);
 		float a = calcVal(shimianmaifu,huoshifengwei,chugesiqi);

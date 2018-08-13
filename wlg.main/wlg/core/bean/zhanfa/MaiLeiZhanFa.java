@@ -5,10 +5,15 @@ package wlg.core.bean.zhanfa;
  *
  */
 public class MaiLeiZhanFa extends ZhanFa{
-
-	public MaiLeiZhanFa(int ready, float doneRate, float harmRate, Person persons) {
+	//持续几回合
+	private int keep = 1;
+	
+	public MaiLeiZhanFa(int ready,int keep, float doneRate, float harmRate, Person persons) {
 		super(ready, doneRate, harmRate, persons);
+		this.keep = keep;
 	}
 
-	
+	public int getKeep() {
+		return keep;
+	}
 }
