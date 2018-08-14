@@ -40,9 +40,8 @@ public class CalcHarm {
 						if(s instanceof ShuaXinZhanFa) {
 							isShuaXin = true;
 							float rate = CalcDoRate.getShuaXinRate(huihe, z);
-							float shuaxinRate = ((ShuaXinZhanFa)s).getBaseRate() * huihe.getId();
-							z.setHarmRate(z.getHarmRate()+shuaxinRate);
-							sum += rate * z.getHarmVal();
+							float shuaxinRate = ((ShuaXinZhanFa)s).getBaseRate() * huihe.getId() + z.getHarmRate();
+							sum += rate * z.getShuaXinVal(shuaxinRate);
 						}
 					}
 				}

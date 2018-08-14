@@ -28,10 +28,6 @@ public class ZhanFa implements CalcZhanFaHarm{
 		this.persons=persons;
 	}
 	
-	
-	public void setHarmRate(float harmRate) {
-		this.harmRate = harmRate;
-	}
 	public int getReady() {
 		return ready;
 	}
@@ -55,7 +51,11 @@ public class ZhanFa implements CalcZhanFaHarm{
 
 	@Override
 	public float getHarmVal() {
-		float pval = this.doneRate*this.harmRate;
+		return getShuaXinVal(this.harmRate);
+	}
+	
+	public float getShuaXinVal(float harmRate) {
+		float pval = this.doneRate* harmRate;
 		float sum = 0;
 		if(persons.getPersons().length>0) {
 			int len = getPersons().getPersons().length;

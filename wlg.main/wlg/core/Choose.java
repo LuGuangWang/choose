@@ -1,5 +1,6 @@
 package wlg.core;
 
+import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.Person;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
@@ -23,18 +24,35 @@ public class Choose {
 		ZhanFa shengdongjixi = new ZhanFa(1,0.5f,2.31f,new Person(1,2));
 		
 		//埋雷战法 楚歌四起
-		MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa(1,2,0,0.5f,1.27f,new Person(2,3));
-		
+		MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa(1,2,6,0.5f,1.27f,new Person(2,3));
+		//加成战法 不攻
+		JiaChengZhanFa bugong = new JiaChengZhanFa(0,1,0.83f,new Person(1),0.25f);
 		//刷新战法 深谋远虑
 		ShuaXinZhanFa shenmouyuanlv = new ShuaXinZhanFa(0.09f);
 		
 		float a = CalcHarm.calcVal(shimianmaifu,huoshifengwei,shengdongjixi);
-		float b = CalcHarm.calcVal(shimianmaifu,huoshifengwei,chugesiqi);
-		float c = CalcHarm.calcVal(shimianmaifu,huoshifengwei,shenmouyuanlv);
-		
 		System.out.println("火势风威 十面埋伏 声东击西 伤害值:" + a);
+		
+		float b = CalcHarm.calcVal(shimianmaifu,huoshifengwei,chugesiqi);
 		System.out.println("火势风威 十面埋伏 楚歌四起(低速度) 伤害值:" + b);
+		
+		float c = CalcHarm.calcVal(shimianmaifu,huoshifengwei,shenmouyuanlv);
 		System.out.println("火势风威 十面埋伏 深谋远虑 伤害值:" + c);
+		
+		float d = CalcHarm.calcVal(shimianmaifu,chugesiqi,shenmouyuanlv);
+		System.out.println("火势风威 楚歌四起(低速度) 深谋远虑 伤害值:" + d);
+		
+		float f = CalcHarm.calcVal(huoshifengwei,chugesiqi,bugong);
+		System.out.println("火势风威 楚歌四起(低速度) 不攻 伤害值:" + f);
+		
+		float g = CalcHarm.calcVal(huoshifengwei,shengdongjixi,bugong);
+		System.out.println("火势风威 声东击西 不攻 伤害值:" + g);
+		
+		float h = CalcHarm.calcVal(huoshifengwei,shimianmaifu,bugong);
+		System.out.println("火势风威 十面埋伏 不攻 伤害值:" + h);
+		
+		float i = CalcHarm.calcVal(huoshifengwei,shenmouyuanlv,bugong);
+		System.out.println("火势风威 深谋远虑 不攻 伤害值:" + i);
 		
 		return 0;
 	}
