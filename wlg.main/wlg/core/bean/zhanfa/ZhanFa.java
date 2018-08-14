@@ -1,13 +1,13 @@
 package wlg.core.bean.zhanfa;
 
-import wlg.core.calc.CalcHarm;
+import wlg.core.calc.CalcZhanFaHarm;
 
 /**
  * 普通战法
  * @author seven
  *
  */
-public class ZhanFa implements CalcHarm{
+public class ZhanFa implements CalcZhanFaHarm{
 	// 发动概率
 	private float doneRate = 0;
 	// 伤害率
