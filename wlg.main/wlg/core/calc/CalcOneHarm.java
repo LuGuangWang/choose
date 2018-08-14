@@ -60,15 +60,16 @@ public class CalcOneHarm {
 		//埋雷战法
 		if(zhanfa instanceof MaiLeiZhanFa) {
 			rate = 0;
+			MaiLeiZhanFa mz = (MaiLeiZhanFa) zhanfa;
 			int ready = zhanfa.getReady()+1;
 			if(huihe.getId() == ready) {
-				rate = huihe.getMaileiRate();
+				rate = mz.getSpeed();
 			//可能已发动过战法 存在同等或更高程度,不会叠加战法
 			}else if(huihe.getId()> ready) {
 				rate = 1 - zhanfa.getDoneRate();
 			}
 			//持续回合
-			rate = rate * ((MaiLeiZhanFa) zhanfa).getKeep();
+			rate = rate * mz.getKeep();
 		}
 		
 		return rate * huihe.getSolderRate();
