@@ -28,6 +28,10 @@ public class ZhanFa implements CalcHarm{
 		this.persons=persons;
 	}
 	
+	
+	public void setHarmRate(float harmRate) {
+		this.harmRate = harmRate;
+	}
 	public int getReady() {
 		return ready;
 	}
