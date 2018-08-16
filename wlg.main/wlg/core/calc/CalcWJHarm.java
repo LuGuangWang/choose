@@ -1,8 +1,5 @@
 package wlg.core.calc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.ZhanFa;

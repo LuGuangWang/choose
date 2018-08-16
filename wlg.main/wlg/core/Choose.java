@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import wlg.core.bean.wujiang.WList;
+import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.ZList;
 import wlg.core.calc.CalcHarm;
 
@@ -12,9 +13,7 @@ public class Choose {
 	
 	public static void main(String[] args) {
 		WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.shimianmaifu);
-		System.out.println(WList.luxun.toString() + 1);
-		
-		
+		System.out.println(WList.luxun.toString() + CalcHarm.calcVal(WList.luxun.getZhanfa()));
 		
 		Choose c = new Choose();
 		Map<Float, String> result = c.calcZhanFaVal();

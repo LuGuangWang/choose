@@ -13,13 +13,16 @@ public class WuJiang {
 	private int strategy;//谋略
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
 	
+	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang(String name,int speed,int defense,int attack,int strategy,T zhanfa) {
 		this.name=name;
 		this.attack=attack;
 		this.defense=defense;
 		this.strategy=strategy;
 		this.speed=speed;
-		zhanfaMap.put(1, zhanfa);
+		T t = (T) zhanfa.clone();
+		addWuJiangProp(t);
+		zhanfaMap.put(1, t);
 	}
 	
 	public String getName() {
@@ -37,13 +40,26 @@ public class WuJiang {
 	public int getStrategy() {
 		return strategy;
 	}
+	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang setSecondZhanFa(T z) {
-		zhanfaMap.put(2, z);
+		T t = (T) z.clone();
+		addWuJiangProp(t);
+		zhanfaMap.put(2, t);
 		return this;
 	}
+	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang setThreeZhanFa(T z) {
-		zhanfaMap.put(3, z);
+		T t = (T) z.clone();
+		addWuJiangProp(t);
+		zhanfaMap.put(3, t);
 		return this;
+	}
+
+	private <T extends ZhanFa> void addWuJiangProp(T z) {
+		z.setSpeed(speed);
+		z.setAttack(attack);
+		z.setStrategy(strategy);
+		z.setDefense(defense);
 	}
 	
 	@SuppressWarnings("unchecked")
