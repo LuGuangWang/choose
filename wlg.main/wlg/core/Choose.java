@@ -3,12 +3,44 @@ package wlg.core;
 import java.util.Map;
 import java.util.TreeMap;
 
+import wlg.core.bean.HuiHe;
+import wlg.core.bean.wujiang.WList;
+import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.ZList;
+import wlg.core.bean.zhanfa.ZhanFa;
 import wlg.core.calc.CalcHarm;
 
 public class Choose {
 	
+	/**
+	 * 计算武将组合的伤害值
+	 * @param wujiang
+	 * @return
+	 */
+	public static <T extends ZhanFa> float  calcVal(WuJiang... wujiang) {
+		float sum = 0;
+//		HuiHe huihe = new HuiHe();
+//		for(int i=1;i<9;i++) {
+//			huihe.setId(i);
+//			sum += CalcHarm.calcVal(wujiang[0].getZhanfa());
+//		}
+		sum += CalcHarm.calcVal(wujiang[0].getZhanfa());
+		return sum;
+	}
 	
+	public static void main(String[] args) {
+		WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.shimianmaifu);
+		System.out.println(WList.luxun.toString() + 1);
+		
+		
+		
+		Choose c = new Choose();
+		Map<Float, String> result = c.calcZhanFaVal();
+		System.out.println("战法组合的伤害值越高,代表越好:");
+		((TreeMap<Float, String>) result).descendingMap().forEach((k,v)->{
+			System.out.println(v + k);
+		});
+	}
 	
 	/**
 	 * TODO 添加下一回合逻辑  减伤 回血 普通攻击的伤害
@@ -41,14 +73,5 @@ public class Choose {
 		result.put(i, "火势风威 深谋远虑 不攻 伤害值:");
 		
 		return result;
-	}
-	
-	public static void main(String[] args) {
-		Choose c = new Choose();
-		Map<Float, String> result = c.calcZhanFaVal();
-		System.out.println("战法组合的伤害值越高,代表越好:");
-		((TreeMap<Float, String>) result).descendingMap().forEach((k,v)->{
-			System.out.println(v + k);
-		});
 	}
 }

@@ -8,6 +8,8 @@ import wlg.core.calc.CalcZhanFaHarm;
  *
  */
 public class ZhanFa implements CalcZhanFaHarm{
+	//战法名称
+	private String name;
 	// 发动概率
 	private float doneRate = 0;
 	// 伤害率
@@ -21,13 +23,18 @@ public class ZhanFa implements CalcZhanFaHarm{
 	 * @param harmRate	伤害率
 	 * @param persons	打击队伍数
 	 */
-	public ZhanFa(int ready,float doneRate,float harmRate,Person persons) {
+	public ZhanFa(String name,int ready,float doneRate,float harmRate,Person persons) {
+		this.name=name;
 		this.ready=ready;
 		this.doneRate = doneRate;
 		this.harmRate = harmRate;
 		this.persons=persons;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
 	public int getReady() {
 		return ready;
 	}
