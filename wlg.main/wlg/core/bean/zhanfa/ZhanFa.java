@@ -97,8 +97,9 @@ public class ZhanFa implements CalcZhanFaHarm{
 	}
 
 	public float getShuaXinVal(float harmRate) {
-		float pval = this.doneRate* harmRate;
 		float sum = 0;
+		float pval = this.doneRate* harmRate;
+		pval = calcTypeVal(pval);
 		if(persons.getPersons().length>0) {
 			int len = getPersons().getPersons().length;
 			float rate = 1.0f/len;
@@ -107,5 +108,19 @@ public class ZhanFa implements CalcZhanFaHarm{
 			}
 		}
 		return sum;
+	}
+
+	protected float calcTypeVal(float val) {
+		switch(t) {
+		case attack:
+			val *= attack;
+			break;
+		case zd_strategy:
+			val *= strategy;
+			break;
+		default:
+			break;
+		}
+		return val;
 	}
 }

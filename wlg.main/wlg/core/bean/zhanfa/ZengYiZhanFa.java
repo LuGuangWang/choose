@@ -44,6 +44,7 @@ public class ZengYiZhanFa extends ZhanFa{
 		//增益伤害
 		if(!isByOther()) {
 			float exVal = this.exHarmRate*this.exRate;
+			exVal = calcTypeVal(exVal);
 			if(getPersons().getPersons().length>0) {
 				int len = getPersons().getPersons().length;
 				float rate = 1.0f/len;
@@ -62,6 +63,7 @@ public class ZengYiZhanFa extends ZhanFa{
 		float sum = 0;
 		if(isByOther()) {
 			float val = this.exHarmRate*this.getDoneRate()*other.getDoneRate();
+			val = calcTypeVal(val);
 			int[] persons = other.getPersons().getPersons();
 			
 			int[] ps = this.getPersons().getPersons();

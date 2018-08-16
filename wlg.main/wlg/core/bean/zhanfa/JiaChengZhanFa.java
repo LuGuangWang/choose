@@ -18,6 +18,7 @@ public class JiaChengZhanFa extends ZhanFa {
 	public float getExVal(ZhanFa other) {
 		float sum = 0;
 		float val = (other.getHarmRate() + this.addRate)*other.getDoneRate();
+		val = calcTypeVal(val);
 		
 		int[] ps = other.getPersons().getPersons();
 		if(ps.length>0) {
