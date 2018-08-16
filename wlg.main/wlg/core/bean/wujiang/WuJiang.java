@@ -45,17 +45,19 @@ public class WuJiang {
 		zhanfaMap.put(3, z);
 		return this;
 	}
+	
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> T[] getZhanfa() {
-		return (T[]) zhanfaMap.values().toArray(new ZhanFa[2]);
+		return (T[]) zhanfaMap.values().toArray(new ZhanFa[zhanfaMap.size()]);
 	}
 	
 	@Override
 	public String toString() {
-		StringBuilder s = new StringBuilder(name);
-		s.append(" ").append(zhanfaMap.get(2).getName());
-		s.append(" ").append(zhanfaMap.get(3).getName());
-		s.append(" 伤害值:");
+		StringBuilder s = new StringBuilder(name).append(":");
+		zhanfaMap.forEach((k,v)->{
+			s.append(v.getName()).append(" ");
+		});
+		s.append("伤害值:");
 		return s.toString();
 	}
 }

@@ -8,7 +8,7 @@ import wlg.core.bean.zhanfa.ZhanFa;
 public class CalcHarm {
 	
 	/**
-	 * 8回合总伤害
+	 * 战法8回合总伤害
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")

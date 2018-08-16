@@ -18,12 +18,21 @@ public class ZhanFa implements CalcZhanFaHarm{
 	private Person persons = new Person(1);
 	//战法准备回合数
 	private int ready = 0;
+	//战法类型
+	private ZFType t;
+	
+	/** ----- 武将的属性 ---- **/
+	private int speed = 0;//速度
+	private int defense = 1;//防御
+	private int attack = 1;//攻击
+	private int strategy = 1;//谋略
 	/**
 	 * @param doneRate	发动概率
 	 * @param harmRate	伤害率
 	 * @param persons	打击队伍数
 	 */
-	public ZhanFa(String name,int ready,float doneRate,float harmRate,Person persons) {
+	public ZhanFa(String name,ZFType t,int ready,float doneRate,float harmRate,Person persons) {
+		this.t=t;
 		this.name=name;
 		this.ready=ready;
 		this.doneRate = doneRate;
@@ -34,7 +43,9 @@ public class ZhanFa implements CalcZhanFaHarm{
 	public String getName() {
 		return name;
 	}
-
+	public ZFType getT() {
+		return t;
+	}
 	public int getReady() {
 		return ready;
 	}
@@ -50,7 +61,31 @@ public class ZhanFa implements CalcZhanFaHarm{
 	public void setPersons(Person persons) {
 		this.persons = persons;
 	}
-
+	public int getSpeed() {
+		return speed;
+	}
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+	public int getDefense() {
+		return defense;
+	}
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+	public int getAttack() {
+		return attack;
+	}
+	public void setAttack(int attack) {
+		this.attack = attack;
+	}
+	public int getStrategy() {
+		return strategy;
+	}
+	public void setStrategy(int strategy) {
+		this.strategy = strategy;
+	}
+	
 	@Override
 	public float getExVal(ZhanFa other) {
 		return 0;
@@ -60,7 +95,7 @@ public class ZhanFa implements CalcZhanFaHarm{
 	public float getHarmVal() {
 		return getShuaXinVal(this.harmRate);
 	}
-	
+
 	public float getShuaXinVal(float harmRate) {
 		float pval = this.doneRate* harmRate;
 		float sum = 0;

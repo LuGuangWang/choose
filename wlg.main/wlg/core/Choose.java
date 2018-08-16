@@ -3,30 +3,12 @@ package wlg.core;
 import java.util.Map;
 import java.util.TreeMap;
 
-import wlg.core.bean.HuiHe;
 import wlg.core.bean.wujiang.WList;
-import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.ZList;
-import wlg.core.bean.zhanfa.ZhanFa;
 import wlg.core.calc.CalcHarm;
 
 public class Choose {
 	
-	/**
-	 * 计算武将组合的伤害值
-	 * @param wujiang
-	 * @return
-	 */
-	public static <T extends ZhanFa> float  calcVal(WuJiang... wujiang) {
-		float sum = 0;
-//		HuiHe huihe = new HuiHe();
-//		for(int i=1;i<9;i++) {
-//			huihe.setId(i);
-//			sum += CalcHarm.calcVal(wujiang[0].getZhanfa());
-//		}
-		sum += CalcHarm.calcVal(wujiang[0].getZhanfa());
-		return sum;
-	}
 	
 	public static void main(String[] args) {
 		WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.shimianmaifu);
