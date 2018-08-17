@@ -12,6 +12,7 @@ public class WuJiang {
 	private int attack;//攻击
 	private int strategy;//谋略
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
+	private int order = 0;//武将速度的顺序
 	
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang(String name,int speed,int defense,int attack,int strategy,T zhanfa) {
@@ -25,6 +26,12 @@ public class WuJiang {
 		zhanfaMap.put(1, t);
 	}
 	
+	public int getOrder() {
+		return order;
+	}
+	public void setOrder(int order) {
+		this.order = order;
+	}
 	public String getName() {
 		return name;
 	}

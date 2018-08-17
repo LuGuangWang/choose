@@ -30,7 +30,7 @@ public class CalcWJHarm {
 			huihe.setId(i);
 			for(int j=0;j<wujiang.length;j++) {
 				WuJiang wj = wujiang[j];
-				
+				wj.setOrder(0);
 				//单个武将的主伤害
 				sum += CalcHarm.calcPrimayVal(huihe, wj.getZhanfa());
 				
