@@ -51,6 +51,9 @@ public class CalcHarm {
 					sum += rate * z.getHarmVal();
 				}
 			}
+			
+			//减伤战法
+//			sum *= huihe.getSolderRate();
 		}
 		return sum;
 	}
@@ -74,6 +77,9 @@ public class CalcHarm {
 							sum += rate * b.getExVal(zhanfa[j]);
 						}
 					}
+					
+					//减伤战法
+//					sum *= huihe.getSolderRate();
 				}
 			}
 		}

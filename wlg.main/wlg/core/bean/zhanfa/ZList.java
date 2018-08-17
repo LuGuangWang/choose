@@ -22,5 +22,7 @@ public abstract class ZList {
 	public static JiaChengZhanFa bugong = new JiaChengZhanFa("不攻",ZFType.zd_strategy,0, 1, 0.83f, new Person(1), 0.25f);
 	// 刷新战法 深谋远虑
 	public static ShuaXinZhanFa shenmouyuanlv = new ShuaXinZhanFa("深谋远虑",ZFType.zd_strategy,0.09f);
+	//减伤战法 浑水摸鱼
+	public static JianShangZhanFa hunshuimoyv = new JianShangZhanFa("浑水摸鱼", 1, 0.35f, new Person(2));
 	/*****    -------------   拆解战法     end -------------   *****/
 }
