@@ -1,8 +1,6 @@
-package wlg.core.calc;
+package wlg.core.bean.zhanfa;
 
-import wlg.core.bean.zhanfa.ZhanFa;
-
-public interface CalcZhanFaHarm {
+public interface Harm {
 	/**
 	 * 战法增益伤害
 	 * @param other

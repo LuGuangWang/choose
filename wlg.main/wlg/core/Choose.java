@@ -4,16 +4,16 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import wlg.core.bean.wujiang.WList;
-import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.ZList;
 import wlg.core.calc.CalcHarm;
+import wlg.core.calc.CalcWJHarm;
 
 public class Choose {
 	
 	
 	public static void main(String[] args) {
 		WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.shimianmaifu);
-		System.out.println(WList.luxun.toString() + CalcHarm.calcVal(WList.luxun.getZhanfa()));
+		System.out.println(WList.luxun.toString() + CalcWJHarm.calcVal(WList.luxun));
 		
 		Choose c = new Choose();
 		Map<Float, String> result = c.calcZhanFaVal();

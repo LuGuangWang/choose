@@ -1,7 +1,12 @@
 package wlg.core.calc;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.wujiang.WuJiang;
+import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 /**
@@ -21,15 +26,31 @@ public class CalcWJHarm {
 		//按速度排序
 		wujiang = sortedWuJiang(wujiang);
 		
-		//单个武将的伤害
-		
-		//可与其他武将配合的二次伤害
-		
 		for(int i=1;i<9;i++) {
 			huihe.setId(i);
-			sum += CalcHarm.calcVal(wujiang[0].getZhanfa());
+			for(int j=0;j<wujiang.length;j++) {
+				WuJiang wj = wujiang[j];
+				
+				//单个武将的主伤害
+				sum += CalcHarm.calcPrimayVal(huihe, wj.getZhanfa());
+				
+				//单个武将的增益伤害
+				boolean hasZenYi = false;
+				List<ZhanFa> zfList = new ArrayList<>();
+				ZhanFa[] zfs = wj.getZhanfa();
+				for(ZhanFa zf:zfs) {
+					if(zf instanceof ZengYiZhanFa) {
+						hasZenYi = true;
+					}
+				}
+				if(hasZenYi) {
+					for(int m=j;j<wujiang.length;j++) {
+						zfList.addAll(Arrays.asList(wujiang[m].getZhanfa()));
+					}
+					sum += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
+				}
+			}
 		}
-		sum += CalcHarm.calcVal(wujiang[0].getZhanfa());
 		return sum;
 	}
 	

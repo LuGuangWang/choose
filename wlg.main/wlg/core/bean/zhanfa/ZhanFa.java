@@ -1,14 +1,12 @@
 package wlg.core.bean.zhanfa;
 
-import wlg.core.calc.CalcZhanFaHarm;
-
 /**
  * 普通战法
  * 
  * @author seven
  *
  */
-public class ZhanFa implements CalcZhanFaHarm, Cloneable {
+public class ZhanFa implements Harm, Cloneable {
 	// 战法名称
 	private String name;
 	// 发动概率

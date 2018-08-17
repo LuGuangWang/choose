@@ -24,7 +24,7 @@ public class CalcHarm {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static <T extends ZhanFa> float calcPrimayVal(HuiHe huihe, T... zhanfa) {
+	public static <T extends ZhanFa> float calcPrimayVal(HuiHe huihe, T... zhanfa) {
 		float sum = 0;
 		boolean isShuaXin = false;
 		//主要伤害
@@ -55,8 +55,14 @@ public class CalcHarm {
 		return sum;
 	}
 
+	/**
+	 * 增益伤害
+	 * @param huihe
+	 * @param zhanfa
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	private static <T extends ZhanFa> float calcExVal(HuiHe huihe,T... zhanfa) {
+	public static <T extends ZhanFa> float calcExVal(HuiHe huihe,T... zhanfa) {
 		float sum = 0;
 		if(zhanfa.length>1) {
 			for(int i=0;i<zhanfa.length;i++) {
