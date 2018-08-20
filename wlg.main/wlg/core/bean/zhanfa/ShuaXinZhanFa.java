@@ -7,9 +7,6 @@ package wlg.core.bean.zhanfa;
  */
 public class ShuaXinZhanFa extends ZhanFa {
 
-	public ShuaXinZhanFa(String name,ZFType t,int ready, float doneRate, float harmRate, Person persons) {
-		super(name,t,ready, doneRate, harmRate, persons);
-	}
 	//可叠加基本伤害
 	private float baseRate;
 
@@ -20,5 +17,11 @@ public class ShuaXinZhanFa extends ZhanFa {
 
 	public float getBaseRate() {
 		return baseRate;
+	}
+	public float getExVal(ZhanFa other) {
+		return 0.0f;
+	}
+	public float getHarmVal() {
+		return 0.0f;
 	}
 }

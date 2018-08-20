@@ -29,9 +29,6 @@ public class CalcHarm {
 		//主要伤害
 		for(int i=0;i<zhanfa.length;i++) {
 			T z = zhanfa[i];
-			if(z instanceof ShuaXinZhanFa) {
-				//刷新战法没有伤害
-			}
 			if(huihe.getShuaxinRate() > 0) {
 				float rate = CalcDoRate.getShuaXinRate(huihe, z);
 				float shuaxinRate = huihe.getShuaxinRate() * huihe.getId() + z.getHarmRate();

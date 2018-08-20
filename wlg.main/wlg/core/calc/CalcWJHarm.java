@@ -54,6 +54,8 @@ public class CalcWJHarm {
 	//补充回合属性
 	private static void buildExProp(HuiHe huihe, WuJiang wj) {
 		ZhanFa[] zfs = wj.getZhanfa();
+		huihe.setHasZengYi(false);
+		huihe.setShuaxinRate(0.0f);
 		for(ZhanFa zf:zfs) {
 			if(zf instanceof ZengYiZhanFa) {
 				huihe.setHasZengYi(true);
