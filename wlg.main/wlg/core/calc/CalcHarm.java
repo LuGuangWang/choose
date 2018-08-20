@@ -26,32 +26,20 @@ public class CalcHarm {
 	@SuppressWarnings("unchecked")
 	public static <T extends ZhanFa> float calcPrimayVal(HuiHe huihe, T... zhanfa) {
 		float sum = 0;
-		boolean isShuaXin = false;
 		//主要伤害
 		for(int i=0;i<zhanfa.length;i++) {
 			T z = zhanfa[i];
 			if(z instanceof ShuaXinZhanFa) {
 				//刷新战法没有伤害
-			}else {
-				//是否含有刷新战法
-				for(int j=0;j<zhanfa.length;j++) {
-					if(j!= i) {
-						T s = zhanfa[j];
-						if(s instanceof ShuaXinZhanFa) {
-							isShuaXin = true;
-							float rate = CalcDoRate.getShuaXinRate(huihe, z);
-							float shuaxinRate = ((ShuaXinZhanFa)s).getBaseRate() * huihe.getId() + z.getHarmRate();
-							sum += rate * z.getShuaXinVal(shuaxinRate);
-						}
-					}
-				}
-				
-				if(!isShuaXin) {
-					float rate = CalcDoRate.getCommRate(huihe, z);
-					sum += rate * z.getHarmVal();
-				}
 			}
-			
+			if(huihe.getShuaxinRate() > 0) {
+				float rate = CalcDoRate.getShuaXinRate(huihe, z);
+				float shuaxinRate = huihe.getShuaxinRate() * huihe.getId() + z.getHarmRate();
+				sum += rate * z.getShuaXinVal(shuaxinRate);
+			}else {
+				float rate = CalcDoRate.getCommRate(huihe, z);
+				sum += rate * z.getHarmVal();
+			}
 			//减伤战法
 //			sum *= huihe.getSolderRate();
 		}

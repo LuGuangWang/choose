@@ -3,6 +3,7 @@ package wlg.core.bean.wujiang;
 import java.util.HashMap;
 import java.util.Map;
 
+import wlg.core.bean.zhanfa.JianShangZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 public class WuJiang {
@@ -12,7 +13,9 @@ public class WuJiang {
 	private int attack;//攻击
 	private int strategy;//谋略
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
+	private boolean hasJianshang = false;//是否携带减伤战法
 	
+
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang(String name,int speed,int defense,int attack,int strategy,T zhanfa) {
 		this.name=name;
@@ -23,12 +26,16 @@ public class WuJiang {
 		T t = (T) zhanfa.clone();
 		addWuJiangProp(t);
 		zhanfaMap.put(1, t);
+		hasJianshang = t instanceof JianShangZhanFa;
 	}
 	
 	public void changeOrder(int order) {
 		zhanfaMap.forEach((k,v)->{
 			v.setSpeed(order);
 		});
+	}
+	public boolean isHasJianshang() {
+		return hasJianshang;
 	}
 	public String getName() {
 		return name;
@@ -50,6 +57,7 @@ public class WuJiang {
 		T t = (T) z.clone();
 		addWuJiangProp(t);
 		zhanfaMap.put(2, t);
+		hasJianshang = t instanceof JianShangZhanFa;
 		return this;
 	}
 	@SuppressWarnings("unchecked")
@@ -57,6 +65,7 @@ public class WuJiang {
 		T t = (T) z.clone();
 		addWuJiangProp(t);
 		zhanfaMap.put(3, t);
+		hasJianshang = t instanceof JianShangZhanFa;
 		return this;
 	}
 

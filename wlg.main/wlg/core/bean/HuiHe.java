@@ -9,6 +9,29 @@ public class HuiHe {
 	//战法因为士兵减少 威力下降 默认值 1/8 TODO 将此参数根据武将防御属性获取
 	private float solderRate = 4.0f;
 	
+	//额外属性
+	private boolean hasZengYi = false;
+	private boolean hasJianShang = false;
+	private float shuaxinRate = 0.0f;
+	
+	public float getShuaxinRate() {
+		return shuaxinRate;
+	}
+	public void setShuaxinRate(float shuaxinRate) {
+		this.shuaxinRate = shuaxinRate;
+	}
+	public boolean isHasZengYi() {
+		return hasZengYi;
+	}
+	public void setHasZengYi(boolean hasZengYi) {
+		this.hasZengYi = hasZengYi;
+	}
+	public boolean isHasJianShang() {
+		return hasJianShang;
+	}
+	public void setHasJianShang(boolean hasJianShang) {
+		this.hasJianShang = hasJianShang;
+	}
 	public int getId() {
 		return id;
 	}
@@ -17,8 +40,5 @@ public class HuiHe {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public void setSolderRate(float solderRate) {
-		this.solderRate = solderRate;
 	}
 }
