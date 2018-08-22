@@ -13,7 +13,21 @@ public class HuiHe {
 	private boolean hasZengYi = false;
 	private boolean hasJianShang = false;
 	private float shuaxinRate = 0.0f;
+	private int wujiangCount = 3;
 	
+	public HuiHe getPreHuiHe() {
+		int id = this.id>1?(this.id - 1):1;
+		HuiHe huihe = new HuiHe();
+		huihe.setId(id);
+		return huihe;
+	}
+	
+	public int getWujiangCount() {
+		return wujiangCount;
+	}
+	public void setWujiangCount(int wujiangCount) {
+		this.wujiangCount = wujiangCount;
+	}
 	public float getShuaxinRate() {
 		return shuaxinRate;
 	}

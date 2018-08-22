@@ -1,6 +1,7 @@
 package wlg.core.calc;
 
 import wlg.core.bean.HuiHe;
+import wlg.core.bean.zhanfa.JianShangZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 /**
@@ -53,7 +54,7 @@ public class CalcDoRate {
 			rate = 1;
 		} 
 		//埋雷战法
-		if(zhanfa instanceof MaiLeiZhanFa) {
+		if(zhanfa instanceof MaiLeiZhanFa || zhanfa instanceof JianShangZhanFa) {
 			rate = 0;
 			MaiLeiZhanFa mz = (MaiLeiZhanFa) zhanfa;
 			int ready = zhanfa.getReady() + 1;

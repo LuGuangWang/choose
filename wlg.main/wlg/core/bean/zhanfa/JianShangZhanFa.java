@@ -5,9 +5,11 @@ package wlg.core.bean.zhanfa;
  * @author seven
  *
  */
-public class JianShangZhanFa extends ZhanFa {
+public class JianShangZhanFa extends MaiLeiZhanFa {
 
-	public JianShangZhanFa(String name,int ready,float doneRate,Person persons) {
-		super(name, ZFType.jianshang, ready, doneRate, 0f, persons);
+	
+	public JianShangZhanFa(String name,int ready,int keep,float doneRate,Person persons) {
+		super(name, ZFType.jianshang, ready, keep,doneRate, 0f, persons);
 	}
+
 }

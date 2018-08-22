@@ -6,6 +6,7 @@ import java.util.List;
 
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.wujiang.WuJiang;
+import wlg.core.bean.zhanfa.JianShangZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -29,6 +30,8 @@ public class CalcWJHarm {
 		
 		for(int i=1;i<9;i++) {
 			huihe.setId(i);
+			huihe.setWujiangCount(wujiang.length);
+			
 			for(int j=0;j<wujiang.length;j++) {
 				WuJiang wj = wujiang[j];
 				//武将行动的顺序
@@ -36,8 +39,16 @@ public class CalcWJHarm {
 				
 				buildExProp(huihe, wj);
 				
-				//单个武将的主伤害
-				sum += CalcHarm.calcPrimayVal(huihe, wj.getZhanfa());
+				//主伤害
+				if(huihe.isHasJianShang()) {
+					List<ZhanFa> zfList = new ArrayList<>();
+					for(int m=j;j<wujiang.length;j++) {
+						zfList.addAll(Arrays.asList(wujiang[m].getZhanfa()));
+					}
+					sum += CalcHarm.calcJianShangHuiHe(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
+				} else {
+					sum += CalcHarm.calcCommHuiHe(huihe, wj.getZhanfa());
+				}
 				
 				if(huihe.isHasZengYi()) {
 					List<ZhanFa> zfList = new ArrayList<>();
@@ -56,12 +67,16 @@ public class CalcWJHarm {
 		ZhanFa[] zfs = wj.getZhanfa();
 		huihe.setHasZengYi(false);
 		huihe.setShuaxinRate(0.0f);
+		huihe.setHasJianShang(false);
 		for(ZhanFa zf:zfs) {
 			if(zf instanceof ZengYiZhanFa) {
 				huihe.setHasZengYi(true);
 			}
 			if(zf instanceof ShuaXinZhanFa) {
 				huihe.setShuaxinRate(((ShuaXinZhanFa) zf).getBaseRate());
+			}
+			if(zf instanceof JianShangZhanFa) {
+				huihe.setHasJianShang(true);
 			}
 		}
 	}
