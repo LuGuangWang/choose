@@ -34,6 +34,7 @@ public class CalcHarm {
 					//不受伤害的概率
 					float rate = CalcDoRate.getCommRate(huihe,b);
 					float unHurt = p/1.0f/huihe.getWujiangCount();
+					unHurt = unHurt>1 ? 1:unHurt;
 					float unHurtVal = unHurt * b.getDoneRate() * rate * b.getKeep() * calcCommHuiHe(huihe.getPreHuiHe(),zhanfa);
 					//受伤的概率
 					float hurt = 1 - rate * unHurt;

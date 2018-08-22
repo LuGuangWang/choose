@@ -29,7 +29,7 @@ public class CalcDoRate {
 			int ready = zhanfa.getReady() + 1;
 			
 			if(huihe.getId() == ready) {
-				rate = mz.getSpeed();
+				rate = mz.getSpeed()>0?1:0;
 			//刷新后,战法可以叠加
 			}else if(huihe.getId()> ready) {
 				rate = 1;
@@ -38,7 +38,7 @@ public class CalcDoRate {
 			rate = rate * mz.getKeep();
 		}
 		
-		return rate * huihe.getSolderRate();
+		return rate;
 	}
 	
 	/**
@@ -54,12 +54,12 @@ public class CalcDoRate {
 			rate = 1;
 		} 
 		//埋雷战法
-		if(zhanfa instanceof MaiLeiZhanFa || zhanfa instanceof JianShangZhanFa) {
+		if(zhanfa instanceof MaiLeiZhanFa) {
 			rate = 0;
 			MaiLeiZhanFa mz = (MaiLeiZhanFa) zhanfa;
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() == ready) {
-				rate = mz.getSpeed();
+				rate = mz.getSpeed()>0?1:0;
 			//可能已发动过战法 存在同等或更高程度,不会叠加战法
 			}else if(huihe.getId()> ready) {
 				rate = 1 - zhanfa.getDoneRate();
@@ -67,7 +67,18 @@ public class CalcDoRate {
 			//持续回合
 			rate = rate * mz.getKeep();
 		}
+		//减伤
+		if(zhanfa instanceof JianShangZhanFa) {
+			rate = 0;
+			int ready = zhanfa.getReady() + 1;
+			if(huihe.getId() == ready) {
+				rate = 1;
+			//可能已发动过战法 存在同等或更高程度,不会叠加战法
+			}else if(huihe.getId()> ready) {
+				rate = 1 - zhanfa.getDoneRate();
+			}
+		}
 		
-		return rate * huihe.getSolderRate();
+		return rate;
 	}
 }
