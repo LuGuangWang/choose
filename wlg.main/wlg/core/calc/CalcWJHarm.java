@@ -49,7 +49,7 @@ public class CalcWJHarm {
 				} else {
 					sum += CalcHarm.calcCommHuiHe(huihe, wj.getZhanfa());
 				}
-				
+				//增益伤害
 				if(huihe.isHasZengYi()) {
 					List<ZhanFa> zfList = new ArrayList<>();
 					for(int m=j;j<wujiang.length;j++) {
@@ -57,6 +57,7 @@ public class CalcWJHarm {
 					}
 					sum += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 				}
+				//TODO 普通攻击伤害
 			}
 		}
 		return sum;

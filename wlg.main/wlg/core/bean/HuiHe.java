@@ -7,7 +7,7 @@ package wlg.core.bean;
 public class HuiHe {
 	private int id = 1;
 	//战法因为士兵减少 威力下降 默认值 1/8 TODO 将此参数根据武将防御属性获取
-	private float solderRate = 4.0f;
+	private float solderRate = 8.0f;
 	
 	//额外属性
 	private boolean hasZengYi = false;
@@ -15,10 +15,12 @@ public class HuiHe {
 	private float shuaxinRate = 0.0f;
 	private int wujiangCount = 3;
 	
-	public HuiHe getPreHuiHe() {
-		int id = this.id>1?(this.id - 1):1;
+	private float jsRate = 0;//减伤的效果
+	
+	public HuiHe getJSHuiHe(float jsRate) {
 		HuiHe huihe = new HuiHe();
 		huihe.setId(id);
+		huihe.jsRate = jsRate;
 		return huihe;
 	}
 	
@@ -50,7 +52,9 @@ public class HuiHe {
 		return id;
 	}
 	public float getSolderRate() {
-		return solderRate/id;
+		float r = solderRate/id * (1- jsRate);
+		int newId = this.id>1?(this.id - 1):1;
+		return r == 0?solderRate/newId:r;
 	}
 	public void setId(int id) {
 		this.id = id;
