@@ -6,9 +6,11 @@ package wlg.core.bean;
  */
 public class HuiHe {
 	private int id = 1;
-	//战法因为士兵减少 威力下降 默认值 1/8 TODO 将此参数根据武将防御属性获取
-	private float solderRate = 8.0f;
 	
+	//TODO 将此参数根据武将防御属性获取
+	//战法因为士兵减少 威力下降 默认值 1/8 
+	private float zhanfaHurt = 4.0f;//战法造成的损失伤害
+	private float attackHurt = 3.0f;//普通攻击造成的损失伤害
 	//额外属性
 	private boolean hasZengYi = false;
 	private boolean hasJianShang = false;
@@ -19,7 +21,8 @@ public class HuiHe {
 	
 	public HuiHe getJSHuiHe(float jsRate) {
 		HuiHe huihe = new HuiHe();
-		huihe.setId(id);
+		int newId = id>1?id-1:1;
+		huihe.setId(newId);
 		huihe.jsRate = jsRate;
 		return huihe;
 	}
@@ -52,9 +55,21 @@ public class HuiHe {
 		return id;
 	}
 	public float getSolderRate() {
-		float r = solderRate/id * (1- jsRate);
-		int newId = this.id>1?(this.id - 1):1;
-		return r == 0?solderRate/newId:r;
+		return getZhanFaRate() + getAttackRate();
+	}
+	public float getJsRate() {
+		return jsRate;
+	}
+	public void setJsRate(float jsRate) {
+		this.jsRate = jsRate;
+	}
+	public float getZhanFaRate() {
+		float r = zhanfaHurt/id * (1- jsRate);
+		return r == 0?zhanfaHurt/id:r;
+	}
+	public float getAttackRate() {
+		float r = attackHurt/id * (1- jsRate);
+		return r == 0?attackHurt/id:r;
 	}
 	public void setId(int id) {
 		this.id = id;
