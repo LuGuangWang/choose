@@ -57,7 +57,8 @@ public class CalcWJHarm {
 					}
 					sum += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 				}
-				//TODO 普通攻击伤害
+				// 普通攻击伤害
+				sum += wj.getWJHarmVal() * huihe.getSolderRate();
 			}
 		}
 		return sum;

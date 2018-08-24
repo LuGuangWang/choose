@@ -14,8 +14,9 @@ public class WuJiang {
 	private int strategy;//谋略
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
 	private boolean hasJianshang = false;//是否携带减伤战法
-	
 
+	//TODO 添加攻击距离
+	
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang(String name,int speed,int defense,int attack,int strategy,T zhanfa) {
 		this.name=name;
@@ -74,6 +75,10 @@ public class WuJiang {
 		z.setAttack(attack);
 		z.setStrategy(strategy);
 		z.setDefense(defense);
+	}
+	
+	public float getWJHarmVal() {
+		return attack * 2;
 	}
 	
 	@SuppressWarnings("unchecked")
