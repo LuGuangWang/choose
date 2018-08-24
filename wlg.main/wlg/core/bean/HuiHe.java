@@ -10,7 +10,7 @@ public class HuiHe {
 	//TODO 将此参数根据武将防御属性获取
 	//战法因为士兵减少 威力下降 默认值 1/8 
 	private float zhanfaHurt = 4.0f;//战法造成的损失伤害
-	private float attackHurt = 3.0f;//普通攻击造成的损失伤害
+	private float attackHurt = 2.0f;//普通攻击造成的损失伤害
 	//额外属性
 	private boolean hasZengYi = false;
 	private boolean hasJianShang = false;

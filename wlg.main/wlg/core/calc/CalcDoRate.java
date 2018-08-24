@@ -1,6 +1,7 @@
 package wlg.core.calc;
 
 import wlg.core.bean.HuiHe;
+import wlg.core.bean.zhanfa.ChiXuZhanFa;
 import wlg.core.bean.zhanfa.JianShangZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -76,6 +77,13 @@ public class CalcDoRate {
 			//可能已发动过战法 存在同等或更高程度,不会叠加战法
 			}else if(huihe.getId()> ready) {
 				rate = 1 - zhanfa.getDoneRate();
+			}
+		}
+		//持续多少回合
+		if(zhanfa instanceof ChiXuZhanFa) {
+			ChiXuZhanFa t = (ChiXuZhanFa)zhanfa;
+			if(huihe.getId()>t.getKeephuihe()) {
+				rate = 0;
 			}
 		}
 		
