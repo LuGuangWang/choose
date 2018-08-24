@@ -16,8 +16,10 @@ public class HuiHe {
 	private boolean hasJianShang = false;
 	private float shuaxinRate = 0.0f;
 	private int wujiangCount = 3;
-	
+	//全部封禁
 	private float jsRate = 0;//减伤的效果
+	//封闭战法 TODO
+	//封闭普攻 TODO
 	
 	public HuiHe getJSHuiHe(float jsRate) {
 		HuiHe huihe = new HuiHe();
