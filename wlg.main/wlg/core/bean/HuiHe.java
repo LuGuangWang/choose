@@ -10,22 +10,23 @@ public class HuiHe {
 	//TODO 将此参数根据武将防御属性获取
 	//战法因为士兵减少 威力下降 默认值 1/8 
 	private float zhanfaHurt = 4.0f;//战法造成的损失伤害
-	private float attackHurt = 2.0f;//普通攻击造成的损失伤害
+	private float attackHurt = 4.0f;//普通攻击造成的损失伤害
 	//额外属性
 	private boolean hasZengYi = false;
 	private boolean hasJianShang = false;
 	private float shuaxinRate = 0.0f;
 	private int wujiangCount = 3;
-	//全部封禁
-	private float jsRate = 0;//减伤的效果
 	//封闭战法 TODO
+	private float fengZhanfa = 0;
 	//封闭普攻 TODO
-	
+	private float fengGongji = 0;
+	//全部封
 	public HuiHe getJSHuiHe(float jsRate) {
 		HuiHe huihe = new HuiHe();
 		int newId = id>1?id-1:1;
 		huihe.setId(newId);
-		huihe.jsRate = jsRate;
+		huihe.fengGongji = jsRate;
+		huihe.fengZhanfa = jsRate;
 		return huihe;
 	}
 	
@@ -59,18 +60,12 @@ public class HuiHe {
 	public float getSolderRate() {
 		return getZhanFaRate() + getAttackRate();
 	}
-	public float getJsRate() {
-		return jsRate;
-	}
-	public void setJsRate(float jsRate) {
-		this.jsRate = jsRate;
-	}
 	public float getZhanFaRate() {
-		float r = zhanfaHurt/id * (1- jsRate);
+		float r = zhanfaHurt/id * (1- fengZhanfa);
 		return r == 0?zhanfaHurt/id:r;
 	}
 	public float getAttackRate() {
-		float r = attackHurt/id * (1- jsRate);
+		float r = attackHurt/id * (1- fengGongji);
 		return r == 0?attackHurt/id:r;
 	}
 	public void setId(int id) {

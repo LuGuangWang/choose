@@ -38,7 +38,24 @@ public class CalcDoRate {
 			//持续回合
 			rate = rate * mz.getKeep();
 		}
-		
+		//减伤
+		if(zhanfa instanceof JianShangZhanFa) {
+			rate = 0;
+			int ready = zhanfa.getReady() + 1;
+			if(huihe.getId() == ready) {
+				rate = 1;
+			//可能已发动过战法 存在同等或更高程度,不会叠加战法
+			}else if(huihe.getId()> ready) {
+				rate = 1;
+			}
+		}
+		//持续多少回合
+		if(zhanfa instanceof ChiXuZhanFa) {
+			ChiXuZhanFa t = (ChiXuZhanFa)zhanfa;
+			if(huihe.getId()>t.getKeephuihe()) {
+				rate = 0;
+			}
+		}
 		return rate;
 	}
 	
