@@ -23,8 +23,6 @@ public class HuiHe {
 	//全部封
 	public HuiHe getJSHuiHe(float jsRate) {
 		HuiHe huihe = new HuiHe();
-		int newId = id>1?id-1:1;
-		huihe.setId(newId);
 		huihe.fengGongji = jsRate;
 		huihe.fengZhanfa = jsRate;
 		return huihe;
@@ -61,12 +59,14 @@ public class HuiHe {
 		return getZhanFaRate() + getAttackRate();
 	}
 	public float getZhanFaRate() {
+		int newId = id>1?id-1:1;
 		float r = zhanfaHurt/id * (1- fengZhanfa);
-		return r == 0?zhanfaHurt/id:r;
+		return r == 0?zhanfaHurt/newId:r;
 	}
 	public float getAttackRate() {
+		int newId = id>1?id-1:1;
 		float r = attackHurt/id * (1- fengGongji);
-		return r == 0?attackHurt/id:r;
+		return r == 0?attackHurt/newId:r;
 	}
 	public void setId(int id) {
 		this.id = id;
