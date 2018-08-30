@@ -120,7 +120,7 @@ public class ZhanFa implements Harm, Cloneable {
 	public float getHarmVal(float harmRate) {
 		float sum = 0;
 		float pval = this.doneRate * harmRate;
-		pval = calcTypeVal(pval);
+		pval = addShuXingVal(pval);
 		if (persons.getPersons().length > 0) {
 			int len = getPersons().getPersons().length;
 			float rate = 1.0f / len;
@@ -135,7 +135,7 @@ public class ZhanFa implements Harm, Cloneable {
 	 * @param val
 	 * @return
 	 */
-	protected float calcTypeVal(float val) {
+	public float addShuXingVal(float val) {
 		switch (t) {
 		case ZhuDong_FaShu:
 			val *= strategy;

@@ -12,4 +12,9 @@ public interface Harm {
 	 * @return
 	 */
 	public float getHarmVal();
+	/**
+	 * 添加属性加成
+	 * @return
+	 */
+	public float addShuXingVal(float val);
 }
