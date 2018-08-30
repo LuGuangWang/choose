@@ -20,12 +20,11 @@ public class HuiHe {
 	private float fengZhanfa = 0;
 	//封闭普攻 TODO
 	private float fengGongji = 0;
-	//全部封
-	public HuiHe getJSHuiHe(float jsRate) {
-		HuiHe huihe = new HuiHe();
-		huihe.fengGongji = jsRate;
-		huihe.fengZhanfa = jsRate;
-		return huihe;
+	//封战法 也封攻击
+	public HuiHe getAllFeng(float jsRate) {
+		this.fengGongji = jsRate;
+		this.fengZhanfa = jsRate;
+		return this;
 	}
 	
 	public int getWujiangCount() {
