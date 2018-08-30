@@ -7,6 +7,7 @@ import java.util.List;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
+import wlg.core.bean.zhanfa.KongzhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -40,7 +41,7 @@ public class CalcWJHarm {
 				buildExProp(huihe, wj);
 				
 				//主伤害
-				if(huihe.isHasJianShang()) {
+				if(huihe.isHasKongZhi()) {
 					List<ZhanFa> zfList = new ArrayList<>();
 					for(int m=j;j<wujiang.length;j++) {
 						zfList.addAll(Arrays.asList(wujiang[m].getZhanfa()));
@@ -69,7 +70,7 @@ public class CalcWJHarm {
 		ZhanFa[] zfs = wj.getZhanfa();
 		huihe.setHasZengYi(false);
 		huihe.setShuaxinRate(0.0f);
-		huihe.setHasJianShang(false);
+		huihe.setHasKongZhi(false);
 		for(ZhanFa zf:zfs) {
 			if(zf instanceof ZengYiZhanFa) {
 				huihe.setHasZengYi(true);
@@ -77,8 +78,8 @@ public class CalcWJHarm {
 			if(zf instanceof ShuaXinZhanFa) {
 				huihe.setShuaxinRate(((ShuaXinZhanFa) zf).getBaseRate());
 			}
-			if(zf instanceof KongZhiZhanFa) {
-				huihe.setHasJianShang(true);
+			if(zf instanceof KongZhiZhanFa || zf instanceof KongzhiAndHarmZhanFa) {
+				huihe.setHasKongZhi(true);
 			}
 		}
 	}

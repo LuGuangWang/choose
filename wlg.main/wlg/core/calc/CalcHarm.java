@@ -2,6 +2,7 @@ package wlg.core.calc;
 
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
+import wlg.core.bean.zhanfa.KongzhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -43,6 +44,21 @@ public class CalcHarm {
 					sum += unHurtVal + hurtVal;
 				}
 			}
+			if(zhanfa[i] instanceof KongzhiAndHarmZhanFa) {
+				KongzhiAndHarmZhanFa b = (KongzhiAndHarmZhanFa)zhanfa[i];
+				for(int p:b.getPersons().getPersons()) {
+					//不受伤害的概率
+					float rate = CalcDoRate.getCommRate(huihe,b);
+					float unHurt = p/1.0f/huihe.getWujiangCount();
+					unHurt = unHurt>1 ? 1:unHurt;
+					float unHurtVal = unHurt * b.getDoneRate() * rate * calcCommHuiHe(huihe.getFengGongji(1.0f),zhanfa);
+					//受伤的概率
+					float hurt = 1 - rate * unHurt;
+					float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
+					
+					sum += unHurtVal + hurtVal;
+				}
+			}
 		}
 		return sum;
 	}
@@ -57,7 +73,7 @@ public class CalcHarm {
 				float rate = CalcDoRate.getShuaXinRate(huihe, z);
 				float shuaxinRate = huihe.getShuaxinRate() * huihe.getId() + z.getHarmRate();
 				sum += rate * z.getHarmVal(shuaxinRate);
-			}else {
+			} else {
 				float rate = CalcDoRate.getCommRate(huihe, z);
 				sum += rate * z.getHarmVal();
 			}

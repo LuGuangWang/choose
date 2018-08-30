@@ -13,7 +13,7 @@ public class HuiHe {
 	private float attackHurt = 4.0f;//普通攻击造成的损失伤害
 	//额外属性
 	private boolean hasZengYi = false;
-	private boolean hasJianShang = false;
+	private boolean hasKongZhi = false;
 	private float shuaxinRate = 0.0f;
 	private int wujiangCount = 3;
 	//封闭战法 TODO
@@ -26,7 +26,10 @@ public class HuiHe {
 		this.fengZhanfa = jsRate;
 		return this;
 	}
-	
+	public HuiHe getFengGongji(float jsRate) {
+		this.fengGongji = jsRate;
+		return this;
+	}
 	public int getWujiangCount() {
 		return wujiangCount;
 	}
@@ -45,11 +48,11 @@ public class HuiHe {
 	public void setHasZengYi(boolean hasZengYi) {
 		this.hasZengYi = hasZengYi;
 	}
-	public boolean isHasJianShang() {
-		return hasJianShang;
+	public boolean isHasKongZhi() {
+		return hasKongZhi;
 	}
-	public void setHasJianShang(boolean hasJianShang) {
-		this.hasJianShang = hasJianShang;
+	public void setHasKongZhi(boolean hasKongZhi) {
+		this.hasKongZhi = hasKongZhi;
 	}
 	public int getId() {
 		return id;

@@ -137,14 +137,15 @@ public class ZhanFa implements Harm, Cloneable {
 	 */
 	protected float calcTypeVal(float val) {
 		switch (t) {
-		case attack:
-			val *= attack;
-			break;
-		case zd_strategy:
+		case ZhuDong_FaShu:
 			val *= strategy;
 			break;
-		case zhihui_fashu:
+		case ZhiHui_FaShu:
 			val *= strategy;
+			break;
+		case KongZhi_ALL:
+			val = 0f;
+			break;
 		default:
 			break;
 		}
