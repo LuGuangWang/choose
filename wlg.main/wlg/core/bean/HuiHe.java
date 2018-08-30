@@ -68,7 +68,8 @@ public class HuiHe {
 		return id;
 	}
 	public float getSolderRate() {
-		return getZhanFaRate() + getAttackRate();
+		return 1;
+//		return getZhanFaRate() + getAttackRate();
 	}
 	public float getZhanFaRate() {
 		int newId = id>1?id-1:1;
