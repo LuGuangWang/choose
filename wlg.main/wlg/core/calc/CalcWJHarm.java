@@ -7,6 +7,7 @@ import java.util.List;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
+import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
@@ -59,7 +60,9 @@ public class CalcWJHarm {
 					sum += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 				}
 				// 普通攻击伤害
-				sum += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate();
+				if(!huihe.isHasBuGong()) {
+					sum += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate();
+				}
 			}
 		}
 		return sum;
@@ -71,6 +74,7 @@ public class CalcWJHarm {
 		huihe.setHasZengYi(false);
 		huihe.setShuaxinRate(0.0f);
 		huihe.setHasKongZhi(false);
+		huihe.setHasBuGong(false);
 		for(ZhanFa zf:zfs) {
 			if(zf instanceof ZengYiZhanFa) {
 				huihe.setHasZengYi(true);
@@ -80,6 +84,9 @@ public class CalcWJHarm {
 			}
 			if(zf instanceof KongZhiZhanFa || zf instanceof KongZhiAndHarmZhanFa) {
 				huihe.setHasKongZhi(true);
+			}
+			if(zf instanceof JiaChengZhanFa) {
+				huihe.setHasBuGong(true);
 			}
 		}
 	}
