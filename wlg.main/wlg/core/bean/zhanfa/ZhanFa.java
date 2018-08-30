@@ -110,10 +110,14 @@ public class ZhanFa implements Harm, Cloneable {
 
 	@Override
 	public float getHarmVal() {
-		return getShuaXinVal(this.harmRate);
+		return getHarmVal(this.harmRate);
 	}
-
-	public float getShuaXinVal(float harmRate) {
+	/**
+	 * 指定伤害率的伤害值
+	 * @param harmRate
+	 * @return
+	 */
+	public float getHarmVal(float harmRate) {
 		float sum = 0;
 		float pval = this.doneRate * harmRate;
 		pval = calcTypeVal(pval);
@@ -126,7 +130,11 @@ public class ZhanFa implements Harm, Cloneable {
 		}
 		return sum;
 	}
-
+	/**
+	 * 不同属性的攻击
+	 * @param val
+	 * @return
+	 */
 	protected float calcTypeVal(float val) {
 		switch (t) {
 		case attack:
@@ -135,6 +143,8 @@ public class ZhanFa implements Harm, Cloneable {
 		case zd_strategy:
 			val *= strategy;
 			break;
+		case zhihui_fashu:
+			val *= strategy;
 		default:
 			break;
 		}

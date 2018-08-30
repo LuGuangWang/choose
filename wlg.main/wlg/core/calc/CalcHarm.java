@@ -56,7 +56,7 @@ public class CalcHarm {
 			if(huihe.getShuaxinRate() > 0) {
 				float rate = CalcDoRate.getShuaXinRate(huihe, z);
 				float shuaxinRate = huihe.getShuaxinRate() * huihe.getId() + z.getHarmRate();
-				sum += rate * z.getShuaXinVal(shuaxinRate);
+				sum += rate * z.getHarmVal(shuaxinRate);
 			}else {
 				float rate = CalcDoRate.getCommRate(huihe, z);
 				sum += rate * z.getHarmVal();

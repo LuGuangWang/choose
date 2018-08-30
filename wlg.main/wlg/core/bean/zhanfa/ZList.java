@@ -9,7 +9,7 @@ public abstract class ZList {
 	// 增益战法 火势风威
 	public static ZengYiZhanFa huoshifengwei = new ZengYiZhanFa("火势风威",ZFType.zd_strategy,1, 0.4f, 1.11f, new Person(3), 0f, 2.21f);
 	//白衣渡江
-	public static ChiXuZhanFa baiyidujiang = new ChiXuZhanFa("白衣渡江",ZFType.zhihui, 2, 2.15f, new Person(2));
+	public static ChiXuZhanFa baiyidujiang = new ChiXuZhanFa("白衣渡江",ZFType.zhihui_fashu, 2, 2.15f, new Person(2));
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	
@@ -25,6 +25,6 @@ public abstract class ZList {
 	// 刷新战法 深谋远虑
 	public static ShuaXinZhanFa shenmouyuanlv = new ShuaXinZhanFa("深谋远虑",ZFType.zd_strategy,0.09f);
 	//减伤战法 浑水摸鱼
-	public static JianShangZhanFa hunshuimoyv = new JianShangZhanFa("浑水摸鱼", 1, 2, 0.35f, new Person(2));
+	public static JianShangZhanFa hunshuimoyv = new JianShangZhanFa("浑水摸鱼", ZFType.quankong,1, 2, 0.35f, new Person(2));
 	/*****    -------------   拆解战法     end -------------   *****/
 }

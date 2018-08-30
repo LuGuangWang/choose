@@ -8,8 +8,8 @@ package wlg.core.bean.zhanfa;
 public class JianShangZhanFa extends MaiLeiZhanFa {
 
 	
-	public JianShangZhanFa(String name,int ready,int keep,float doneRate,Person persons) {
-		super(name, ZFType.jianshang, ready, keep,doneRate, 0f, persons);
+	public JianShangZhanFa(String name,ZFType t,int ready,int keep,float doneRate,Person persons) {
+		super(name, t, ready, keep,doneRate, 0f, persons);
 	}
 
 }
