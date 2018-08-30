@@ -9,8 +9,8 @@ public class HuiHe {
 	
 	//TODO 将此参数根据武将防御属性获取
 	//战法因为士兵减少 威力下降 默认值 1/8 
-	private float zhanfaHurt = 4.0f;//战法造成的损失伤害
-	private float attackHurt = 4.0f;//普通攻击造成的损失伤害
+	private float zhanfaHurt = 1.0f;//战法造成的损失伤害
+	private float attackHurt = 1.0f;//普通攻击造成的损失伤害
 	//额外属性
 	private boolean hasZengYi = false;
 	private boolean hasKongZhi = false;
@@ -27,15 +27,18 @@ public class HuiHe {
 		this.fengZhanfa = jsRate;
 		return this;
 	}
+	//封攻击
+	public HuiHe getFengGongji(float jsRate) {
+		this.fengGongji = jsRate;
+		return this;
+	}
+	
+	
 	public boolean isHasBuGong() {
 		return hasBuGong;
 	}
 	public void setHasBuGong(boolean hasBuGong) {
 		this.hasBuGong = hasBuGong;
-	}
-	public HuiHe getFengGongji(float jsRate) {
-		this.fengGongji = jsRate;
-		return this;
 	}
 	public int getWujiangCount() {
 		return wujiangCount;

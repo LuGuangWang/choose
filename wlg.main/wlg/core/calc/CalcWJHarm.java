@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import wlg.core.bean.HuiHe;
+import wlg.core.bean.conf.Conf;
 import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.JiaChengZhanFa;
@@ -60,7 +61,7 @@ public class CalcWJHarm {
 					sum += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 				}
 				// 普通攻击伤害
-				if(!huihe.isHasBuGong()) {
+				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
 					sum += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate();
 				}
 			}

@@ -3,6 +3,7 @@ package wlg.core.bean.wujiang;
 import java.util.HashMap;
 import java.util.Map;
 
+import wlg.core.bean.conf.Conf;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
@@ -78,7 +79,7 @@ public class WuJiang {
 	}
 	
 	public float getWJHarmVal() {
-		return attack * 2;
+		return attack * Conf.s_rate;
 	}
 	
 	@SuppressWarnings("unchecked")

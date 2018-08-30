@@ -1,5 +1,7 @@
 package wlg.core.bean.zhanfa;
 
+import wlg.core.bean.conf.Conf;
+
 /**
  * 普通战法
  * 
@@ -138,10 +140,10 @@ public class ZhanFa implements Harm, Cloneable {
 	public float addShuXingVal(float val) {
 		switch (t) {
 		case ZhuDong_FaShu:
-			val *= strategy;
+			val *= strategy * Conf.s_rate;
 			break;
 		case ZhiHui_FaShu:
-			val *= strategy;
+			val *= strategy * Conf.s_rate;
 			break;
 		case KongZhi_ALL:
 			val = 0f;
