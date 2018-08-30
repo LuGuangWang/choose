@@ -15,7 +15,8 @@ public class WuJiang {
 	private int strategy;//谋略
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
 	private boolean hasJianshang = false;//是否携带减伤战法
-
+	private int position = 3;//武将位置  大营1 中军2 前锋3
+	
 	//TODO 添加攻击距离
 	
 	@SuppressWarnings("unchecked")
@@ -30,7 +31,12 @@ public class WuJiang {
 		zhanfaMap.put(1, t);
 		hasJianshang = t instanceof KongZhiZhanFa;
 	}
-	
+	public int getPosition() {
+		return position;
+	}
+	public void setPosition(int position) {
+		this.position = position;
+	}
 	public void changeOrder(int order) {
 		zhanfaMap.forEach((k,v)->{
 			v.setSpeed(order);

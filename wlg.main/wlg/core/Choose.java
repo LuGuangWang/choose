@@ -11,7 +11,7 @@ public class Choose {
 	
 	
 	public static void main(String[] args) {
-		float sum = CalcWJHarm.calcVal(WList.luxun,WList.lvmeng);
+		float sum = CalcWJHarm.calcVal(WList.lvmeng,WList.luxun);
 		
 		String key = WList.luxun.toKey() + WList.lvmeng.toKey() + "伤害值:";
 		System.out.println(key + sum);
@@ -30,6 +30,9 @@ public class Choose {
 	 */
 	public Map<Float, String> calcZhanFaVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
+		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
+		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+		
 		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
 		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
 		
@@ -37,9 +40,6 @@ public class Choose {
 		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
 		
 		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shenmouyuanlv);
-		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
-		
-		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
 		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
 		
 		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.bugong);

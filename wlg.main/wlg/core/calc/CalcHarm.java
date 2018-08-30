@@ -79,13 +79,13 @@ public class CalcHarm {
 			if(huihe.getShuaxinRate() > 0) {
 				float rate = CalcDoRate.getShuaXinRate(huihe, z);
 				float shuaxinRate = huihe.getShuaxinRate() * huihe.getId() + z.getHarmRate();
-				sum += rate * z.getHarmVal(shuaxinRate);
+				sum += rate * z.getHarmVal(shuaxinRate) * huihe.getSolderRate(z.getPosition());
 			} else {
 				float rate = CalcDoRate.getCommRate(huihe, z);
-				sum += rate * z.getHarmVal();
+				sum += rate * z.getHarmVal() * huihe.getSolderRate(z.getPosition());
 			}
 		}
-		return sum * huihe.getSolderRate();
+		return sum;
 	}
 
 	/**
@@ -104,13 +104,13 @@ public class CalcHarm {
 					for(int j=0;j<zhanfa.length;j++) {
 						if(j!= i && !(zhanfa[j] instanceof ShuaXinZhanFa)) {
 							float rate = CalcDoRate.getCommRate(huihe, zhanfa[j]);
-							sum += rate * b.getExVal(zhanfa[j]);
+							sum += rate * b.getExVal(zhanfa[j]) * huihe.getSolderRate(b.getPosition());
 						}
 					}
 				}
 			}
 		}
-		return sum * huihe.getSolderRate();
+		return sum;
 	}
 	
 	

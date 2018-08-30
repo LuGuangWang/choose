@@ -1,4 +1,7 @@
 package wlg.core.bean;
+
+import wlg.core.bean.conf.Conf;
+
 /**
  * 回合
  * @author seven
@@ -67,15 +70,16 @@ public class HuiHe {
 	public int getId() {
 		return id;
 	}
-	public float getSolderRate() {
-		return 1;
-//		return getZhanFaRate() + getAttackRate();
+	public float getSolderRate(int position) {
+		return position * Conf.SunShiCount * id< Conf.totalCount?1:0;
 	}
+	@Deprecated
 	public float getZhanFaRate() {
 		int newId = id>1?id-1:1;
 		float r = zhanfaHurt/id * (1- fengZhanfa);
 		return r == 0?zhanfaHurt/newId:r;
 	}
+	@Deprecated
 	public float getAttackRate() {
 		int newId = id>1?id-1:1;
 		float r = attackHurt/id * (1- fengGongji);

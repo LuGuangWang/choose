@@ -27,6 +27,7 @@ public class ZhanFa implements Harm, Cloneable {
 	private int defense = 1;// 防御
 	private int attack = 1;// 攻击
 	private int strategy = 1;// 谋略
+	private int position = 1;//武将位置武将位置  大营3 中军2 前锋1
 
 	/**
 	 * @param doneRate
@@ -103,6 +104,12 @@ public class ZhanFa implements Harm, Cloneable {
 
 	public void setStrategy(int strategy) {
 		this.strategy = strategy;
+	}
+	public int getPosition() {
+		return position;
+	}
+	public void setPosition(int position) {
+		this.position = position;
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class CalcWJHarm {
 				WuJiang wj = wujiang[j];
 				//武将行动的顺序
 				wj.changeOrder(wujiang.length-1-j);
-				
+
 				buildExProp(huihe, wj);
 				
 				//主伤害
@@ -62,7 +62,7 @@ public class CalcWJHarm {
 				}
 				// 普通攻击伤害
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
-					sum += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate();
+					sum += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate(wj.getPosition());
 				}
 			}
 		}
@@ -77,6 +77,9 @@ public class CalcWJHarm {
 		huihe.setHasKongZhi(false);
 		huihe.setHasBuGong(false);
 		for(ZhanFa zf:zfs) {
+			//武将位置
+			zf.setPosition(wj.getPosition());
+			
 			if(zf instanceof ZengYiZhanFa) {
 				huihe.setHasZengYi(true);
 			}
@@ -95,17 +98,21 @@ public class CalcWJHarm {
 	//按速度排序
 	private static WuJiang[] sortedWuJiang(WuJiang... wujiang) {
 		WuJiang tmp;
-		for(int i=1;i<wujiang.length;i++) {
-			if(wujiang[i].getSpeed()>wujiang[i-1].getSpeed()) {
-				tmp = wujiang[i];
-				wujiang[i] = wujiang[i-1];
-				wujiang[i-1] = tmp;
-			}
-			if(i==2) {
-				if(wujiang[1].getSpeed()>wujiang[0].getSpeed()) {
-					tmp = wujiang[1];
-					wujiang[1] = wujiang[0];
-					wujiang[0] = tmp;
+		for(int i=0;i<wujiang.length;i++) {
+			//设置武将位置
+			wujiang[i].setPosition(Conf.WuJiang_Count-i);
+			if(i>=1) {
+				if(wujiang[i].getSpeed()>wujiang[i-1].getSpeed()) {
+					tmp = wujiang[i];
+					wujiang[i] = wujiang[i-1];
+					wujiang[i-1] = tmp;
+				}
+				if(i==2) {
+					if(wujiang[1].getSpeed()>wujiang[0].getSpeed()) {
+						tmp = wujiang[1];
+						wujiang[1] = wujiang[0];
+						wujiang[0] = tmp;
+					}
 				}
 			}
 		}
