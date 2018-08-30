@@ -26,8 +26,15 @@ public class CalcHarm {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <T extends ZhanFa> float calcJianShangHuiHe(HuiHe huihe, T... zhanfa) {
+	public static <T extends ZhanFa> float calcKongZhiHuiHe(HuiHe huihe, T... zhanfa) {
 		float sum = 0;
+		for(ZhanFa z:zhanfa) {
+			//TODO 找一个最强控制战法
+			if(z instanceof KongZhiZhanFa || z instanceof KongzhiAndHarmZhanFa) {
+				
+			}
+		}
+		
 		for(int i=0;i<zhanfa.length;i++) {
 			if(zhanfa[i] instanceof KongZhiZhanFa) {
 				KongZhiZhanFa b = (KongZhiZhanFa)zhanfa[i];

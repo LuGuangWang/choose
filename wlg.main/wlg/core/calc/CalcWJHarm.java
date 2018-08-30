@@ -43,17 +43,17 @@ public class CalcWJHarm {
 				//主伤害
 				if(huihe.isHasKongZhi()) {
 					List<ZhanFa> zfList = new ArrayList<>();
-					for(int m=j;j<wujiang.length;j++) {
+					for(int m=j;m<wujiang.length;m++) {
 						zfList.addAll(Arrays.asList(wujiang[m].getZhanfa()));
 					}
-					sum += CalcHarm.calcJianShangHuiHe(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
+					sum += CalcHarm.calcKongZhiHuiHe(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 				} else {
 					sum += CalcHarm.calcCommHuiHe(huihe, wj.getZhanfa());
 				}
 				//增益伤害
 				if(huihe.isHasZengYi()) {
 					List<ZhanFa> zfList = new ArrayList<>();
-					for(int m=j;j<wujiang.length;j++) {
+					for(int m=j;m<wujiang.length;m++) {
 						zfList.addAll(Arrays.asList(wujiang[m].getZhanfa()));
 					}
 					sum += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));

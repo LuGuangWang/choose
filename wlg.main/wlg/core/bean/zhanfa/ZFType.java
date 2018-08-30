@@ -5,5 +5,5 @@ public enum ZFType {
 	ZhiHui_FaShu,//指挥类 法术伤害
 	
 	
-	KongZhi_ALL,//攻击 与 法术 属于控制不造成伤害
+	KongZhi_ALL,//控制攻击与法术,不造成伤害
 } 
