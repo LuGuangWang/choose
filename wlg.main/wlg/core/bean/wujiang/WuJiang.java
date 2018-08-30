@@ -86,6 +86,15 @@ public class WuJiang {
 		return (T[]) zhanfaMap.values().toArray(new ZhanFa[zhanfaMap.size()]);
 	}
 	
+	public String toKey() {
+		StringBuilder s = new StringBuilder(name).append(":");
+		zhanfaMap.forEach((k,v)->{
+			s.append(v.getName()).append(" ");
+		});
+		s.append("\n");
+		return s.toString();
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder(name).append(":");

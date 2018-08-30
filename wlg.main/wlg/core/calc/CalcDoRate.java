@@ -12,6 +12,12 @@ import wlg.core.bean.zhanfa.ZhanFa;
  */
 public class CalcDoRate {
 	/**
+	 * 普通攻击的发动成功的概率
+	 */
+	public static float getAttackRate() {
+		return 1.0f;
+	}
+	/**
 	 * 有刷新战法,发动战法成功概率
 	 * @param huihe
 	 * @param zhanfa

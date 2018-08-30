@@ -11,6 +11,11 @@ public class Choose {
 	
 	
 	public static void main(String[] args) {
+		float sum = CalcWJHarm.calcVal(WList.luxun,WList.lvmeng);
+		
+		String key = WList.luxun.toKey() + WList.lvmeng.toKey() + "伤害值:";
+		System.out.println(key + sum);
+		
 		Choose c = new Choose();
 		Map<Float, String> result = c.calcZhanFaVal();
 		System.out.println("战法组合的伤害值越高,代表越好:");
