@@ -2,7 +2,7 @@ package wlg.core.calc;
 
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
-import wlg.core.bean.zhanfa.KongzhiAndHarmZhanFa;
+import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -30,7 +30,7 @@ public class CalcHarm {
 		float sum = 0;
 		for(ZhanFa z:zhanfa) {
 			//TODO 找一个最强控制战法
-			if(z instanceof KongZhiZhanFa || z instanceof KongzhiAndHarmZhanFa) {
+			if(z instanceof KongZhiZhanFa || z instanceof KongZhiAndHarmZhanFa) {
 				
 			}
 		}
@@ -51,8 +51,8 @@ public class CalcHarm {
 					sum += unHurtVal + hurtVal;
 				}
 			}
-			if(zhanfa[i] instanceof KongzhiAndHarmZhanFa) {
-				KongzhiAndHarmZhanFa b = (KongzhiAndHarmZhanFa)zhanfa[i];
+			if(zhanfa[i] instanceof KongZhiAndHarmZhanFa) {
+				KongZhiAndHarmZhanFa b = (KongZhiAndHarmZhanFa)zhanfa[i];
 				for(int p:b.getPersons().getPersons()) {
 					//不受伤害的概率
 					float rate = CalcDoRate.getCommRate(huihe,b);

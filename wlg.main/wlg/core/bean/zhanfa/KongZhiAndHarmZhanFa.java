@@ -1,12 +1,12 @@
 package wlg.core.bean.zhanfa;
 
-public class KongzhiAndHarmZhanFa extends ZhanFa {
+public class KongZhiAndHarmZhanFa extends ZhanFa {
 
 	private int keephuihe;//持续几回合.
 	//增益伤害率
 	private float exHarmRate= 0;
 	
-	public KongzhiAndHarmZhanFa(String name, ZFType t, int keephuihe,float exHarmRate, Person persons) {
+	public KongZhiAndHarmZhanFa(String name, ZFType t, int keephuihe,float exHarmRate, Person persons) {
 		super(name, t, 0, 1f, 0f, persons);
 		this.exHarmRate = exHarmRate;
 		this.keephuihe = keephuihe;

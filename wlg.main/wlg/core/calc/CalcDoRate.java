@@ -1,7 +1,7 @@
 package wlg.core.calc;
 
 import wlg.core.bean.HuiHe;
-import wlg.core.bean.zhanfa.KongzhiAndHarmZhanFa;
+import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -56,8 +56,8 @@ public class CalcDoRate {
 			}
 		}
 		//持续多少回合
-		if(zhanfa instanceof KongzhiAndHarmZhanFa) {
-			KongzhiAndHarmZhanFa t = (KongzhiAndHarmZhanFa)zhanfa;
+		if(zhanfa instanceof KongZhiAndHarmZhanFa) {
+			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
 			if(huihe.getId()>t.getKeephuihe()) {
 				rate = 0;
 			}
@@ -103,8 +103,8 @@ public class CalcDoRate {
 			}
 		}
 		//持续多少回合
-		if(zhanfa instanceof KongzhiAndHarmZhanFa) {
-			KongzhiAndHarmZhanFa t = (KongzhiAndHarmZhanFa)zhanfa;
+		if(zhanfa instanceof KongZhiAndHarmZhanFa) {
+			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
 			if(huihe.getId()>t.getKeephuihe()) {
 				rate = 0;
 			}
