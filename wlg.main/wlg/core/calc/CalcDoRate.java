@@ -2,7 +2,7 @@ package wlg.core.calc;
 
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.zhanfa.ChiXuZhanFa;
-import wlg.core.bean.zhanfa.JianShangZhanFa;
+import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 /**
@@ -45,7 +45,7 @@ public class CalcDoRate {
 			rate = rate * mz.getKeep();
 		}
 		//减伤
-		if(zhanfa instanceof JianShangZhanFa) {
+		if(zhanfa instanceof KongZhiZhanFa) {
 			rate = 0;
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() == ready) {
@@ -92,7 +92,7 @@ public class CalcDoRate {
 			rate = rate * mz.getKeep();
 		}
 		//减伤
-		if(zhanfa instanceof JianShangZhanFa) {
+		if(zhanfa instanceof KongZhiZhanFa) {
 			rate = 0;
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() == ready) {

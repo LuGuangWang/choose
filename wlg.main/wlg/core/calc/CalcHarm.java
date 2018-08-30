@@ -1,7 +1,7 @@
 package wlg.core.calc;
 
 import wlg.core.bean.HuiHe;
-import wlg.core.bean.zhanfa.JianShangZhanFa;
+import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -28,8 +28,8 @@ public class CalcHarm {
 	public static <T extends ZhanFa> float calcJianShangHuiHe(HuiHe huihe, T... zhanfa) {
 		float sum = 0;
 		for(int i=0;i<zhanfa.length;i++) {
-			if(zhanfa[i] instanceof JianShangZhanFa) {
-				JianShangZhanFa b = (JianShangZhanFa)zhanfa[i];
+			if(zhanfa[i] instanceof KongZhiZhanFa) {
+				KongZhiZhanFa b = (KongZhiZhanFa)zhanfa[i];
 				for(int p:b.getPersons().getPersons()) {
 					//不受伤害的概率
 					float rate = CalcDoRate.getCommRate(huihe,b);

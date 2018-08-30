@@ -3,7 +3,7 @@ package wlg.core.bean.wujiang;
 import java.util.HashMap;
 import java.util.Map;
 
-import wlg.core.bean.zhanfa.JianShangZhanFa;
+import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 public class WuJiang {
@@ -27,7 +27,7 @@ public class WuJiang {
 		T t = (T) zhanfa.clone();
 		addWuJiangProp(t);
 		zhanfaMap.put(1, t);
-		hasJianshang = t instanceof JianShangZhanFa;
+		hasJianshang = t instanceof KongZhiZhanFa;
 	}
 	
 	public void changeOrder(int order) {
@@ -58,7 +58,7 @@ public class WuJiang {
 		T t = (T) z.clone();
 		addWuJiangProp(t);
 		zhanfaMap.put(2, t);
-		hasJianshang = t instanceof JianShangZhanFa;
+		hasJianshang = t instanceof KongZhiZhanFa;
 		return this;
 	}
 	@SuppressWarnings("unchecked")
@@ -66,7 +66,7 @@ public class WuJiang {
 		T t = (T) z.clone();
 		addWuJiangProp(t);
 		zhanfaMap.put(3, t);
-		hasJianshang = t instanceof JianShangZhanFa;
+		hasJianshang = t instanceof KongZhiZhanFa;
 		return this;
 	}
 
