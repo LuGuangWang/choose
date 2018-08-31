@@ -1,5 +1,8 @@
 package wlg.core.calc;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
@@ -28,6 +31,7 @@ public class CalcHarm {
 	@SuppressWarnings("unchecked")
 	public static <T extends ZhanFa> float calcKongZhiHuiHe(HuiHe huihe, T... zhanfa) {
 		float sum = 0;
+		Map<String,Float> kongzhiMap = new HashMap<>();
 		for(int i=0;i<zhanfa.length;i++) {
 			if(zhanfa[i] instanceof KongZhiZhanFa) {
 				KongZhiZhanFa b = (KongZhiZhanFa)zhanfa[i];
@@ -39,11 +43,11 @@ public class CalcHarm {
 					//控制主的概率
 					float kongzhiRate = unHurt * b.getDoneRate();
 					float unHurtVal = kongzhiRate * b.getKeep() * calcCommHuiHe(huihe.getAllFeng(kongzhiRate),zhanfa);
-					//受伤的概率
-					float hurt = 1 - kongzhiRate;
-					float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
-					
-					sum += unHurtVal + hurtVal;
+//					//受伤的概率
+//					float hurt = 1 - kongzhiRate;
+//					float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
+					kongzhiMap.put(b.getName(), kongzhiRate);
+					sum += unHurtVal;
 				}
 			}
 			if(zhanfa[i].getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
@@ -59,11 +63,11 @@ public class CalcHarm {
 					//控制主的概率
 					float kongzhiRate = unHurt * b.getDoneRate();
 					float unHurtVal = kongzhiRate * calcCommHuiHe(huihe.getFengGongji(kongzhiRate),zhanfa);
-					//受伤的概率
-					float hurt = 1 - kongzhiRate;
-					float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
-					
-					sum += unHurtVal + hurtVal;
+//					//受伤的概率
+//					float hurt = 1 - kongzhiRate;
+//					float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
+					kongzhiMap.put(b.getName(), kongzhiRate);
+					sum += unHurtVal;
 				}
 			}
 			if(zhanfa[i].getT().equals(ZFType.ZhuDong_FaShuShangHai_KongZhiGongji)) {
@@ -76,14 +80,24 @@ public class CalcHarm {
 					//控制主的概率
 					float kongzhiRate = unHurt * b.getDoneRate();
 					float unHurtVal = b.getKeephuihe() * kongzhiRate * calcCommHuiHe(huihe.getFengGongji(kongzhiRate),zhanfa);
-					//受伤的概率
-					float hurt = 1 - kongzhiRate;
-					float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
-					
-					sum += unHurtVal + hurtVal;
+//					//受伤的概率
+//					float hurt = 1 - kongzhiRate;
+//					float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
+					kongzhiMap.put(b.getName(), kongzhiRate);
+					sum += unHurtVal;
 				}
 			}
 		}
+		//受伤的概率
+		float kongzhiRate = 0.0f;
+		for(float t:kongzhiMap.values()) {
+			kongzhiRate += t;
+		}
+		float hurt = 1 - kongzhiRate;
+		hurt = hurt>0 ? hurt:0;
+		float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
+		sum += hurtVal;
+		
 		return sum;
 	}
 
