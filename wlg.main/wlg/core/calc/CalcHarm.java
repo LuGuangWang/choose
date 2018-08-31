@@ -90,7 +90,7 @@ public class CalcHarm {
 				if(z instanceof KongZhiAndHarmZhanFa) {
 					KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
 					if(tmp.getKeephuihe()+1 == huihe.getId()) {
-						rate *= tmp.getExHarmRate();
+						rate *= tmp.getHarmVal(tmp.getExHarmRate());
 					}else {
 						rate *= z.getHarmVal();
 					}

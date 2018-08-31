@@ -100,7 +100,7 @@ public class CalcWJHarm {
 		WuJiang tmp;
 		for(int i=0;i<wujiang.length;i++) {
 			//设置武将位置
-			wujiang[i].setPosition(Conf.WuJiang_Count-i);
+			wujiang[i].setPosition(Conf.WuJiang_Count-wujiang.length+i+1);
 			if(i>=1) {
 				if(wujiang[i].getSpeed()>wujiang[i-1].getSpeed()) {
 					tmp = wujiang[i];

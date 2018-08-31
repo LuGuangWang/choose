@@ -94,7 +94,19 @@ public class WuJiang {
 	}
 	
 	public String toKey() {
-		StringBuilder s = new StringBuilder(name).append(":");
+		StringBuilder s = new StringBuilder();
+		switch(position) {
+		case 1:
+			s.append("大营 ");
+			break;
+		case 2:
+			s.append("中军 ");
+			break;
+		case 3:
+			s.append("前锋 ");
+			break;
+		}
+		s.append(name).append(":");
 		zhanfaMap.forEach((k,v)->{
 			s.append(v.getName()).append(" ");
 		});
