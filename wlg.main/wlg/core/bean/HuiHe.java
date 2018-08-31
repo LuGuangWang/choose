@@ -7,35 +7,40 @@ import wlg.core.bean.conf.Conf;
  * @author seven
  *
  */
-public class HuiHe {
+public class HuiHe implements Cloneable{
 	private int id = 1;
 	
 	//TODO 将此参数根据武将防御属性获取
-	//战法因为士兵减少 威力下降 默认值 1/8 
-	private float zhanfaHurt = 1.0f;//战法造成的损失伤害
-	private float attackHurt = 1.0f;//普通攻击造成的损失伤害
 	//额外属性
 	private boolean hasZengYi = false;
 	private boolean hasKongZhi = false;
 	private boolean hasBuGong = false;
 	private float shuaxinRate = 0.0f;
 	private int wujiangCount = 3;
-	//封闭战法 TODO
-	private float fengZhanfa = 0;
-	//封闭普攻 TODO
-	private float fengGongji = 0;
+	//全封闭
+	private float fengAll = 2;
+	//封闭战法
+	private float fengZhanfa = 2;
+	//封闭普攻
+	private float fengGongji = 2;
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
-		this.fengGongji = jsRate;
-		this.fengZhanfa = jsRate;
-		return this;
+		HuiHe huihe = this.clone();
+		huihe.fengAll = jsRate;
+		return huihe;
 	}
 	//封攻击
 	public HuiHe getFengGongji(float jsRate) {
-		this.fengGongji = jsRate;
-		return this;
+		HuiHe huihe = this.clone();
+		huihe.fengGongji = jsRate;
+		return huihe;
 	}
-	
+	//封攻击
+	public HuiHe getFengZhanfa(float jsRate) {
+		HuiHe huihe = this.clone();
+		huihe.fengZhanfa = jsRate;
+		return huihe;
+	}
 	
 	public boolean isHasBuGong() {
 		return hasBuGong;
@@ -71,21 +76,27 @@ public class HuiHe {
 		return id;
 	}
 	public float getSolderRate(int position) {
-		return position * Conf.SunShiCount * id< Conf.totalCount?1:0;
-	}
-	@Deprecated
-	public float getZhanFaRate() {
-		int newId = id>1?id-1:1;
-		float r = zhanfaHurt/id * (1- fengZhanfa);
-		return r == 0?zhanfaHurt/newId:r;
-	}
-	@Deprecated
-	public float getAttackRate() {
-		int newId = id>1?id-1:1;
-		float r = attackHurt/id * (1- fengGongji);
-		return r == 0?attackHurt/newId:r;
+		float sunShi = position * Conf.SunShiCount;
+		if(fengAll<=1) {
+			sunShi -= Conf.SunShiCount * fengAll;
+		}else if(fengZhanfa <= 1) {
+			sunShi -= Conf.SunShiCount * fengZhanfa * 0.5f;
+		}else if(fengGongji <= 1) {
+			sunShi -= Conf.SunShiCount * fengGongji * 0.5f;
+		}
+		return sunShi * id< Conf.totalCount?1:0;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public HuiHe clone() {
+		HuiHe o = null;
+		try {
+			o = (HuiHe) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return o;
 	}
 }

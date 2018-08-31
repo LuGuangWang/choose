@@ -55,10 +55,10 @@ public class CalcDoRate {
 				rate = 1;
 			}
 		}
-		//持续多少回合
+		//持续多少回合后，进行伤害
 		if(zhanfa instanceof KongZhiAndHarmZhanFa) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
-			if(huihe.getId()>t.getKeephuihe()) {
+			if(huihe.getId()>(t.getKeephuihe()+1)) {
 				rate = 0;
 			}
 		}
@@ -105,7 +105,7 @@ public class CalcDoRate {
 		//持续多少回合
 		if(zhanfa instanceof KongZhiAndHarmZhanFa) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
-			if(huihe.getId()>t.getKeephuihe()) {
+			if(huihe.getId()>(t.getKeephuihe()+1)) {
 				rate = 0;
 			}
 		}

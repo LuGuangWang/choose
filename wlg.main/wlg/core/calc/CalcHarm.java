@@ -1,9 +1,8 @@
 package wlg.core.calc;
 
 import wlg.core.bean.HuiHe;
-import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
-import wlg.core.bean.zhanfa.ShuaXinZhanFa;
+import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
@@ -28,13 +27,6 @@ public class CalcHarm {
 	@SuppressWarnings("unchecked")
 	public static <T extends ZhanFa> float calcKongZhiHuiHe(HuiHe huihe, T... zhanfa) {
 		float sum = 0;
-		for(ZhanFa z:zhanfa) {
-			//TODO 找一个最强控制战法
-			if(z instanceof KongZhiZhanFa || z instanceof KongZhiAndHarmZhanFa) {
-				
-			}
-		}
-		
 		for(int i=0;i<zhanfa.length;i++) {
 			if(zhanfa[i] instanceof KongZhiZhanFa) {
 				KongZhiZhanFa b = (KongZhiZhanFa)zhanfa[i];
@@ -42,10 +34,10 @@ public class CalcHarm {
 					//不受伤害的概率
 					float rate = CalcDoRate.getCommRate(huihe,b);
 					float unHurt = p/1.0f/huihe.getWujiangCount();
-					unHurt = unHurt>1 ? 1:unHurt;
-					float unHurtVal = unHurt * b.getDoneRate() * rate * b.getKeep() * calcCommHuiHe(huihe.getAllFeng(1.0f),zhanfa);
+					unHurt = unHurt>1 ? rate:rate*unHurt;
+					float unHurtVal = unHurt * b.getDoneRate() * b.getKeep() * calcCommHuiHe(huihe.getAllFeng(unHurt),zhanfa);
 					//受伤的概率
-					float hurt = 1 - rate * unHurt;
+					float hurt = 1 - unHurt;
 					float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
 					
 					sum += unHurtVal + hurtVal;
@@ -57,10 +49,13 @@ public class CalcHarm {
 					//不受伤害的概率
 					float rate = CalcDoRate.getCommRate(huihe,b);
 					float unHurt = p/1.0f/huihe.getWujiangCount();
-					unHurt = unHurt>1 ? 1:unHurt;
-					float unHurtVal = unHurt * b.getDoneRate() * rate * calcCommHuiHe(huihe.getFengGongji(1.0f),zhanfa);
+					unHurt = unHurt>1 ? rate:rate*unHurt;
+					if(huihe.getId()>b.getKeephuihe()) {
+						unHurt = 0;
+					}
+					float unHurtVal = unHurt * b.getDoneRate() * calcCommHuiHe(huihe.getFengGongji(unHurt),zhanfa);
 					//受伤的概率
-					float hurt = 1 - rate * unHurt;
+					float hurt = 1 - unHurt;
 					float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
 					
 					sum += unHurtVal + hurtVal;
@@ -78,11 +73,31 @@ public class CalcHarm {
 			T z = zhanfa[i];
 			if(huihe.getShuaxinRate() > 0) {
 				float rate = CalcDoRate.getShuaXinRate(huihe, z);
-				float shuaxinRate = huihe.getShuaxinRate() * huihe.getId() + z.getHarmRate();
+				float shuaxinRate = huihe.getShuaxinRate() * huihe.getId();
+				if(z instanceof KongZhiAndHarmZhanFa) {
+					KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
+					if(tmp.getKeephuihe()+1 == huihe.getId()) {
+						shuaxinRate += tmp.getExHarmRate();
+					}else {
+						shuaxinRate += z.getHarmRate();
+					}
+				}else {
+					shuaxinRate += z.getHarmRate();
+				}
 				sum += rate * z.getHarmVal(shuaxinRate) * huihe.getSolderRate(z.getPosition());
 			} else {
 				float rate = CalcDoRate.getCommRate(huihe, z);
-				sum += rate * z.getHarmVal() * huihe.getSolderRate(z.getPosition());
+				if(z instanceof KongZhiAndHarmZhanFa) {
+					KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
+					if(tmp.getKeephuihe()+1 == huihe.getId()) {
+						rate *= tmp.getExHarmRate();
+					}else {
+						rate *= z.getHarmVal();
+					}
+				}else {
+					rate *= z.getHarmVal();
+				}
+				sum += rate * huihe.getSolderRate(z.getPosition());
 			}
 		}
 		return sum;
@@ -102,7 +117,7 @@ public class CalcHarm {
 				T b = zhanfa[i];
 				if(b instanceof ZengYiZhanFa) {
 					for(int j=0;j<zhanfa.length;j++) {
-						if(j!= i && !(zhanfa[j] instanceof ShuaXinZhanFa)) {
+						if(j!= i) {
 							float rate = CalcDoRate.getCommRate(huihe, zhanfa[j]);
 							sum += rate * b.getExVal(zhanfa[j]) * huihe.getSolderRate(b.getPosition());
 						}
