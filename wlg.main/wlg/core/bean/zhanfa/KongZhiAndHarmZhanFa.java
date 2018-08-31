@@ -2,7 +2,7 @@ package wlg.core.bean.zhanfa;
 
 public class KongZhiAndHarmZhanFa extends ZhanFa {
 
-	private int keephuihe = 1;//持续几回合.
+	private int keephuihe = 1;//控制持续几回合.
 	//增益伤害率
 	private float exHarmRate= 0;
 	

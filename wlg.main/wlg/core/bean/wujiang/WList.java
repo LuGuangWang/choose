@@ -13,5 +13,5 @@ public class WList {
 	//吕蒙
 	public static WuJiang lvmeng = new WuJiang("吕蒙",70,134,117,124,ZList.baiyidujiang);
 	//周瑜
-//	public static WuJiang zhouyv = new WuJiang("周瑜",70,117,93,141,ZList.xuanwujuliu);
+	public static WuJiang zhouyv = new WuJiang("周瑜",70,117,93,141,ZList.xuanwujuliu);
 }

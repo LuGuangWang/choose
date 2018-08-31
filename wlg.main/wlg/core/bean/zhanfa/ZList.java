@@ -10,6 +10,8 @@ public abstract class ZList {
 	public static ZengYiZhanFa huoshifengwei = new ZengYiZhanFa("火势风威",ZFType.ZhuDong_FaShu,1, 0.4f, 1.11f, new Person(3), 0f, 2.21f);
 	//白衣渡江
 	public static KongZhiAndHarmZhanFa baiyidujiang = new KongZhiAndHarmZhanFa("白衣渡江",ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai, 2, 2.15f, new Person(2));
+	//玄武巨流
+	public static KongZhiAndHarmZhanFa xuanwujuliu = new KongZhiAndHarmZhanFa("玄武巨流",ZFType.ZhuDong_FaShuShangHai_KongZhiGongji,1,0.3f,1.5f,2,0f,new Person(3));
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	
