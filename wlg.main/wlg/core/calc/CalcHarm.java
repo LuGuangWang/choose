@@ -119,7 +119,14 @@ public class CalcHarm {
 					for(int j=0;j<zhanfa.length;j++) {
 						if(j!= i) {
 							float rate = CalcDoRate.getCommRate(huihe, zhanfa[j]);
-							sum += rate * b.getExVal(zhanfa[j]) * huihe.getSolderRate(b.getPosition());
+							if(zhanfa[j] instanceof KongZhiAndHarmZhanFa) {
+								KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zhanfa[j];
+								if(tmp.getKeephuihe()+1 == huihe.getId()) {
+									sum += rate * b.getExVal(zhanfa[j]) * huihe.getSolderRate(b.getPosition());
+								}
+							}else {
+								sum += rate * b.getExVal(zhanfa[j]) * huihe.getSolderRate(b.getPosition());
+							}
 						}
 					}
 				}
