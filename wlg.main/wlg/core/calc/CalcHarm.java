@@ -43,7 +43,6 @@ public class CalcHarm {
 					//控制主的概率
 					float kongzhiRate = unHurt * b.getDoneRate();
 					float unHurtVal = kongzhiRate * b.getKeep() * calcCommHuiHe(huihe.getAllFeng(kongzhiRate),zhanfa);
-					//受伤的概率
 					kongzhiMap.put(b.getName(), kongzhiRate);
 					sum += unHurtVal;
 				}
@@ -61,7 +60,6 @@ public class CalcHarm {
 					//控制主的概率
 					float kongzhiRate = unHurt * b.getDoneRate();
 					float unHurtVal = kongzhiRate * calcCommHuiHe(huihe.getFengGongji(kongzhiRate),zhanfa);
-					//受伤的概率
 					kongzhiMap.put(b.getName(), kongzhiRate);
 					sum += unHurtVal;
 				}
@@ -76,7 +74,6 @@ public class CalcHarm {
 					//控制主的概率
 					float kongzhiRate = unHurt * b.getDoneRate();
 					float unHurtVal = b.getKeephuihe() * kongzhiRate * calcCommHuiHe(huihe.getFengGongji(kongzhiRate),zhanfa);
-					//受伤的概率
 					kongzhiMap.put(b.getName(), kongzhiRate);
 					sum += unHurtVal;
 				}
