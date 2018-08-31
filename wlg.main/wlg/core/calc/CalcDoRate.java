@@ -53,7 +53,7 @@ public class CalcDoRate {
 				rate = 1;
 			//可能已发动过战法 存在同等或更高程度,不会叠加战法
 			}else if(huihe.getId()> ready) {
-				rate = 1;
+				rate = 1 - zhanfa.getDoneRate();
 			}
 		}
 		//持续多少回合后，进行伤害
@@ -65,7 +65,31 @@ public class CalcDoRate {
 		}
 		return rate;
 	}
-	
+	/**
+	 * 控制成功的概率
+	 * @param huihe
+	 * @param zhanfa
+	 * @return
+	 */
+	public static <T extends ZhanFa> float getKongZhiRate(HuiHe huihe, T zhanfa) {
+		float rate = 0;
+		//可以发动战法
+		if(huihe.getId() > zhanfa.getReady()) {
+			rate = 1;
+		} 
+		if(zhanfa.getT().equals(ZFType.ZhuDong_FaShuShangHai_KongZhiGongji)) {
+			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
+			rate = 0;
+			int ready = t.getReady() + 1;
+			if(huihe.getId() == ready) {
+				rate = 1;
+			//可能已发动过战法 存在同等或更高程度,不会叠加战法
+			}else if(huihe.getId()> ready) {
+				rate = 1 - t.getDoneRate();
+			}
+		}
+		return rate;
+	}
 	/**
 	 * 无刷新战法,发动成功的概率
 	 * @param huihe

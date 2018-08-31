@@ -11,8 +11,8 @@ public class Choose {
 	
 	
 	public static void main(String[] args) {
-		float sum = CalcWJHarm.calcVal(WList.luxun,WList.lvmeng);
-		String key = WList.luxun.toKey() + WList.lvmeng.toKey() + "伤害值:";
+		float sum = CalcWJHarm.calcVal(WList.zhouyv,WList.luxun,WList.lvmeng);
+		String key = WList.zhouyv.toKey() + WList.luxun.toKey() + WList.lvmeng.toKey() + "伤害值:";
 		System.out.println(key + sum);
 		
 		System.out.println("==================================================");

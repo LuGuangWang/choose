@@ -86,7 +86,9 @@ public class CalcWJHarm {
 			if(zf instanceof ShuaXinZhanFa) {
 				huihe.setShuaxinRate(((ShuaXinZhanFa) zf).getBaseRate());
 			}
-			if(zf instanceof KongZhiZhanFa || zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
+			if(zf instanceof KongZhiZhanFa 
+					|| zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)
+					|| zf.getT().equals(ZFType.ZhuDong_FaShuShangHai_KongZhiGongji)) {
 				huihe.setHasKongZhi(true);
 			}
 			if(zf instanceof JiaChengZhanFa) {
