@@ -149,7 +149,7 @@ public class ZhanFa implements Harm, Cloneable {
 		case ZhuDong_FaShu:
 			val *= strategy * Conf.s_rate;
 			break;
-		case ZhiHui_FaShu:
+		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 			val *= strategy * Conf.s_rate;
 			break;
 		case KongZhi_ALL:

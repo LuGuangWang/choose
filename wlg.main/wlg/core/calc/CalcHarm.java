@@ -3,6 +3,7 @@ package wlg.core.calc;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
+import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
@@ -43,7 +44,7 @@ public class CalcHarm {
 					sum += unHurtVal + hurtVal;
 				}
 			}
-			if(zhanfa[i] instanceof KongZhiAndHarmZhanFa) {
+			if(zhanfa[i].getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa b = (KongZhiAndHarmZhanFa)zhanfa[i];
 				for(int p:b.getPersons().getPersons()) {
 					//不受伤害的概率
@@ -74,7 +75,7 @@ public class CalcHarm {
 			if(huihe.getShuaxinRate() > 0) {
 				float rate = CalcDoRate.getShuaXinRate(huihe, z);
 				float shuaxinRate = huihe.getShuaxinRate() * huihe.getId();
-				if(z instanceof KongZhiAndHarmZhanFa) {
+				if(z.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 					KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
 					if(tmp.getKeephuihe()+1 == huihe.getId()) {
 						shuaxinRate += tmp.getExHarmRate();
@@ -87,7 +88,7 @@ public class CalcHarm {
 				sum += rate * z.getHarmVal(shuaxinRate) * huihe.getSolderRate(z.getPosition());
 			} else {
 				float rate = CalcDoRate.getCommRate(huihe, z);
-				if(z instanceof KongZhiAndHarmZhanFa) {
+				if(z.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 					KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
 					if(tmp.getKeephuihe()+1 == huihe.getId()) {
 						rate *= tmp.getHarmVal(tmp.getExHarmRate());
@@ -119,10 +120,10 @@ public class CalcHarm {
 					for(int j=0;j<zhanfa.length;j++) {
 						if(j!= i) {
 							float rate = CalcDoRate.getCommRate(huihe, zhanfa[j]);
-							if(zhanfa[j] instanceof KongZhiAndHarmZhanFa) {
+							if(zhanfa[j].getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 								KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zhanfa[j];
 								if(tmp.getKeephuihe()+1 == huihe.getId()) {
-									sum += rate * b.getExVal(zhanfa[j]) * huihe.getSolderRate(b.getPosition());
+									sum += rate * b.getExVal(tmp) * huihe.getSolderRate(b.getPosition());
 								}
 							}else {
 								sum += rate * b.getExVal(zhanfa[j]) * huihe.getSolderRate(b.getPosition());

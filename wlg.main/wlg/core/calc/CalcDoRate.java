@@ -4,6 +4,7 @@ import wlg.core.bean.HuiHe;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
+import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanFa;
 /**
  * 计算发动战法成功概率
@@ -56,7 +57,7 @@ public class CalcDoRate {
 			}
 		}
 		//持续多少回合后，进行伤害
-		if(zhanfa instanceof KongZhiAndHarmZhanFa) {
+		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
 			if(huihe.getId()>(t.getKeephuihe()+1)) {
 				rate = 0;
@@ -103,7 +104,7 @@ public class CalcDoRate {
 			}
 		}
 		//持续多少回合
-		if(zhanfa instanceof KongZhiAndHarmZhanFa) {
+		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
 			if(huihe.getId()>(t.getKeephuihe()+1)) {
 				rate = 0;

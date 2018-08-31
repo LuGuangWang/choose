@@ -7,10 +7,10 @@ import java.util.List;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.wujiang.WuJiang;
-import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.JiaChengZhanFa;
-import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
+import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
+import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
@@ -86,7 +86,7 @@ public class CalcWJHarm {
 			if(zf instanceof ShuaXinZhanFa) {
 				huihe.setShuaxinRate(((ShuaXinZhanFa) zf).getBaseRate());
 			}
-			if(zf instanceof KongZhiZhanFa || zf instanceof KongZhiAndHarmZhanFa) {
+			if(zf instanceof KongZhiZhanFa || zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				huihe.setHasKongZhi(true);
 			}
 			if(zf instanceof JiaChengZhanFa) {

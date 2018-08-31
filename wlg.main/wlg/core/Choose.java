@@ -12,13 +12,14 @@ public class Choose {
 	
 	public static void main(String[] args) {
 		float sum = CalcWJHarm.calcVal(WList.luxun,WList.lvmeng);
-		
 		String key = WList.luxun.toKey() + WList.lvmeng.toKey() + "伤害值:";
 		System.out.println(key + sum);
 		
+		System.out.println("==================================================");
+		
 		Choose c = new Choose();
-		Map<Float, String> result = c.calcZhanFaVal();
-		System.out.println("战法组合的伤害值越高,代表越好:");
+		Map<Float, String> result = c.calcDanGeWuJiangVal();
+		System.out.println("单个武将战法组合的伤害值越高,代表越好:");
 		((TreeMap<Float, String>) result).descendingMap().forEach((k,v)->{
 			System.out.println(v + k);
 		});
@@ -26,9 +27,10 @@ public class Choose {
 	
 	/**
 	 * TODO 添加下一回合逻辑  减伤 回血 普通攻击的伤害
+	 * 计算单个武将
 	 * @return
 	 */
-	public Map<Float, String> calcZhanFaVal() {
+	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
 		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
 		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
@@ -56,7 +58,6 @@ public class Choose {
 		
 		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.hunshuimoyv);
 		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
-		
 		
 		return result;
 	}
