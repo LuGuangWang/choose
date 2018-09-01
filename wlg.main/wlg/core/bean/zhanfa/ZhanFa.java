@@ -14,10 +14,14 @@ public class ZhanFa implements Harm, Cloneable {
 	private String name;
 	// 发动概率
 	private float doneRate = 0.0f;
-	// 伤害率
-	private float harmRate = 0.0f;
+	// 伤害值
+	private float harmVal = 0.0f;
+	//不可改变的伤害值
+	private float finalHarmVal = 0.0f;
 	//增益伤害率
-	private float exHarmRate= 0.0f;
+	private float exHarmVal= 0.0f;
+	//不可变的额外伤害值
+	private float finalExHarmVal = 0.0f;
 	//增益发动概率
 	private float exRate = 0.0f;
 	// 打击队伍数
@@ -50,8 +54,10 @@ public class ZhanFa implements Harm, Cloneable {
 		this.name = name;
 		this.ready = ready;
 		this.doneRate = doneRate;
-		this.harmRate = harmRate;
+		this.harmVal = harmRate;
 		this.persons = persons;
+		
+		this.finalHarmVal = this.harmVal;
 	}
 	
 	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmRate, Person persons,float exRate,float exHarmRate) {
@@ -59,23 +65,32 @@ public class ZhanFa implements Harm, Cloneable {
 		this.name = name;
 		this.ready = ready;
 		this.doneRate = doneRate;
-		this.harmRate = harmRate;
+		this.harmVal = harmRate;
 		this.persons = persons;
 		this.exRate = exRate;
-		this.exHarmRate=exHarmRate;
+		this.exHarmVal=exHarmRate;
+		
+		this.finalHarmVal = this.harmVal;
+		this.finalExHarmVal = this.exHarmVal;
 	}
 
 	public float getExHarmRate() {
-		return exHarmRate;
+		return exHarmVal;
 	}
 	public float getExRate() {
 		return exRate;
 	}
 	public void setExHarmRate(float exHarmRate) {
-		this.exHarmRate = exHarmRate;
+		this.exHarmVal = exHarmRate;
 	}
 	public void setExRate(float exRate) {
 		this.exRate = exRate;
+	}
+	public float getFinalHarmVal() {
+		return finalHarmVal;
+	}
+	public float getFinalExHarmVal() {
+		return finalExHarmVal;
 	}
 	public String getName() {
 		return name;
@@ -90,10 +105,10 @@ public class ZhanFa implements Harm, Cloneable {
 		return doneRate;
 	}
 	public float getHarmRate() {
-		return harmRate;
+		return harmVal;
 	}
 	public void setHarmRate(float harmRate) {
-		this.harmRate = harmRate;
+		this.harmVal = harmRate;
 	}
 	public Person getPersons() {
 		return persons;
@@ -140,12 +155,12 @@ public class ZhanFa implements Harm, Cloneable {
 
 	@Override
 	public float getExVal(ZhanFa other) {
-		return 0;
+		return 0.0f;
 	}
 
 	@Override
 	public float getHarmVal() {
-		return getHarmVal(this.harmRate);
+		return getHarmVal(this.harmVal);
 	}
 	/**
 	 * 指定伤害率的伤害值
@@ -153,7 +168,7 @@ public class ZhanFa implements Harm, Cloneable {
 	 * @return
 	 */
 	public float getHarmVal(float harmRate) {
-		float sum = 0;
+		float sum = 0.0f;
 		float pval = this.doneRate * harmRate;
 		pval = addShuXingVal(pval);
 		if (persons.getPersons().length > 0) {

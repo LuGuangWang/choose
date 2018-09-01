@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import wlg.core.bean.HuiHe;
+import wlg.core.bean.conf.Conf;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
@@ -110,7 +111,9 @@ public class CalcHarm {
 				}else {
 					shuaxinRate += z.getHarmRate();
 				}
-				sum += rate * z.getHarmVal(shuaxinRate) * huihe.getSolderRate(z.getPosition());
+				float harmval = rate * z.getHarmVal(shuaxinRate) * huihe.getSolderRate(z.getPosition());
+				Conf.log("===战法 " + z.getName() + " 杀伤力：" + harmval);
+				sum += harmval;
 			} else {
 				float rate = CalcDoRate.getCommRate(huihe, z);
 				if(z.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
@@ -123,7 +126,9 @@ public class CalcHarm {
 				}else {
 					rate *= z.getHarmVal();
 				}
-				sum += rate * huihe.getSolderRate(z.getPosition());
+				float harmval = rate * huihe.getSolderRate(z.getPosition());
+				Conf.log("===战法 " + z.getName()+ " 杀伤力：" + harmval + " 伤害值：" + z.getHarmRate()  + " 额外伤害值：" + z.getExHarmRate());
+				sum += harmval;
 			}
 		}
 		return sum;

@@ -32,13 +32,19 @@ public class CalcWJHarm {
 		
 		for(int i=1;i<9;i++) {
 			List<WuJiang> wujiang = globalwujiang;
-
+			if(wujiang.size()==0) {
+				break;
+			}
 			huihe.setId(i);
 			huihe.setWujiangCount(wujiang.size());
 			boolean isCalc = true;
 			
+			Conf.log("===============第"+ huihe.getId()+"回合=============");
+			
 			for(int j=0;j<wujiang.size();j++) {
 				WuJiang wj = wujiang.get(j);
+				//设置武将位置
+				wj.setPosition(Conf.WuJiang_Count-huihe.getWujiangCount()+j+1);
 				//武将行动的顺序
 				wj.changeOrder(wujiang.size()-1-j);
 				//补充额外属性
@@ -76,6 +82,10 @@ public class CalcWJHarm {
 				if(huihe.getSolderRate(wj.getPosition())<=0) {
 					Conf.log("=========第"+ huihe.getId() +"回合损失武将: " + wj.getName());
 					globalwujiang.remove(wj);
+					if(wj.getFinalp()==1) {
+						Conf.log("=========第"+ huihe.getId() +"回合损失大营: " + wj.getName());
+						globalwujiang.clear();
+					}
 				}
 			}
 		}
@@ -109,7 +119,7 @@ public class CalcWJHarm {
 		WuJiang tmp;
 		for(int i=0;i<wujiang.length;i++) {
 			//设置武将位置
-			wujiang[i].setPosition(Conf.WuJiang_Count-wujiang.length+i+1);
+			wujiang[i].setFinalp(Conf.WuJiang_Count-wujiang.length+i+1);
 			if(i>=1) {
 				if(wujiang[i].getSpeed()>wujiang[i-1].getSpeed()) {
 					tmp = wujiang[i];

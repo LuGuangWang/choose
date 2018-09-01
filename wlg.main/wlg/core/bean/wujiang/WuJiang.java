@@ -18,6 +18,7 @@ public class WuJiang {
 	private int strategy;//谋略
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
 	private int position = 3;//武将位置  大营1 中军2 前锋3
+	private int finalp = 3;//原始武将位置  大营1 中军2 前锋3
 	
 	//TODO 添加攻击距离
 	
@@ -36,7 +37,14 @@ public class WuJiang {
 		return position;
 	}
 	public void setPosition(int position) {
+		Conf.log("=======武将 " + name + " 位置发生变化:" + this.position + " -> " + position);
 		this.position = position;
+	}
+	public void setFinalp(int finalp) {
+		this.finalp = finalp;
+	}
+	public int getFinalp() {
+		return finalp;
 	}
 	public void changeOrder(int order) {
 		zhanfaMap.forEach((k,v)->{
@@ -69,9 +77,12 @@ public class WuJiang {
 		float jiachengVal = CalcJiaCheng.getJiaChengVal(fashujiacheng);
 		zhanfaMap.forEach((k,v)->{
 			if(!fashujiacheng.contains(v)) {
-				Conf.log("==== 战法 "+v.getName() + " 增加伤害" + jiachengVal);
-				v.setExHarmRate(v.getExHarmRate()+jiachengVal);
-				v.setHarmRate(v.getHarmRate()+jiachengVal);
+				Conf.log("==== 战法 "+v.getName() + " 初始伤害值：" + v.getFinalHarmVal()  + " 初始额外伤害值：" + v.getFinalExHarmVal() + " 增加伤害" + jiachengVal);
+				if(v.getFinalExHarmVal()>0)
+					v.setExHarmRate(v.getFinalExHarmVal()+jiachengVal);
+				if(v.getFinalHarmVal()>0)
+					v.setHarmRate(v.getFinalHarmVal()+jiachengVal);
+				Conf.log("==== 战法 "+v.getName() + " 伤害值：" + v.getHarmRate()  + " 额外伤害值：" + v.getExHarmRate() + " 增加伤害" + jiachengVal);
 			}
 		});
 	}
@@ -121,7 +132,7 @@ public class WuJiang {
 	
 	public String toKey() {
 		StringBuilder s = new StringBuilder();
-		switch(position) {
+		switch(finalp) {
 		case 1:
 			s.append("大营 ");
 			break;
