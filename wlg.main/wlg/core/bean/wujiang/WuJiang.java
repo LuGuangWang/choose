@@ -8,7 +8,6 @@ import java.util.Map;
 import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.zhanfa.ZhanFa;
-import wlg.core.calc.CalcDoRate;
 import wlg.core.calc.CalcJiaCheng;
 
 public class WuJiang {
