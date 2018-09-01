@@ -44,7 +44,7 @@ public class CalcHarm {
 					unHurt = unHurt>1 ? rate:rate*unHurt;
 					//控制主的概率
 					float kongzhiRate = unHurt * b.getDoneRate();
-					float unHurtVal = kongzhiRate * b.getKeep() * calcCommHuiHe(huihe.getAllFeng(kongzhiRate,p),zhanfa);
+					float unHurtVal = kongzhiRate * b.getKeep() * calcKongZhiAllHuiHe(huihe.getAllFeng(kongzhiRate,p),zhanfa);
 					kongzhiMap.put(b.getName(), kongzhiRate);
 					sum += unHurtVal;
 				}
@@ -61,7 +61,7 @@ public class CalcHarm {
 					}
 					//控制主的概率
 					float kongzhiRate = unHurt * b.getDoneRate();
-					float unHurtVal = kongzhiRate * calcCommHuiHe(huihe.getFengGongji(kongzhiRate,p),zhanfa);
+					float unHurtVal = kongzhiRate * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiRate,p),zhanfa);
 					kongzhiMap.put(b.getName(), kongzhiRate);
 					sum += unHurtVal;
 				}
@@ -75,7 +75,7 @@ public class CalcHarm {
 					unHurt = unHurt>1 ? rate:rate*unHurt;
 					//控制主的概率
 					float kongzhiRate = unHurt * b.getDoneRate();
-					float unHurtVal = b.getKeephuihe() * kongzhiRate * calcCommHuiHe(huihe.getFengGongji(kongzhiRate,p),zhanfa);
+					float unHurtVal = b.getKeephuihe() * kongzhiRate * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiRate,p),zhanfa);
 					kongzhiMap.put(b.getName(), kongzhiRate);
 					sum += unHurtVal;
 				}
@@ -89,7 +89,7 @@ public class CalcHarm {
 				unHurt = unHurt>1 ? rate:rate*unHurt;
 				//控制主的概率
 				float kongzhiRate = unHurt * b.getDoneRate();
-				float unHurtVal = kongzhiRate * calcCommHuiHe(huihe.getFengGongji(kongzhiRate*b.getExHarmVal(),p),zhanfa);
+				float unHurtVal = kongzhiRate * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiRate*b.getExHarmVal(),p),zhanfa);
 				kongzhiMap.put(b.getName(), kongzhiRate);
 				sum += unHurtVal;
 			}
@@ -103,12 +103,22 @@ public class CalcHarm {
 		float hurt = 1 - kongzhiRate;
 		Conf.log("======本回合不受伤的概率：" + kongzhiRate + " 受伤的概率为："+hurt);
 		hurt = hurt>0 ? hurt:0;
-		float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
+		float hurtVal = hurt *  calcKongZhiAllHuiHe(huihe,zhanfa);
 		sum += hurtVal;
 		
 		return sum;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <T extends ZhanFa> float calcKongZhiAllHuiHe(HuiHe huihe, T... zhanfa) {
+		float sum = 0.0f;
+		Conf.log("=============计算有控制战法的普通主伤害值==========");
+		sum = calcCommHuiHe(huihe,zhanfa);
+		Conf.log("=============计算有控制战法的普通增益害值==========");
+		sum += calcExVal(huihe,zhanfa);
+		return sum;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static <T extends ZhanFa> float calcCommHuiHe(HuiHe huihe, T... zhanfa) {
 		float sum = 0;

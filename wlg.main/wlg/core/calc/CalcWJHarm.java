@@ -65,15 +65,17 @@ public class CalcWJHarm {
 						isCalc = false;
 					}
 				} else {
+					Conf.log("=============计算普通主伤害值==========");
 					huiheVal += CalcHarm.calcCommHuiHe(huihe, wj.getZhanfa());
-				}
-				//增益伤害
-				if(huihe.isHasZengYi()) {
-					List<ZhanFa> zfList = new ArrayList<>();
-					for(int m=j;m<wujiang.size();m++) {
-						zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
+					//增益伤害
+					if(huihe.isHasZengYi()) {
+						Conf.log("=============计算增益伤害值==========");
+						List<ZhanFa> zfList = new ArrayList<>();
+						for(int m=j;m<wujiang.size();m++) {
+							zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
+						}
+						huiheVal += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 					}
-					huiheVal += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 				}
 				// 普通攻击伤害
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
