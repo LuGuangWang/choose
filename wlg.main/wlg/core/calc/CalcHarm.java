@@ -138,7 +138,7 @@ public class CalcHarm {
 				shuaxinRate += z.getHarmRate();
 			}
 			float harmval = rate * z.getHarmVal(shuaxinRate) * huihe.getSolderRate(z.getPosition(),z.getDefense());
-			Conf.log("===战法 " + z.getName() + " 最终杀伤力：" + harmval + " 伤害值：" + z.getHarmRate()  + " 额外伤害值：" + z.getExHarmVal());
+			Conf.log("===战法 " + z.getName() + " 最终杀伤力：" + harmval);
 			sum += harmval;
 		}
 		return sum;
@@ -172,7 +172,7 @@ public class CalcHarm {
 							}else {
 								exharmVal = rate * b.getExVal(zf,shuaxinRate) * huihe.getSolderRate(b.getPosition(),b.getDefense());
 							}
-							Conf.log("======战法"+zf.getName() + " 触发战法" + b.getName() +" 造成最终额外杀伤力" + exharmVal +" 战法" + b.getName() + " 额外伤害值："+b.getExHarmVal());
+							Conf.log("======战法"+zf.getName() + " 触发战法" + b.getName() +" 造成最终额外杀伤力" + exharmVal);
 						}
 						sum += exharmVal;
 					}
