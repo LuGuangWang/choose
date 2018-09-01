@@ -33,11 +33,11 @@ public class Choose {
 	 */
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
-		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
-//		
-//		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
+//		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
 //		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		
+		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
+		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
 //		
 //		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.chugesiqi);
 //		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());

@@ -163,6 +163,45 @@ public class ZhanFa implements Harm, Cloneable {
 		return getHarmVal(this.harmVal);
 	}
 	/**
+	 * 指定额外伤害值
+	 * @param other
+	 * @param exharmVal
+	 * @return
+	 */
+	public float getExVal(ZhanFa other, float exharmVal) {
+		float sum = 0.0f;
+		if(other.getHarmRate()>0) {
+			float val = exharmVal*this.getDoneRate()*other.getDoneRate();
+			val = addShuXingVal(val);
+			int[] persons = other.getPersons().getPersons();
+			
+			int[] ps = this.getPersons().getPersons();
+			
+			float orate = 1.0f/persons.length;
+			float prate = 1.0f/ps.length;
+			
+			for(int i : persons) {
+				for(int p:ps) {
+					//实际可伤害人数
+					int realP = Math.min(i, p);
+					//可全部命中
+					if(realP<=p) {
+						sum += prate * orate * val * realP;
+					}else {
+						int total = 3;//初始化总队伍数
+						for(int m=realP;m>0;m--) {
+							float realRate = m*1.0f/total;
+							sum += prate * orate * val * realRate;
+							total --; 
+						}
+					}
+				}
+			}
+		}
+		Conf.log("========战法"+name+"单次额外杀伤力："+ sum + "原始额外伤害值:"+ finalExHarmVal + "额外伤害值:"+exharmVal);
+		return sum;
+	}
+	/**
 	 * 指定伤害率的伤害值
 	 * @param harmVal
 	 * @return
@@ -178,7 +217,7 @@ public class ZhanFa implements Harm, Cloneable {
 				sum += pval * rate * i;
 			}
 		}
-		Conf.log("========战法"+name+"杀伤力："+ sum + "原始伤害值:"+ finalHarmVal + "伤害值:"+harmVal);
+		Conf.log("========战法"+name+"单次杀伤力："+ sum + "原始伤害值:"+ finalHarmVal + "伤害值:"+harmVal);
 		return sum;
 	}
 	

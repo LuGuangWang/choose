@@ -21,35 +21,8 @@ public class ZengYiZhanFa extends ZhanFa{
 	 * @return
 	 */
 	public float getExVal(ZhanFa other) {
-		float sum = 0;
-		if(other.getHarmRate()>0) {
-			float val = this.getExHarmRate()*this.getDoneRate()*other.getDoneRate();
-			val = addShuXingVal(val);
-			int[] persons = other.getPersons().getPersons();
-			
-			int[] ps = this.getPersons().getPersons();
-			
-			float orate = 1.0f/persons.length;
-			float prate = 1.0f/ps.length;
-			
-			for(int i : persons) {
-				for(int p:ps) {
-					//实际可伤害人数
-					int realP = Math.min(i, p);
-					//可全部命中
-					if(realP<=p) {
-						sum += prate * orate * val * realP;
-					}else {
-						int total = 3;//初始化总队伍数
-						for(int m=realP;m>0;m--) {
-							float realRate = m*1.0f/total;
-							sum += prate * orate * val * realRate;
-							total --; 
-						}
-					}
-				}
-			}
-		}
+		float sum = getExVal(other, other.getExHarmRate());
 		return sum;
 	}
+	
 }
