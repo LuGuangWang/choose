@@ -10,6 +10,58 @@ import wlg.core.bean.zhanfa.ZhanFa;
  */
 public class CheckUtil {
 	/**
+	 * 是否是加成战法
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isJiaCheng(ZhanFa zf) {
+		boolean isJiaCheng = false;
+		switch (zf.getT()) {
+		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
+			isJiaCheng = true;
+			break;
+		default:
+			isJiaCheng = false;
+			break;
+		}
+		return isJiaCheng;
+	}
+	
+	/**
+	 * 是否自身不攻击战法
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isBuGongJi(ZhanFa zf) {
+		boolean isBuGongJi = false;
+		switch (zf.getT()) {
+		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
+			isBuGongJi = true;
+			break;
+		default:
+			isBuGongJi = false;
+			break;
+		}
+		return isBuGongJi;
+	}
+	
+	public static boolean isKongZhi(ZhanFa zf) {
+		boolean isKongZhi = false;
+		switch (zf.getT()) {
+		case ZhuDong_KongZhi_ALL:
+			isKongZhi = true;
+			break;
+		case ZhuDong_FaShuShangHai_KongZhiGongji:
+			isKongZhi = true;
+			break;
+		default:
+			isKongZhi = false;
+			break;
+		}
+		return isKongZhi;
+	}
+	
+	/**
 	 * 是否策略伤害
 	 * @param zf
 	 * @return
@@ -17,7 +69,7 @@ public class CheckUtil {
 	public static boolean isStrategy(ZhanFa zf) {
 		boolean isStrategy = false;
 		switch (zf.getT()) {
-		case ZhiHui_FaShuJiacheng_FaShuGongJi:
+		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
 			isStrategy = true;
 			break;
 		case ZhuDong_FaShu:

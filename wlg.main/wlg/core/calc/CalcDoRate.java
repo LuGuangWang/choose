@@ -19,6 +19,13 @@ public class CalcDoRate {
 		return 1.0f;
 	}
 	/**
+	 * 加成战法发动成功的概率
+	 * @return
+	 */
+	public static float getJiaChengRate() {
+		return 1.0f;
+	}
+	/**
 	 * 有刷新战法,发动战法成功概率
 	 * @param huihe
 	 * @param zhanfa
@@ -45,7 +52,7 @@ public class CalcDoRate {
 			//持续回合
 			rate = rate * mz.getKeep();
 		}
-		//减伤
+		//控制
 		if(zhanfa instanceof KongZhiZhanFa) {
 			rate = 0;
 			int ready = zhanfa.getReady() + 1;
@@ -122,6 +129,7 @@ public class CalcDoRate {
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() == ready) {
 				rate = 1;
+			//TODO 同类型 同效果战法才不能叠加
 			//可能已发动过战法 存在同等或更高程度,不会叠加战法
 			}else if(huihe.getId()> ready) {
 				rate = 1 - zhanfa.getDoneRate();

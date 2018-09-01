@@ -15,7 +15,11 @@ public class HuiHe implements Cloneable{
 	private boolean hasZengYi = false;
 	private boolean hasKongZhi = false;
 	private boolean hasBuGong = false;
+	private boolean hasJiaCheng = false;
+	
+	//本回合刷新战法伤害率
 	private float shuaxinRate = 0.0f;
+	//武将数  TODO 武将数的变更
 	private int wujiangCount = 3;
 	//全封闭
 	private float fengAll = 2;
@@ -72,6 +76,12 @@ public class HuiHe implements Cloneable{
 	public void setHasKongZhi(boolean hasKongZhi) {
 		this.hasKongZhi = hasKongZhi;
 	}
+	public boolean isHasJiaCheng() {
+		return hasJiaCheng;
+	}
+	public void setHasJiaCheng(boolean hasJiaCheng) {
+		this.hasJiaCheng = hasJiaCheng;
+	}
 	public int getId() {
 		return id;
 	}
@@ -84,7 +94,9 @@ public class HuiHe implements Cloneable{
 		}else if(fengGongji <= 1) {
 			sunShi -= Conf.SunShiCount * fengGongji * 0.5f;
 		}
-		return sunShi * id< Conf.totalCount?1:0;
+		boolean isDied = (sunShi * id< Conf.totalCount)?false:true;
+		
+		return isDied?0:1;
 	}
 	public void setId(int id) {
 		this.id = id;

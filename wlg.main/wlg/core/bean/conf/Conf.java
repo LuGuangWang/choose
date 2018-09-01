@@ -16,7 +16,15 @@ public abstract class Conf {
 	//每回合损失兵力
 	public static final float SunShiCount = 1000.0f;
 	
+	//是否打印日志
+	public static final boolean log = true;
+	
 	public static boolean getCalcPG() {
 		return Calc_PuGong;
+	}
+	
+	public static void log(String msg) {
+		if(log)
+			System.out.println("========" + msg);
 	}
 }

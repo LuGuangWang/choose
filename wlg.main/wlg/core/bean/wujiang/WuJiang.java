@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import wlg.core.bean.conf.Conf;
-import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 public class WuJiang {
@@ -14,7 +13,6 @@ public class WuJiang {
 	private int attack;//攻击
 	private int strategy;//谋略
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
-	private boolean hasJianshang = false;//是否携带减伤战法
 	private int position = 3;//武将位置  大营1 中军2 前锋3
 	
 	//TODO 添加攻击距离
@@ -29,7 +27,6 @@ public class WuJiang {
 		T t = (T) zhanfa.clone();
 		addWuJiangProp(t);
 		zhanfaMap.put(1, t);
-		hasJianshang = t instanceof KongZhiZhanFa;
 	}
 	public int getPosition() {
 		return position;
@@ -41,9 +38,6 @@ public class WuJiang {
 		zhanfaMap.forEach((k,v)->{
 			v.setSpeed(order);
 		});
-	}
-	public boolean isHasJianshang() {
-		return hasJianshang;
 	}
 	public String getName() {
 		return name;
@@ -65,7 +59,6 @@ public class WuJiang {
 		T t = (T) z.clone();
 		addWuJiangProp(t);
 		zhanfaMap.put(2, t);
-		hasJianshang = t instanceof KongZhiZhanFa;
 		return this;
 	}
 	@SuppressWarnings("unchecked")
@@ -73,7 +66,6 @@ public class WuJiang {
 		T t = (T) z.clone();
 		addWuJiangProp(t);
 		zhanfaMap.put(3, t);
-		hasJianshang = t instanceof KongZhiZhanFa;
 		return this;
 	}
 	/**
@@ -86,7 +78,6 @@ public class WuJiang {
 		T t = (T) z.clone();
 		addWuJiangProp(t);
 		zhanfaMap.put(3, t);
-		hasJianshang = t instanceof KongZhiZhanFa;
 		return this;
 	}
 

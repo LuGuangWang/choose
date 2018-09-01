@@ -8,9 +8,7 @@ import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.wujiang.WuJiang;
-import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
-import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 /**
@@ -24,30 +22,38 @@ public class CalcWJHarm {
 	 * @param wujiang
 	 * @return
 	 */
-	public static <T extends ZhanFa> float  calcVal(WuJiang... wujiang) {
+	public static <T extends ZhanFa> float  calcVal(WuJiang... wjs) {
 		float sum = 0;
 		HuiHe huihe = new HuiHe();
 		//按速度排序
-		wujiang = sortedWuJiang(wujiang);
+		wjs = sortedWuJiang(wjs);
+		
+		List<WuJiang> globalwujiang = new ArrayList<>(Arrays.asList(wjs));
 		
 		for(int i=1;i<9;i++) {
+			List<WuJiang> wujiang = globalwujiang;
+
 			huihe.setId(i);
-			huihe.setWujiangCount(wujiang.length);
+			huihe.setWujiangCount(wujiang.size());
 			boolean isCalc = true;
 			
-			for(int j=0;j<wujiang.length;j++) {
-				WuJiang wj = wujiang[j];
+			for(int j=0;j<wujiang.size();j++) {
+				WuJiang wj = wujiang.get(j);
 				//武将行动的顺序
-				wj.changeOrder(wujiang.length-1-j);
+				wj.changeOrder(wujiang.size()-1-j);
 
 				buildExProp(huihe, wj);
+				//加成战法
+				if(huihe.isHasJiaCheng()) {
+					
+				}
 				
 				//主伤害
 				if(huihe.isHasKongZhi()) {
 					if(isCalc) {
 						List<ZhanFa> zfList = new ArrayList<>();
-						for(int m=j;m<wujiang.length;m++) {
-							zfList.addAll(Arrays.asList(wujiang[m].getZhanfa()));
+						for(int m=j;m<wujiang.size();m++) {
+							zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
 						}
 						sum += CalcHarm.calcKongZhiHuiHe(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 						isCalc = false;
@@ -58,8 +64,8 @@ public class CalcWJHarm {
 				//增益伤害
 				if(huihe.isHasZengYi()) {
 					List<ZhanFa> zfList = new ArrayList<>();
-					for(int m=j;m<wujiang.length;m++) {
-						zfList.addAll(Arrays.asList(wujiang[m].getZhanfa()));
+					for(int m=j;m<wujiang.size();m++) {
+						zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
 					}
 					sum += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 				}
@@ -67,33 +73,34 @@ public class CalcWJHarm {
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
 					sum += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate(wj.getPosition());
 				}
+				//有武将死掉
+				if(huihe.getSolderRate(wj.getPosition())<=0) {
+					Conf.log("=========第"+ huihe.getId() +"回合损失武将: " + wj.getName());
+					globalwujiang.remove(wj);
+				}
 			}
 		}
 		return sum;
 	}
 
-	//补充回合属性
+	//补充额外属性
 	private static void buildExProp(HuiHe huihe, WuJiang wj) {
 		ZhanFa[] zfs = wj.getZhanfa();
 		huihe.setHasZengYi(false);
 		huihe.setShuaxinRate(0.0f);
 		huihe.setHasKongZhi(false);
 		huihe.setHasBuGong(false);
+		huihe.setHasJiaCheng(false);
 		for(ZhanFa zf:zfs) {
 			//武将位置
 			zf.setPosition(wj.getPosition());
 			huihe.setHasZengYi(CheckUtil.isZengYi(zf));
+			huihe.setHasKongZhi(CheckUtil.isKongZhi(zf));
+			huihe.setHasBuGong(CheckUtil.isBuGongJi(zf));
+			huihe.setHasJiaCheng(CheckUtil.isJiaCheng(zf));
 			
 			if(zf instanceof ShuaXinZhanFa) {
 				huihe.setShuaxinRate(((ShuaXinZhanFa) zf).getBaseRate());
-			}
-			if(zf instanceof KongZhiZhanFa 
-					|| zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)
-					|| zf.getT().equals(ZFType.ZhuDong_FaShuShangHai_KongZhiGongji)) {
-				huihe.setHasKongZhi(true);
-			}
-			if(zf.getT().equals(ZFType.ZhiHui_FaShuJiacheng_FaShuGongJi)) {
-				huihe.setHasBuGong(true);
 			}
 		}
 	}

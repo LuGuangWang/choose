@@ -18,10 +18,4 @@ public class ShuaXinZhanFa extends ZhanFa {
 	public float getBaseRate() {
 		return baseRate;
 	}
-	public float getExVal(ZhanFa other) {
-		return 0.0f;
-	}
-	public float getHarmVal() {
-		return 0.0f;
-	}
 }

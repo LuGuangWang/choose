@@ -25,7 +25,7 @@ public abstract class ZList {
 	//神兵天降
 	public static JiaChengZhanFa shenbingtianjiang = new JiaChengZhanFa("神兵天降",ZFType.ZhuDong_FuZhu,0,1,0f,new Person(2),0.3f,3);
 	// 加成战法 不攻
-	public static JiaChengZhanFa bugong = new JiaChengZhanFa("不攻",ZFType.ZhiHui_FaShuJiacheng_FaShuGongJi,0, 1, 0.83f, new Person(1), 0.25f);
+	public static JiaChengZhanFa bugong = new JiaChengZhanFa("不攻",ZFType.ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi,0, 1, 0.83f, new Person(1), 0.25f);
 	// 刷新战法 深谋远虑
 	public static ShuaXinZhanFa shenmouyuanlv = new ShuaXinZhanFa("深谋远虑",ZFType.BeiDong_JiaCheng,0.09f);
 	//控制战法 浑水摸鱼

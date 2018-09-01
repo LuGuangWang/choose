@@ -8,7 +8,7 @@ public enum ZFType {
 	ZhuDong_KongZhi_ALL,//控制攻击与法术,本身不造成伤害
 	
 	ZhiHui_KongZhiGongJi_FaShuShangHai,//指挥类 先控制攻击 然后法术伤害
-	ZhiHui_FaShuJiacheng_FaShuGongJi,//指挥类 法术加成 法术攻击
+	ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi,//指挥类 法术加成 法术攻击 本身不造成攻击伤害
 	
 	
 	

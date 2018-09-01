@@ -29,6 +29,9 @@ public class ZhanFa implements Harm, Cloneable {
 	private int attack = 1;// 攻击
 	private int strategy = 1;// 谋略
 	private int position = 1;//武将位置武将位置  大营3 中军2 前锋1
+	
+	/** ------额外加成属性---- **/
+	private float upStrategy = 0.0f;//提高策略伤害
 
 	/**
 	 * @param doneRate
@@ -50,59 +53,51 @@ public class ZhanFa implements Harm, Cloneable {
 	public String getName() {
 		return name;
 	}
-
 	public ZFType getT() {
 		return t;
 	}
-
 	public int getReady() {
 		return ready;
 	}
-
 	public float getDoneRate() {
 		return doneRate;
 	}
-
 	public float getHarmRate() {
 		return harmRate;
 	}
-
 	public Person getPersons() {
 		return persons;
 	}
-
 	public void setPersons(Person persons) {
 		this.persons = persons;
 	}
-
+	public float getUpStrategy() {
+		return upStrategy;
+	}
+	public void setUpStrategy(float upStrategy) {
+		this.upStrategy = upStrategy;
+	}
 	public int getSpeed() {
 		return speed;
 	}
-
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-
 	public int getDefense() {
 		return defense;
 	}
-
 	public void setDefense(int defense) {
 		this.defense = defense;
 	}
-
 	public int getAttack() {
 		return attack;
 	}
-
 	public void setAttack(int attack) {
 		this.attack = attack;
 	}
-
 	public int getStrategy() {
 		return strategy;
 	}
-
 	public void setStrategy(int strategy) {
 		this.strategy = strategy;
 	}
@@ -140,6 +135,7 @@ public class ZhanFa implements Harm, Cloneable {
 		}
 		return sum;
 	}
+	
 	/**
 	 * 不同属性的攻击
 	 * @param val
