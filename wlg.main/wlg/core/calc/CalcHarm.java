@@ -3,6 +3,7 @@ package wlg.core.calc;
 import java.util.HashMap;
 import java.util.Map;
 
+import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
@@ -111,8 +112,9 @@ public class CalcHarm {
 				}else {
 					shuaxinRate += z.getHarmRate();
 				}
+				Conf.log("=======战法："+z.getName()+"刷新后伤害值："+shuaxinRate);
 				float harmval = rate * z.getHarmVal(shuaxinRate) * huihe.getSolderRate(z.getPosition());
-				Conf.log("===战法 " + z.getName() + " 杀伤力：" + harmval);
+				Conf.log("===战法 " + z.getName() + " 杀伤力：" + harmval + " 伤害值：" + z.getHarmRate()  + " 额外伤害值：" + z.getExHarmRate());
 				sum += harmval;
 			} else {
 				float rate = CalcDoRate.getCommRate(huihe, z);
@@ -146,19 +148,23 @@ public class CalcHarm {
 		if(zhanfa.length>1) {
 			for(int i=0;i<zhanfa.length;i++) {
 				T b = zhanfa[i];
-				if(huihe.isHasZengYi()) {
+				if(CheckUtil.isZengYi(b)) {
 					for(int j=0;j<zhanfa.length;j++) {
+						float exharmVal = 0.0f;
+						ZhanFa zf = zhanfa[j];
 						if(j!= i) {
-							float rate = CalcDoRate.getCommRate(huihe, zhanfa[j]);
-							if(zhanfa[j].getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
-								KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zhanfa[j];
+							float rate = CalcDoRate.getCommRate(huihe, zf);
+							if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
+								KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
 								if(tmp.getKeephuihe()+1 == huihe.getId()) {
-									sum += rate * b.getExVal(tmp) * huihe.getSolderRate(b.getPosition());
+									exharmVal = rate * b.getExVal(tmp) * huihe.getSolderRate(b.getPosition());
 								}
 							}else {
-								sum += rate * b.getExVal(zhanfa[j]) * huihe.getSolderRate(b.getPosition());
+								exharmVal = rate * b.getExVal(zf) * huihe.getSolderRate(b.getPosition());
 							}
+							Conf.log("======战法"+zf.getName() + "触发战法" + b.getName() +"造成额外杀伤力" + exharmVal +"战法" + b.getName() + "额外伤害值："+b.getExHarmRate());
 						}
+						sum += exharmVal;
 					}
 				}
 			}

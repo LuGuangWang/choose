@@ -57,6 +57,7 @@ public class HuiHe implements Cloneable{
 	}
 	public void setWujiangCount(int wujiangCount) {
 		this.wujiangCount = wujiangCount;
+		Conf.log("=====本回合参与战斗武将数："+this.wujiangCount);
 	}
 	public float getShuaxinRate() {
 		return shuaxinRate;

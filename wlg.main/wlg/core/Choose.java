@@ -33,8 +33,8 @@ public class Choose {
 	 */
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-//		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
+		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
 //		
 //		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
 //		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
@@ -50,10 +50,10 @@ public class Choose {
 //		
 //		WList.luxun.setSecondZhanFa(ZList.shengdongjixi).setThreeZhanFa(ZList.bugong);
 //		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
-		
-		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.bugong);
-		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
-		
+//		
+//		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.bugong);
+//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		
 //		WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.bugong);
 //		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
 //		

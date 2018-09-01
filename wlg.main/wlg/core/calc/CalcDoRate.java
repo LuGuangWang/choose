@@ -1,6 +1,7 @@
 package wlg.core.calc;
 
 import wlg.core.bean.HuiHe;
+import wlg.core.bean.conf.Conf;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
@@ -25,6 +26,7 @@ public class CalcDoRate {
 	 */
 	public static float getJiaChengRate(ZhanFa zf) {
 		float rate = zf.getDoneRate();
+		Conf.log("====战法"+zf.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
 	/**
@@ -70,6 +72,7 @@ public class CalcDoRate {
 				rate = 0;
 			}
 		}
+		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
 	/**
@@ -95,6 +98,7 @@ public class CalcDoRate {
 				rate = 1 - t.getDoneRate();
 			}
 		}
+		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
 	/**
@@ -140,7 +144,7 @@ public class CalcDoRate {
 				rate = 0;
 			}
 		}
-		
+		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
 }

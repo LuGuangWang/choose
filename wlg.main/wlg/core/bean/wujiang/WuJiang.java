@@ -50,6 +50,7 @@ public class WuJiang {
 		zhanfaMap.forEach((k,v)->{
 			v.setSpeed(order);
 		});
+		Conf.log("武将：" + name + " 行动顺序：" + order + " 速度："+ speed);
 	}
 	public String getName() {
 		return name;
@@ -76,8 +77,8 @@ public class WuJiang {
 		});
 		float jiachengVal = CalcJiaCheng.getJiaChengVal(fashujiacheng);
 		zhanfaMap.forEach((k,v)->{
-			if(!fashujiacheng.contains(v)) {
-				Conf.log("==== 战法 "+v.getName() + " 初始伤害值：" + v.getFinalHarmVal()  + " 初始额外伤害值：" + v.getFinalExHarmVal() + " 增加伤害" + jiachengVal);
+			if(!fashujiacheng.contains(v) && CheckUtil.isStrategy(v)) {
+				Conf.log("==== 战法 "+v.getName() + " 初始伤害值：" + v.getFinalHarmVal()  + " 初始额外伤害值：" + v.getFinalExHarmVal());
 				if(v.getFinalExHarmVal()>0)
 					v.setExHarmRate(v.getFinalExHarmVal()+jiachengVal);
 				if(v.getFinalHarmVal()>0)

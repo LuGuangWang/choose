@@ -36,10 +36,10 @@ public class CalcWJHarm {
 				break;
 			}
 			huihe.setId(i);
+			Conf.log("===============第"+ huihe.getId()+"回合=============");
+			
 			huihe.setWujiangCount(wujiang.size());
 			boolean isCalc = true;
-			
-			Conf.log("===============第"+ huihe.getId()+"回合=============");
 			
 			for(int j=0;j<wujiang.size();j++) {
 				WuJiang wj = wujiang.get(j);
@@ -103,10 +103,11 @@ public class CalcWJHarm {
 		for(ZhanFa zf:zfs) {
 			//武将位置
 			zf.setPosition(wj.getPosition());
-			huihe.setHasZengYi(CheckUtil.isZengYi(zf));
-			huihe.setHasKongZhi(CheckUtil.isKongZhi(zf));
-			huihe.setHasBuGong(CheckUtil.isBuGongJi(zf));
-			huihe.setHasJiaCheng(CheckUtil.isJiaCheng(zf));
+			
+			if(CheckUtil.isZengYi(zf)) huihe.setHasZengYi(true);
+			if(CheckUtil.isKongZhi(zf)) huihe.setHasKongZhi(true);
+			if(CheckUtil.isBuGongJi(zf)) huihe.setHasBuGong(true);
+			if(CheckUtil.isJiaCheng(zf)) huihe.setHasJiaCheng(true);
 			
 			if(zf instanceof ShuaXinZhanFa) {
 				huihe.setShuaxinRate(((ShuaXinZhanFa) zf).getBaseRate());

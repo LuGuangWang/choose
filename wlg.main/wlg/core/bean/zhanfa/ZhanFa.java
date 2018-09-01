@@ -164,12 +164,12 @@ public class ZhanFa implements Harm, Cloneable {
 	}
 	/**
 	 * 指定伤害率的伤害值
-	 * @param harmRate
+	 * @param harmVal
 	 * @return
 	 */
-	public float getHarmVal(float harmRate) {
+	public float getHarmVal(float harmVal) {
 		float sum = 0.0f;
-		float pval = this.doneRate * harmRate;
+		float pval = this.doneRate * harmVal;
 		pval = addShuXingVal(pval);
 		if (persons.getPersons().length > 0) {
 			int len = getPersons().getPersons().length;
@@ -178,6 +178,7 @@ public class ZhanFa implements Harm, Cloneable {
 				sum += pval * rate * i;
 			}
 		}
+		Conf.log("========战法"+name+"杀伤力："+ sum + "原始伤害值:"+ finalHarmVal + "伤害值:"+harmVal);
 		return sum;
 	}
 	
