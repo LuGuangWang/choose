@@ -28,21 +28,21 @@ public class HuiHe implements Cloneable{
 	//封闭普攻
 	private float fengGongji = 2;
 	//封战法 也封攻击
-	public HuiHe getAllFeng(float jsRate) {
+	public HuiHe getAllFeng(float jsRate,int person) {
 		HuiHe huihe = this.clone();
-		huihe.fengAll = jsRate;
+		huihe.fengAll = jsRate * person;
 		return huihe;
 	}
 	//封攻击
-	public HuiHe getFengGongji(float jsRate) {
+	public HuiHe getFengGongji(float jsRate,int person) {
 		HuiHe huihe = this.clone();
-		huihe.fengGongji = jsRate;
+		huihe.fengGongji = jsRate * person;
 		return huihe;
 	}
 	//封攻击
-	public HuiHe getFengZhanfa(float jsRate) {
+	public HuiHe getFengZhanfa(float jsRate,int person) {
 		HuiHe huihe = this.clone();
-		huihe.fengZhanfa = jsRate;
+		huihe.fengZhanfa = jsRate * person;
 		return huihe;
 	}
 	
@@ -94,21 +94,23 @@ public class HuiHe implements Cloneable{
 	 */
 	public float getSolderRate(int position,float defenseVal) {
 		float sunShi = position * Conf.SunShiCount;
+		float kzss = 0.0f;
 		if(fengAll<=1) {
-			sunShi -= Conf.SunShiCount * fengAll;
-			Conf.log("===全控制减伤值：" + fengAll);
+			kzss = Conf.SunShiCount * fengAll;
+			Conf.log("===全控制减伤值：" + fengAll + " 避免士兵损失值：" + kzss);
 		}else if(fengZhanfa <= 1) {
-			sunShi -= Conf.SunShiCount * fengZhanfa * 0.5f;
-			Conf.log("===控制法术减伤值：" + fengZhanfa);
+			kzss = Conf.SunShiCount * fengZhanfa * Conf.dk_rate;
+			Conf.log("===控制法术减伤值：" + fengZhanfa +" 避免士兵损失值：" + kzss);
 		}else if(fengGongji <= 1) {
-			sunShi -= Conf.SunShiCount * fengGongji * 0.5f;
-			Conf.log("===控制攻击减伤值：" + fengGongji);
+			kzss = Conf.SunShiCount * fengGongji * Conf.dk_rate;
+			Conf.log("===控制攻击减伤值：" + fengGongji + " 避免士兵损失值：" + kzss);
 		}
+		sunShi -= kzss;
 		//防御是防御攻击造成的伤害
 		float fangyuVal = Conf.SunShiCount * 0.5f * Conf.fg_rate * defenseVal;
 		sunShi -= fangyuVal;
 		boolean isDied = (sunShi * id< Conf.totalCount)?false:true;
-		Conf.log("======本回合防御力："+fangyuVal + " 士兵损失值：" + sunShi);
+		Conf.log("======本回合防御力："+fangyuVal + " 避免士兵损失值：" + sunShi);
 		return isDied?0:1;
 	}
 	public void setId(int id) {

@@ -5,6 +5,8 @@ public abstract class Conf {
 	public static final float s_rate = 2.1f;
 	//防御攻击倍数 
 	public static final float fg_rate = 0.015f;
+	//单控损失基数
+	public static final float dk_rate = 0.8f;
 	//部队武将数
 	public static final int WuJiang_Count = 3;
 	//不计算武将普通攻击

@@ -72,7 +72,7 @@ public class CalcDoRate {
 				rate = 0;
 			}
 		}
-		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
+		Conf.log("======第"+huihe.getId()+"回合受刷新影响，战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
 	/**
@@ -106,7 +106,7 @@ public class CalcDoRate {
 				rate = 1;
 			}
 		}
-		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
+		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动控制的概率:"+rate);
 		return rate;
 	}
 	/**

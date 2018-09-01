@@ -31,6 +31,7 @@ public class CalcWJHarm {
 		List<WuJiang> globalwujiang = new ArrayList<>(Arrays.asList(wjs));
 		
 		for(int i=1;i<9;i++) {
+			float huiheVal = 0.0f;
 			List<WuJiang> wujiang = globalwujiang;
 			if(wujiang.size()==0) {
 				break;
@@ -60,11 +61,11 @@ public class CalcWJHarm {
 						for(int m=j;m<wujiang.size();m++) {
 							zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
 						}
-						sum += CalcHarm.calcKongZhiHuiHe(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
+						huiheVal += CalcHarm.calcKongZhiHuiHe(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 						isCalc = false;
 					}
 				} else {
-					sum += CalcHarm.calcCommHuiHe(huihe, wj.getZhanfa());
+					huiheVal += CalcHarm.calcCommHuiHe(huihe, wj.getZhanfa());
 				}
 				//增益伤害
 				if(huihe.isHasZengYi()) {
@@ -72,11 +73,11 @@ public class CalcWJHarm {
 					for(int m=j;m<wujiang.size();m++) {
 						zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
 					}
-					sum += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
+					huiheVal += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 				}
 				// 普通攻击伤害
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
-					sum += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate(wj.getPosition(),wj.getDefense());
+					huiheVal += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate(wj.getPosition(),wj.getDefense());
 				}
 				//有武将损失
 				if(huihe.getSolderRate(wj.getPosition(),wj.getDefense())<=0) {
@@ -88,6 +89,9 @@ public class CalcWJHarm {
 					}
 				}
 			}
+			
+			sum += huiheVal;
+			Conf.log("===========第"+huihe.getId()+"回合最终杀伤力："+huiheVal);
 		}
 		return sum;
 	}
