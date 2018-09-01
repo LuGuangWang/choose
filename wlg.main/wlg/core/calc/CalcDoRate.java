@@ -98,6 +98,14 @@ public class CalcDoRate {
 				rate = 1 - t.getDoneRate();
 			}
 		}
+		//发动后下一回合生效
+		if(zhanfa.getT().equals(ZFType.ZhuDong_FaShu_JianShang)) {
+			rate = 0;
+			int ready = zhanfa.getReady() + 1;
+			if(huihe.getId() > ready) {
+				rate = 1;
+			}
+		}
 		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}

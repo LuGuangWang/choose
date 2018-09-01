@@ -86,17 +86,29 @@ public class HuiHe implements Cloneable{
 	public int getId() {
 		return id;
 	}
-	public float getSolderRate(int position) {
+	/**
+	 * 自身士兵损失
+	 * @param position 武将位置
+	 * @param defenseVal 防御属性值
+	 * @return
+	 */
+	public float getSolderRate(int position,float defenseVal) {
 		float sunShi = position * Conf.SunShiCount;
 		if(fengAll<=1) {
 			sunShi -= Conf.SunShiCount * fengAll;
+			Conf.log("===全控制减伤值：" + fengAll);
 		}else if(fengZhanfa <= 1) {
 			sunShi -= Conf.SunShiCount * fengZhanfa * 0.5f;
+			Conf.log("===控制法术减伤值：" + fengZhanfa);
 		}else if(fengGongji <= 1) {
 			sunShi -= Conf.SunShiCount * fengGongji * 0.5f;
+			Conf.log("===控制攻击减伤值：" + fengGongji);
 		}
+		//防御是防御攻击造成的伤害
+		float fangyuVal = Conf.SunShiCount * 0.5f * Conf.fg_rate * defenseVal;
+		sunShi -= fangyuVal;
 		boolean isDied = (sunShi * id< Conf.totalCount)?false:true;
-		
+		Conf.log("======本回合防御力："+fangyuVal + " 士兵损失值：" + sunShi);
 		return isDied?0:1;
 	}
 	public void setId(int id) {

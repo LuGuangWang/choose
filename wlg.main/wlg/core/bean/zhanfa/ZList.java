@@ -17,7 +17,7 @@ public abstract class ZList {
 	
 	/*****    -------------   拆解战法     begin -------------   *****/
 	// 战法 十面埋伏
-	public static ZhanFa shimianmaifu = new ZhanFa("十面埋伏",ZFType.ZhuDong_FaShu_JianShang,1, 0.4f, 1.3f, new Person(3));
+	public static JianShangZhanFa shimianmaifu = new JianShangZhanFa("十面埋伏",ZFType.ZhuDong_FaShu_JianShang,1, 0.4f, 1.3f, new Person(3),0.0f,0.65f);
 	// 战法 声东击西
 	public static ZhanFa shengdongjixi = new ZhanFa("声东击西",ZFType.ZhuDong_FaShu,1, 0.5f, 2.31f, new Person(1, 2));
 	// 埋雷战法 楚歌四起 与速度相关

@@ -74,14 +74,14 @@ public class ZhanFa implements Harm, Cloneable {
 		this.finalExHarmVal = this.exHarmVal;
 	}
 
-	public float getExHarmRate() {
+	public float getExHarmVal() {
 		return exHarmVal;
 	}
 	public float getExRate() {
 		return exRate;
 	}
-	public void setExHarmRate(float exHarmRate) {
-		this.exHarmVal = exHarmRate;
+	public void setExHarmVal(float exHarmVal) {
+		this.exHarmVal = exHarmVal;
 	}
 	public void setExRate(float exRate) {
 		this.exRate = exRate;
@@ -198,7 +198,7 @@ public class ZhanFa implements Harm, Cloneable {
 				}
 			}
 		}
-		Conf.log("========战法"+name+"单次额外杀伤力："+ sum + "原始额外伤害值:"+ finalExHarmVal + "额外伤害值:"+exharmVal);
+		Conf.log("========战法"+name+" 单次额外杀伤力："+ sum + " 原始额外伤害值:"+ finalExHarmVal + " 当前额外伤害值:"+exharmVal);
 		return sum;
 	}
 	/**
@@ -217,7 +217,7 @@ public class ZhanFa implements Harm, Cloneable {
 				sum += pval * rate * i;
 			}
 		}
-		Conf.log("========战法"+name+"单次杀伤力："+ sum + "原始伤害值:"+ finalHarmVal + "伤害值:"+harmVal);
+		Conf.log("========战法"+name+" 单次杀伤力："+ sum + " 原始伤害值:"+ finalHarmVal + " 当前伤害值:"+harmVal);
 		return sum;
 	}
 	

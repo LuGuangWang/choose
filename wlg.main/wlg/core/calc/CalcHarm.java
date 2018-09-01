@@ -79,6 +79,20 @@ public class CalcHarm {
 					sum += unHurtVal;
 				}
 			}
+			if(zhanfa[i].getT().equals(ZFType.ZhuDong_FaShu_JianShang)){
+				ZhanFa b = zhanfa[i];
+				for(int p:b.getPersons().getPersons()) {
+					//不受伤害的概率
+					float rate = CalcDoRate.getKongZhiRate(huihe,b);
+					float unHurt = p/1.0f/huihe.getWujiangCount();
+					unHurt = unHurt>1 ? rate:rate*unHurt;
+					//控制主的概率
+					float kongzhiRate = unHurt * b.getDoneRate();
+					float unHurtVal = kongzhiRate * calcCommHuiHe(huihe.getFengGongji(kongzhiRate*b.getExHarmVal()),zhanfa);
+					kongzhiMap.put(b.getName(), kongzhiRate);
+					sum += unHurtVal;
+				}
+			}
 		}
 		//受伤的概率
 		float kongzhiRate = 0.0f;
@@ -86,6 +100,7 @@ public class CalcHarm {
 			kongzhiRate += t;
 		}
 		float hurt = 1 - kongzhiRate;
+		Conf.log("======本回合不受伤的概率：" + kongzhiRate + " 受伤的概率为："+hurt);
 		hurt = hurt>0 ? hurt:0;
 		float hurtVal = hurt *  calcCommHuiHe(huihe,zhanfa);
 		sum += hurtVal;
@@ -104,15 +119,15 @@ public class CalcHarm {
 			if(z.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
 				if(tmp.getKeephuihe()+1 == huihe.getId()) {
-					shuaxinRate += tmp.getExHarmRate();
+					shuaxinRate += tmp.getExHarmVal();
 				}else {
 					shuaxinRate += z.getHarmRate();
 				}
 			}else {
 				shuaxinRate += z.getHarmRate();
 			}
-			float harmval = rate * z.getHarmVal(shuaxinRate) * huihe.getSolderRate(z.getPosition());
-			Conf.log("===战法 " + z.getName() + " 最终杀伤力：" + harmval + " 伤害值：" + z.getHarmRate()  + " 额外伤害值：" + z.getExHarmRate());
+			float harmval = rate * z.getHarmVal(shuaxinRate) * huihe.getSolderRate(z.getPosition(),z.getDefense());
+			Conf.log("===战法 " + z.getName() + " 最终杀伤力：" + harmval + " 伤害值：" + z.getHarmRate()  + " 额外伤害值：" + z.getExHarmVal());
 			sum += harmval;
 		}
 		return sum;
@@ -132,7 +147,7 @@ public class CalcHarm {
 				T b = zhanfa[i];
 				if(CheckUtil.isZengYi(b)) {
 					float shuaxinRate = huihe.getShuaxinRate() * huihe.getId();
-					shuaxinRate += b.getExHarmRate();
+					shuaxinRate += b.getExHarmVal();
 					for(int j=0;j<zhanfa.length;j++) {
 						float exharmVal = 0.0f;
 						ZhanFa zf = zhanfa[j];
@@ -141,12 +156,12 @@ public class CalcHarm {
 							if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 								KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
 								if(tmp.getKeephuihe()+1 == huihe.getId()) {
-									exharmVal = rate * b.getExVal(tmp,shuaxinRate) * huihe.getSolderRate(b.getPosition());
+									exharmVal = rate * b.getExVal(tmp,shuaxinRate) * huihe.getSolderRate(b.getPosition(),b.getDefense());
 								}
 							}else {
-								exharmVal = rate * b.getExVal(zf,shuaxinRate) * huihe.getSolderRate(b.getPosition());
+								exharmVal = rate * b.getExVal(zf,shuaxinRate) * huihe.getSolderRate(b.getPosition(),b.getDefense());
 							}
-							Conf.log("======战法"+zf.getName() + "触发战法" + b.getName() +"造成最终额外杀伤力" + exharmVal +"战法" + b.getName() + "额外伤害值："+b.getExHarmRate());
+							Conf.log("======战法"+zf.getName() + " 触发战法" + b.getName() +" 造成最终额外杀伤力" + exharmVal +" 战法" + b.getName() + " 额外伤害值："+b.getExHarmVal());
 						}
 						sum += exharmVal;
 					}

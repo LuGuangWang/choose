@@ -80,10 +80,10 @@ public class WuJiang {
 			if(!fashujiacheng.contains(v) && CheckUtil.isStrategy(v)) {
 				Conf.log("==== 战法 "+v.getName() + " 初始伤害值：" + v.getFinalHarmVal()  + " 初始额外伤害值：" + v.getFinalExHarmVal());
 				if(v.getFinalExHarmVal()>0)
-					v.setExHarmRate(v.getFinalExHarmVal()+jiachengVal);
+					v.setExHarmVal(v.getFinalExHarmVal()+jiachengVal);
 				if(v.getFinalHarmVal()>0)
 					v.setHarmRate(v.getFinalHarmVal()+jiachengVal);
-				Conf.log("==== 战法 "+v.getName() + " 伤害值：" + v.getHarmRate()  + " 额外伤害值：" + v.getExHarmRate() + " 增加伤害" + jiachengVal);
+				Conf.log("==== 战法 "+v.getName() + " 伤害值：" + v.getHarmRate()  + " 额外伤害值：" + v.getExHarmVal() + " 增加伤害" + jiachengVal);
 			}
 		});
 	}

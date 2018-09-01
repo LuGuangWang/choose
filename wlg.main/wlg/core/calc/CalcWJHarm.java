@@ -76,10 +76,10 @@ public class CalcWJHarm {
 				}
 				// 普通攻击伤害
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
-					sum += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate(wj.getPosition());
+					sum += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate(wj.getPosition(),wj.getDefense());
 				}
 				//有武将损失
-				if(huihe.getSolderRate(wj.getPosition())<=0) {
+				if(huihe.getSolderRate(wj.getPosition(),wj.getDefense())<=0) {
 					Conf.log("=========第"+ huihe.getId() +"回合损失武将: " + wj.getName());
 					globalwujiang.remove(wj);
 					if(wj.getFinalp()==1) {

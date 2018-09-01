@@ -55,8 +55,7 @@ public class CheckUtil {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
 		case ZhuDong_KongZhi_ALL:
-			isKongZhi = true;
-			break;
+		case ZhuDong_FaShu_JianShang:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 			isKongZhi = true;
 			break;
@@ -75,16 +74,10 @@ public class CheckUtil {
 	public static boolean isStrategy(ZhanFa zf) {
 		boolean isStrategy = false;
 		switch (zf.getT()) {
-		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
-			isStrategy = true;
-			break;
 		case ZhuDong_FaShu:
-			isStrategy = true;
-			break;
-		case ZhiHui_KongZhiGongJi_FaShuShangHai:
-			isStrategy = true;
-			break;
 		case ZhuDong_FaShu_JianShang:
+		case ZhiHui_KongZhiGongJi_FaShuShangHai:
+		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
 			isStrategy = true;
 			break;
 		default:
@@ -102,13 +95,9 @@ public class CheckUtil {
 	public static boolean isZeroHarm(ZhanFa zf) {
 		boolean isZeroHarm = false;
 		switch (zf.getT()) {
-		case ZhuDong_KongZhi_ALL:
-			isZeroHarm = true;
-			break;
 		case ZhuDong_FuZhu:
-			isZeroHarm = true;
-			break;
 		case BeiDong_JiaCheng:
+		case ZhuDong_KongZhi_ALL:
 			isZeroHarm = true;
 			break;
 		default:
