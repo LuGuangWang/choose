@@ -1,10 +1,22 @@
 package wlg.core.bean.zhanfa;
 
+import wlg.core.CheckUtil;
+
 public class JiaChengZhanFa extends ZhanFa {
 	/**
 	 * 加成伤伤害率
 	 */
 	private float addRate;
+	/**
+	 * 持续几回合
+	 */
+	private int keephuihe;
+	
+	public JiaChengZhanFa(String name,ZFType t,int ready, float doneRate, float harmRate, Person persons,float addRate,int keephuihe) {
+		super(name,t,ready, doneRate, harmRate, persons);
+		this.addRate=addRate;
+		this.keephuihe=keephuihe;
+	}
 	
 	public JiaChengZhanFa(String name,ZFType t,int ready, float doneRate, float harmRate, Person persons,float addRate) {
 		super(name,t,ready, doneRate, harmRate, persons);
@@ -17,7 +29,12 @@ public class JiaChengZhanFa extends ZhanFa {
 	 */
 	public float getExVal(ZhanFa other) {
 		float sum = 0;
-		float val = (other.getHarmRate() + this.addRate)*other.getDoneRate();
+		boolean isZengYi = CheckUtil.isZengYi(other);
+		float val = this.addRate;
+		if(!isZengYi) {
+			val += other.getHarmRate();
+		}
+		val *= other.getDoneRate();
 		val = addShuXingVal(val);
 		
 		int[] ps = other.getPersons().getPersons();
@@ -30,4 +47,6 @@ public class JiaChengZhanFa extends ZhanFa {
 		}
 		return sum;
 	}
+
+	
 }

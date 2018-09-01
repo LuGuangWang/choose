@@ -1,5 +1,6 @@
 package wlg.core.bean.zhanfa;
 
+import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
 
 /**
@@ -145,18 +146,10 @@ public class ZhanFa implements Harm, Cloneable {
 	 * @return
 	 */
 	public float addShuXingVal(float val) {
-		switch (t) {
-		case ZhuDong_FaShu:
+		if(CheckUtil.isStrategy(this)) {
 			val *= strategy * Conf.s_rate;
-			break;
-		case ZhiHui_KongZhiGongJi_FaShuShangHai:
-			val *= strategy * Conf.s_rate;
-			break;
-		case KongZhi_ALL:
-			val = 0f;
-			break;
-		default:
-			break;
+		}else if(CheckUtil.isZeroHarm(this)) {
+			val = 0.0f;
 		}
 		return val;
 	}

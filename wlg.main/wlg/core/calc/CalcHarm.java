@@ -7,7 +7,6 @@ import wlg.core.bean.HuiHe;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
-import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 public class CalcHarm {
@@ -142,7 +141,7 @@ public class CalcHarm {
 		if(zhanfa.length>1) {
 			for(int i=0;i<zhanfa.length;i++) {
 				T b = zhanfa[i];
-				if(b instanceof ZengYiZhanFa) {
+				if(huihe.isHasZengYi()) {
 					for(int j=0;j<zhanfa.length;j++) {
 						if(j!= i) {
 							float rate = CalcDoRate.getCommRate(huihe, zhanfa[j]);

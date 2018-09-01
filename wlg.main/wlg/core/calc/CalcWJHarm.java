@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.wujiang.WuJiang;
-import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
-import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 /**
@@ -83,10 +82,8 @@ public class CalcWJHarm {
 		for(ZhanFa zf:zfs) {
 			//武将位置
 			zf.setPosition(wj.getPosition());
+			huihe.setHasZengYi(CheckUtil.isZengYi(zf));
 			
-			if(zf instanceof ZengYiZhanFa) {
-				huihe.setHasZengYi(true);
-			}
 			if(zf instanceof ShuaXinZhanFa) {
 				huihe.setShuaxinRate(((ShuaXinZhanFa) zf).getBaseRate());
 			}
@@ -95,7 +92,7 @@ public class CalcWJHarm {
 					|| zf.getT().equals(ZFType.ZhuDong_FaShuShangHai_KongZhiGongji)) {
 				huihe.setHasKongZhi(true);
 			}
-			if(zf instanceof JiaChengZhanFa) {
+			if(zf.getT().equals(ZFType.ZhiHui_FaShuJiacheng_FaShuGongJi)) {
 				huihe.setHasBuGong(true);
 			}
 		}

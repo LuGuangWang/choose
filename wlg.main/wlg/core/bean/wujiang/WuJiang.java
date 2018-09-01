@@ -76,6 +76,19 @@ public class WuJiang {
 		hasJianshang = t instanceof KongZhiZhanFa;
 		return this;
 	}
+	/**
+	 * 添加加成伤害
+	 * @param z
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends ZhanFa> WuJiang addJiaCheng(T z) {
+		T t = (T) z.clone();
+		addWuJiangProp(t);
+		zhanfaMap.put(3, t);
+		hasJianshang = t instanceof KongZhiZhanFa;
+		return this;
+	}
 
 	private <T extends ZhanFa> void addWuJiangProp(T z) {
 		z.setSpeed(speed);

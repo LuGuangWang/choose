@@ -17,16 +17,18 @@ public abstract class ZList {
 	
 	/*****    -------------   拆解战法     begin -------------   *****/
 	// 战法 十面埋伏
-	public static ZhanFa shimianmaifu = new ZhanFa("十面埋伏",ZFType.ZhuDong_FaShu,1, 0.4f, 1.3f, new Person(3));
+	public static ZhanFa shimianmaifu = new ZhanFa("十面埋伏",ZFType.ZhuDong_FaShu_JianShang,1, 0.4f, 1.3f, new Person(3));
 	// 战法 声东击西
 	public static ZhanFa shengdongjixi = new ZhanFa("声东击西",ZFType.ZhuDong_FaShu,1, 0.5f, 2.31f, new Person(1, 2));
 	// 埋雷战法 楚歌四起 与速度相关
 	public static MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa("楚歌四起",ZFType.ZhuDong_FaShu,1, 2, 0.5f, 1.27f, new Person(2, 3));
+	//神兵天降
+	public static JiaChengZhanFa shenbingtianjiang = new JiaChengZhanFa("神兵天降",ZFType.ZhuDong_FuZhu,0,1,0f,new Person(2),0.3f,3);
 	// 加成战法 不攻
-	public static JiaChengZhanFa bugong = new JiaChengZhanFa("不攻",ZFType.ZhuDong_FaShu,0, 1, 0.83f, new Person(1), 0.25f);
+	public static JiaChengZhanFa bugong = new JiaChengZhanFa("不攻",ZFType.ZhiHui_FaShuJiacheng_FaShuGongJi,0, 1, 0.83f, new Person(1), 0.25f);
 	// 刷新战法 深谋远虑
-	public static ShuaXinZhanFa shenmouyuanlv = new ShuaXinZhanFa("深谋远虑",ZFType.ZhuDong_FaShu,0.09f);
+	public static ShuaXinZhanFa shenmouyuanlv = new ShuaXinZhanFa("深谋远虑",ZFType.BeiDong_JiaCheng,0.09f);
 	//控制战法 浑水摸鱼
-	public static KongZhiZhanFa hunshuimoyv = new KongZhiZhanFa("浑水摸鱼", ZFType.KongZhi_ALL,1, 2, 0.35f, new Person(2));
+	public static KongZhiZhanFa hunshuimoyv = new KongZhiZhanFa("浑水摸鱼", ZFType.ZhuDong_KongZhi_ALL,1, 2, 0.35f, new Person(2));
 	/*****    -------------   拆解战法     end -------------   *****/
 }

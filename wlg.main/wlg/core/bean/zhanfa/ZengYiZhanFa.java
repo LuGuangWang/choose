@@ -28,40 +28,15 @@ public class ZengYiZhanFa extends ZhanFa{
 	public float getExRate() {
 		return exRate;
 	}
+
+
 	/**
-	 * 是否由其它战法触发
-	 * @return
-	 */
-	public boolean isByOther() {
-		return exHarmRate!=0 && exRate==0;
-	}
-	/**
-	 * 当前战法的伤害
-	 * @return
-	 */
-	public float getHarmVal() {
-		float sum = super.getHarmVal();
-		//增益伤害
-		if(!isByOther()) {
-			float exVal = this.exHarmRate*this.exRate;
-			exVal = addShuXingVal(exVal);
-			if(getPersons().getPersons().length>0) {
-				int len = getPersons().getPersons().length;
-				float rate = 1.0f/len;
-				for(int i : getPersons().getPersons()) {
-					sum += exVal* rate * i;
-				}
-			}
-		}
-		return sum;
-	}
-	/**
-	 * 当前战法增益伤害
+	 * 当前战法增益伤害,需其他战法造成伤害
 	 * @return
 	 */
 	public float getExVal(ZhanFa other) {
 		float sum = 0;
-		if(isByOther()) {
+		if(other.getHarmRate()>0) {
 			float val = this.exHarmRate*this.getDoneRate()*other.getDoneRate();
 			val = addShuXingVal(val);
 			int[] persons = other.getPersons().getPersons();
