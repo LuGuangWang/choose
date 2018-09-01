@@ -28,7 +28,6 @@ public class Choose {
 	}
 	
 	/**
-	 * TODO 添加下一回合逻辑  减伤 回血 普通攻击的伤害
 	 * 计算单个武将
 	 * @return
 	 */

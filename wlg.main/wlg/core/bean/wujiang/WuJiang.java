@@ -1,10 +1,15 @@
 package wlg.core.bean.wujiang;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.zhanfa.ZhanFa;
+import wlg.core.calc.CalcDoRate;
+import wlg.core.calc.CalcJiaCheng;
 
 public class WuJiang {
 	private String name;
@@ -54,6 +59,24 @@ public class WuJiang {
 	public int getStrategy() {
 		return strategy;
 	}
+	
+	public void addJiaCheng() {
+		List<ZhanFa> fashujiacheng = new ArrayList<>();
+		zhanfaMap.forEach((k,v)->{
+			if(CheckUtil.isFaShuJiaCheng(v)) {
+				fashujiacheng.add(v);
+			}
+		});
+		float jiachengVal = CalcJiaCheng.getJiaChengVal(fashujiacheng);
+		zhanfaMap.forEach((k,v)->{
+			if(!fashujiacheng.contains(v)) {
+				Conf.log("==== 战法 "+v.getName() + " 增加伤害" + jiachengVal);
+				v.setExHarmRate(v.getExHarmRate()+jiachengVal);
+				v.setHarmRate(v.getHarmRate()+jiachengVal);
+			}
+		});
+	}
+	
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang setSecondZhanFa(T z) {
 		T t = (T) z.clone();

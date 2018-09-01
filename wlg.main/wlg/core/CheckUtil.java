@@ -9,12 +9,18 @@ import wlg.core.bean.zhanfa.ZhanFa;
  *
  */
 public class CheckUtil {
+	
+	public static boolean isJiaCheng(ZhanFa zf) {
+		boolean isJiaCheng = isFaShuJiaCheng(zf);
+		return isJiaCheng;
+	}
+	
 	/**
-	 * 是否是加成战法
+	 * 是否是法术加成战法
 	 * @param zf
 	 * @return
 	 */
-	public static boolean isJiaCheng(ZhanFa zf) {
+	public static boolean isFaShuJiaCheng(ZhanFa zf) {
 		boolean isJiaCheng = false;
 		switch (zf.getT()) {
 		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:

@@ -19,11 +19,13 @@ public class CalcDoRate {
 		return 1.0f;
 	}
 	/**
+	 * TODO 同类型的加成战法不叠加
 	 * 加成战法发动成功的概率
 	 * @return
 	 */
-	public static float getJiaChengRate() {
-		return 1.0f;
+	public static float getJiaChengRate(ZhanFa zf) {
+		float rate = zf.getDoneRate();
+		return rate;
 	}
 	/**
 	 * 有刷新战法,发动战法成功概率
@@ -49,8 +51,6 @@ public class CalcDoRate {
 			}else if(huihe.getId()> ready) {
 				rate = 1;
 			}
-			//持续回合
-			rate = rate * mz.getKeep();
 		}
 		//控制
 		if(zhanfa instanceof KongZhiZhanFa) {
@@ -120,8 +120,6 @@ public class CalcDoRate {
 			}else if(huihe.getId()> ready) {
 				rate = 1 - zhanfa.getDoneRate();
 			}
-			//持续回合
-			rate = rate * mz.getKeep();
 		}
 		//减伤
 		if(zhanfa instanceof KongZhiZhanFa) {

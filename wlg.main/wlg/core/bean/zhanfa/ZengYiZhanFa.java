@@ -5,10 +5,6 @@ package wlg.core.bean.zhanfa;
  *
  */
 public class ZengYiZhanFa extends ZhanFa{
-	//增益伤害率
-	private float exHarmRate= 0;
-	//增益发动概率
-	private float exRate = 0;
 	/**
 	 * @param doneRate	发动概率
 	 * @param harmRate	伤害率
@@ -17,19 +13,9 @@ public class ZengYiZhanFa extends ZhanFa{
 	 * @param exHarmRate  增益伤害率
 	 */
 	public ZengYiZhanFa(String name,ZFType t,int ready, float doneRate,float harmRate,Person persons,float exRate,float exHarmRate) {
-		super(name,t,ready,doneRate,harmRate,persons);
-		this.exHarmRate=exHarmRate;
-		this.exRate = exRate;
+		super(name,t,ready,doneRate,harmRate,persons,exRate,exHarmRate);
 	}
 	
-	public float getExHarmRate() {
-		return exHarmRate;
-	}
-	public float getExRate() {
-		return exRate;
-	}
-
-
 	/**
 	 * 当前战法增益伤害,需其他战法造成伤害
 	 * @return
@@ -37,7 +23,7 @@ public class ZengYiZhanFa extends ZhanFa{
 	public float getExVal(ZhanFa other) {
 		float sum = 0;
 		if(other.getHarmRate()>0) {
-			float val = this.exHarmRate*this.getDoneRate()*other.getDoneRate();
+			float val = this.getExHarmRate()*this.getDoneRate()*other.getDoneRate();
 			val = addShuXingVal(val);
 			int[] persons = other.getPersons().getPersons();
 			

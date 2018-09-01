@@ -19,7 +19,7 @@ public class HuiHe implements Cloneable{
 	
 	//本回合刷新战法伤害率
 	private float shuaxinRate = 0.0f;
-	//武将数  TODO 武将数的变更
+	//武将数 
 	private int wujiangCount = 3;
 	//全封闭
 	private float fengAll = 2;

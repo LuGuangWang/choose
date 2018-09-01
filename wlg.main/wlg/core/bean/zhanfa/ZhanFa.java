@@ -13,9 +13,13 @@ public class ZhanFa implements Harm, Cloneable {
 	// 战法名称
 	private String name;
 	// 发动概率
-	private float doneRate = 0;
+	private float doneRate = 0.0f;
 	// 伤害率
-	private float harmRate = 0;
+	private float harmRate = 0.0f;
+	//增益伤害率
+	private float exHarmRate= 0.0f;
+	//增益发动概率
+	private float exRate = 0.0f;
 	// 打击队伍数
 	private Person persons = new Person(1);
 	// 战法准备回合数
@@ -49,7 +53,30 @@ public class ZhanFa implements Harm, Cloneable {
 		this.harmRate = harmRate;
 		this.persons = persons;
 	}
+	
+	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmRate, Person persons,float exRate,float exHarmRate) {
+		this.t = t;
+		this.name = name;
+		this.ready = ready;
+		this.doneRate = doneRate;
+		this.harmRate = harmRate;
+		this.persons = persons;
+		this.exRate = exRate;
+		this.exHarmRate=exHarmRate;
+	}
 
+	public float getExHarmRate() {
+		return exHarmRate;
+	}
+	public float getExRate() {
+		return exRate;
+	}
+	public void setExHarmRate(float exHarmRate) {
+		this.exHarmRate = exHarmRate;
+	}
+	public void setExRate(float exRate) {
+		this.exRate = exRate;
+	}
 	public String getName() {
 		return name;
 	}
@@ -64,6 +91,9 @@ public class ZhanFa implements Harm, Cloneable {
 	}
 	public float getHarmRate() {
 		return harmRate;
+	}
+	public void setHarmRate(float harmRate) {
+		this.harmRate = harmRate;
 	}
 	public Person getPersons() {
 		return persons;

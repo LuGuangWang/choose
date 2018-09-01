@@ -20,5 +20,12 @@ public class JiaChengZhanFa extends ZhanFa {
 		super(name,t,ready, doneRate, harmRate, persons);
 		this.addRate=addRate;
 	}
+
+	public float getAddRate() {
+		return addRate;
+	}
+	public int getKeephuihe() {
+		return keephuihe;
+	}
 	
 }

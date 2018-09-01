@@ -41,13 +41,12 @@ public class CalcWJHarm {
 				WuJiang wj = wujiang.get(j);
 				//武将行动的顺序
 				wj.changeOrder(wujiang.size()-1-j);
-
+				//补充额外属性
 				buildExProp(huihe, wj);
 				//加成战法
 				if(huihe.isHasJiaCheng()) {
-					
+					wj.addJiaCheng();
 				}
-				
 				//主伤害
 				if(huihe.isHasKongZhi()) {
 					if(isCalc) {
@@ -73,7 +72,7 @@ public class CalcWJHarm {
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
 					sum += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate(wj.getPosition());
 				}
-				//有武将死掉
+				//有武将损失
 				if(huihe.getSolderRate(wj.getPosition())<=0) {
 					Conf.log("=========第"+ huihe.getId() +"回合损失武将: " + wj.getName());
 					globalwujiang.remove(wj);
