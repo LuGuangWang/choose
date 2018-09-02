@@ -1,5 +1,6 @@
 package wlg.core;
 
+import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
@@ -75,6 +76,7 @@ public class CheckUtil {
 		boolean isStrategy = false;
 		switch (zf.getT()) {
 		case ZhuDong_FaShu:
+		case ZhiHui_FuZhu_ALL:
 		case ZhuDong_FaShu_JianShang:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
@@ -96,7 +98,6 @@ public class CheckUtil {
 	public static boolean isZeroHarm(ZhanFa zf) {
 		boolean isZeroHarm = false;
 		switch (zf.getT()) {
-		case ZhuDong_FuZhu:
 		case BeiDong_JiaCheng:
 		case ZhuDong_KongZhi_ALL:
 			isZeroHarm = true;
@@ -109,12 +110,24 @@ public class CheckUtil {
 	}
 	
 	/**
-	 * 是否由其他战法触发伤害
+	 * 是否由其他战法触发额外伤害
 	 * @param zf
 	 * @return
 	 */
 	public static boolean isZengYi(ZhanFa zf) {
 		boolean isZengYi = (zf instanceof ZengYiZhanFa);
+		
+		return isZengYi;
+	}
+	
+	/**
+	 * 是否是加伤战法
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isJiaShang(ZhanFa zf) {
+		boolean isZengYi = (zf instanceof JiaShangZhanFa);
+		
 		return isZengYi;
 	}
 }

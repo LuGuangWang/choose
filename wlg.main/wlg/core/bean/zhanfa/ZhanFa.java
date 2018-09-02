@@ -44,28 +44,28 @@ public class ZhanFa implements Harm, Cloneable {
 	/**
 	 * @param doneRate
 	 *            发动概率
-	 * @param harmRate
+	 * @param harmVal
 	 *            伤害率
 	 * @param persons
 	 *            打击队伍数
 	 */
-	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmRate, Person persons) {
+	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal, Person persons) {
 		this.t = t;
 		this.name = name;
 		this.ready = ready;
 		this.doneRate = doneRate;
-		this.harmVal = harmRate;
+		this.harmVal = harmVal;
 		this.persons = persons;
 		
 		this.finalHarmVal = this.harmVal;
 	}
 	
-	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmRate, Person persons,float exRate,float exHarmRate) {
+	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal, Person persons,float exRate,float exHarmRate) {
 		this.t = t;
 		this.name = name;
 		this.ready = ready;
 		this.doneRate = doneRate;
-		this.harmVal = harmRate;
+		this.harmVal = harmVal;
 		this.persons = persons;
 		this.exRate = exRate;
 		this.exHarmVal=exHarmRate;
@@ -162,6 +162,7 @@ public class ZhanFa implements Harm, Cloneable {
 	public float getHarmVal() {
 		return getHarmVal(this.harmVal);
 	}
+	
 	/**
 	 * 指定额外伤害值
 	 * @param other

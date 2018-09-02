@@ -1,11 +1,14 @@
 package wlg.core.calc;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
+import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
@@ -106,25 +109,50 @@ public class CalcHarm {
 	@SuppressWarnings("unchecked")
 	public static <T extends ZhanFa> float calcCommHuiHe(HuiHe huihe, T... zhanfa) {
 		float sum = 0;
+		List<JiaShangZhanFa> jss = new ArrayList<>();
+		int executeJss = 0;
 		//主要伤害
 		for(int i=0;i<zhanfa.length;i++) {
 			T z = zhanfa[i];
-			float rate = huihe.getShuaxinRate()>0?CalcDoRate.getShuaXinRate(huihe, z):CalcDoRate.getCommRate(huihe, z);
-			float shuaxinRate = huihe.getShuaxinRate() * huihe.getId();
+			float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, z):CalcDoRate.getCommRate(huihe, z);
+			float shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
 			if(z.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
 				if(tmp.getKeephuihe()+1 == huihe.getId()) {
-					shuaxinRate += tmp.getExHarmVal();
+					shuaxinVal += tmp.getExHarmVal();
 				}else {
-					shuaxinRate += z.getHarmRate();
+					shuaxinVal += z.getHarmRate();
+				}
+			}else if(CheckUtil.isJiaShang(z)){
+				JiaShangZhanFa tmp = (JiaShangZhanFa)z;
+				if(huihe.getId()<=tmp.getKeephuihe()) {
+					jss.add(tmp);
+					continue;
+				} else {//	方便查看日志
+					rate = 0.0f;
+					shuaxinVal += z.getHarmRate();
 				}
 			}else {
-				shuaxinRate += z.getHarmRate();
+				shuaxinVal += z.getHarmRate();
 			}
-			float harmval = rate * z.getHarmVal(shuaxinRate) * huihe.getSolderRate(z.getPosition(),z.getDefense());
+			float harmval = rate * z.getHarmVal(shuaxinVal) * huihe.getSolderRate(z.getPosition(),z.getDefense());
+			//有伤害 才能触发加伤战法
+			if(harmval>0) {
+				executeJss++;
+			}
 			Conf.log("===战法 " + z.getName() + " 最终杀伤力：" + harmval);
 			sum += harmval;
 		}
+		
+		//计算加伤战法
+		if(jss.size()>0) {
+			for(JiaShangZhanFa zf:jss) {
+				float harmval = executeJss * zf.getHarmVal() * huihe.getSolderRate(zf.getPosition(),zf.getDefense());
+				Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
+				sum += harmval;
+			}
+		}
+		
 		return sum;
 	}
 
@@ -141,7 +169,7 @@ public class CalcHarm {
 			for(int i=0;i<zhanfa.length;i++) {
 				T b = zhanfa[i];
 				if(CheckUtil.isZengYi(b)) {
-					float shuaxinRate = huihe.getShuaxinRate() * huihe.getId();
+					float shuaxinRate = huihe.getShuaxinVal() * huihe.getId();
 					shuaxinRate += b.getExHarmVal();
 					for(int j=0;j<zhanfa.length;j++) {
 						float exharmVal = 0.0f;

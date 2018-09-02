@@ -17,8 +17,8 @@ public class HuiHe implements Cloneable{
 	private boolean hasBuGong = false;
 	private boolean hasJiaCheng = false;
 	
-	//本回合刷新战法伤害率
-	private float shuaxinRate = 0.0f;
+	//本回合刷新战法伤害值
+	private float shuaxinVal = 0.0f;
 	//武将数 
 	private int wujiangCount = 3;
 	//全封闭
@@ -59,11 +59,11 @@ public class HuiHe implements Cloneable{
 		this.wujiangCount = wujiangCount;
 		Conf.log("=====本回合参与战斗武将数："+this.wujiangCount);
 	}
-	public float getShuaxinRate() {
-		return shuaxinRate;
+	public float getShuaxinVal() {
+		return shuaxinVal;
 	}
 	public void setShuaxinRate(float shuaxinRate) {
-		this.shuaxinRate = shuaxinRate;
+		this.shuaxinVal = shuaxinRate;
 	}
 	public boolean isHasZengYi() {
 		return hasZengYi;
