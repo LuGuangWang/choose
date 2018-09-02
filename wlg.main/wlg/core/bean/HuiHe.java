@@ -19,14 +19,16 @@ public class HuiHe implements Cloneable{
 	
 	//本回合刷新战法伤害值
 	private float shuaxinVal = 0.0f;
+	//本回合攻击提高伤害值
+	private float upGongJiVal = 1.0f;
 	//武将数 
 	private int wujiangCount = 3;
 	//全封闭
-	private float fengAll = 2;
+	private float fengAll = 2.0f;
 	//封闭战法
-	private float fengZhanfa = 2;
+	private float fengZhanfa = 2.0f;
 	//封闭普攻
-	private float fengGongji = 2;
+	private float fengGongji = 2.0f;
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate,int person) {
 		HuiHe huihe = this.clone();
@@ -46,6 +48,12 @@ public class HuiHe implements Cloneable{
 		return huihe;
 	}
 	
+	public float getUpGongJiVal() {
+		return upGongJiVal;
+	}
+	public void setUpGongJiVal(float upGongJiVal) {
+		this.upGongJiVal = upGongJiVal;
+	}
 	public boolean isHasBuGong() {
 		return hasBuGong;
 	}
@@ -62,8 +70,8 @@ public class HuiHe implements Cloneable{
 	public float getShuaxinVal() {
 		return shuaxinVal;
 	}
-	public void setShuaxinRate(float shuaxinRate) {
-		this.shuaxinVal = shuaxinRate;
+	public void setShuaxinVal(float shuaxinVal) {
+		this.shuaxinVal = shuaxinVal;
 	}
 	public boolean isHasZengYi() {
 		return hasZengYi;
@@ -111,7 +119,7 @@ public class HuiHe implements Cloneable{
 		sunShi -= fangyuVal;
 		boolean isDied = (sunShi * id< Conf.totalCount)?false:true;
 		Conf.log("======本回合防御力："+fangyuVal + " 避免士兵损失值：" + sunShi);
-		return isDied?0:1;
+		return isDied?0.0f:1.0f;
 	}
 	public void setId(int id) {
 		this.id = id;

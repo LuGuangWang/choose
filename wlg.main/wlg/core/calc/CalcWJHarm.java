@@ -8,6 +8,7 @@ import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.wujiang.WuJiang;
+import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
@@ -77,12 +78,15 @@ public class CalcWJHarm {
 						huiheVal += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 					}
 				}
+				float shibingVal = huihe.getSolderRate(wj.getPosition(),wj.getDefense());
 				// 普通攻击伤害
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
-					huiheVal += CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate(wj.getPosition(),wj.getDefense());
+					float gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * shibingVal * huihe.getUpGongJiVal();
+					huiheVal += gongjiVal;
+					Conf.log("=========第"+ huihe.getId() +"回合普通攻击最终杀伤力："+gongjiVal);
 				}
 				//有武将损失
-				if(huihe.getSolderRate(wj.getPosition(),wj.getDefense())<=0) {
+				if(shibingVal<=0) {
 					Conf.log("=========第"+ huihe.getId() +"回合损失武将: " + wj.getName());
 					globalwujiang.remove(wj);
 					if(wj.getFinalp()==1) {
@@ -102,10 +106,13 @@ public class CalcWJHarm {
 	private static void buildExProp(HuiHe huihe, WuJiang wj) {
 		ZhanFa[] zfs = wj.getZhanfa();
 		huihe.setHasZengYi(false);
-		huihe.setShuaxinRate(0.0f);
 		huihe.setHasKongZhi(false);
 		huihe.setHasBuGong(false);
 		huihe.setHasJiaCheng(false);
+		
+		huihe.setShuaxinVal(0.0f);
+		huihe.setUpGongJiVal(1.0f);
+		
 		for(ZhanFa zf:zfs) {
 			//武将位置
 			zf.setPosition(wj.getPosition());
@@ -116,7 +123,20 @@ public class CalcWJHarm {
 			if(CheckUtil.isJiaCheng(zf)) huihe.setHasJiaCheng(true);
 			
 			if(zf instanceof ShuaXinZhanFa) {
-				huihe.setShuaxinRate(((ShuaXinZhanFa) zf).getBaseRate());
+				float oldVal = huihe.getShuaxinVal();
+				float newVal = ((ShuaXinZhanFa) zf).getBaseRate();
+				if(newVal>oldVal) {
+					huihe.setShuaxinVal(newVal);
+					Conf.log("=====刷新战法"+zf.getName()+" 刷新伤害基值："+oldVal+"->"+newVal);
+				}
+			}
+			if(zf instanceof JiaShangZhanFa) {
+				float oldVal = huihe.getUpGongJiVal();
+				float newVal = zf.getHarmRate() + 1.0f;
+				if(newVal>oldVal) {
+					huihe.setUpGongJiVal(newVal);
+					Conf.log("=====加伤战法"+zf.getName()+" 刷新加伤基值："+oldVal+"->"+newVal);
+				}
 			}
 		}
 	}

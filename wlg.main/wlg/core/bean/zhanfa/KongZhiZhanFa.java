@@ -5,11 +5,17 @@ package wlg.core.bean.zhanfa;
  * @author seven
  *
  */
-public class KongZhiZhanFa extends MaiLeiZhanFa {
+public class KongZhiZhanFa extends ZhanFa {
 
+	//持续几回合
+	private int keep = 1;
 	
 	public KongZhiZhanFa(String name,ZFType t,int ready,int keep,float doneRate,Person persons) {
-		super(name, t, ready, keep,doneRate, 0f, persons);
+		super(name, t, ready,doneRate, 0f, persons);
+		this.keep = keep;
 	}
 
+	public int getKeep() {
+		return keep;
+	}
 }

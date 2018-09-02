@@ -60,7 +60,7 @@ public class Choose {
 //		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.hunshuimoyv);
 //		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
 //		
-		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang);//.setThreeZhanFa(ZList.hunshuimoyv);
+		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
 		result.put(CalcWJHarm.calcVal(WList.zhouyv), WList.zhouyv.toString());
 		
 		return result;

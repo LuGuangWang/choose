@@ -3,7 +3,6 @@ package wlg.core.calc;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
-import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -52,17 +51,6 @@ public class CalcDoRate {
 			//刷新后,战法可以叠加
 			}else if(huihe.getId()> ready) {
 				rate = 1;
-			}
-		}
-		//控制
-		if(zhanfa instanceof KongZhiZhanFa) {
-			rate = 0;
-			int ready = zhanfa.getReady() + 1;
-			if(huihe.getId() == ready) {
-				rate = 1;
-			//可能已发动过战法 存在同等或更高程度,不会叠加战法
-			}else if(huihe.getId()> ready) {
-				rate = 1 - zhanfa.getDoneRate();
 			}
 		}
 		//持续多少回合后，进行伤害
@@ -114,7 +102,7 @@ public class CalcDoRate {
 	 */
 	public static <T extends ZhanFa> float getCommRate(HuiHe huihe, T zhanfa) {
 		float rate = 0;
-		//可以发动战法
+		//可以发动战法  //控制战法 效果一样 相当于叠加
 		if(huihe.getId() > zhanfa.getReady()) {
 			rate = 1;
 		} 
@@ -125,17 +113,6 @@ public class CalcDoRate {
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() == ready) {
 				rate = mz.getSpeed()>0?1:0;
-			//可能已发动过战法 存在同等或更高程度,不会叠加战法
-			}else if(huihe.getId()> ready) {
-				rate = 1 - zhanfa.getDoneRate();
-			}
-		}
-		//减伤
-		if(zhanfa instanceof KongZhiZhanFa) {
-			rate = 0;
-			int ready = zhanfa.getReady() + 1;
-			if(huihe.getId() == ready) {
-				rate = 1;
 			//TODO 同类型 同效果战法才不能叠加
 			//可能已发动过战法 存在同等或更高程度,不会叠加战法
 			}else if(huihe.getId()> ready) {
