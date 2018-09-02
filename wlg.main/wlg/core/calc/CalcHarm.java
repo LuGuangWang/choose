@@ -174,7 +174,10 @@ public class CalcHarm {
 		//主要伤害
 		for(int i=0;i<zhanfa.length;i++) {
 			T z = zhanfa[i];
-			float shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
+			float shuaxinVal = 0.0f;
+			if(CheckUtil.isStrategy(z)) {
+				shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
+			}
 			if(z.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
 				if(tmp.getKeephuihe()+1 == huihe.getId()) {

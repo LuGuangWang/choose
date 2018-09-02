@@ -7,6 +7,7 @@ import java.util.Map;
 
 import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
+import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanFa;
 import wlg.core.calc.CalcJiaCheng;
 
@@ -81,8 +82,10 @@ public class WuJiang {
 				Conf.log("==== 战法 "+v.getName() + " 初始伤害值：" + v.getFinalHarmVal()  + " 初始额外伤害值：" + v.getFinalExHarmVal());
 				if(v.getFinalExHarmVal()>0)
 					v.setExHarmVal(v.getFinalExHarmVal()+jiachengVal);
-				if(v.getFinalHarmVal()>0)
-					v.setHarmRate(v.getFinalHarmVal()+jiachengVal);
+				if(!v.getT().equals(ZFType.ZhuDong_GongJi_FaShu)) {
+					if(v.getFinalHarmVal()>0)
+						v.setHarmRate(v.getFinalHarmVal()+jiachengVal);
+				}
 				Conf.log("==== 战法 "+v.getName() + " 伤害值：" + v.getHarmRate()  + " 额外伤害值：" + v.getExHarmVal() + " 增加伤害" + jiachengVal);
 			}
 		});

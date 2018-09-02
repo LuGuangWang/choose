@@ -63,7 +63,7 @@ public class Choose {
 //		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
 //		result.put(CalcWJHarm.calcVal(WList.zhouyv), WList.zhouyv.toString());
 //		
-		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice);
+		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
 		result.put(CalcWJHarm.calcVal(WList.lvmeng), WList.zhouyv.toString());
 		
 		return result;

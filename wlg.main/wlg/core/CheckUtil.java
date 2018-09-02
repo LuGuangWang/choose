@@ -108,6 +108,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case ZhuDong_FaShu:
 		case ZhiHui_FuZhu_ALL:
+		case ZhuDong_GongJi_FaShu:
 		case ZhuDong_FaShu_JianShang:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
