@@ -81,7 +81,7 @@ public class CalcWJHarm {
 				}
 				// 普通攻击伤害
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
-					float gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getUpGongJiVal();
+					float gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate(wj.getPosition(), wj.getDefense()) * huihe.getUpGongJiVal();
 					huiheVal += gongjiVal;
 					Conf.log("=========第"+ huihe.getId() +"回合普通攻击最终杀伤力："+gongjiVal);
 				}

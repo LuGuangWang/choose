@@ -157,7 +157,7 @@ public class HuiHe implements Cloneable{
 	public float getSolderRate(int position,float defenseVal) {
 		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
 		boolean isDied = (sunShi< Conf.totalCount)?false:true;
-		return isDied?0.0f:1.0f;
+		return isDied?0.0f:Conf.binglijishu/id;
 	}
 	/**
 	 * 自身士兵损失值

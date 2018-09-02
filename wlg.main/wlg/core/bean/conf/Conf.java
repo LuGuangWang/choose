@@ -21,7 +21,8 @@ public abstract class Conf {
 	public static final float totalCount = 10000.0f;
 	//每回合损失兵力
 	public static final float SunShiCount = 1200.0f;
-//	public static final float SunShiCount = 0.0f;
+	//回合初始兵力基数
+	public static final float binglijishu = 4.0f;
 	
 	//是否打印日志
 	public static final boolean log = true;
