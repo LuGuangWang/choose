@@ -68,6 +68,9 @@ public class CheckUtil {
 	public static boolean isKongZhiFaShu(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
+		case ZhiHui_JianshangFashu_KongZhiFaShu:
+			isKongZhi = true;
+			break;
 		default:
 			isKongZhi = false;
 			break;
@@ -128,6 +131,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case BeiDong_JiaCheng:
 		case ZhuDong_KongZhi_ALL:
+		case ZhiHui_JianshangFashu_KongZhiFaShu:
 			isZeroHarm = true;
 			break;
 		default:

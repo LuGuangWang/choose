@@ -79,24 +79,14 @@ public class CalcWJHarm {
 						huiheVal += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 					}
 				}
-				//TODO 回合总控制力
-//				float shibingVal = huihe.getSolderRate(wj.getPosition(),wj.getDefense());
-				float shibingVal = 1.0f;
 				// 普通攻击伤害
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
-					float gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * shibingVal * huihe.getUpGongJiVal();
+					float gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getUpGongJiVal();
 					huiheVal += gongjiVal;
 					Conf.log("=========第"+ huihe.getId() +"回合普通攻击最终杀伤力："+gongjiVal);
 				}
-				//有武将损失
-				if(shibingVal<=0) {
-					Conf.log("=========第"+ huihe.getId() +"回合损失武将: " + wj.getName());
-					globalwujiang.remove(wj);
-					if(wj.getFinalp()==1) {
-						Conf.log("=========第"+ huihe.getId() +"回合损失大营: " + wj.getName());
-						globalwujiang.clear();
-					}
-				}
+				//重新设置武将
+				globalwujiang = huihe.getWujiangs();
 			}
 			
 			sum += huiheVal;

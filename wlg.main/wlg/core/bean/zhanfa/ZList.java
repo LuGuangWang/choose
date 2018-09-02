@@ -1,4 +1,7 @@
 package wlg.core.bean.zhanfa;
+
+import wlg.core.bean.conf.Conf;
+
 /**
  * 战法列表
  * @author seven
@@ -17,7 +20,7 @@ public abstract class ZList {
 	
 	/*****    -------------   拆解战法     begin -------------   *****/
 	// 战法 十面埋伏
-	public static JianShangZhanFa shimianmaifu = new JianShangZhanFa("十面埋伏",ZFType.ZhuDong_FaShu_JianShang,1, 0.4f, 1.3f, new Person(3),0.0f,0.65f);
+	public static JianShangZhanFa shimianmaifu = new JianShangZhanFa("十面埋伏",ZFType.ZhuDong_FaShu_JianShang,1, 0.4f, 1.3f, new Person(3),0.0f,Conf.dafu_xiajiang);
 	// 战法 声东击西
 	public static ZhanFa shengdongjixi = new ZhanFa("声东击西",ZFType.ZhuDong_FaShu,1, 0.5f, 2.31f, new Person(1, 2));
 	// 埋雷战法 楚歌四起 与速度相关
@@ -30,5 +33,8 @@ public abstract class ZList {
 	public static ShuaXinZhanFa shenmouyuanlv = new ShuaXinZhanFa("深谋远虑",ZFType.BeiDong_JiaCheng,0.09f);
 	//控制战法 浑水摸鱼
 	public static KongZhiZhanFa hunshuimoyv = new KongZhiZhanFa("浑水摸鱼", ZFType.ZhuDong_KongZhi_ALL,1, 2, 0.35f, new Person(2));
+	//反计之策
+	public static FanJiZhiCeZhanFa fanjizhice = new FanJiZhiCeZhanFa("反计之策", ZFType.ZhiHui_JianshangFashu_KongZhiFaShu,0, 1,Conf.dafu_xiajiang, new Person(2),3);
+	
 	/*****    -------------   拆解战法     end -------------   *****/
 }

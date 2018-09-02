@@ -138,8 +138,14 @@ public class HuiHe implements Cloneable{
 		}
 		boolean isDied = (sunShi< Conf.totalCount)?false:true;
 		if(isDied && wujiangs.contains(wj)) {
-			Conf.log("=====第"+id+"回合损失武将"+wj.getName());
-			this.wujiangs.remove(wj);
+			//损失大营
+			if(wj.getPosition()==1) {
+				Conf.log("=====第"+id+"回合损失大营武将"+wj.getName());
+				this.wujiangs.clear();
+			}else {
+				Conf.log("=====第"+id+"回合损失武将"+wj.getName());
+				this.wujiangs.remove(wj);
+			}
 		}
 	}
 	/**

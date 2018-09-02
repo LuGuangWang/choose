@@ -2,6 +2,7 @@ package wlg.core.calc;
 
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
+import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
@@ -60,6 +61,13 @@ public class CalcDoRate {
 				rate = 0;
 			}
 		}
+		//持续多少回合
+		if(zhanfa.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
+			FanJiZhiCeZhanFa t = (FanJiZhiCeZhanFa)zhanfa;
+			if(huihe.getId()>t.getKeephuihe()) {
+				rate = 0;
+			}
+		}
 		Conf.log("======第"+huihe.getId()+"回合受刷新影响，战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
@@ -83,13 +91,21 @@ public class CalcDoRate {
 				rate = 1;
 			}
 		}
-		//持续多少回合后，进行伤害
+		//持续多少回合
 		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
-			if(huihe.getId()>(t.getKeephuihe()+1)) {
+			if(huihe.getId()>t.getKeephuihe()) {
 				rate = 0;
 			}
 		}
+		//持续多少回合
+		if(zhanfa.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
+			FanJiZhiCeZhanFa t = (FanJiZhiCeZhanFa)zhanfa;
+			if(huihe.getId()>t.getKeephuihe()) {
+				rate = 0;
+			}
+		}
+		
 		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动控制的概率:"+rate);
 		return rate;
 	}
@@ -122,6 +138,13 @@ public class CalcDoRate {
 		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
 			if(huihe.getId()>(t.getKeephuihe()+1)) {
+				rate = 0;
+			}
+		}
+		//持续多少回合
+		if(zhanfa.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
+			FanJiZhiCeZhanFa t = (FanJiZhiCeZhanFa)zhanfa;
+			if(huihe.getId()>t.getKeephuihe()) {
 				rate = 0;
 			}
 		}
