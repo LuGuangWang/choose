@@ -13,22 +13,6 @@ import wlg.core.bean.zhanfa.ZhanFa;
 
 public class CalcHarm {
 	
-	/**
-	 * 战法8回合总伤害
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends ZhanFa> float calcVal(T... zhanfa) {
-		float sum = 0;
-		HuiHe huihe = new HuiHe();
-		for(int i=1;i<9;i++) {
-			huihe.setId(i);
-			sum += calcCommHuiHe(huihe, zhanfa);
-			sum += calcExVal(huihe,zhanfa);
-		}
-		return sum;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public static <T extends ZhanFa> float calcKongZhiHuiHe(HuiHe huihe, T... zhanfa) {
 		float sum = 0;

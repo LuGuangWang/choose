@@ -91,11 +91,8 @@ public class CalcDoRate {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
 			rate = 0;
 			int ready = t.getReady() + 1;
-			if(huihe.getId() == ready) {
+			if(huihe.getId() >= ready) {
 				rate = 1;
-			//可能已发动过战法 存在同等或更高程度,不会叠加战法
-			}else if(huihe.getId()> ready) {
-				rate = 1 - t.getDoneRate();
 			}
 		}
 		//发动后下一回合生效

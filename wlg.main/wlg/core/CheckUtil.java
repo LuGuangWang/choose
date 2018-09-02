@@ -77,6 +77,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu:
 		case ZhuDong_FaShu_JianShang:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
+		case ZhuDong_FaShuShangHai_KongZhiGongji:
 		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
 			isStrategy = true;
 			break;

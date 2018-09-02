@@ -23,7 +23,7 @@ public abstract class ZList {
 	// 埋雷战法 楚歌四起 与速度相关
 	public static MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa("楚歌四起",ZFType.ZhuDong_FaShu,1, 2, 0.5f, 1.27f, new Person(2, 3));
 	//神兵天降
-	public static JiaChengZhanFa shenbingtianjiang = new JiaChengZhanFa("神兵天降",ZFType.ZhuDong_FuZhu,0,1,0f,new Person(2),0.3f,3);
+//	public static JiaChengZhanFa shenbingtianjiang = new JiaChengZhanFa("神兵天降",ZFType.ZhuDong_FuZhu,0,1,0f,new Person(2),0.3f,3);
 	// 加成战法 不攻
 	public static JiaChengZhanFa bugong = new JiaChengZhanFa("不攻",ZFType.ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi,0, 1, 0.83f, new Person(1), 0.25f);
 	// 刷新战法 深谋远虑
