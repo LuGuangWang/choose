@@ -1,6 +1,10 @@
 package wlg.core.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import wlg.core.bean.conf.Conf;
+import wlg.core.bean.wujiang.WuJiang;
 
 /**
  * 回合
@@ -9,6 +13,10 @@ import wlg.core.bean.conf.Conf;
  */
 public class HuiHe implements Cloneable{
 	private int id = 1;
+	//所有武将
+	private List<WuJiang> wujiangs = new ArrayList<>();
+	//当前武将
+	private WuJiang wj;
 	
 	//TODO 将此参数根据武将防御属性获取
 	//额外属性
@@ -26,11 +34,11 @@ public class HuiHe implements Cloneable{
 	//武将数 
 	private int wujiangCount = 3;
 	//全封闭
-	private float fengAll = 2.0f;
+	private float fengAll = 0.0f;
 	//封闭战法
-	private float fengZhanfa = 2.0f;
+	private float fengZhanfa = 0.0f;
 	//封闭普攻
-	private float fengGongji = 2.0f;
+	private float fengGongji = 0.0f;
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate,int person) {
 		HuiHe huihe = this.clone();
@@ -50,6 +58,18 @@ public class HuiHe implements Cloneable{
 		return huihe;
 	}
 	
+	public WuJiang getWj() {
+		return wj;
+	}
+	public void setWj(WuJiang wj) {
+		this.wj = wj;
+	}
+	public List<WuJiang> getWujiangs() {
+		return wujiangs;
+	}
+	public void setWujiangs(List<WuJiang> wujiangs) {
+		this.wujiangs = wujiangs;
+	}
 	public float getUpGongJiVal() {
 		return upGongJiVal;
 	}
@@ -105,24 +125,23 @@ public class HuiHe implements Cloneable{
 	public int getId() {
 		return id;
 	}
-	
-	public float getKongZhiSolderVal(int position,float defenseVal) {
-		float sunShi = position * Conf.SunShiCount;
-		
-		float kzss = Conf.SunShiCount * this.getKongzhiVal();
-		sunShi -= kzss;
-		Conf.log("======本回合最终控制力：" + this.getKongzhiVal() + " 避免士兵损失值：" + kzss);
-		
-		//防御是防御攻击造成的伤害
-		float fangyuVal = Conf.SunShiCount * 0.5f * Conf.fg_rate * defenseVal;
-		sunShi -= fangyuVal;
-		sunShi *= id;
-		Conf.log("======本回合最终防御力避免士兵损失值："+fangyuVal+ " 本回合最终士兵损失值：" + sunShi);
-		
+	/**
+	 * 武将损失
+	 * @param wj
+	 */
+	public void removeWujiang(WuJiang wj) {
+		Conf.log("=========检查武将是否有损失===========");
+		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
+		//包含控制战法
+		if(hasKongZhi) {
+			sunShi *= Conf.kongzhi_avg_rate;
+		}
 		boolean isDied = (sunShi< Conf.totalCount)?false:true;
-		return isDied?0.0f:1.0f;
+		if(isDied && wujiangs.contains(wj)) {
+			Conf.log("=====第"+id+"回合损失武将"+wj.getName());
+			this.wujiangs.remove(wj);
+		}
 	}
-	
 	/**
 	 * 自身士兵损失
 	 * @param position 武将位置
@@ -130,15 +149,26 @@ public class HuiHe implements Cloneable{
 	 * @return
 	 */
 	public float getSolderRate(int position,float defenseVal) {
+		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
+		boolean isDied = (sunShi< Conf.totalCount)?false:true;
+		return isDied?0.0f:1.0f;
+	}
+	/**
+	 * 自身士兵损失值
+	 * @param position
+	 * @param defenseVal
+	 * @return
+	 */
+	private float getSunShi(int position, float defenseVal) {
 		float sunShi = position * Conf.SunShiCount;
 		float kzss = 0.0f;
-		if(fengAll<=1) {
+		if(fengAll!=0) {
 			kzss = Conf.SunShiCount * fengAll;
 			Conf.log("===全控制减伤值：" + fengAll + " 避免士兵损失值：" + kzss);
-		}else if(fengZhanfa <= 1) {
+		}else if(fengZhanfa !=0) {
 			kzss = Conf.SunShiCount * fengZhanfa * Conf.dk_rate;
 			Conf.log("===控制法术减伤值：" + fengZhanfa +" 避免士兵损失值：" + kzss);
-		}else if(fengGongji <= 1) {
+		}else if(fengGongji !=0) {
 			kzss = Conf.SunShiCount * fengGongji * Conf.dk_rate;
 			Conf.log("===控制攻击减伤值：" + fengGongji + " 避免士兵损失值：" + kzss);
 		}
@@ -148,8 +178,7 @@ public class HuiHe implements Cloneable{
 		sunShi -= fangyuVal;
 		sunShi *= id;
 		Conf.log("======本回合防御力避免士兵损失值："+fangyuVal + " 本回合士兵损失值：" + sunShi);
-		boolean isDied = (sunShi< Conf.totalCount)?false:true;
-		return isDied?0.0f:1.0f;
+		return sunShi;
 	}
 	public void setId(int id) {
 		this.id = id;

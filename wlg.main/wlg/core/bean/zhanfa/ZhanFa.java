@@ -229,7 +229,7 @@ public class ZhanFa implements Harm, Cloneable {
 	 */
 	public float addShuXingVal(float val) {
 		if(CheckUtil.isStrategy(this)) {
-			val *= strategy * Conf.s_rate;
+			val *= strategy * Conf.fashu_rate;
 		}else if(CheckUtil.isZeroHarm(this)) {
 			val = 0.0f;
 		}

@@ -25,19 +25,20 @@ public class CalcWJHarm {
 	 */
 	public static <T extends ZhanFa> float  calcVal(WuJiang... wjs) {
 		float sum = 0;
-		HuiHe huihe = new HuiHe();
 		//按速度排序
 		wjs = sortedWuJiang(wjs);
-		
 		List<WuJiang> globalwujiang = new ArrayList<>(Arrays.asList(wjs));
 		
 		for(int i=1;i<9;i++) {
-			float huiheVal = 0.0f;
 			List<WuJiang> wujiang = globalwujiang;
-			if(wujiang.size()==0) {
+			if(globalwujiang.size()==0) {
 				break;
 			}
+			
+			HuiHe huihe = new HuiHe();
+			float huiheVal = 0.0f;
 			huihe.setId(i);
+			huihe.setWujiangs(wujiang);
 			Conf.log("===============第"+ huihe.getId()+"回合=============");
 			
 			huihe.setWujiangCount(wujiang.size());
@@ -79,7 +80,8 @@ public class CalcWJHarm {
 					}
 				}
 				//TODO 回合总控制力
-				float shibingVal = huihe.getSolderRate(wj.getPosition(),wj.getDefense());
+//				float shibingVal = huihe.getSolderRate(wj.getPosition(),wj.getDefense());
+				float shibingVal = 1.0f;
 				// 普通攻击伤害
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
 					float gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * shibingVal * huihe.getUpGongJiVal();
@@ -105,6 +107,9 @@ public class CalcWJHarm {
 
 	//补充额外属性
 	private static void buildExProp(HuiHe huihe, WuJiang wj) {
+		//设置当前武将
+		huihe.setWj(wj);
+		
 		ZhanFa[] zfs = wj.getZhanfa();
 		huihe.setHasZengYi(false);
 		huihe.setHasKongZhi(false);

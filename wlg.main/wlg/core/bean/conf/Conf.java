@@ -2,7 +2,11 @@ package wlg.core.bean.conf;
 
 public abstract class Conf {
 	//伤害倍数
-	public static final float s_rate = 2.1f;
+	public static final float fashu_rate = 2.1f;
+	//伤害倍数
+	public static final float gongji_rate = 2.0f;
+	//含控制战法，士兵损失增加1.5倍
+	public static final float kongzhi_avg_rate = 0.7f;
 	//防御攻击倍数 
 	public static final float fg_rate = 0.015f;
 	//单控损失基数

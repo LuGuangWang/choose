@@ -123,7 +123,7 @@ public class WuJiang {
 	}
 	
 	public float getWJHarmVal() {
-		return attack * Conf.s_rate;
+		return attack * Conf.gongji_rate;
 	}
 	
 	@SuppressWarnings("unchecked")

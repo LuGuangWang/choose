@@ -79,6 +79,7 @@ public class CheckUtil {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
 		case ZhuDong_FaShu_JianShang:
+		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 			isKongZhi = true;
 			break;

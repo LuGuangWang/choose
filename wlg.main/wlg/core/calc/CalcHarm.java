@@ -139,13 +139,16 @@ public class CalcHarm {
 				shuaxinVal += z.getHarmRate();
 			}
 			float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, z):CalcDoRate.getCommRate(huihe, z);
-			float harmval = rate * z.getHarmVal(shuaxinVal) * huihe.getSolderRate(z.getPosition(),z.getDefense());
+			
+			float shibingVal = huihe.getSolderRate(z.getPosition(),z.getDefense());
+			float harmval = rate * z.getHarmVal(shuaxinVal) * shibingVal;
 			//有伤害 才能触发加伤战法
 			if(harmval>0) {
 				executeJss++;
 			}
 			Conf.log("===战法 " + z.getName() + " 最终杀伤力：" + harmval);
 			sum += harmval;
+			
 		}
 		
 		//计算加伤战法
@@ -156,6 +159,9 @@ public class CalcHarm {
 				sum += harmval;
 			}
 		}
+		
+		//检查是否有武将损失
+		huihe.removeWujiang(huihe.getWj());
 		
 		return sum;
 	}
