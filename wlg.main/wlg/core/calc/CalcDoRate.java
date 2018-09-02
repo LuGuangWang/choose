@@ -75,20 +75,19 @@ public class CalcDoRate {
 		if(huihe.getId() > zhanfa.getReady()) {
 			rate = 1;
 		} 
-		if(zhanfa.getT().equals(ZFType.ZhuDong_FaShuShangHai_KongZhiGongji)) {
-			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
-			rate = 0;
-			int ready = t.getReady() + 1;
-			if(huihe.getId() >= ready) {
-				rate = 1;
-			}
-		}
 		//发动后下一回合生效
 		if(zhanfa.getT().equals(ZFType.ZhuDong_FaShu_JianShang)) {
 			rate = 0;
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() > ready) {
 				rate = 1;
+			}
+		}
+		//持续多少回合后，进行伤害
+		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
+			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
+			if(huihe.getId()>(t.getKeephuihe()+1)) {
+				rate = 0;
 			}
 		}
 		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动控制的概率:"+rate);

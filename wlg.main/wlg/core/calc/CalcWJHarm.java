@@ -78,6 +78,7 @@ public class CalcWJHarm {
 						huiheVal += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 					}
 				}
+				//TODO 回合总控制力
 				float shibingVal = huihe.getSolderRate(wj.getPosition(),wj.getDefense());
 				// 普通攻击伤害
 				if(!huihe.isHasBuGong() && Conf.getCalcPG()) {
@@ -112,16 +113,24 @@ public class CalcWJHarm {
 		
 		huihe.setShuaxinVal(0.0f);
 		huihe.setUpGongJiVal(1.0f);
+		huihe.setKongzhiVal(0.0f);
 		
 		for(ZhanFa zf:zfs) {
 			//武将位置
 			zf.setPosition(wj.getPosition());
 			
 			if(CheckUtil.isZengYi(zf)) huihe.setHasZengYi(true);
-			if(CheckUtil.isKongZhi(zf)) huihe.setHasKongZhi(true);
 			if(CheckUtil.isBuGongJi(zf)) huihe.setHasBuGong(true);
 			if(CheckUtil.isJiaCheng(zf)) huihe.setHasJiaCheng(true);
-			
+			if(CheckUtil.isKongZhi(zf)) { 
+				huihe.setHasKongZhi(true);
+				//TODO 总控制力
+//				float kongzhiVal = CalcDoRate.getKongZhiRate(huihe, zf);
+//				if(!CheckUtil.isKongZhiAll(zf)) {
+//					kongzhiVal *= Conf.dk_rate;
+//				}
+//				huihe.addKongzhiVal(kongzhiVal);
+			}
 			if(zf instanceof ShuaXinZhanFa) {
 				float oldVal = huihe.getShuaxinVal();
 				float newVal = ((ShuaXinZhanFa) zf).getBaseRate();

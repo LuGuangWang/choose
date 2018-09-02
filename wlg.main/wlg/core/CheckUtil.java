@@ -52,10 +52,32 @@ public class CheckUtil {
 		return isBuGongJi;
 	}
 	
-	public static boolean isKongZhi(ZhanFa zf) {
+	public static boolean isKongZhiAll(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
 		case ZhuDong_KongZhi_ALL:
+			isKongZhi = true;
+			break;
+		default:
+			isKongZhi = false;
+			break;
+		}
+		return isKongZhi;
+	}
+	
+	public static boolean isKongZhiFaShu(ZhanFa zf) {
+		boolean isKongZhi = false;
+		switch (zf.getT()) {
+		default:
+			isKongZhi = false;
+			break;
+		}
+		return isKongZhi;
+	}
+	
+	public static boolean isKongZhiGongJi(ZhanFa zf) {
+		boolean isKongZhi = false;
+		switch (zf.getT()) {
 		case ZhuDong_FaShu_JianShang:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 			isKongZhi = true;
@@ -64,6 +86,11 @@ public class CheckUtil {
 			isKongZhi = false;
 			break;
 		}
+		return isKongZhi;
+	}
+	
+	public static boolean isKongZhi(ZhanFa zf) {
+		boolean isKongZhi = isKongZhiAll(zf)||isKongZhiFaShu(zf)||isKongZhiGongJi(zf);
 		return isKongZhi;
 	}
 	

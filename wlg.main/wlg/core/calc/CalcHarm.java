@@ -24,60 +24,63 @@ public class CalcHarm {
 		for(int i=0;i<zhanfa.length;i++) {
 			if(zhanfa[i] instanceof KongZhiZhanFa) {
 				KongZhiZhanFa b = (KongZhiZhanFa)zhanfa[i];
+				//控制战法发动成功的概率
+				float rate = CalcDoRate.getKongZhiRate(huihe,b);
 				for(int p:b.getPersons().getPersons()) {
 					//不受伤害的概率
-					float rate = CalcDoRate.getCommRate(huihe,b);
 					float unHurt = p/1.0f/huihe.getWujiangCount();
 					unHurt = unHurt>1 ? rate:rate*unHurt;
 					//控制主的概率
-					float kongzhiRate = unHurt * b.getDoneRate();
-					float unHurtVal = kongzhiRate * b.getKeep() * calcKongZhiAllHuiHe(huihe.getAllFeng(kongzhiRate,p),zhanfa);
-					kongzhiMap.put(b.getName(), kongzhiRate);
+					float kongzhiVal = unHurt * b.getDoneRate();
+					float unHurtVal = kongzhiVal * b.getKeep() * calcKongZhiAllHuiHe(huihe.getAllFeng(kongzhiVal,p),zhanfa);
+					kongzhiMap.put(b.getName(), kongzhiVal);
 					sum += unHurtVal;
 				}
 			}
 			if(zhanfa[i].getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa b = (KongZhiAndHarmZhanFa)zhanfa[i];
+				//控制战法发动成功的概率
+				float rate = CalcDoRate.getKongZhiRate(huihe,b);
 				for(int p:b.getPersons().getPersons()) {
 					//不受伤害的概率
-					float rate = CalcDoRate.getCommRate(huihe,b);
 					float unHurt = p/1.0f/huihe.getWujiangCount();
 					unHurt = unHurt>1 ? rate:rate*unHurt;
 					if(huihe.getId()>b.getKeephuihe()) {
 						unHurt = 0;
 					}
 					//控制主的概率
-					float kongzhiRate = unHurt * b.getDoneRate();
-					float unHurtVal = kongzhiRate * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiRate,p),zhanfa);
-					kongzhiMap.put(b.getName(), kongzhiRate);
+					float kongzhiVal = unHurt * b.getDoneRate();
+					float unHurtVal = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal,p),zhanfa);
+					kongzhiMap.put(b.getName(), kongzhiVal);
 					sum += unHurtVal;
 				}
 			}
 			if(zhanfa[i].getT().equals(ZFType.ZhuDong_FaShuShangHai_KongZhiGongji)) {
 				KongZhiAndHarmZhanFa b = (KongZhiAndHarmZhanFa)zhanfa[i];
+				//控制战法发动成功的概率
+				float rate = CalcDoRate.getKongZhiRate(huihe,b);
 				for(int p:b.getPersons().getPersons()) {
-					//不受伤害的概率
-					float rate = CalcDoRate.getKongZhiRate(huihe,b);
 					float unHurt = p/1.0f/huihe.getWujiangCount();
 					unHurt = unHurt>1 ? rate:rate*unHurt;
 					//控制主的概率
-					float kongzhiRate = unHurt * b.getDoneRate();
-					float unHurtVal = b.getKeephuihe() * kongzhiRate * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiRate,p),zhanfa);
-					kongzhiMap.put(b.getName(), kongzhiRate);
+					float kongzhiVal = unHurt * b.getDoneRate();
+					float unHurtVal = b.getKeephuihe() * kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal,p),zhanfa);
+					kongzhiMap.put(b.getName(), kongzhiVal);
 					sum += unHurtVal;
 				}
 			}
 			if(zhanfa[i].getT().equals(ZFType.ZhuDong_FaShu_JianShang)){
 				ZhanFa b = zhanfa[i];
 				int p = 1;
-				//不受伤害的概率
+				//控制战法发动成功的概率
 				float rate = CalcDoRate.getKongZhiRate(huihe,b);
+				//不受伤害的概率
 				float unHurt = p/1.0f/huihe.getWujiangCount();
 				unHurt = unHurt>1 ? rate:rate*unHurt;
 				//控制主的概率
-				float kongzhiRate = unHurt * b.getDoneRate();
-				float unHurtVal = kongzhiRate * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiRate*b.getExHarmVal(),p),zhanfa);
-				kongzhiMap.put(b.getName(), kongzhiRate);
+				float kongzhiVal = unHurt * b.getDoneRate();
+				float unHurtVal = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal*b.getExHarmVal(),p),zhanfa);
+				kongzhiMap.put(b.getName(), kongzhiVal);
 				sum += unHurtVal;
 			}
 		}
@@ -88,7 +91,7 @@ public class CalcHarm {
 			kongzhiRate += t;
 		}
 		float hurt = 1 - kongzhiRate;
-		Conf.log("======本回合不受伤的概率：" + kongzhiRate + " 受伤的概率为："+hurt);
+		Conf.log("======本回合不受伤概率下造成的伤害：" + sum + " 不受伤的概率为："+kongzhiRate);
 		hurt = hurt>0 ? hurt:0;
 		float hurtVal = hurt *  calcKongZhiAllHuiHe(huihe,zhanfa);
 		sum += hurtVal;
@@ -101,8 +104,10 @@ public class CalcHarm {
 		float sum = 0.0f;
 		Conf.log("=============计算有控制战法的普通主伤害值==========");
 		sum = calcCommHuiHe(huihe,zhanfa);
-		Conf.log("=============计算有控制战法的普通增益害值==========");
-		sum += calcExVal(huihe,zhanfa);
+		if(huihe.isHasZengYi()) {
+			Conf.log("=============计算有控制战法的普通增益害值==========");
+			sum += calcExVal(huihe,zhanfa);
+		}
 		return sum;
 	}
 	
@@ -114,7 +119,6 @@ public class CalcHarm {
 		//主要伤害
 		for(int i=0;i<zhanfa.length;i++) {
 			T z = zhanfa[i];
-			float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, z):CalcDoRate.getCommRate(huihe, z);
 			float shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
 			if(z.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
@@ -129,12 +133,12 @@ public class CalcHarm {
 					jss.add(tmp);
 					continue;
 				} else {//	方便查看日志
-					rate = 0.0f;
-					shuaxinVal += z.getHarmRate();
+					shuaxinVal = 0.0f;
 				}
 			}else {
 				shuaxinVal += z.getHarmRate();
 			}
+			float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, z):CalcDoRate.getCommRate(huihe, z);
 			float harmval = rate * z.getHarmVal(shuaxinVal) * huihe.getSolderRate(z.getPosition(),z.getDefense());
 			//有伤害 才能触发加伤战法
 			if(harmval>0) {

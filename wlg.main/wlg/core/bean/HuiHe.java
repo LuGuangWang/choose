@@ -21,6 +21,8 @@ public class HuiHe implements Cloneable{
 	private float shuaxinVal = 0.0f;
 	//本回合攻击提高伤害值
 	private float upGongJiVal = 1.0f;
+	//本回合控制力
+	private float kongzhiVal = 0.0f;
 	//武将数 
 	private int wujiangCount = 3;
 	//全封闭
@@ -70,6 +72,15 @@ public class HuiHe implements Cloneable{
 	public float getShuaxinVal() {
 		return shuaxinVal;
 	}
+	public float getKongzhiVal() {
+		return kongzhiVal>1?1.0f:kongzhiVal;
+	}
+	public void setKongzhiVal(float kongzhiVal) {
+		this.kongzhiVal = kongzhiVal;
+	}
+	public void addKongzhiVal(float kongzhiVal) {
+		this.kongzhiVal += kongzhiVal;
+	}
 	public void setShuaxinVal(float shuaxinVal) {
 		this.shuaxinVal = shuaxinVal;
 	}
@@ -94,6 +105,24 @@ public class HuiHe implements Cloneable{
 	public int getId() {
 		return id;
 	}
+	
+	public float getKongZhiSolderVal(int position,float defenseVal) {
+		float sunShi = position * Conf.SunShiCount;
+		
+		float kzss = Conf.SunShiCount * this.getKongzhiVal();
+		sunShi -= kzss;
+		Conf.log("======本回合最终控制力：" + this.getKongzhiVal() + " 避免士兵损失值：" + kzss);
+		
+		//防御是防御攻击造成的伤害
+		float fangyuVal = Conf.SunShiCount * 0.5f * Conf.fg_rate * defenseVal;
+		sunShi -= fangyuVal;
+		sunShi *= id;
+		Conf.log("======本回合最终防御力避免士兵损失值："+fangyuVal+ " 本回合最终士兵损失值：" + sunShi);
+		
+		boolean isDied = (sunShi< Conf.totalCount)?false:true;
+		return isDied?0.0f:1.0f;
+	}
+	
 	/**
 	 * 自身士兵损失
 	 * @param position 武将位置
@@ -117,8 +146,9 @@ public class HuiHe implements Cloneable{
 		//防御是防御攻击造成的伤害
 		float fangyuVal = Conf.SunShiCount * 0.5f * Conf.fg_rate * defenseVal;
 		sunShi -= fangyuVal;
-		boolean isDied = (sunShi * id< Conf.totalCount)?false:true;
-		Conf.log("======本回合防御力："+fangyuVal + " 避免士兵损失值：" + sunShi);
+		sunShi *= id;
+		Conf.log("======本回合防御力避免士兵损失值："+fangyuVal + " 本回合士兵损失值：" + sunShi);
+		boolean isDied = (sunShi< Conf.totalCount)?false:true;
 		return isDied?0.0f:1.0f;
 	}
 	public void setId(int id) {

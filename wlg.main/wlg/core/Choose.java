@@ -57,11 +57,11 @@ public class Choose {
 //		WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.bugong);
 //		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
 //		
-//		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.hunshuimoyv);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.hunshuimoyv);
+		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
 //		
-		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-		result.put(CalcWJHarm.calcVal(WList.zhouyv), WList.zhouyv.toString());
+//		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+//		result.put(CalcWJHarm.calcVal(WList.zhouyv), WList.zhouyv.toString());
 		
 		return result;
 	}
