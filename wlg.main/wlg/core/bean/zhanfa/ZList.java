@@ -36,6 +36,6 @@ public abstract class ZList {
 	//反计之策
 	public static FanJiZhiCeZhanFa fanjizhice = new FanJiZhiCeZhanFa("反计之策", ZFType.ZhiHui_JianshangFashu_KongZhiFaShu,0, 1,Conf.dafu_xiajiang, new Person(2),3);
 	//犄角之势
-	public static JiJiaoZhiShiZhanFa jijiaozhishi = new JiJiaoZhiShiZhanFa("犄角之势", ZFType.ZhuDong_GongJi_FaShu,0, 0.4f,1.8f, new Person(2),0.4f,1.43f);
+	public static JiJiaoZhiShiZhanFa jijiaozhishi = new JiJiaoZhiShiZhanFa("犄角之势", ZFType.ZhuDong_FaShu_GongJi,0, 0.4f,1.43f, new Person(1,2),0.4f,1.8f);
 	/*****    -------------   拆解战法     end -------------   *****/
 }

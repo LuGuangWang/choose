@@ -4,7 +4,7 @@ public abstract class Conf {
 	//伤害倍数
 	public static final float fashu_rate = 2.1f;
 	//伤害倍数
-	public static final float gongji_rate = 2.0f;
+	public static final float gongji_rate = 1.95f;
 	//大幅下降
 	public static final float dafu_xiajiang = 0.65f;
 	//含控制战法，士兵损失增加1.5倍
@@ -25,7 +25,7 @@ public abstract class Conf {
 	public static final float binglijishu = 4.0f;
 	
 	//是否打印日志
-	public static final boolean log = true;
+	public static final boolean log = false;
 	
 	public static boolean getCalcPG() {
 		return Calc_PuGong;

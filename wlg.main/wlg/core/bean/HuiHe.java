@@ -136,6 +136,7 @@ public class HuiHe implements Cloneable{
 		if(hasKongZhi) {
 			sunShi *= Conf.kongzhi_avg_rate;
 		}
+		Conf.log("=========检查武将是否有损失,士兵损失值：" + sunShi);
 		boolean isDied = (sunShi< Conf.totalCount)?false:true;
 		if(isDied && wujiangs.contains(wj)) {
 			//损失大营

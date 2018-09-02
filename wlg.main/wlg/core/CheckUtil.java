@@ -99,6 +99,24 @@ public class CheckUtil {
 	}
 	
 	/**
+	 * 是否攻击伤害
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isAttack(ZhanFa zf) {
+		boolean isAttack = false;
+		switch (zf.getT()) {
+		case ZhuDong_FaShu_GongJi:
+			isAttack = true;
+			break;
+		default:
+			isAttack = false;
+			break;
+		}
+		return isAttack;
+	}
+	
+	/**
 	 * 是否策略伤害
 	 * @param zf
 	 * @return
@@ -108,7 +126,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case ZhuDong_FaShu:
 		case ZhiHui_FuZhu_ALL:
-		case ZhuDong_GongJi_FaShu:
+		case ZhuDong_FaShu_GongJi:
 		case ZhuDong_FaShu_JianShang:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:

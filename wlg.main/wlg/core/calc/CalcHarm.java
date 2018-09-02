@@ -41,24 +41,7 @@ public class CalcHarm {
 				sum += unHurtVal;
 			}
 			if(zf.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
-				FanJiZhiCeZhanFa b = (FanJiZhiCeZhanFa)zf;
-				float unHurtVal = 0.0f;
-				//控制战法发动成功的概率
-				float rate = CalcDoRate.getKongZhiRate(huihe,b);
-				for(int p:b.getPersons().getPersons()) {
-					float unHurt = p/1.0f/huihe.getWujiangCount();
-					unHurt = unHurt>1 ? rate:rate*unHurt;
-					//控制主的概率
-					float kongzhiVal = unHurt * b.getDoneRate();
-					float tmp = 0.0f;
-					if(huihe.getId()==1) {
-						tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(kongzhiVal,p),zhanfa);
-					}else {
-						tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(kongzhiVal * b.getHarmRate(),p),zhanfa);
-					}
-					kongzhiMap.put(b.getName(), kongzhiVal);
-					unHurtVal += tmp;
-				}
+				float unHurtVal = calcFanjizhice(huihe, kongzhiMap, zf, zhanfa);
 				sum += unHurtVal;
 			}
 		}
@@ -75,6 +58,29 @@ public class CalcHarm {
 		sum += hurtVal;
 		
 		return sum;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <T extends ZhanFa> float calcFanjizhice(HuiHe huihe, Map<String, Float> kongzhiMap, ZhanFa zf, T... zhanfa) {
+		FanJiZhiCeZhanFa b = (FanJiZhiCeZhanFa)zf;
+		float unHurtVal = 0.0f;
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		for(int p:b.getPersons().getPersons()) {
+			float unHurt = p/1.0f/huihe.getWujiangCount();
+			unHurt = unHurt>1 ? rate:rate*unHurt;
+			//控制主的概率
+			float kongzhiVal = unHurt * b.getDoneRate();
+			float tmp = 0.0f;
+			if(huihe.getId()==1) {
+				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(kongzhiVal,p),zhanfa);
+			}else {
+				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(kongzhiVal * b.getHarmRate(),p),zhanfa);
+			}
+			kongzhiMap.put(b.getName(), kongzhiVal);
+			unHurtVal += tmp;
+		}
+		return unHurtVal;
 	}
 
 	@SuppressWarnings("unchecked")

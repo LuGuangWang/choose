@@ -80,12 +80,12 @@ public class WuJiang {
 		zhanfaMap.forEach((k,v)->{
 			if(!fashujiacheng.contains(v) && CheckUtil.isStrategy(v)) {
 				Conf.log("==== 战法 "+v.getName() + " 初始伤害值：" + v.getFinalHarmVal()  + " 初始额外伤害值：" + v.getFinalExHarmVal());
-				if(v.getFinalExHarmVal()>0)
-					v.setExHarmVal(v.getFinalExHarmVal()+jiachengVal);
-				if(!v.getT().equals(ZFType.ZhuDong_GongJi_FaShu)) {
-					if(v.getFinalHarmVal()>0)
-						v.setHarmRate(v.getFinalHarmVal()+jiachengVal);
+				if(!v.getT().equals(ZFType.ZhuDong_FaShu_GongJi)) {
+					if(v.getFinalExHarmVal()>0)
+						v.setExHarmVal(v.getFinalExHarmVal()+jiachengVal);
 				}
+				if(v.getFinalHarmVal()>0)
+					v.setHarmRate(v.getFinalHarmVal()+jiachengVal);
 				Conf.log("==== 战法 "+v.getName() + " 伤害值：" + v.getHarmRate()  + " 额外伤害值：" + v.getExHarmVal() + " 增加伤害" + jiachengVal);
 			}
 		});
