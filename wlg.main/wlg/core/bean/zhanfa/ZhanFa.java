@@ -190,6 +190,13 @@ public class ZhanFa implements Harm, Cloneable {
 			
 			for(int i : persons) {
 				for(int p:ps) {
+					int distance = this.getDistance()-this.getPosition() + 1;
+					Conf.log("=====战法"+this.getName()+"实际可攻击敌军数："+ distance);
+					if(distance<=0) {
+						continue;
+					}else {
+						p = Math.min(p, distance);
+					}
 					//实际可伤害人数
 					int realP = Math.min(i, p);
 					//可全部命中
@@ -222,6 +229,13 @@ public class ZhanFa implements Harm, Cloneable {
 			int len = getPersons().getPersons().length;
 			float rate = 1.0f / len;
 			for (int i : getPersons().getPersons()) {
+				int distance = this.getDistance()-this.getPosition() + 1;
+				Conf.log("=====战法"+this.getName()+"实际可攻击敌军数："+ distance);
+				if(distance<=0) {
+					continue;
+				}else {
+					i = Math.min(i, distance);
+				}
 				sum += pval * rate * i;
 			}
 		}

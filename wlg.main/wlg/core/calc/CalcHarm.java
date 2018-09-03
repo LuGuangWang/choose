@@ -67,6 +67,13 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
+			int distance = b.getDistance()-huihe.getWj().getPosition() + 1;
+			Conf.log("=====战法"+b.getName()+"实际可攻击敌军数："+ distance);
+			if(distance<=0) {
+				continue;
+			}else {
+				p = Math.min(p, distance);
+			}
 			float unHurt = p/1.0f/huihe.getWujiangCount();
 			unHurt = unHurt>1 ? rate:rate*unHurt;
 			//控制主的概率
@@ -107,6 +114,13 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
+			int distance = b.getDistance()-huihe.getWj().getPosition() + 1;
+			Conf.log("=====战法"+b.getName()+"实际可攻击敌军数："+ distance);
+			if(distance<=0) {
+				continue;
+			}else {
+				p = Math.min(p, distance);
+			}
 			float unHurt = p/1.0f/huihe.getWujiangCount();
 			unHurt = unHurt>1 ? rate:rate*unHurt;
 			//控制主的概率
@@ -126,6 +140,13 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
+			int distance = b.getDistance()-huihe.getWj().getPosition() + 1;
+			Conf.log("=====战法"+b.getName()+"实际可攻击敌军数："+ distance);
+			if(distance<=0) {
+				continue;
+			}else {
+				p = Math.min(p, distance);
+			}
 			//不受伤害的概率
 			float unHurt = p/1.0f/huihe.getWujiangCount();
 			unHurt = unHurt>1 ? rate:rate*unHurt;
@@ -148,6 +169,13 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
+			int distance = b.getDistance()-huihe.getWj().getPosition() + 1;
+			Conf.log("=====战法"+b.getName()+"实际可攻击敌军数："+ distance);
+			if(distance<=0) {
+				continue;
+			}else {
+				p = Math.min(p, distance);
+			}
 			//不受伤害的概率
 			float unHurt = p/1.0f/huihe.getWujiangCount();
 			unHurt = unHurt>1 ? rate:rate*unHurt;
