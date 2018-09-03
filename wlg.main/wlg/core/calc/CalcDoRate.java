@@ -36,11 +36,7 @@ public class CalcDoRate {
 	 * @return
 	 */
 	public static <T extends ZhanFa> float getShuaXinRate(HuiHe huihe, T zhanfa) {
-		float rate = 0;
-		//可以发动战法
-		if(huihe.getId() > zhanfa.getReady()) {
-			rate = 1;
-		} 
+		float rate = getSameRate(huihe, zhanfa);
 		//埋雷战法
 		if(zhanfa instanceof MaiLeiZhanFa) {
 			rate = 0;
@@ -54,20 +50,6 @@ public class CalcDoRate {
 				rate = 1;
 			}
 		}
-		//持续多少回合后，进行伤害
-		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
-			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
-			if(huihe.getId()>(t.getKeephuihe()+1)) {
-				rate = 0;
-			}
-		}
-		//持续多少回合
-		if(zhanfa.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
-			FanJiZhiCeZhanFa t = (FanJiZhiCeZhanFa)zhanfa;
-			if(huihe.getId()>t.getKeephuihe()) {
-				rate = 0;
-			}
-		}
 		Conf.log("======第"+huihe.getId()+"回合受刷新影响，战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
@@ -78,31 +60,13 @@ public class CalcDoRate {
 	 * @return
 	 */
 	public static <T extends ZhanFa> float getKongZhiRate(HuiHe huihe, T zhanfa) {
-		float rate = 0;
-		//可以发动战法
-		if(huihe.getId() > zhanfa.getReady()) {
-			rate = 1;
-		} 
+		float rate = getSameRate(huihe, zhanfa);
 		//发动后下一回合生效
 		if(zhanfa.getT().equals(ZFType.ZhuDong_FaShu_JianShang)) {
 			rate = 0;
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() > ready) {
 				rate = 1;
-			}
-		}
-		//持续多少回合
-		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
-			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
-			if(huihe.getId()>t.getKeephuihe()) {
-				rate = 0;
-			}
-		}
-		//持续多少回合
-		if(zhanfa.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
-			FanJiZhiCeZhanFa t = (FanJiZhiCeZhanFa)zhanfa;
-			if(huihe.getId()>t.getKeephuihe()) {
-				rate = 0;
 			}
 		}
 		
@@ -116,11 +80,7 @@ public class CalcDoRate {
 	 * @return
 	 */
 	public static <T extends ZhanFa> float getCommRate(HuiHe huihe, T zhanfa) {
-		float rate = 0;
-		//可以发动战法  //控制战法 效果一样 相当于叠加
-		if(huihe.getId() > zhanfa.getReady()) {
-			rate = 1;
-		} 
+		float rate = getSameRate(huihe, zhanfa);
 		//埋雷战法
 		if(zhanfa instanceof MaiLeiZhanFa) {
 			rate = 0;
@@ -134,6 +94,21 @@ public class CalcDoRate {
 				rate = 1 - zhanfa.getDoneRate();
 			}
 		}
+		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
+		return rate;
+	}
+	/**
+	 * 一般,刷新,控制战法 相同逻辑的概率 
+	 * @param huihe
+	 * @param zhanfa
+	 * @return
+	 */
+	private static <T extends ZhanFa> float getSameRate(HuiHe huihe, T zhanfa) {
+		float rate = 0;
+		//可以发动战法  //控制战法 效果一样 相当于叠加
+		if(huihe.getId() > zhanfa.getReady()) {
+			rate = 1;
+		} 
 		//持续多少回合
 		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
@@ -148,7 +123,6 @@ public class CalcDoRate {
 				rate = 0;
 			}
 		}
-		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
 }
