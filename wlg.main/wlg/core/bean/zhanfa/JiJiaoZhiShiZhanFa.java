@@ -4,9 +4,9 @@ import wlg.core.bean.conf.Conf;
 
 public class JiJiaoZhiShiZhanFa extends ZhanFa {
 
-	public JiJiaoZhiShiZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal, Person persons,
+	public JiJiaoZhiShiZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal, int distance,Person persons,
 			float exRate, float exHarmRate) {
-		super(name, t, ready, doneRate, harmVal, persons, exRate, exHarmRate);
+		super(name, t, ready, doneRate, harmVal, distance,persons, exRate, exHarmRate);
 	}
 
 	@Override

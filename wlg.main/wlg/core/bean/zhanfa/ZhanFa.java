@@ -22,6 +22,8 @@ public class ZhanFa implements Harm, Cloneable {
 	private float exHarmVal= 0.0f;
 	//不可变的额外伤害值
 	private float finalExHarmVal = 0.0f;
+	//攻击距离
+	private int distance = 1;
 	//增益发动概率
 	private float exRate = 0.0f;
 	// 打击队伍数
@@ -49,18 +51,19 @@ public class ZhanFa implements Harm, Cloneable {
 	 * @param persons
 	 *            打击队伍数
 	 */
-	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal, Person persons) {
+	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal,int distance, Person persons) {
 		this.t = t;
 		this.name = name;
 		this.ready = ready;
 		this.doneRate = doneRate;
 		this.harmVal = harmVal;
 		this.persons = persons;
+		this.distance = distance;
 		
 		this.finalHarmVal = this.harmVal;
 	}
 	
-	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal, Person persons,float exRate,float exHarmRate) {
+	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal, int distance,Person persons,float exRate,float exHarmRate) {
 		this.t = t;
 		this.name = name;
 		this.ready = ready;
@@ -69,11 +72,15 @@ public class ZhanFa implements Harm, Cloneable {
 		this.persons = persons;
 		this.exRate = exRate;
 		this.exHarmVal=exHarmRate;
+		this.distance = distance;
 		
 		this.finalHarmVal = this.harmVal;
 		this.finalExHarmVal = this.exHarmVal;
 	}
 
+	public int getDistance() {
+		return distance;
+	}
 	public float getExHarmVal() {
 		return exHarmVal;
 	}

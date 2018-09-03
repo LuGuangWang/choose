@@ -8,8 +8,8 @@ public class MaiLeiZhanFa extends ZhanFa{
 	//持续几回合
 	private int keep = 1;
 	
-	public MaiLeiZhanFa(String name,ZFType t,int ready,int keep, float doneRate, float harmRate, Person persons) {
-		super(name,t,ready, doneRate, harmRate, persons);
+	public MaiLeiZhanFa(String name,ZFType t,int ready,int keep, float doneRate, float harmRate,int distance, Person persons) {
+		super(name,t,ready, doneRate, harmRate, distance,persons);
 		this.keep = keep;
 	}
 

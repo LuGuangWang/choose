@@ -10,8 +10,8 @@ public class JiaShangZhanFa extends ZhanFa{
 
 	private int keephuihe = 8;//战法持续回合
 	
-	public JiaShangZhanFa(String name, ZFType t, int ready, float doneRate,float harmVal, Person persons,int keephuihe) {
-		super(name, t, ready, doneRate, harmVal, persons);
+	public JiaShangZhanFa(String name, ZFType t, int ready, float doneRate,float harmVal,int distance, Person persons,int keephuihe) {
+		super(name, t, ready, doneRate, harmVal,distance, persons);
 		this.keephuihe = keephuihe;
 	}
 

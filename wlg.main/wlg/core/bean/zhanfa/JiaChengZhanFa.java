@@ -11,8 +11,8 @@ public class JiaChengZhanFa extends ZhanFa {
 	 */
 	private float addRate;
 	
-	public JiaChengZhanFa(String name,ZFType t,int ready, float doneRate, float harmRate, Person persons,float addRate) {
-		super(name,t,ready, doneRate, harmRate, persons);
+	public JiaChengZhanFa(String name,ZFType t,int ready, float doneRate, float harmRate, int distance,Person persons,float addRate) {
+		super(name,t,ready, doneRate, harmRate, distance,persons);
 		this.addRate=addRate;
 	}
 

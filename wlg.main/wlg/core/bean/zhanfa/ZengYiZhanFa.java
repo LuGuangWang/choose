@@ -12,8 +12,8 @@ public class ZengYiZhanFa extends ZhanFa{
 	 * @param exRate	增益发动概率
 	 * @param exHarmRate  增益伤害率
 	 */
-	public ZengYiZhanFa(String name,ZFType t,int ready, float doneRate,float harmRate,Person persons,float exRate,float exHarmRate) {
-		super(name,t,ready,doneRate,harmRate,persons,exRate,exHarmRate);
+	public ZengYiZhanFa(String name,ZFType t,int ready, float doneRate,float harmRate,int distance,Person persons,float exRate,float exHarmRate) {
+		super(name,t,ready,doneRate,harmRate,distance,persons,exRate,exHarmRate);
 	}
 	
 	/**

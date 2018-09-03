@@ -4,8 +4,8 @@ public class FanJiZhiCeZhanFa extends ZhanFa {
 
 	private int keephuihe;
 	
-	public FanJiZhiCeZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal, Person persons,int keephuihe) {
-		super(name, t, ready, doneRate, harmVal, persons);
+	public FanJiZhiCeZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal,int distance, Person persons,int keephuihe) {
+		super(name, t, ready, doneRate, harmVal,distance, persons);
 		this.keephuihe = keephuihe;
 	}
 
