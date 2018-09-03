@@ -68,7 +68,7 @@ public class WuJiang {
 	public int getStrategy() {
 		return strategy;
 	}
-	
+	//对自身战法加成
 	public void addJiaCheng() {
 		List<ZhanFa> fashujiacheng = new ArrayList<>();
 		zhanfaMap.forEach((k,v)->{

@@ -13,12 +13,12 @@ public class Choose {
 	public static void main(String[] args) {
 		System.out.println("战法组合的伤害值越高,代表越好:");
 		
-		WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
-		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
-		float sum1 = CalcWJHarm.calcVal(WList.luxun,WList.zhouyv,WList.lvmeng);
-		String key1 = WList.luxun.toKey() + WList.zhouyv.toKey() + WList.lvmeng.toKey() + "该组合伤害值:";
-		System.out.println(key1 + sum1);
+//		WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
+//		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+//		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+//		float sum1 = CalcWJHarm.calcVal(WList.luxun,WList.zhouyv,WList.lvmeng);
+//		String key1 = WList.luxun.toKey() + WList.zhouyv.toKey() + WList.lvmeng.toKey() + "该组合伤害值:";
+//		System.out.println(key1 + sum1);
 		
 		
 		WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
@@ -44,12 +44,12 @@ public class Choose {
 	 */
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
-		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
-		
-		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
-		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
-		
+//		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
+//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		
+//		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
+//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		
 //		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.chugesiqi);
 //		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
 //		

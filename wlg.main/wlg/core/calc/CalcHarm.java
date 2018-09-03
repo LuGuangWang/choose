@@ -182,7 +182,10 @@ public class CalcHarm {
 			T z = zhanfa[i];
 			float shuaxinVal = 0.0f;
 			if(CheckUtil.isStrategy(z)) {
-				shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
+				//只对当前武将的战法生效
+				if(huihe.getWj().getPosition()==z.getPosition()) {
+					shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
+				}
 			}
 			if(z.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;

@@ -47,7 +47,12 @@ public class CalcDoRate {
 				rate = mz.getSpeed()>0?1:0;
 			//刷新后,战法可以叠加
 			}else if(huihe.getId()> ready) {
-				rate = 1;
+				//刷新战法只对本武将生效
+				if(huihe.getWj().getPosition() == zhanfa.getPosition()){
+					rate = 1;
+				}else {
+					rate = 1 - zhanfa.getDoneRate();
+				}
 			}
 		}
 		Conf.log("======第"+huihe.getId()+"回合受刷新影响，战法"+zhanfa.getName()+"成功发动的概率:"+rate);
@@ -109,7 +114,7 @@ public class CalcDoRate {
 		if(huihe.getId() > zhanfa.getReady()) {
 			rate = 1;
 		} 
-		//持续多少回合
+		//持续多少回合后
 		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
 			if(huihe.getId()>(t.getKeephuihe()+1)) {
