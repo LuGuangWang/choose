@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import wlg.core.bean.wujiang.WList;
+import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.ZList;
 import wlg.core.calc.CalcWJHarm;
 
@@ -12,30 +13,42 @@ public class Choose {
 	
 	public static void main(String[] args) {
 		System.out.println("战法组合的伤害值越高,代表越好:");
+		Choose c = new Choose();
 		
-//		WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
-//		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-//		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
-//		float sum1 = CalcWJHarm.calcVal(WList.luxun,WList.zhouyv,WList.lvmeng);
-//		String key1 = WList.luxun.toKey() + WList.zhouyv.toKey() + WList.lvmeng.toKey() + "该组合伤害值:";
-//		System.out.println(key1 + sum1);
+		Map<Float, String> results = c.calcWuJiangsVal();
+		((TreeMap<Float, String>) results).descendingMap().forEach((k,v)->{
+			System.out.println(v + k);
+		});
 		
+		System.out.println("==================================================");
+		
+		Map<Float, String> result = c.calcDanGeWuJiangVal();
+		((TreeMap<Float, String>) result).descendingMap().forEach((k,v)->{
+			System.out.println(v + k);
+		});
+	}
+	/**
+	 * 计算武将组合
+	 * @return
+	 */
+	public Map<Float, String> calcWuJiangsVal() {
+		TreeMap<Float, String> result = new TreeMap<>();
 		
 		WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
 		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
 		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
 		float sum = CalcWJHarm.calcVal(WList.luxun,WList.zhouyv,WList.lvmeng);
-		String key = WList.luxun.toKey() + WList.zhouyv.toKey() + WList.lvmeng.toKey() + "该组合伤害值:";
-		System.out.println(key + sum);
+		String key = buildKey(WList.luxun,WList.zhouyv,WList.lvmeng);
+		result.put(sum, key);
 		
+		WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
+		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+		float sum1 = CalcWJHarm.calcVal(WList.luxun,WList.zhouyv,WList.lvmeng);
+		String key1 = buildKey(WList.luxun,WList.zhouyv,WList.lvmeng);
+		result.put(sum1, key1);
 		
-		System.out.println("==================================================");
-		
-		Choose c = new Choose();
-		Map<Float, String> result = c.calcDanGeWuJiangVal();
-		((TreeMap<Float, String>) result).descendingMap().forEach((k,v)->{
-			System.out.println(v + k);
-		});
+		return result;
 	}
 	
 	/**
@@ -79,4 +92,15 @@ public class Choose {
 		
 		return result;
 	}
+	
+
+	private static String buildKey(WuJiang... wjs) {
+		StringBuilder key = new StringBuilder();
+		for(WuJiang wj:wjs) {
+			key.append(wj.toKey());
+		}
+		key.append("该组合伤害值:");
+		return key.toString();
+	}
+	
 }
