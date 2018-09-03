@@ -21,21 +21,24 @@ public class WuJiang implements Cloneable{
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
 	private int position = 3;//武将位置  大营1 中军2 前锋3
 	private int finalp = 3;//原始武将位置  大营1 中军2 前锋3
-	
-	//TODO 添加攻击距离
+	private int distance = 1;//攻击距离
 	
 	@SuppressWarnings("unchecked")
-	public <T extends ZhanFa> WuJiang(String name,int speed,int defense,int attack,int strategy,T zhanfa) {
+	public <T extends ZhanFa> WuJiang(String name,int speed,int defense,int attack,int strategy,int distance,T zhanfa) {
 		this.name=name;
 		this.attack=attack;
 		this.defense=defense;
 		this.strategy=strategy;
 		this.speed=speed;
+		this.distance=distance;
 		T t = (T) zhanfa.clone();
 		finalZf = t;
 		addWuJiangProp(t);
 		zhanfaMap.clear();
 		zhanfaMap.put(1, t);
+	}
+	public int getDistance() {
+		return distance;
 	}
 	public int getPosition() {
 		return position;
