@@ -11,12 +11,13 @@ import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanFa;
 import wlg.core.calc.CalcJiaCheng;
 
-public class WuJiang {
+public class WuJiang implements Cloneable{
 	private String name;
 	private int speed;//速度
 	private int defense;//防御
 	private int attack;//攻击
 	private int strategy;//谋略
+	private ZhanFa finalZf;//自身的战法
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
 	private int position = 3;//武将位置  大营1 中军2 前锋3
 	private int finalp = 3;//原始武将位置  大营1 中军2 前锋3
@@ -31,7 +32,9 @@ public class WuJiang {
 		this.strategy=strategy;
 		this.speed=speed;
 		T t = (T) zhanfa.clone();
+		finalZf = t;
 		addWuJiangProp(t);
+		zhanfaMap.clear();
 		zhanfaMap.put(1, t);
 	}
 	public int getPosition() {
@@ -39,6 +42,9 @@ public class WuJiang {
 	}
 	public void setPosition(int position) {
 		Conf.log("=======武将 " + name + " 位置发生变化:" + this.position + " -> " + position);
+		zhanfaMap.forEach((k,v)->{
+			v.setPosition(position);
+		});
 		this.position = position;
 	}
 	public void setFinalp(int finalp) {
@@ -79,43 +85,37 @@ public class WuJiang {
 		float jiachengVal = CalcJiaCheng.getJiaChengVal(fashujiacheng);
 		zhanfaMap.forEach((k,v)->{
 			if(!fashujiacheng.contains(v) && CheckUtil.isStrategy(v)) {
-				Conf.log("==== 战法 "+v.getName() + " 初始伤害值：" + v.getFinalHarmVal()  + " 初始额外伤害值：" + v.getFinalExHarmVal());
-				if(!v.getT().equals(ZFType.ZhuDong_FaShu_GongJi)) {
-					if(v.getFinalExHarmVal()>0)
-						v.setExHarmVal(v.getFinalExHarmVal()+jiachengVal);
+				ZhanFa v1 = v.clone();
+				Conf.log("==== 战法 "+v1.getName() + " 初始伤害值：" + v1.getFinalHarmVal()  + " 初始额外伤害值：" + v1.getFinalExHarmVal());
+				if(!v1.getT().equals(ZFType.ZhuDong_FaShu_GongJi)) {
+					if(v1.getFinalExHarmVal()>0)
+						v1.setExHarmVal(v1.getFinalExHarmVal()+jiachengVal);
 				}
-				if(v.getFinalHarmVal()>0)
-					v.setHarmRate(v.getFinalHarmVal()+jiachengVal);
-				Conf.log("==== 战法 "+v.getName() + " 伤害值：" + v.getHarmRate()  + " 额外伤害值：" + v.getExHarmVal() + " 增加伤害" + jiachengVal);
+				if(v1.getFinalHarmVal()>0)
+					v1.setHarmRate(v1.getFinalHarmVal()+jiachengVal);
+				Conf.log("==== 战法 "+v1.getName() + " 伤害值：" + v1.getHarmRate()  + " 额外伤害值：" + v1.getExHarmVal() + " 增加伤害" + jiachengVal);
+				zhanfaMap.put(k, v1);
 			}
 		});
 	}
 	
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang setSecondZhanFa(T z) {
+		WuJiang wj = this.clone();
 		T t = (T) z.clone();
-		addWuJiangProp(t);
-		zhanfaMap.put(2, t);
-		return this;
+		wj.addWuJiangProp(t);
+		wj.zhanfaMap.put(1, finalZf);
+		wj.zhanfaMap.put(2, t);
+		return wj;
 	}
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang setThreeZhanFa(T z) {
+		WuJiang wj = this.clone();
 		T t = (T) z.clone();
-		addWuJiangProp(t);
-		zhanfaMap.put(3, t);
-		return this;
-	}
-	/**
-	 * 添加加成伤害
-	 * @param z
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public <T extends ZhanFa> WuJiang addJiaCheng(T z) {
-		T t = (T) z.clone();
-		addWuJiangProp(t);
-		zhanfaMap.put(3, t);
-		return this;
+		wj.addWuJiangProp(t);
+		wj.zhanfaMap.put(1, finalZf);
+		wj.zhanfaMap.put(3, t);
+		return wj;
 	}
 
 	private <T extends ZhanFa> void addWuJiangProp(T z) {
@@ -163,5 +163,15 @@ public class WuJiang {
 		});
 		s.append("伤害值:");
 		return s.toString();
+	}
+	
+	public WuJiang clone() {
+		WuJiang o = null;
+		try {
+			o = (WuJiang) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return o;
 	}
 }

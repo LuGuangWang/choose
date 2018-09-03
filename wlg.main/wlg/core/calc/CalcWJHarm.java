@@ -119,12 +119,6 @@ public class CalcWJHarm {
 			if(CheckUtil.isJiaCheng(zf)) huihe.setHasJiaCheng(true);
 			if(CheckUtil.isKongZhi(zf)) { 
 				huihe.setHasKongZhi(true);
-				//TODO 总控制力
-//				float kongzhiVal = CalcDoRate.getKongZhiRate(huihe, zf);
-//				if(!CheckUtil.isKongZhiAll(zf)) {
-//					kongzhiVal *= Conf.dk_rate;
-//				}
-//				huihe.addKongzhiVal(kongzhiVal);
 			}
 			if(zf instanceof ShuaXinZhanFa) {
 				float oldVal = huihe.getShuaxinVal();
@@ -151,6 +145,8 @@ public class CalcWJHarm {
 		for(int i=0;i<wujiang.length;i++) {
 			//设置武将位置
 			wujiang[i].setFinalp(Conf.WuJiang_Count-wujiang.length+i+1);
+			wujiang[i].setPosition(Conf.WuJiang_Count-wujiang.length+i+1);
+			
 			if(i>=1) {
 				if(wujiang[i].getSpeed()>wujiang[i-1].getSpeed()) {
 					tmp = wujiang[i];
