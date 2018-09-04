@@ -2,6 +2,7 @@ package wlg.core.calc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import wlg.core.CheckUtil;
@@ -44,7 +45,7 @@ public class CalcWJHarm {
 			huihe.setWujiangCount(wujiang.size());
 			
 			//补充额外属性 并获取可影响其它战法的战法
-			List<ZhanFa> kongzhi = hasKongZhi(huihe, wujiang);
+			List<ZhanFa> kongzhi = hasXianFaKongZhi(huihe, wujiang);
 			
 			for(int j=0;j<wujiang.size();j++) {
 				float wjVal = 0.0f;//武将战斗力
@@ -52,8 +53,8 @@ public class CalcWJHarm {
 				Conf.log("===============武将"+ wj.getName()+"开始战斗=============");
 				//武将行动的顺序
 				wj.changeOrder(wujiang.size()-1-j);
-				//补充额外属性
-				buildExProp(huihe,wj);
+				//补充额外属性 并且增加先发的控制战法
+				 List<ZhanFa> allKongZhi = buildExProp(huihe,wj,kongzhi);
 				//加成战法
 				if(huihe.isHasJiaCheng()) {
 					wj.addJiaCheng();
@@ -62,7 +63,7 @@ public class CalcWJHarm {
 				//主伤害
 				if(huihe.isHasKongZhi()) {
 					Conf.log("=============计算普通主伤害值==========");
-					wjVal += CalcHarm.calcKongZhiHuiHe(huihe, true,kongzhi,wj.getZhanfa());
+					wjVal += CalcHarm.calcKongZhiHuiHe(huihe, true,allKongZhi,wj.getZhanfa());
 					//增益伤害
 					if(huihe.isHasZengYi()) {
 						Conf.log("=============计算增益伤害值==========");
@@ -70,7 +71,7 @@ public class CalcWJHarm {
 						for(int m=j;m<wujiang.size();m++) {
 							zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
 						}
-						wjVal += CalcHarm.calcKongZhiHuiHe(huihe, false,kongzhi,wj.getZhanfa());
+						wjVal += CalcHarm.calcKongZhiHuiHe(huihe, false,allKongZhi,wj.getZhanfa());
 					}
 				} else {
 					Conf.log("=============计算普通主伤害值==========");
@@ -103,7 +104,7 @@ public class CalcWJHarm {
 		return sum;
 	}
 
-	private static List<ZhanFa> hasKongZhi(HuiHe huihe, List<WuJiang> wujiang) {
+	private static List<ZhanFa> hasXianFaKongZhi(HuiHe huihe, List<WuJiang> wujiang) {
 		huihe.setHasKongZhi(false);
 		List<ZhanFa> kongzhi = new ArrayList<>();
 		wujiang.forEach(wj->{
@@ -111,18 +112,20 @@ public class CalcWJHarm {
 				//武将位置
 				zf.setPosition(wj.getPosition());
 				
-				if(CheckUtil.isKongZhi(zf)) {
+				if(CheckUtil.isXianFaKongZhi(zf)) {
 					Conf.log("=========添加控制战法"+zf.getName());
 					kongzhi.add(zf);
 					huihe.setHasKongZhi(true);
 				}
 			}
 		});
-		return kongzhi;
+		return Collections.unmodifiableList(kongzhi);
 	}
 
 	//补充额外属性
-	private static void buildExProp(HuiHe huihe, WuJiang wj) {
+	private static List<ZhanFa> buildExProp(HuiHe huihe, WuJiang wj,List<ZhanFa> kongzhi) {
+		//控制战法
+		List<ZhanFa> allKongZhi = new ArrayList<>(kongzhi);
 		//设置当前武将
 		huihe.setWj(wj);
 		
@@ -136,10 +139,16 @@ public class CalcWJHarm {
 		
 		ZhanFa[] zfs = wj.getZhanfa();
 		for(ZhanFa zf:zfs) {
-			
 			if(CheckUtil.isZengYi(zf)) huihe.setHasZengYi(true);
 			if(CheckUtil.isBuGongJi(zf)) huihe.setHasBuGong(true);
 			if(CheckUtil.isJiaCheng(zf)) huihe.setHasJiaCheng(true);
+			
+			if(CheckUtil.isKongZhi(zf)) {
+				huihe.setHasJiaCheng(true);
+				Conf.log("=========添加控制战法"+zf.getName());
+				allKongZhi.add(zf);
+			}
+			
 			
 			if(zf instanceof ShuaXinZhanFa) {
 				float oldVal = huihe.getShuaxinVal();
@@ -158,6 +167,7 @@ public class CalcWJHarm {
 				}
 			}
 		}
+		return allKongZhi;
 	}
 	
 	//按速度排序

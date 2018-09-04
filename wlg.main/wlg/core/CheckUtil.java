@@ -15,6 +15,26 @@ public class CheckUtil {
 		boolean isJiaCheng = isFaShuJiaCheng(zf);
 		return isJiaCheng;
 	}
+	/**
+	 * 先发类型的控制
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isXianFaKongZhi(ZhanFa zf) {
+		boolean isKongZhi = false;
+		switch (zf.getT()) {
+		case ZhiHui_FuZhu_ALL:
+		case ZhiHui_KongZhiGongJi_FaShuShangHai:
+		case ZhiHui_JianshangFashu_KongZhiFaShu:
+		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
+			isKongZhi = true;
+			break;
+		default:
+			isKongZhi = false;
+			break;
+		}
+		return isKongZhi;
+	}
 	
 	/**
 	 * 是否是法术加成战法
