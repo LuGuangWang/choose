@@ -2,6 +2,7 @@ package wlg.core.bean.zhanfa;
 
 import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
+import wlg.core.calc.CalCDistance;
 
 /**
  * 普通战法
@@ -190,8 +191,7 @@ public class ZhanFa implements Harm, Cloneable {
 			
 			for(int i : persons) {
 				for(int p:ps) {
-					int distance = this.getDistance()-this.getPosition() + 1;
-					Conf.log("=====战法"+this.getName()+"实际可攻击敌军数："+ distance);
+					int distance = CalCDistance.calcDistance(this.getDistance(), this.getPosition());
 					if(distance<=0) {
 						continue;
 					}else {
@@ -229,8 +229,7 @@ public class ZhanFa implements Harm, Cloneable {
 			int len = getPersons().getPersons().length;
 			float rate = 1.0f / len;
 			for (int i : getPersons().getPersons()) {
-				int distance = this.getDistance()-this.getPosition() + 1;
-				Conf.log("=====战法"+this.getName()+"实际可攻击敌军数："+ distance);
+				int distance = CalCDistance.calcDistance(this.getDistance(), this.getPosition());
 				if(distance<=0) {
 					continue;
 				}else {

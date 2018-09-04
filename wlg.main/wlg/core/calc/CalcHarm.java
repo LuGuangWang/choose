@@ -67,8 +67,7 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
-			int distance = b.getDistance()-huihe.getWj().getPosition() + 1;
-			Conf.log("=====战法"+b.getName()+"实际可攻击敌军数："+ distance);
+			int distance = CalCDistance.calcDistance(b.getDistance(), huihe.getWj().getPosition());
 			if(distance<=0) {
 				continue;
 			}else {
@@ -94,6 +93,12 @@ public class CalcHarm {
 	private static <T extends ZhanFa> float calcJianshang(HuiHe huihe, Map<String, Float> kongzhiMap, ZhanFa zf, T... zhanfa) {
 		ZhanFa b = zf;
 		int p = 1;
+		int distance = CalCDistance.calcDistance(b.getDistance(), huihe.getWj().getPosition());
+		if(distance<=0) {
+			p = 0;
+		}else {
+			p = Math.min(p, distance);
+		}
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		//不受伤害的概率
@@ -114,8 +119,7 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
-			int distance = b.getDistance()-huihe.getWj().getPosition() + 1;
-			Conf.log("=====战法"+b.getName()+"实际可攻击敌军数："+ distance);
+			int distance = CalCDistance.calcDistance(b.getDistance(), huihe.getWj().getPosition());
 			if(distance<=0) {
 				continue;
 			}else {
@@ -140,8 +144,7 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
-			int distance = b.getDistance()-huihe.getWj().getPosition() + 1;
-			Conf.log("=====战法"+b.getName()+"实际可攻击敌军数："+ distance);
+			int distance = CalCDistance.calcDistance(b.getDistance(), huihe.getWj().getPosition());
 			if(distance<=0) {
 				continue;
 			}else {
@@ -169,8 +172,7 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
-			int distance = b.getDistance()-huihe.getWj().getPosition() + 1;
-			Conf.log("=====战法"+b.getName()+"实际可攻击敌军数："+ distance);
+			int distance = CalCDistance.calcDistance(b.getDistance(), huihe.getWj().getPosition());
 			if(distance<=0) {
 				continue;
 			}else {
