@@ -17,31 +17,30 @@ import wlg.core.bean.zhanfa.ZhanFa;
 
 public class CalcHarm {
 	
-	@SuppressWarnings("unchecked")
-	public static <T extends ZhanFa> float calcKongZhiHuiHe(HuiHe huihe, T... zhanfa) {
+	public static <T extends ZhanFa> float calcKongZhiHuiHe(HuiHe huihe, boolean calcPrimy,List<ZhanFa> kongzhiZf,T[] zhanfa) {
 		float sum = 0;
 		Map<String,Float> kongzhiMap = new HashMap<>();
 		Conf.log("==================计算控制战法生效时造成的伤害值==============");
-		for(int i=0;i<zhanfa.length;i++) {
-			ZhanFa zf = zhanfa[i];
+		for(int i=0;i<kongzhiZf.size();i++) {
+			ZhanFa zf = kongzhiZf.get(i);
 			if(zf instanceof KongZhiZhanFa) {
-				float unHurtVal = calcKZZhanFa(huihe, kongzhiMap, zf, zhanfa);
+				float unHurtVal = calcKZZhanFa(huihe,calcPrimy, kongzhiMap, zf, zhanfa);
 				sum += unHurtVal;
 			}
 			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
-				float unHurtVal = calcKZGongJiThenFaShuShanghai(huihe, kongzhiMap, zf, zhanfa);
+				float unHurtVal = calcKZGongJiThenFaShuShanghai(huihe, calcPrimy,kongzhiMap, zf, zhanfa);
 				sum += unHurtVal;
 			}
 			if(zf.getT().equals(ZFType.ZhuDong_FaShuShangHai_KongZhiGongji)) {
-				float unHurtVal = calcFashuShangHaiThenKZGongji(huihe, kongzhiMap, zf, zhanfa);
+				float unHurtVal = calcFashuShangHaiThenKZGongji(huihe, calcPrimy,kongzhiMap, zf, zhanfa);
 				sum += unHurtVal;
 			}
 			if(zf.getT().equals(ZFType.ZhuDong_FaShu_JianShang)){
-				float unHurtVal = calcJianshang(huihe, kongzhiMap, zf, zhanfa);
+				float unHurtVal = calcJianshang(huihe, calcPrimy,kongzhiMap, zf, zhanfa);
 				sum += unHurtVal;
 			}
 			if(zf.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
-				float unHurtVal = calcFanjizhice(huihe, kongzhiMap, zf, zhanfa);
+				float unHurtVal = calcFanjizhice(huihe,calcPrimy, kongzhiMap, zf, zhanfa);
 				sum += unHurtVal;
 			}
 		}
@@ -54,14 +53,14 @@ public class CalcHarm {
 		float hurt = 1 - kongzhiRate;
 		Conf.log("======本回合不受伤概率下造成的伤害：" + sum + " 不受伤的概率为："+kongzhiRate);
 		hurt = hurt>0 ? hurt:0;
-		float hurtVal = hurt *  calcKongZhiAllHuiHe(huihe,zhanfa);
+		float hurtVal = hurt *  calcKongZhiAllHuiHe(huihe,calcPrimy,zhanfa);
 		sum += hurtVal;
 		
 		return sum;
 	}
 
 	@SuppressWarnings("unchecked")
-	private static <T extends ZhanFa> float calcFanjizhice(HuiHe huihe, Map<String, Float> kongzhiMap, ZhanFa zf, T... zhanfa) {
+	private static <T extends ZhanFa> float calcFanjizhice(HuiHe huihe, boolean calcPrimy,Map<String, Float> kongzhiMap, ZhanFa zf, T... zhanfa) {
 		FanJiZhiCeZhanFa b = (FanJiZhiCeZhanFa)zf;
 		float unHurtVal = 0.0f;
 		//控制战法发动成功的概率
@@ -79,9 +78,9 @@ public class CalcHarm {
 			float kongzhiVal = unHurt * b.getDoneRate();
 			float tmp = 0.0f;
 			if(huihe.getId()==1) {
-				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(kongzhiVal,p),zhanfa);
+				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(kongzhiVal,p),calcPrimy,zhanfa);
 			}else {
-				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(kongzhiVal * b.getHarmRate(),p),zhanfa);
+				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(kongzhiVal * b.getHarmRate(),p),calcPrimy,zhanfa);
 			}
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
@@ -90,7 +89,7 @@ public class CalcHarm {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static <T extends ZhanFa> float calcJianshang(HuiHe huihe, Map<String, Float> kongzhiMap, ZhanFa zf, T... zhanfa) {
+	private static <T extends ZhanFa> float calcJianshang(HuiHe huihe, boolean calcPrimy,Map<String, Float> kongzhiMap, ZhanFa zf, T... zhanfa) {
 		ZhanFa b = zf;
 		int p = 1;
 		int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
@@ -106,13 +105,13 @@ public class CalcHarm {
 		unHurt = unHurt>1 ? rate:rate*unHurt;
 		//控制主的概率
 		float kongzhiVal = unHurt * b.getDoneRate();
-		float unHurtVal = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal*b.getExHarmVal(),p),zhanfa);
+		float unHurtVal = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal*b.getExHarmVal(),p),calcPrimy,zhanfa);
 		kongzhiMap.put(b.getName(), kongzhiVal);
 		return unHurtVal;
 	}
 
 	@SuppressWarnings("unchecked")
-	private static <T extends ZhanFa> float calcFashuShangHaiThenKZGongji(HuiHe huihe, Map<String, Float> kongzhiMap, ZhanFa zf,
+	private static <T extends ZhanFa> float calcFashuShangHaiThenKZGongji(HuiHe huihe, boolean calcPrimy,Map<String, Float> kongzhiMap, ZhanFa zf,
 			T... zhanfa) {
 		KongZhiAndHarmZhanFa b = (KongZhiAndHarmZhanFa)zf;
 		float unHurtVal = 0.0f;
@@ -129,7 +128,7 @@ public class CalcHarm {
 			unHurt = unHurt>1 ? rate:rate*unHurt;
 			//控制主的概率
 			float kongzhiVal = unHurt * b.getDoneRate();
-			float tmp = b.getKeephuihe() * kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal,p),zhanfa);
+			float tmp = b.getKeephuihe() * kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal,p),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -137,7 +136,7 @@ public class CalcHarm {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static <T extends ZhanFa> float calcKZGongJiThenFaShuShanghai(HuiHe huihe, Map<String, Float> kongzhiMap, ZhanFa zf,
+	private static <T extends ZhanFa> float calcKZGongJiThenFaShuShanghai(HuiHe huihe,boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
 			T... zhanfa) {
 		float unHurtVal = 0.0f;
 		KongZhiAndHarmZhanFa b = (KongZhiAndHarmZhanFa)zf;
@@ -158,7 +157,7 @@ public class CalcHarm {
 			}
 			//控制主的概率
 			float kongzhiVal = unHurt * b.getDoneRate();
-			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal,p),zhanfa);
+			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal,p),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -166,7 +165,7 @@ public class CalcHarm {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static <T extends ZhanFa> float calcKZZhanFa(HuiHe huihe, Map<String, Float> kongzhiMap, ZhanFa zf, T... zhanfa) {
+	private static <T extends ZhanFa> float calcKZZhanFa(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf, T... zhanfa) {
 		KongZhiZhanFa b = (KongZhiZhanFa)zf;
 		float unHurtVal = 0.0f;
 		//控制战法发动成功的概率
@@ -183,7 +182,7 @@ public class CalcHarm {
 			unHurt = unHurt>1 ? rate:rate*unHurt;
 			//控制主的概率
 			float kongzhiVal = unHurt * b.getDoneRate();
-			float tmp = kongzhiVal * b.getKeep() * calcKongZhiAllHuiHe(huihe.getAllFeng(kongzhiVal,p),zhanfa);
+			float tmp = kongzhiVal * b.getKeep() * calcKongZhiAllHuiHe(huihe.getAllFeng(kongzhiVal,p),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -191,13 +190,14 @@ public class CalcHarm {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T extends ZhanFa> float calcKongZhiAllHuiHe(HuiHe huihe, T... zhanfa) {
+	public static <T extends ZhanFa> float calcKongZhiAllHuiHe(HuiHe huihe, boolean calcPrimy, T... zhanfa) {
 		float sum = 0.0f;
-		Conf.log("=============计算有控制战法的普通主伤害值==========");
-		sum = calcCommHuiHe(huihe,zhanfa);
-		if(huihe.isHasZengYi()) {
-			Conf.log("=============计算有控制战法的普通增益害值==========");
-			sum += calcExVal(huihe,zhanfa);
+		if(calcPrimy) {
+			sum = calcCommHuiHe(huihe,zhanfa);
+		}else {
+			if(huihe.isHasZengYi()) {
+				sum = calcExVal(huihe,zhanfa);
+			}
 		}
 		return sum;
 	}
@@ -251,7 +251,8 @@ public class CalcHarm {
 		//计算加伤战法
 		if(jss.size()>0) {
 			for(JiaShangZhanFa zf:jss) {
-				float harmval = executeJss * zf.getHarmVal() * huihe.getSolderRate(zf.getPosition(),zf.getDefense());
+				float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, zf):CalcDoRate.getCommRate(huihe, zf);
+				float harmval = rate * executeJss * zf.getHarmVal() * huihe.getSolderRate(zf.getPosition(),zf.getDefense());
 				Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
 				sum += harmval;
 			}
