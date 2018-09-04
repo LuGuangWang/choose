@@ -39,15 +39,15 @@ public class CalcWJHarm {
 			float huiheVal = 0.0f;
 			huihe.setId(i);
 			huihe.setWujiangs(wujiang);
-			Conf.log("===============第"+ huihe.getId()+"回合=============");
+			Conf.log("===============第"+ huihe.getId()+"回合开始=============");
 			
 			huihe.setWujiangCount(wujiang.size());
 			boolean isCalc = true;
 			
 			for(int j=0;j<wujiang.size();j++) {
+				float wjVal = 0.0f;//武将战斗力
 				WuJiang wj = wujiang.get(j);
-				//设置武将位置
-				wj.setPosition(Conf.WuJiang_Count-huihe.getWujiangCount()+j+1);
+				Conf.log("===============武将"+ wj.getName()+"开始战斗=============");
 				//武将行动的顺序
 				wj.changeOrder(wujiang.size()-1-j);
 				//补充额外属性
@@ -63,12 +63,14 @@ public class CalcWJHarm {
 						for(int m=j;m<wujiang.size();m++) {
 							zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
 						}
-						huiheVal += CalcHarm.calcKongZhiHuiHe(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
+						wjVal = CalcHarm.calcKongZhiHuiHe(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
+						huiheVal += wjVal;
 						isCalc = false;
 					}
 				} else {
 					Conf.log("=============计算普通主伤害值==========");
-					huiheVal += CalcHarm.calcCommHuiHe(huihe, wj.getZhanfa());
+					wjVal = CalcHarm.calcCommHuiHe(huihe, wj.getZhanfa());
+					huiheVal += wjVal;
 					//增益伤害
 					if(huihe.isHasZengYi()) {
 						Conf.log("=============计算增益伤害值==========");
@@ -76,21 +78,24 @@ public class CalcWJHarm {
 						for(int m=j;m<wujiang.size();m++) {
 							zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
 						}
-						huiheVal += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
+						wjVal = CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
+						huiheVal += wjVal;
 					}
 				}
 				// 普通攻击伤害
 				if(!huihe.isHasBuGong() && Conf.getCalcPG() && (CalCDistance.calcDistance(wj.getDistance(), wj.getPosition())>0)) {
 					float gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * huihe.getSolderRate(wj.getPosition(), wj.getDefense()) * huihe.getUpGongJiVal();
+					wjVal = gongjiVal;
 					huiheVal += gongjiVal;
-					Conf.log("=========第"+ huihe.getId() +"回合普通攻击最终杀伤力："+gongjiVal);
+					Conf.log("=========武将"+ wj.getName() +"普通攻击最终杀伤力："+gongjiVal);
 				}
 				//重新设置武将
 				globalwujiang = huihe.getWujiangs();
+				Conf.log("===============武将"+ wj.getName()+"结束战斗,最终杀伤力：" + wjVal);
 			}
 			
 			sum += huiheVal;
-			Conf.log("===========第"+huihe.getId()+"回合最终杀伤力："+huiheVal);
+			Conf.log("===========第"+huihe.getId()+"回合结束，最终杀伤力："+huiheVal);
 		}
 		return sum;
 	}
@@ -145,7 +150,7 @@ public class CalcWJHarm {
 		for(int i=0;i<wujiang.length;i++) {
 			//设置武将位置
 			wujiang[i].setFinalp(Conf.WuJiang_Count-wujiang.length+i+1);
-			wujiang[i].setPosition(Conf.WuJiang_Count-wujiang.length+i+1);
+			wujiang[i].setPosition(wujiang[i].getFinalp());
 			
 			if(i>=1) {
 				if(wujiang[i].getSpeed()>wujiang[i-1].getSpeed()) {

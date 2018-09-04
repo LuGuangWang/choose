@@ -146,6 +146,20 @@ public class HuiHe implements Cloneable{
 			}else {
 				Conf.log("=====第"+id+"回合损失武将"+wj.getName());
 				this.wujiangs.remove(wj);
+				//损失中军
+				if(wj.getPosition()==2) {
+					this.wujiangs.forEach(v->{
+						if(v.getFinalp()==1) {
+							v.setPosition(v.getFinalp()+1);
+						}
+					});
+				}
+				//损失前锋
+				if(wj.getPosition()==2) {
+					this.wujiangs.forEach(v->{
+						v.setPosition(v.getFinalp()+1);
+					});
+				}
 			}
 		}
 	}
