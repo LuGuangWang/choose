@@ -34,12 +34,12 @@ public class Choose {
 	public Map<Float, String> calcWuJiangsVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
 		
-//		WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
-//		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-//		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
-//		float sum = CalcWJHarm.calcVal(WList.luxun,WList.zhouyv,WList.lvmeng);
-//		String key = buildKey(WList.luxun,WList.zhouyv,WList.lvmeng);
-//		result.put(sum, key);
+		WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
+		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+		float sum = CalcWJHarm.calcVal(WList.luxun,WList.zhouyv,WList.lvmeng);
+		String key = buildKey(WList.luxun,WList.zhouyv,WList.lvmeng);
+		result.put(sum, key);
 		
 		WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
 		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
@@ -89,7 +89,7 @@ public class Choose {
 //		
 //		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
 //		result.put(CalcWJHarm.calcVal(WList.lvmeng), WList.lvmeng.toString());
-		
+//		
 		return result;
 	}
 	
