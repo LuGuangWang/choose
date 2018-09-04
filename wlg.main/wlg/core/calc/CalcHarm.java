@@ -67,7 +67,7 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
-			int distance = CalCDistance.calcDistance(b.getDistance(), huihe.getWj().getPosition());
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
 			if(distance<=0) {
 				continue;
 			}else {
@@ -93,7 +93,7 @@ public class CalcHarm {
 	private static <T extends ZhanFa> float calcJianshang(HuiHe huihe, Map<String, Float> kongzhiMap, ZhanFa zf, T... zhanfa) {
 		ZhanFa b = zf;
 		int p = 1;
-		int distance = CalCDistance.calcDistance(b.getDistance(), huihe.getWj().getPosition());
+		int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
 		if(distance<=0) {
 			p = 0;
 		}else {
@@ -119,7 +119,7 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
-			int distance = CalCDistance.calcDistance(b.getDistance(), huihe.getWj().getPosition());
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
 			if(distance<=0) {
 				continue;
 			}else {
@@ -144,7 +144,7 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
-			int distance = CalCDistance.calcDistance(b.getDistance(), huihe.getWj().getPosition());
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
 			if(distance<=0) {
 				continue;
 			}else {
@@ -172,7 +172,7 @@ public class CalcHarm {
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
 		for(int p:b.getPersons().getPersons()) {
-			int distance = CalCDistance.calcDistance(b.getDistance(), huihe.getWj().getPosition());
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
 			if(distance<=0) {
 				continue;
 			}else {

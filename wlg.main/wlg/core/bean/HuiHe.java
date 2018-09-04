@@ -130,7 +130,7 @@ public class HuiHe implements Cloneable{
 	 * @param wj
 	 */
 	public void removeWujiang(WuJiang wj) {
-		Conf.log("=========检查武将是否有损失===========");
+		Conf.log("=========检查武将"+wj.getName()+"是否有损失===========");
 		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
 		//包含控制战法
 		if(hasKongZhi) {

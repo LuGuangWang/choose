@@ -51,11 +51,15 @@ public class CalcWJHarm {
 				//武将行动的顺序
 				wj.changeOrder(wujiang.size()-1-j);
 				//补充额外属性
-				buildExProp(huihe, wj);
+				buildExProp(huihe, wujiang);
 				//加成战法
 				if(huihe.isHasJiaCheng()) {
 					wj.addJiaCheng();
 				}
+				
+				//设置当前武将
+				huihe.setWj(wj);
+				
 				//主伤害
 				if(huihe.isHasKongZhi()) {
 					if(isCalc) {
@@ -100,12 +104,7 @@ public class CalcWJHarm {
 		return sum;
 	}
 
-	//补充额外属性
-	private static void buildExProp(HuiHe huihe, WuJiang wj) {
-		//设置当前武将
-		huihe.setWj(wj);
-		
-		ZhanFa[] zfs = wj.getZhanfa();
+	private static void buildExProp(HuiHe huihe, List<WuJiang> wujiang) {
 		huihe.setHasZengYi(false);
 		huihe.setHasKongZhi(false);
 		huihe.setHasBuGong(false);
@@ -114,7 +113,14 @@ public class CalcWJHarm {
 		huihe.setShuaxinVal(0.0f);
 		huihe.setUpGongJiVal(1.0f);
 		huihe.setKongzhiVal(0.0f);
-		
+		wujiang.forEach(wj->{
+			buildExProp(huihe,wj);
+		});
+	}
+
+	//补充额外属性
+	private static void buildExProp(HuiHe huihe, WuJiang wj) {
+		ZhanFa[] zfs = wj.getZhanfa();
 		for(ZhanFa zf:zfs) {
 			//武将位置
 			zf.setPosition(wj.getPosition());
@@ -122,9 +128,8 @@ public class CalcWJHarm {
 			if(CheckUtil.isZengYi(zf)) huihe.setHasZengYi(true);
 			if(CheckUtil.isBuGongJi(zf)) huihe.setHasBuGong(true);
 			if(CheckUtil.isJiaCheng(zf)) huihe.setHasJiaCheng(true);
-			if(CheckUtil.isKongZhi(zf)) { 
-				huihe.setHasKongZhi(true);
-			}
+			if(CheckUtil.isKongZhi(zf)) huihe.setHasKongZhi(true);
+			
 			if(zf instanceof ShuaXinZhanFa) {
 				float oldVal = huihe.getShuaxinVal();
 				float newVal = ((ShuaXinZhanFa) zf).getBaseRate();
