@@ -22,7 +22,13 @@ public abstract class Conf {
 	//总兵力
 	public static final float totalCount = 10000.0f;
 	//每回合损失兵力
+<<<<<<< HEAD
 	public static final float SunShiCount = 1500.0f;
+=======
+	public static final float SunShiCount = 1200.0f;
+	//
+	public static final float base_speed = 250.0f;
+>>>>>>> branch 'master' of https://github.com/LuGuangWang/choose.git
 	//回合初始兵力基数
 	public static final float binglijishu = 4.0f;
 	
