@@ -22,6 +22,7 @@ public class WuJiang implements Cloneable{
 	private int position = 3;//武将位置  大营1 中军2 前锋3
 	private int finalp = 3;//原始武将位置  大营1 中军2 前锋3
 	private int distance = 1;//攻击距离
+	private float totalCount = Conf.totalCount;//总兵力
 	
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang(String name,int speed,int defense,int attack,int strategy,int distance,T zhanfa) {
@@ -31,6 +32,7 @@ public class WuJiang implements Cloneable{
 		this.strategy=strategy;
 		this.speed=speed;
 		this.distance=distance;
+		totalCount = Conf.totalCount;
 		T t = (T) zhanfa.clone();
 		finalZf = t;
 		addWuJiangProp(t);
@@ -71,6 +73,12 @@ public class WuJiang implements Cloneable{
 	public int getDefense() {
 		return defense;
 	}
+	public float getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(float totalCount) {
+		this.totalCount = totalCount;
+	}
 	public int getAttack() {
 		return attack;
 	}
@@ -105,6 +113,7 @@ public class WuJiang implements Cloneable{
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang setSecondZhanFa(T z) {
 		WuJiang wj = this.clone();
+		wj.totalCount = Conf.totalCount;
 		T t = (T) z.clone();
 		wj.addWuJiangProp(t);
 		wj.zhanfaMap.put(1, finalZf);
@@ -114,13 +123,13 @@ public class WuJiang implements Cloneable{
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang setThreeZhanFa(T z) {
 		WuJiang wj = this.clone();
+		wj.totalCount = Conf.totalCount;
 		T t = (T) z.clone();
 		wj.addWuJiangProp(t);
 		wj.zhanfaMap.put(1, finalZf);
 		wj.zhanfaMap.put(3, t);
 		return wj;
 	}
-
 	private <T extends ZhanFa> void addWuJiangProp(T z) {
 		z.setSpeed(speed);
 		z.setAttack(attack);
