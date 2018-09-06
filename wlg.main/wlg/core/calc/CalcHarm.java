@@ -266,9 +266,6 @@ public class CalcHarm {
 			}
 		}
 		
-		//检查是否有武将损失
-		huihe.removeWujiang(huihe.getWj());
-		
 		return sum;
 	}
 

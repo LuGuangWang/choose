@@ -131,13 +131,17 @@ public class HuiHe implements Cloneable{
 	 */
 	public void removeWujiang(WuJiang wj) {
 		Conf.log("=========检查武将"+wj.getName()+"是否有损失===========");
-		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
-		//包含控制战法
-		if(hasKongZhi) {
-			sunShi *= Conf.kongzhi_avg_rate;
-		}
-		Conf.log("=========检查武将是否有损失,士兵损失值：" + sunShi);
-		boolean isDied = (sunShi< Conf.totalCount)?false:true;
+		//TODO to remove
+//		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
+//		//包含控制战法
+//		if(hasKongZhi) {
+//			sunShi *= Conf.kongzhi_avg_rate;
+//		}
+//		Conf.log("=========检查武将是否有损失,士兵损失值：" + sunShi);
+		float left = wj.getTotalCount() - wj.getSunshiCount();
+		wj.setTotalCount(left);
+		Conf.log("=====武将"+wj.getName()+"剩余兵力:"+left);
+		boolean isDied = (left>0)?false:true;
 		if(isDied && wujiangs.contains(wj)) {
 			//损失大营
 			if(wj.getPosition()==1) {
@@ -170,9 +174,12 @@ public class HuiHe implements Cloneable{
 	 * @return
 	 */
 	public float getSolderRate(int position,float defenseVal) {
-		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
-		boolean isDied = (sunShi< Conf.totalCount)?false:true;
-		return isDied?0.0f:Conf.binglijishu/id;
+		//TODO to remove
+//		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
+//		boolean isDied = (sunShi< Conf.totalCount)?false:true;
+//		return isDied?0.0f:Conf.binglijishu/id;
+		getSunShi(wj.getPosition(),wj.getDefense());
+		return Conf.binglijishu/id;
 	}
 	/**
 	 * 自身士兵损失值
@@ -210,8 +217,9 @@ public class HuiHe implements Cloneable{
 			Conf.log("===防御力减伤值：" + defenseVal + " 敌军普通攻击造成的士兵损失值：" + fangyuVal);
 			sunShi += fangyuVal;
 		}
+		//按受到最小伤害进行更新
+		this.getWj().setSunshiCount(sunShi);
 		
-		sunShi *= id;
 		Conf.log("============本回合士兵损失值：" + sunShi);
 		return sunShi;
 	}

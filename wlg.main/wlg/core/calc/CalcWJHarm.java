@@ -92,12 +92,16 @@ public class CalcWJHarm {
 					wjVal += gongjiVal;
 					Conf.log("=========武将"+ wj.getName() +"普通攻击最终杀伤力："+gongjiVal);
 				}
-				//重新设置武将
-				globalwujiang = huihe.getWujiangs();
 				
 				huiheVal += wjVal;
 				Conf.log("===============武将"+ wj.getName()+"结束战斗,最终杀伤力：" + wjVal);
+				
+				//检查是否有武将损失
+				huihe.removeWujiang(huihe.getWj());
 			}
+			//重新设置武将
+			globalwujiang = huihe.getWujiangs();
+			
 			sum += huiheVal;
 			Conf.log("===========第"+huihe.getId()+"回合结束，最终杀伤力："+huiheVal);
 		}
@@ -128,6 +132,8 @@ public class CalcWJHarm {
 		List<ZhanFa> allKongZhi = new ArrayList<>(kongzhi);
 		//设置当前武将
 		huihe.setWj(wj);
+		//重新设置武将回合的损失兵力
+		wj.resetSunshiCount();
 		
 		huihe.setHasZengYi(false);
 		huihe.setHasBuGong(false);

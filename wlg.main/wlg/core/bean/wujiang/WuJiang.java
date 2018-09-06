@@ -77,8 +77,15 @@ public class WuJiang implements Cloneable{
 	public float getSunshiCount() {
 		return sunshiCount;
 	}
+	//按最小伤害更新
 	public void setSunshiCount(float sunshiCount) {
-		this.sunshiCount = sunshiCount;
+		if(this.sunshiCount==0 || sunshiCount<this.sunshiCount) {
+			Conf.log("========更新本回合武将" + name + "损失人数：" + this.sunshiCount + " -> " + sunshiCount);
+			this.sunshiCount = sunshiCount;
+		}
+	}
+	public void resetSunshiCount() {
+		this.sunshiCount = 0.0f;
 	}
 	public int getDefense() {
 		return defense;
