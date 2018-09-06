@@ -35,12 +35,12 @@ public class Choose {
 		TreeMap<Float, String> result = new TreeMap<>();
 		WuJiang one,two,three;
 		
-//		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
-//		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-//		three = WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
-//		float sum = CalcWJHarm.calcVal(one,two,three);
-//		String key = buildKey(WList.luxun,WList.zhouyv,WList.lvmeng);
-//		result.put(sum, key);
+		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
+		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+		three = WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+		float sum = CalcWJHarm.calcVal(one,two,three);
+		String key = buildKey(WList.luxun,WList.zhouyv,WList.lvmeng);
+		result.put(sum, key);
 		
 		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
 		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
@@ -58,38 +58,39 @@ public class Choose {
 	 */
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-//		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+		WuJiang one;
+		one = WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
+		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-//		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		one = WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-//		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.chugesiqi);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		one = WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.chugesiqi);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-//		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shenmouyuanlv);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		one = WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shenmouyuanlv);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-//		WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.bugong);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		one = WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.bugong);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-//		WList.luxun.setSecondZhanFa(ZList.shengdongjixi).setThreeZhanFa(ZList.bugong);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		one = WList.luxun.setSecondZhanFa(ZList.shengdongjixi).setThreeZhanFa(ZList.bugong);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-//		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.bugong);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		one = WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.bugong);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-//		WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.bugong);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.bugong);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
+//		
+//		one = WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.hunshuimoyv);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
-//		WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.hunshuimoyv);
-//		result.put(CalcWJHarm.calcVal(WList.luxun), WList.luxun.toString());
+//		one = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-//		WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-//		result.put(CalcWJHarm.calcVal(WList.zhouyv), WList.zhouyv.toString());
-//		
-//		WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
-//		result.put(CalcWJHarm.calcVal(WList.lvmeng), WList.lvmeng.toString());
+//		one = WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
 		return result;
 	}
