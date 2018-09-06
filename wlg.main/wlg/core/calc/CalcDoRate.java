@@ -44,7 +44,8 @@ public class CalcDoRate {
 			int ready = zhanfa.getReady() + 1;
 			
 			if(huihe.getId() == ready) {
-				rate = mz.getSpeed()>0?1:0;
+				float tr = mz.getSpeed()/Conf.base_speed;
+				rate = tr>1?1:tr;
 			//刷新后,战法可以叠加
 			}else if(huihe.getId()> ready) {
 				//刷新战法只对本武将生效
@@ -92,7 +93,8 @@ public class CalcDoRate {
 			MaiLeiZhanFa mz = (MaiLeiZhanFa) zhanfa;
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() == ready) {
-				rate = mz.getSpeed()>0?1:0;
+				float tr = mz.getSpeed()/Conf.base_speed;
+				rate = tr>1 ?1:tr;
 			//TODO 同类型 同效果战法才不能叠加
 			//可能已发动过战法 存在同等或更高程度,不会叠加战法
 			}else if(huihe.getId()> ready) {
