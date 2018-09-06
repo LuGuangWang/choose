@@ -22,14 +22,14 @@ public abstract class Conf {
 	//总兵力
 	public static final float totalCount = 10000.0f;
 	//每回合损失兵力
-	public static final float SunShiCount = 1500.0f;
+	public static final float SunShiCount = 1000.0f;
 	//速度基准值
 	public static final float base_speed = 250.0f;
 	//回合初始兵力基数
 	public static final float binglijishu = 4.0f;
 	
 	//是否打印日志
-	public static final boolean log = false;
+	public static final boolean log = true;
 	
 	public static boolean getCalcPG() {
 		return Calc_PuGong;

@@ -150,14 +150,14 @@ public class HuiHe implements Cloneable{
 				if(wj.getPosition()==2) {
 					this.wujiangs.forEach(v->{
 						if(v.getFinalp()==1) {
-							v.setPosition(v.getFinalp()+1);
+							v.setPosition(v.getPosition()+1);
 						}
 					});
 				}
 				//损失前锋
-				if(wj.getPosition()==2) {
+				if(wj.getPosition()==3) {
 					this.wujiangs.forEach(v->{
-						v.setPosition(v.getFinalp()+1);
+						v.setPosition(v.getPosition()+1);
 					});
 				}
 			}
@@ -181,29 +181,38 @@ public class HuiHe implements Cloneable{
 	 * @return
 	 */
 	private float getSunShi(int position, float defenseVal) {
-		float sunShi = position * Conf.SunShiCount;
-		float kzss = 0.0f;
+		float sunShi = 0.0f;
 		if(fengAll!=0) {
-			kzss = Conf.SunShiCount * fengAll;
-			Conf.log("===全控制减伤值：" + fengAll + " 避免士兵损失值：" + kzss);
+			sunShi = Conf.SunShiCount* position - Conf.SunShiCount * fengAll;
+			sunShi = sunShi>0?sunShi:0;
+			Conf.log("===全控制减伤值：" + fengAll + " 士兵损失值：" + sunShi);
 		}else if(fengZhanfa !=0) {
-			kzss = Conf.SunShiCount * fengZhanfa * Conf.sf_s_rate;
-			Conf.log("===控制法术减伤值：" + fengZhanfa +" 避免士兵损失值：" + kzss);
+			sunShi =Conf.SunShiCount* position - Conf.SunShiCount * fengZhanfa * Conf.sf_s_rate;
+			sunShi = sunShi>0?sunShi:0;
+			Conf.log("===控制法术减伤值：" + fengZhanfa +" 士兵损失值：" + sunShi);
 		}else if(fengGongji !=0) {
-			kzss = Conf.SunShiCount * fengGongji * Conf.gj_s_rate;
-			Conf.log("===控制攻击减伤值：" + fengGongji + " 避免士兵损失值：" + kzss);
+			sunShi = Conf.SunShiCount* position - Conf.SunShiCount * fengGongji * Conf.gj_s_rate;
+			sunShi = sunShi>0?sunShi:0;
+			Conf.log("===控制攻击减伤值：" + fengGongji + " 士兵损失值：" + sunShi);
 		}
-		sunShi -= kzss;
+		//法术伤害
+		if(fengAll==0 && fengZhanfa==0) {
+			float fangyuVal = Conf.SunShiCount * Conf.sf_s_rate;
+			fangyuVal *= position;
+			Conf.log("==敌军法术造成士兵的损失值：" + fangyuVal);
+			sunShi += fangyuVal;
+		}
 		//防御是防御攻击造成的伤害
-		float fangyuVal = Conf.SunShiCount * Conf.gj_s_rate - Conf.fg_rate * defenseVal;
-		fangyuVal = fangyuVal>0?fangyuVal:0;
-		
-		sunShi -= fangyuVal;
-		if(sunShi<0) {
-			System.out.println(sunShi);
+		if(fengAll==0 && fengGongji ==0) {
+			float fangyuVal = Conf.SunShiCount * Conf.gj_s_rate - Conf.fg_rate * defenseVal;
+			fangyuVal = fangyuVal>0?fangyuVal:0;
+			fangyuVal *= position;
+			Conf.log("===防御力减伤值：" + defenseVal + " 敌军普通攻击造成的士兵损失值：" + fangyuVal);
+			sunShi += fangyuVal;
 		}
+		
 		sunShi *= id;
-		Conf.log("======本回合防御力避免士兵损失值："+fangyuVal + " 本回合士兵损失值：" + sunShi);
+		Conf.log("============本回合士兵损失值：" + sunShi);
 		return sunShi;
 	}
 	public void setId(int id) {

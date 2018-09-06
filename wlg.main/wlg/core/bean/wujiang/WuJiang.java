@@ -22,6 +22,7 @@ public class WuJiang implements Cloneable{
 	private int position = 3;//武将位置  大营1 中军2 前锋3
 	private int finalp = 3;//原始武将位置  大营1 中军2 前锋3
 	private int distance = 1;//攻击距离
+	//TODO  武将总兵力
 	private float totalCount = Conf.totalCount;//总兵力
 	
 	@SuppressWarnings("unchecked")

@@ -144,9 +144,11 @@ public class CalcWJHarm {
 			if(CheckUtil.isJiaCheng(zf)) huihe.setHasJiaCheng(true);
 			
 			if(CheckUtil.isKongZhi(zf)) {
-				huihe.setHasJiaCheng(true);
-				Conf.log("=========添加控制战法"+zf.getName());
-				allKongZhi.add(zf);
+				huihe.setHasKongZhi(true);
+				if(!allKongZhi.contains(zf)) {
+					Conf.log("=========添加控制战法"+zf.getName());
+					allKongZhi.add(zf);
+				}
 			}
 			
 			
