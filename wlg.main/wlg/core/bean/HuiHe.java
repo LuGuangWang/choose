@@ -40,21 +40,21 @@ public class HuiHe implements Cloneable{
 	//封闭普攻
 	private float fengGongji = 0.0f;
 	//封战法 也封攻击
-	public HuiHe getAllFeng(float jsRate,int person) {
+	public HuiHe getAllFeng(float jsRate) {
 		HuiHe huihe = this.clone();
-		huihe.fengAll = jsRate * person;
+		huihe.fengAll = jsRate;
 		return huihe;
 	}
 	//封攻击
-	public HuiHe getFengGongji(float jsRate,int person) {
+	public HuiHe getFengGongji(float jsRate) {
 		HuiHe huihe = this.clone();
-		huihe.fengGongji = jsRate * person;
+		huihe.fengGongji = jsRate;
 		return huihe;
 	}
 	//封攻击
-	public HuiHe getFengZhanfa(float jsRate,int person) {
+	public HuiHe getFengZhanfa(float jsRate) {
 		HuiHe huihe = this.clone();
-		huihe.fengZhanfa = jsRate * person;
+		huihe.fengZhanfa = jsRate;
 		return huihe;
 	}
 	

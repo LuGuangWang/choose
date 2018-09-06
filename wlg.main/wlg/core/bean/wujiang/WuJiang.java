@@ -24,6 +24,8 @@ public class WuJiang implements Cloneable{
 	private int distance = 1;//攻击距离
 	//TODO  武将总兵力
 	private float totalCount = Conf.totalCount;//总兵力
+	//本武将兵力损失值
+	private float sunshiCount = 0.0f;
 	
 	@SuppressWarnings("unchecked")
 	public <T extends ZhanFa> WuJiang(String name,int speed,int defense,int attack,int strategy,int distance,T zhanfa) {
@@ -33,7 +35,8 @@ public class WuJiang implements Cloneable{
 		this.strategy=strategy;
 		this.speed=speed;
 		this.distance=distance;
-		totalCount = Conf.totalCount;
+		this.totalCount = Conf.totalCount;
+		this.sunshiCount = 0.0f;
 		T t = (T) zhanfa.clone();
 		finalZf = t;
 		addWuJiangProp(t);
@@ -70,6 +73,12 @@ public class WuJiang implements Cloneable{
 	}
 	public int getSpeed() {
 		return speed;
+	}
+	public float getSunshiCount() {
+		return sunshiCount;
+	}
+	public void setSunshiCount(float sunshiCount) {
+		this.sunshiCount = sunshiCount;
 	}
 	public int getDefense() {
 		return defense;
@@ -115,6 +124,7 @@ public class WuJiang implements Cloneable{
 	public <T extends ZhanFa> WuJiang setSecondZhanFa(T z) {
 		WuJiang wj = this.clone();
 		wj.totalCount = Conf.totalCount;
+		wj.sunshiCount = 0.0f;
 		T t = (T) z.clone();
 		wj.addWuJiangProp(t);
 		wj.zhanfaMap.put(1, finalZf);
@@ -125,6 +135,7 @@ public class WuJiang implements Cloneable{
 	public <T extends ZhanFa> WuJiang setThreeZhanFa(T z) {
 		WuJiang wj = this.clone();
 		wj.totalCount = Conf.totalCount;
+		wj.sunshiCount = 0.0f;
 		T t = (T) z.clone();
 		wj.addWuJiangProp(t);
 		wj.zhanfaMap.put(1, finalZf);
