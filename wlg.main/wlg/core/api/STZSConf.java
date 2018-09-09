@@ -13,24 +13,24 @@ public abstract class STZSConf {
 	public final static Map<String,ZhanFa> zfs = new HashMap<String,ZhanFa>() {
 		private static final long serialVersionUID = -4123005129676138606L;
 		{
-			put(ZList.shimianmaifu.getName(),ZList.shimianmaifu.clone());
-			put(ZList.shengdongjixi.getName(),ZList.shengdongjixi.clone());
-			put(ZList.chugesiqi.getName(),ZList.chugesiqi.clone());
-			put(ZList.shenbingtianjiang.getName(),ZList.shenbingtianjiang.clone());
-			put(ZList.bugong.getName(),ZList.bugong.clone());
-			put(ZList.shenmouyuanlv.getName(),ZList.shenmouyuanlv.clone());
-			put(ZList.hunshuimoyv.getName(),ZList.hunshuimoyv.clone());
-			put(ZList.fanjizhice.getName(),ZList.fanjizhice.clone());
-			put(ZList.jijiaozhishi.getName(),ZList.jijiaozhishi.clone());
+			put(ZList.shimianmaifu.getName(),ZList.shimianmaifu);
+			put(ZList.shengdongjixi.getName(),ZList.shengdongjixi);
+			put(ZList.chugesiqi.getName(),ZList.chugesiqi);
+			put(ZList.shenbingtianjiang.getName(),ZList.shenbingtianjiang);
+			put(ZList.bugong.getName(),ZList.bugong);
+			put(ZList.shenmouyuanlv.getName(),ZList.shenmouyuanlv);
+			put(ZList.hunshuimoyv.getName(),ZList.hunshuimoyv);
+			put(ZList.fanjizhice.getName(),ZList.fanjizhice);
+			put(ZList.jijiaozhishi.getName(),ZList.jijiaozhishi);
 		}
 	};
 	//武将
 	public final static Map<String,WuJiang> wjs = new HashMap<String,WuJiang>() {
 		private static final long serialVersionUID = 2194861789096202457L;
 		{
-			put(WList.luxun.getName(),WList.luxun.clone());
-			put(WList.lvmeng.getName(),WList.lvmeng.clone());
-			put(WList.zhouyv.getName(),WList.zhouyv.clone());
+			put(WList.luxun.getName(),WList.luxun);
+			put(WList.lvmeng.getName(),WList.lvmeng);
+			put(WList.zhouyv.getName(),WList.zhouyv);
 		}
 	};
 	

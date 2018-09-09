@@ -14,7 +14,7 @@ public abstract class ZList {
 	//白衣渡江
 	public static KongZhiAndHarmZhanFa baiyidujiang = new KongZhiAndHarmZhanFa("白衣渡江",ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai, 2, 2.15f, 5,new Person(2));
 	//玄武巨流
-	public static KongZhiAndHarmZhanFa xuanwujuliu = new KongZhiAndHarmZhanFa("玄武巨流",ZFType.ZhuDong_FaShuShangHai_KongZhiGongji,1,0.3f,1.5f,2,0f,5, new Person(3));
+	public static KongZhiAndHarmZhanFa xuanwujuliu = new KongZhiAndHarmZhanFa("玄武洰流",ZFType.ZhuDong_FaShuShangHai_KongZhiGongji,1,0.3f,1.5f,2,0f,5, new Person(3));
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	
@@ -36,6 +36,6 @@ public abstract class ZList {
 	//反计之策
 	public static FanJiZhiCeZhanFa fanjizhice = new FanJiZhiCeZhanFa("反计之策", ZFType.ZhiHui_JianshangFashu_KongZhiFaShu,0, 1,Conf.dafu_xiajiang, 4,new Person(2),3);
 	//犄角之势
-	public static JiJiaoZhiShiZhanFa jijiaozhishi = new JiJiaoZhiShiZhanFa("犄角之势", ZFType.ZhuDong_FaShu_GongJi,0, 0.4f,1.43f, 3,new Person(1,2),0.4f,1.8f);
+	public static JiJiaoZhiShiZhanFa jijiaozhishi = new JiJiaoZhiShiZhanFa("掎角之势", ZFType.ZhuDong_FaShu_GongJi,0, 0.4f,1.43f, 3,new Person(1,2),0.4f,1.8f);
 	/*****    -------------   拆解战法     end -------------   *****/
 }
