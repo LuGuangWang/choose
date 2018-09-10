@@ -82,8 +82,8 @@ public class STZSApi {
 		}
 		if(wjs.size()>0) {
 			WuJiang[] ws = wjs.toArray(new WuJiang[wjs.size()]);
-			String desc = buildKey(ws);
 			float val = CalcWJHarm.calcVal(ws);
+			String desc = buildKey(ws);
 			res.setDesc(desc);
 			res.setHarmval(val);
 		}
@@ -95,7 +95,6 @@ public class STZSApi {
 		for(WuJiang wj:wjs) {
 			key.append(wj.toKey());
 		}
-		key.append("该组合伤害值:");
 		return key.toString();
 	}
 	
@@ -114,6 +113,7 @@ public class STZSApi {
 		p.setWj1("陆逊");
 		p.setZf1("声东击西");
 		p.setZf2("十面埋伏");
+		p.setWj2("周瑜");
 		STZSResult res = STZSApi.$().calcHarmVal(p);
 		System.out.println(res.getDesc() + res.getHarmval());
 	}
