@@ -39,5 +39,7 @@ public abstract class ZList {
 	public static FanJiZhiCeZhanFa fanjizhice = new FanJiZhiCeZhanFa("反计之策", ZFType.ZhiHui_JianshangFashu_KongZhiFaShu,0, 1,Conf.dafu_xiajiang, 4,new Person(2),3);
 	//犄角之势
 	public static JiJiaoZhiShiZhanFa jijiaozhishi = new JiJiaoZhiShiZhanFa("掎角之势", ZFType.ZhuDong_FaShu_GongJi,0, 0.4f,1.43f, 3,new Person(1,2),0.4f,1.8f);
+	//回马
+	public static ZhanFa huima = new ZhanFa("回马",ZFType.BeiDong_GongJi,0,1,0.6f,5,new Person(1));
 	/*****    -------------   拆解战法     end -------------   *****/
 }

@@ -59,7 +59,7 @@ public class Choose {
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
 		WuJiang one;
-		one = WList.zhaoyun.setSecondZhanFa(ZList.shimianmaifu);
+		one = WList.zhaoyun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.jijiaozhishi);
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 //		one = WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);

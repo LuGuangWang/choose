@@ -31,6 +31,7 @@ public abstract class STZSConf {
 			put(WList.luxun.getName(),WList.luxun);
 			put(WList.lvmeng.getName(),WList.lvmeng);
 			put(WList.zhouyv.getName(),WList.zhouyv);
+			put(WList.zhaoyun.getName(),WList.zhaoyun);
 		}
 	};
 	

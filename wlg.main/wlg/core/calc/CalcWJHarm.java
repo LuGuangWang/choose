@@ -21,6 +21,7 @@ import wlg.core.bean.zhanfa.ZhanFa;
 public class CalcWJHarm {
 	/**
 	 * 计算武将组合的伤害值
+	 * TODO 是否增加控制基数
 	 * @param wujiang
 	 * @return
 	 */

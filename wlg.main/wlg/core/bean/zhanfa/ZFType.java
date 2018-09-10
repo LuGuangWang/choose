@@ -15,5 +15,5 @@ public enum ZFType {
 	
 	
 	BeiDong_JiaCheng,//被动类 加成 本身不造成伤害
-	
+	BeiDong_GongJi,//被动类，攻击伤害
 } 
