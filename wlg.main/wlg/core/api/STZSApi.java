@@ -37,8 +37,8 @@ public class STZSApi {
 		return zfs;
 	}
 	
-	public float calcHarmVal(STZSParams p) {
-		float val = 0.0f;
+	public STZSResult calcHarmVal(STZSParams p) {
+		STZSResult res = new STZSResult();
 		WuJiang daying = null,zhongjun = null,qianfeng = null;
 		
 		if(STZSConf.wjs.containsKey(p.getWj1())) {
@@ -81,12 +81,23 @@ public class STZSApi {
 			wjs.add(qianfeng);
 		}
 		if(wjs.size()>0) {
-			val = CalcWJHarm.calcVal(wjs.toArray(new WuJiang[wjs.size()]));
+			WuJiang[] ws = wjs.toArray(new WuJiang[wjs.size()]);
+			String desc = buildKey(ws);
+			float val = CalcWJHarm.calcVal(ws);
+			res.setDesc(desc);
+			res.setHarmval(val);
 		}
-		
-		return val;
+		return res;
 	}
 	
+	private String buildKey(WuJiang... wjs) {
+		StringBuilder key = new StringBuilder();
+		for(WuJiang wj:wjs) {
+			key.append(wj.toKey());
+		}
+		key.append("该组合伤害值:");
+		return key.toString();
+	}
 	
 	public static void main(String[] args) {
 		Map<String,String> wjs = STZSApi.$().getWjs();
@@ -98,5 +109,12 @@ public class STZSApi {
 		zfs.forEach((k,v)->{
 			System.out.println("key:" + k + " val:" + v);
 		});
+		
+		STZSParams p = new STZSParams();
+		p.setWj1("陆逊");
+		p.setZf1("声东击西");
+		p.setZf2("十面埋伏");
+		STZSResult res = STZSApi.$().calcHarmVal(p);
+		System.out.println(res.getDesc() + res.getHarmval());
 	}
 }
