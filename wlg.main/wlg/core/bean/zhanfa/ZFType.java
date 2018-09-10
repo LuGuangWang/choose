@@ -2,6 +2,7 @@ package wlg.core.bean.zhanfa;
 
 public enum ZFType {
 	ZhuDong_FaShu,//主动类 法术伤害
+	ZhuDong_GongJi,//主动类 攻击伤害
 	ZhuDong_KongZhi_ALL,//控制攻击与法术,本身不造成伤害
 	ZhuDong_FaShu_GongJi,//主动类 攻击伤害 法术伤害
 	ZhuDong_FaShu_JianShang,//主动类 法术伤害 减伤

@@ -51,10 +51,8 @@ public class CalcWJHarm {
 				float wjVal = 0.0f;//武将战斗力
 				WuJiang wj = wujiang.get(j);
 				Conf.log("===============武将"+ wj.getName()+"开始战斗=============");
-				//武将行动的顺序
-				wj.changeOrder(wujiang.size()-1-j);
 				//补充额外属性 并且增加先发的控制战法
-				 List<ZhanFa> allKongZhi = buildExProp(huihe,wj,kongzhi);
+				List<ZhanFa> allKongZhi = buildExProp(huihe,wj,kongzhi);
 				//加成战法
 				if(huihe.isHasJiaCheng()) {
 					wj.addJiaCheng();
@@ -178,7 +176,7 @@ public class CalcWJHarm {
 		return allKongZhi;
 	}
 	
-	//按速度排序
+	//按速度排序 TODO 同一阵营 同一兵种加成
 	private static WuJiang[] sortedWuJiang(WuJiang... wujiang) {
 		WuJiang tmp;
 		for(int i=0;i<wujiang.length;i++) {

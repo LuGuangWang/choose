@@ -62,12 +62,6 @@ public class WuJiang implements Cloneable{
 	public int getFinalp() {
 		return finalp;
 	}
-	public void changeOrder(int order) {
-		zhanfaMap.forEach((k,v)->{
-			v.setSpeed(order);
-		});
-		Conf.log("武将：" + name + " 行动顺序：" + order + " 速度："+ speed);
-	}
 	public String getName() {
 		return name;
 	}

@@ -9,12 +9,14 @@ import wlg.core.bean.conf.Conf;
  */
 public abstract class ZList {
 	/*****    -------------   武将自带战法     begin -------------   *****/
-	// 增益战法 火势风威
+	//陆逊 火势风威
 	public static ZengYiZhanFa huoshifengwei = new ZengYiZhanFa("火势风威",ZFType.ZhuDong_FaShu,1, 0.4f, 1.11f, 5,new Person(3), 0f, 2.21f);
-	//白衣渡江
+	//吕蒙 白衣渡江
 	public static KongZhiAndHarmZhanFa baiyidujiang = new KongZhiAndHarmZhanFa("白衣渡江",ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai, 2, 2.15f, 5,new Person(2));
-	//玄武巨流
+	//周瑜 玄武巨流
 	public static KongZhiAndHarmZhanFa xuanwujuliu = new KongZhiAndHarmZhanFa("玄武洰流",ZFType.ZhuDong_FaShuShangHai_KongZhiGongji,1,0.3f,1.5f,2,0f,5, new Person(3));
+	//SP赵云 银龙孤胆
+	public static DieJiaZhanFa yinlonggudan = new DieJiaZhanFa("银龙孤胆",ZFType.ZhuDong_GongJi,1,0.4f,0.8f,7,0.08f,5,new Person(1,2,3));
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

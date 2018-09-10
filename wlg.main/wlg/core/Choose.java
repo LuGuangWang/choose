@@ -33,21 +33,21 @@ public class Choose {
 	 */
 	public Map<Float, String> calcWuJiangsVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-		WuJiang one,two,three;
-		
-		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
-		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-		three = WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
-		float sum = CalcWJHarm.calcVal(one,two,three);
-		String key = buildKey(WList.luxun,WList.zhouyv,WList.lvmeng);
-		result.put(sum, key);
-		
-		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
-		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-		three= WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
-		float sum1 = CalcWJHarm.calcVal(one,two,three);
-		String key1 = buildKey(WList.luxun,WList.zhouyv,WList.lvmeng);
-		result.put(sum1, key1);
+//		WuJiang one,two,three;
+//		
+//		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
+//		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+//		three = WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+//		float sum = CalcWJHarm.calcVal(one,two,three);
+//		String key = buildKey(WList.luxun,WList.zhouyv,WList.lvmeng);
+//		result.put(sum, key);
+//		
+//		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
+//		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+//		three= WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+//		float sum1 = CalcWJHarm.calcVal(one,two,three);
+//		String key1 = buildKey(WList.luxun,WList.zhouyv,WList.lvmeng);
+//		result.put(sum1, key1);
 		
 		return result;
 	}
@@ -59,8 +59,11 @@ public class Choose {
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
 		WuJiang one;
-		one = WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
+		one = WList.zhaoyun.setSecondZhanFa(ZList.shimianmaifu);
 		result.put(CalcWJHarm.calcVal(one), one.toString());
+		
+//		one = WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
 //		one = WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
@@ -96,7 +99,7 @@ public class Choose {
 	}
 	
 
-	private static String buildKey(WuJiang... wjs) {
+	protected static String buildKey(WuJiang... wjs) {
 		StringBuilder key = new StringBuilder();
 		for(WuJiang wj:wjs) {
 			key.append(wj.toKey());

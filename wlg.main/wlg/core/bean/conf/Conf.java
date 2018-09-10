@@ -29,7 +29,7 @@ public abstract class Conf {
 	public static final float binglijishu = 4.0f;
 	
 	//是否打印日志
-	public static final boolean log = false;
+	public static final boolean log = true;
 	
 	public static boolean getCalcPG() {
 		return Calc_PuGong;

@@ -126,6 +126,7 @@ public class CheckUtil {
 	public static boolean isAttack(ZhanFa zf) {
 		boolean isAttack = false;
 		switch (zf.getT()) {
+		case ZhuDong_GongJi:
 		case ZhuDong_FaShu_GongJi:
 			isAttack = true;
 			break;

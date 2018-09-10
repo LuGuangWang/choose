@@ -13,6 +13,11 @@ public interface Harm {
 	 */
 	public float getHarmVal();
 	/**
+	 * 当前战法伤害
+	 * @return
+	 */
+	public float getHarmVal(float harmVal) ;
+	/**
 	 * 添加属性加成
 	 * @return
 	 */
