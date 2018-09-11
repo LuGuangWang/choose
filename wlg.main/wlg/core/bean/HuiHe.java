@@ -23,7 +23,7 @@ public class HuiHe implements Cloneable{
 	private boolean hasZengYi = false;
 	private boolean hasKongZhi = false;
 	private boolean hasBuGong = false;
-	private boolean hasJiaCheng = false;
+	private boolean hasZiShenJiaCheng = false;
 	
 	//本回合刷新战法伤害值
 	private float shuaxinVal = 0.0f;
@@ -128,11 +128,11 @@ public class HuiHe implements Cloneable{
 	public void setHasKongZhi(boolean hasKongZhi) {
 		this.hasKongZhi = hasKongZhi;
 	}
-	public boolean isHasJiaCheng() {
-		return hasJiaCheng;
+	public boolean isHasZiShenJiaCheng() {
+		return hasZiShenJiaCheng;
 	}
-	public void setHasJiaCheng(boolean hasJiaCheng) {
-		this.hasJiaCheng = hasJiaCheng;
+	public void setHasZiShenJiaCheng(boolean hasZiShenJiaCheng) {
+		this.hasZiShenJiaCheng = hasZiShenJiaCheng;
 	}
 	public int getId() {
 		return id;

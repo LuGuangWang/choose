@@ -18,7 +18,7 @@ public abstract class Conf {
 	//部队武将数
 	public static final int WuJiang_Count = 3;
 	//不计算武将普通攻击
-	public static final boolean Calc_PuGong = false;
+	public static final boolean Calc_PuGong = true;
 	//总兵力
 	public static final float totalCount = 10000.0f;
 	//每回合损失兵力

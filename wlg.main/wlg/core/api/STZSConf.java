@@ -22,6 +22,7 @@ public abstract class STZSConf {
 			put(ZList.hunshuimoyv.getName(),ZList.hunshuimoyv);
 			put(ZList.fanjizhice.getName(),ZList.fanjizhice);
 			put(ZList.jijiaozhishi.getName(),ZList.jijiaozhishi);
+			put(ZList.huima.getName(),ZList.huima);
 		}
 	};
 	//武将

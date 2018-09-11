@@ -11,7 +11,8 @@ import wlg.core.bean.zhanfa.ZhanFa;
  */
 public class CheckUtil {
 	
-	public static boolean isJiaCheng(ZhanFa zf) {
+	//自身加成
+	public static boolean isZiShenJiaCheng(ZhanFa zf) {
 		boolean isJiaCheng = isFaShuJiaCheng(zf);
 		return isJiaCheng;
 	}
@@ -26,7 +27,6 @@ public class CheckUtil {
 		case ZhiHui_FuZhu_ALL:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhiHui_JianshangFashu_KongZhiFaShu:
-		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
 			isKongZhi = true;
 			break;
 		default:
@@ -194,13 +194,13 @@ public class CheckUtil {
 	}
 	
 	/**
-	 * 是否是加伤法术和攻击战法
+	 * 是否是全体加伤法术和攻击战法
 	 * @param zf
 	 * @return
 	 */
 	public static boolean isJiaShang(ZhanFa zf) {
-		boolean isZengYi = (zf instanceof JiaShangZhanFa);
+		boolean isJiaShang = (zf instanceof JiaShangZhanFa);
 		
-		return isZengYi;
+		return isJiaShang;
 	}
 }
