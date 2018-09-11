@@ -126,6 +126,7 @@ public class CheckUtil {
 	public static boolean isAttack(ZhanFa zf) {
 		boolean isAttack = false;
 		switch (zf.getT()) {
+		case BeiDong_GongJi:
 		case ZhuDong_GongJi:
 		case ZhuDong_FaShu_GongJi:
 			isAttack = true;
@@ -193,7 +194,7 @@ public class CheckUtil {
 	}
 	
 	/**
-	 * 是否是加伤战法
+	 * 是否是加伤法术和攻击战法
 	 * @param zf
 	 * @return
 	 */

@@ -33,21 +33,21 @@ public class Choose {
 	 */
 	public Map<Float, String> calcWuJiangsVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-		WuJiang one,two,three;
-		
-		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
-		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-		three = WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
-		float sum = CalcWJHarm.calcVal(one,two,three);
-		String key = buildKey(one,two,three);
-		result.put(sum, key);
+//		WuJiang one,two,three;
 //		
-		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
-		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-		three= WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
-		float sum1 = CalcWJHarm.calcVal(one,two,three);
-		String key1 = buildKey(one,two,three);
-		result.put(sum1, key1);
+//		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
+//		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+//		three = WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+//		float sum = CalcWJHarm.calcVal(one,two,three);
+//		String key = buildKey(one,two,three);
+//		result.put(sum, key);
+//		
+//		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
+//		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+//		three= WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+//		float sum1 = CalcWJHarm.calcVal(one,two,three);
+//		String key1 = buildKey(one,two,three);
+//		result.put(sum1, key1);
 		
 		return result;
 	}
@@ -59,7 +59,7 @@ public class Choose {
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
 		WuJiang one;
-		one = WList.zhaoyun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.jijiaozhishi);
+		one = WList.zhaoyun.setSecondZhanFa(ZList.huima).setThreeZhanFa(ZList.hunshuimoyv);
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 //		one = WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
