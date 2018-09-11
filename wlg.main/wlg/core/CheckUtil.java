@@ -203,4 +203,14 @@ public class CheckUtil {
 		
 		return isJiaShang;
 	}
+	/**
+	 * 每个战法都有计算一次
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isAllCalc(ZhanFa zf) {
+		boolean isAllCalc = isJiaShang(zf);
+		
+		return isAllCalc;
+	}
 }

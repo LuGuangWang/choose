@@ -24,8 +24,13 @@ public class CalcHarm {
 		float sum = 0;
 		Map<String,Float> kongzhiMap = new HashMap<>();
 		//所有战法
-		Set<ZhanFa> allZfSet= new HashSet<>(kongzhiZf);
-		allZfSet.addAll(Arrays.asList(zhanfa));
+		Set<ZhanFa> allZfSet= new HashSet<>(Arrays.asList(zhanfa));
+		//对其他武将影响的战法
+		kongzhiZf.forEach(zf->{
+			if(CheckUtil.isAllCalc(zf)) {
+				allZfSet.add(zf);
+			}
+		});
 		ZhanFa[] allZfs = allZfSet.toArray(new ZhanFa[allZfSet.size()]);
 		
 		Conf.log("==================计算控制战法生效时造成的伤害值==============");

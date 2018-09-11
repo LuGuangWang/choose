@@ -56,6 +56,13 @@ public class Choose {
 		String key2 = buildKey(one,two,three);
 		result.put(sum2, key2);
 		
+		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.shimianmaifu);
+		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+		three= WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+		float sum3 = CalcWJHarm.calcVal(one,two,three);
+		String key3 = buildKey(one,two,three);
+		result.put(sum3, key3);
+		
 		return result;
 	}
 	
