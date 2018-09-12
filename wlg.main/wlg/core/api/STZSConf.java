@@ -29,10 +29,10 @@ public abstract class STZSConf {
 	public final static Map<String,WuJiang> wjs = new HashMap<String,WuJiang>() {
 		private static final long serialVersionUID = 2194861789096202457L;
 		{
-			put(WList.luxun.getName(),WList.luxun);
-			put(WList.lvmeng.getName(),WList.lvmeng);
-			put(WList.zhouyv.getName(),WList.zhouyv);
-			put(WList.zhaoyun.getName(),WList.zhaoyun);
+			put(WList.luxun.getName(),WList.luxun.reset());
+			put(WList.lvmeng.getName(),WList.lvmeng.reset());
+			put(WList.zhouyv.getName(),WList.zhouyv.reset());
+			put(WList.zhaoyun.getName(),WList.zhaoyun.reset());
 		}
 	};
 	
