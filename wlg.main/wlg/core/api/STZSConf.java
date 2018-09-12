@@ -25,7 +25,7 @@ public abstract class STZSConf {
 			put(ZList.huima.getName(),ZList.huima);
 		}
 	};
-	//武将
+	//武将  不要忘记 reset方法
 	public final static Map<String,WuJiang> wjs = new HashMap<String,WuJiang>() {
 		private static final long serialVersionUID = 2194861789096202457L;
 		{
