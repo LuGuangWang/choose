@@ -27,8 +27,23 @@ public class WuJiang implements Cloneable{
 	//本武将兵力损失值
 	private float sunshiCount = 0.0f;
 	
+	private WBType wbType;//兵种
+	private WZType wzType;//阵营
+	
+	/**
+	 * 
+	 * @param name 名字
+	 * @param wzType 阵营
+	 * @param wbType 兵种
+	 * @param speed 速度
+	 * @param defense 防御
+	 * @param attack 攻击
+	 * @param strategy 策略
+	 * @param distance 攻击距离
+	 * @param zhanfa 战法
+	 */
 	@SuppressWarnings("unchecked")
-	public <T extends ZhanFa> WuJiang(String name,int speed,int defense,int attack,int strategy,int distance,T zhanfa) {
+	public <T extends ZhanFa> WuJiang(String name,WZType wzType,WBType wbType,int speed,int defense,int attack,int strategy,int distance,T zhanfa) {
 		this.name=name;
 		this.attack=attack;
 		this.defense=defense;
@@ -37,11 +52,20 @@ public class WuJiang implements Cloneable{
 		this.distance=distance;
 		this.totalCount = Conf.totalCount;
 		this.sunshiCount = 0.0f;
+		this.wbType=wbType;
+		this.wzType=wzType;
 		T t = (T) zhanfa.clone();
 		finalZf = t;
 		addWuJiangProp(t);
 		zhanfaMap.clear();
 		zhanfaMap.put(1, t);
+	}
+	
+	public WBType getWbType() {
+		return wbType;
+	}
+	public WZType getWzType() {
+		return wzType;
 	}
 	public int getDistance() {
 		return distance;
