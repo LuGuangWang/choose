@@ -10,7 +10,6 @@ import wlg.core.calc.CalcWJHarm;
 
 public class Choose {
 	
-	
 	public static void main(String[] args) {
 		System.out.println("战法组合的伤害值越高,代表越好:");
 		Choose c = new Choose();
@@ -34,6 +33,8 @@ public class Choose {
 	public Map<Float, String> calcWuJiangsVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
 		WuJiang one,two,three;
+		one = WList.luxun.reset();
+		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
 		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
@@ -41,6 +42,9 @@ public class Choose {
 		float sum = CalcWJHarm.calcVal(one,two,three);
 		String key = buildKey(one,two,three);
 		result.put(sum, key);
+		
+		one = WList.luxun.reset();
+		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
 		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
@@ -73,7 +77,14 @@ public class Choose {
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
 //		WuJiang one;
+//		
+//		one = WList.luxun.reset();
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
+//		
 //		one = WList.zhaoyun.setSecondZhanFa(ZList.huima).setThreeZhanFa(ZList.hunshuimoyv);
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
+//		
+//		one = WList.luxun.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
 //		one = WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);

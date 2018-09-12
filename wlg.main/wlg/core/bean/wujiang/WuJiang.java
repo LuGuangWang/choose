@@ -17,12 +17,12 @@ public class WuJiang implements Cloneable{
 	private int defense;//防御
 	private int attack;//攻击
 	private int strategy;//谋略
-	private ZhanFa finalZf;//自身的战法
+	private final ZhanFa finalZf;//自身的战法
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
 	private int position = 3;//武将位置  大营1 中军2 前锋3
 	private int finalp = 3;//原始武将位置  大营1 中军2 前锋3
 	private int distance = 1;//攻击距离
-	//TODO  武将总兵力
+	//武将总兵力
 	private float totalCount = Conf.totalCount;//总兵力
 	//本武将兵力损失值
 	private float sunshiCount = 0.0f;
@@ -55,9 +55,9 @@ public class WuJiang implements Cloneable{
 		this.wbType=wbType;
 		this.wzType=wzType;
 		T t = (T) zhanfa.clone();
-		finalZf = t;
 		addWuJiangProp(t);
 		zhanfaMap.clear();
+		finalZf = t.clone();
 		zhanfaMap.put(1, t);
 	}
 	
@@ -152,7 +152,7 @@ public class WuJiang implements Cloneable{
 		wj.sunshiCount = 0.0f;
 		T t = (T) z.clone();
 		wj.addWuJiangProp(t);
-		wj.zhanfaMap.put(1, finalZf);
+		wj.zhanfaMap.put(1, finalZf.clone());
 		wj.zhanfaMap.put(2, t);
 		return wj;
 	}
@@ -163,10 +163,13 @@ public class WuJiang implements Cloneable{
 		wj.sunshiCount = 0.0f;
 		T t = (T) z.clone();
 		wj.addWuJiangProp(t);
-		wj.zhanfaMap.put(1, finalZf);
+		wj.zhanfaMap.put(1, finalZf.clone());
 		wj.zhanfaMap.put(3, t);
 		return wj;
 	}
+	
+	
+	
 	private <T extends ZhanFa> void addWuJiangProp(T z) {
 		z.setSpeed(speed);
 		z.setAttack(attack);
@@ -222,5 +225,27 @@ public class WuJiang implements Cloneable{
 			e.printStackTrace();
 		}
 		return o;
+	}
+	
+	public WuJiang reset() {
+		this.zhanfaMap.clear();
+		this.zhanfaMap.put(1, finalZf.clone());
+		this.totalCount = Conf.totalCount;
+		this.sunshiCount = 0.0f;
+		return this;
+	}
+	
+	//更新武将属性值
+	public WuJiang changeProp(int attack, int speed, int strategy, int defense) {
+		WuJiang wj = this.clone();
+		wj.attack=attack;
+		wj.speed = speed;
+		wj.defense=defense;
+		wj.strategy = strategy;
+		
+		wj.zhanfaMap.forEach((k,v)->{
+			wj.addWuJiangProp(v);
+		});
+		return wj;
 	}
 }

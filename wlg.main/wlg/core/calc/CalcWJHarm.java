@@ -3,11 +3,20 @@ package wlg.core.calc;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
+import wlg.core.bean.wujiang.WBType;
+import wlg.core.bean.wujiang.WCType;
+import wlg.core.bean.wujiang.WChengHao;
+import wlg.core.bean.wujiang.WZType;
 import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -26,6 +35,8 @@ public class CalcWJHarm {
 	 */
 	public static <T extends ZhanFa> float  calcVal(WuJiang... wjs) {
 		float sum = 0;
+		//阵营 兵种加成 TODO 称号加成
+		wjs = addExProp(wjs);
 		//按速度排序
 		wjs = sortedWuJiang(wjs);
 		List<WuJiang> globalwujiang = new ArrayList<>(Arrays.asList(wjs));
@@ -108,6 +119,111 @@ public class CalcWJHarm {
 		}
 		return sum;
 	}
+	/**
+	 * 阵营 兵种加成 称号加成
+	 * 
+	 * @param wjs
+	 * @return
+	 */
+	private static WuJiang[] addExProp(WuJiang... wjs) {
+		//两个以上的武将才有加成
+		if(wjs.length==1) {
+			return wjs;
+		}
+		
+		float speedRate = 1.0f;//速度加成比
+		float attackRate = 1.0f;//攻击加成比
+		float defenseRate = 1.0f;//防御加成比
+		float strategyRate = 1.0f;//策略加成比
+		
+		int speedVal = 0;//速度加成值
+		int strategyVal = 0;//策略加成值
+		int attackVal = 0;//攻击加成值
+		int defenseVal = 0;//防御加成值
+		
+		//兵种
+		Map<WBType,Integer> bingzhong = new HashMap<>();
+		//阵营
+		Set<WZType> zhenying = new HashSet<>();
+		//称号
+		WCType chenghao = WCType.none;
+		for(WuJiang wj:wjs) {
+			if(bingzhong.containsKey(wj.getWbType())) {
+				int tmp = bingzhong.get(wj.getWbType()) + 1;
+				bingzhong.put(wj.getWbType(),tmp);
+			}else {
+				bingzhong.put(wj.getWbType(),1);
+			}
+			zhenying.add(wj.getWzType());
+			chenghao = WChengHao.checkChengHao(wj.getName());
+		}
+		//阵营加成
+		float zyval = 0.0f;
+		if(zhenying.size()==1) {
+			zyval = 0.1f;
+		}else if(zhenying.size()==2) {
+			zyval = 0.08f;
+		}
+		Conf.log("===========该组合阵营加成值为：" + zyval);
+		speedRate += zyval;
+		attackRate += zyval;
+		defenseRate += zyval;
+		strategyRate += zyval;
+		//兵种加成
+		for(Entry<WBType,Integer> item : bingzhong.entrySet()) {
+			WBType k = item.getKey();
+			int v = item.getValue();
+			float bzval = 0.0f;
+			if(v==2) {
+				bzval = 0.05f;
+			}else if(v==3) {
+				bzval = 0.1f;
+			}
+			switch(k) {
+			case bu:
+				Conf.log("===========该组合步兵兵种加成值为：" + bzval);
+				defenseRate += bzval;
+				attackRate += bzval;
+				break;
+			case gong:
+				Conf.log("===========该组合弓兵兵种加成值为：" + bzval);
+				defenseRate += bzval;
+				speedRate += bzval;
+				break;
+			case qi:
+				Conf.log("===========该组合骑兵兵种加成值为：" + bzval);
+				speedRate += bzval;
+				attackRate += bzval;
+				break;
+			default:
+				Conf.log("====兵种加成有问题。");
+			}
+		}
+		//称号加成
+		switch(chenghao) {
+		case dongwudadudu:
+			Conf.log("========该组合为称号【东吴大都督】");
+			speedVal += 19;
+			strategyVal += 20;
+			break;
+		default:
+			Conf.log("========该组合没有称号。");
+			break;
+		}
+		
+		//添加属性值
+		for(int i = 0;i<wjs.length;i++) {
+			WuJiang wj = wjs[i];
+			int attack = Math.round(wj.getAttack()*attackRate) + attackVal;
+			int speed = Math.round(wj.getSpeed()*speedRate) + speedVal;
+			int strategy = Math.round(wj.getStrategy()*strategyRate) + strategyVal;
+			int defense = Math.round(wj.getDefense() * defenseRate) + defenseVal;
+			WuJiang newWJ = wj.changeProp(attack,speed,strategy,defense);
+			wjs[i] = newWJ;
+		}
+		
+		return wjs;
+	}
 
 	private static List<ZhanFa> hasXianFaKongZhi(HuiHe huihe, List<WuJiang> wujiang) {
 		huihe.setHasKongZhi(false);
@@ -182,7 +298,7 @@ public class CalcWJHarm {
 		return allKongZhi;
 	}
 	
-	//按速度排序 TODO 同一阵营 同一兵种加成
+	//按速度排序
 	private static WuJiang[] sortedWuJiang(WuJiang... wujiang) {
 		WuJiang tmp;
 		for(int i=0;i<wujiang.length;i++) {
