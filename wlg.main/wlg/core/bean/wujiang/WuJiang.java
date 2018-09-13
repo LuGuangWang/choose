@@ -221,6 +221,8 @@ public class WuJiang implements Cloneable{
 		WuJiang o = null;
 		try {
 			o = (WuJiang) super.clone();
+			Map<Integer,ZhanFa> zhanfaMap = new HashMap<>(this.zhanfaMap);
+			o.zhanfaMap = zhanfaMap;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
