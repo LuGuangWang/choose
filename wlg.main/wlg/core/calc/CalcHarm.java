@@ -15,6 +15,7 @@ import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
+import wlg.core.bean.zhanfa.MultipleHarmZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanFa;
 
@@ -255,11 +256,23 @@ public class CalcHarm {
 				float kongzhiVal = huihe.getFengGongji()>0?huihe.getFengGongji():0.0f;
 				Conf.log("========封住攻击的概率：" + huihe.getFengGongji());
 				shuaxinVal *= distance * (1.0f - kongzhiVal);
+			}else if(z.getT().equals(ZFType.ZhiHui_Multiple_FaShu)){
+				float newHVal = 0.0f;
+				MultipleHarmZhanFa tmp = (MultipleHarmZhanFa)z;
+				newHVal += (shuaxinVal + tmp.getHarmRate());
+				if(huihe.getId()>=tmp.getSecondHId()) {
+					newHVal += (shuaxinVal + tmp.getSecondHVal());
+				}
+				if(huihe.getId()>=tmp.getThreeHId()) {
+					newHVal += (shuaxinVal + tmp.getThreeHVal());
+				}
+				shuaxinVal = newHVal;
 			}else {
 				shuaxinVal += z.getHarmRate();
 			}
+			
 			float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, z):CalcDoRate.getCommRate(huihe, z);
-			//TODO 考虑被控制效果
+			//TODO 考虑被控制效果  规避效果
 			
 			float shibingVal = huihe.getSolderRate(z.getPosition(),z.getDefense());
 			float harmval = rate * z.getHarmVal(shuaxinVal) * shibingVal;

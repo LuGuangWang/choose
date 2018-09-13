@@ -20,6 +20,8 @@ public class WList {
 	/******     蜀国        *******/
 	//赵云
 	public static WuJiang zhaoyun = new WuJiang("SP赵云",WZType.shu,WBType.bu,65,92,101,78,3,ZList.yinlonggudan);
+	//黄月英
+	public static WuJiang huangyueying = new WuJiang("黄月英",WZType.shu,WBType.bu,29,70,33,94,2,ZList.jiangxinbujie);
 	
 	/******     魏国        *******/
 	

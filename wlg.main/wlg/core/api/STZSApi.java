@@ -99,16 +99,17 @@ public class STZSApi {
 	}
 	
 	public static void main(String[] args) {
+		System.out.println("================武将================");
 		Map<String,String> wjs = STZSApi.$().getWjs();
 		wjs.forEach((k,v)->{
 			System.out.println("key:" + k + " val:" + v);
 		});
-		
+		System.out.println("================战法================");
 		Map<String,String> zfs = STZSApi.$().getZfs();
 		zfs.forEach((k,v)->{
 			System.out.println("key:" + k + " val:" + v);
 		});
-		
+		System.out.println("================计算================");
 		STZSParams p = new STZSParams();
 		p.setWj1("陆逊");
 		p.setZf1("声东击西");
@@ -116,5 +117,22 @@ public class STZSApi {
 		p.setWj2("周瑜");
 		STZSResult res = STZSApi.$().calcHarmVal(p);
 		System.out.println(res.getDesc() + res.getHarmval());
+		
+		STZSParams p2 = new STZSParams();
+		p2.setWj1("陆逊");
+		p2.setZf1("声东击西");
+		p2.setZf2("十面埋伏");
+		p2.setWj2("周瑜");
+		p2.setZf3("反计之策");
+		STZSResult res2 = STZSApi.$().calcHarmVal(p2);
+		System.out.println(res2.getDesc() + res2.getHarmval());
+		
+		STZSParams p1 = new STZSParams();
+		p1.setWj1("陆逊");
+		p1.setZf1("声东击西");
+		p1.setZf2("十面埋伏");
+		p1.setWj2("周瑜");
+		STZSResult res1 = STZSApi.$().calcHarmVal(p1);
+		System.out.println(res1.getDesc() + res1.getHarmval());
 	}
 }
