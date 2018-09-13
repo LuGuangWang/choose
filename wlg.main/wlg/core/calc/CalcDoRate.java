@@ -101,6 +101,7 @@ public class CalcDoRate {
 				rate = 1 - zhanfa.getDoneRate();
 			}
 		}
+		
 		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}

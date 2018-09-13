@@ -25,6 +25,9 @@ public class WChengHao {
 		}
 		return res;
 	}
-	
+	//重置称号设置
+	public static void reset() {
+		dwddd.clear();
+	}
 	
 }

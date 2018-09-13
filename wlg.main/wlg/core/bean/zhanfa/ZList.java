@@ -17,6 +17,8 @@ public abstract class ZList {
 	public static KongZhiAndHarmZhanFa xuanwujuliu = new KongZhiAndHarmZhanFa("玄武洰流",ZFType.ZhuDong_FaShuShangHai_KongZhiGongji,1,0.3f,1.5f,2,0f,5, new Person(3));
 	//SP赵云 银龙孤胆
 	public static DieJiaZhanFa yinlonggudan = new DieJiaZhanFa("银龙孤胆",ZFType.ZhuDong_GongJi,1,0.4f,0.8f,7,0.08f,5,new Person(1,2,3));
+	//黄月英 匠心不竭
+	public static MultipleHarmZhanFa jiangxinbujie = new MultipleHarmZhanFa("匠心不竭", ZFType.ZhiHui_Multiple_FaShu, 0, 1, 0.34f, 3,0.41f, 5,0.44f, 6, new Person(3));
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

@@ -149,6 +149,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu:
 		case ZhiHui_FuZhu_ALL:
 		case ZhuDong_FaShu_GongJi:
+		case ZhiHui_Multiple_FaShu:
 		case ZhuDong_FaShu_JianShang:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:

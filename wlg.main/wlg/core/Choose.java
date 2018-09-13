@@ -33,8 +33,15 @@ public class Choose {
 	public Map<Float, String> calcWuJiangsVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
 		WuJiang one,two,three;
+		
 		one = WList.luxun.reset();
 		result.put(CalcWJHarm.calcVal(one), one.toString());
+		
+		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
+		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+		float sum_1 = CalcWJHarm.calcVal(one,two);
+		String key_1 = buildKey(one,two);
+		result.put(sum_1, key_1);
 		
 		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
 		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
@@ -46,13 +53,19 @@ public class Choose {
 		one = WList.luxun.reset();
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
+		one = WList.luxun.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
+		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+		float sum_2 = CalcWJHarm.calcVal(one,two);
+		String key_2 = buildKey(one,two);
+		result.put(sum_2, key_2);
+		
 		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
 		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
 		three= WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
 		float sum1 = CalcWJHarm.calcVal(one,two,three);
 		String key1 = buildKey(one,two,three);
 		result.put(sum1, key1);
-		
+//		
 		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.chugesiqi);
 		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
 		three= WList.zhaoyun.setSecondZhanFa(ZList.huima).setThreeZhanFa(ZList.jijiaozhishi);

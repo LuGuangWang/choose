@@ -259,6 +259,7 @@ public class CalcHarm {
 				shuaxinVal += z.getHarmRate();
 			}
 			float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, z):CalcDoRate.getCommRate(huihe, z);
+			//TODO 考虑被控制效果
 			
 			float shibingVal = huihe.getSolderRate(z.getPosition(),z.getDefense());
 			float harmval = rate * z.getHarmVal(shuaxinVal) * shibingVal;
