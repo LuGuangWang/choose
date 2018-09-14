@@ -6,6 +6,7 @@ public enum ZFType {
 	ZhuDong_KongZhi_ALL,//控制攻击与法术,本身不造成伤害
 	ZhuDong_FaShu_GongJi,//主动类 攻击伤害 法术伤害
 	ZhuDong_FaShu_JianShang,//主动类 法术伤害 减伤
+	ZhuDong_JianShang_KongZhiFaShu,//主动类 减伤 然后控制法术,本身不造成伤害
 	ZhuDong_FaShuShangHai_KongZhiGongji,//主动类 先法术伤害 然后控制攻击
 	
 	ZhiHui_FuZhu_ALL,//指挥类 增加法术和攻击伤害

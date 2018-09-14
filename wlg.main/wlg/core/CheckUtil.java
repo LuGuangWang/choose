@@ -88,6 +88,7 @@ public class CheckUtil {
 	public static boolean isKongZhiFaShu(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
+		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhiHui_JianshangFashu_KongZhiFaShu:
 			isKongZhi = true;
 			break;
@@ -173,6 +174,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case BeiDong_JiaCheng:
 		case ZhuDong_KongZhi_ALL:
+		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhiHui_JianshangFashu_KongZhiFaShu:
 			isZeroHarm = true;
 			break;
@@ -181,6 +183,25 @@ public class CheckUtil {
 			break;
 		}
 		return isZeroHarm;
+	}
+	/**
+	 * 持续keep回合的控制战法
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isKongZhiKeep(ZhanFa zf) {
+		boolean isKongZhiKeep = false;
+		switch (zf.getT()) {
+		case ZhuDong_KongZhi_ALL:
+		case ZhuDong_JianShang_KongZhiFaShu:
+		case ZhuDong_FaShuShangHai_KongZhiGongji:
+			isKongZhiKeep = true;
+			break;
+		default:
+			isKongZhiKeep = false;
+			break;
+		}
+		return isKongZhiKeep;
 	}
 	
 	/**

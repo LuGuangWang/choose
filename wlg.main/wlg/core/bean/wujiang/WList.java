@@ -26,6 +26,8 @@ public class WList {
 	/******     魏国        *******/
 	//荀彧
 	public static WuJiang xunyv = new WuJiang("荀彧", WZType.wei, WBType.qi, 85, 89, 47, 96, 2, ZList.quhutunlang);
+	//张春花
+	public static WuJiang zhangchunhua = new WuJiang("张春华", WZType.wei, WBType.gong, 55, 56, 77, 82, 3, ZList.qiangshi);
 	
 	/******     汉       *******/
 	

@@ -21,8 +21,8 @@ public abstract class ZList {
 	public static MultipleHarmZhanFa jiangxinbujie = new MultipleHarmZhanFa("匠心不竭", ZFType.ZhiHui_Multiple_FaShu, 0, 1, 0.34f, 3,0.41f, 5,0.44f, 6, new Person(3));
 	//荀彧 驱虎吞狼 TODO 不可恢复兵力
 	public static ZhanFa quhutunlang = new ZhanFa("驱虎吞狼",ZFType.ZhuDong_FaShu,0,0.3f,1.43f,5,new Person(3));
-	
-	
+	//张春华 强势
+	public static QiangShiZhanFa qiangshi = new QiangShiZhanFa("强势",ZFType.ZhuDong_JianShang_KongZhiFaShu, 0, 0.35f, 0.32f, 5, new Person(2),2);
 	
 	/*****    -------------   武将自带战法     end -------------   *****/
 	

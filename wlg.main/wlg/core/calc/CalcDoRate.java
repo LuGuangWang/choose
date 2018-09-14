@@ -1,5 +1,6 @@
 package wlg.core.calc;
 
+import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
@@ -73,6 +74,12 @@ public class CalcDoRate {
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() > ready) {
 				rate = 1;
+			}
+		}
+		if(CheckUtil.isKongZhiKeep(zhanfa)) {
+			int ready = zhanfa.getReady() + 1;
+			if(huihe.getId()> ready) {
+				rate = 1 - zhanfa.getDoneRate();
 			}
 		}
 		

@@ -45,19 +45,36 @@ public class HuiHe implements Cloneable{
 	public HuiHe getAllFeng(float jsRate) {
 		HuiHe huihe = this.clone();
 		huihe.fengAll = jsRate;
+		huihe.fengZhanfa = 0.0f;
+		huihe.fengGongji = 0.0f;
 		return huihe;
 	}
+	
+	//封战法 也封攻击
+	public HuiHe getAllFeng(float fashuRate,float gongjiRate) {
+		HuiHe huihe = this.clone();
+		huihe.fengZhanfa = fashuRate;
+		huihe.fengGongji = gongjiRate;
+		huihe.fengAll = 0.0f;
+		return huihe;
+	}
+	
 	//封攻击 概率和人数
 	public HuiHe getFengGongji(float jsRate,int fengGJP) {
 		HuiHe huihe = this.clone();
 		huihe.fengGongji = jsRate;
 		huihe.fengGJP = fengGJP;
+		
+		huihe.fengAll = 0.0f;
+		huihe.fengZhanfa = 0.0f;
 		return huihe;
 	}
 	//封法术
 	public HuiHe getFengZhanfa(float jsRate) {
 		HuiHe huihe = this.clone();
 		huihe.fengZhanfa = jsRate;
+		huihe.fengAll = 0.0f;
+		huihe.fengGongji = 0.0f;
 		return huihe;
 	}
 	
@@ -202,17 +219,22 @@ public class HuiHe implements Cloneable{
 	private float getSunShi(int position, float defenseVal) {
 		float sunShi = 0.0f;
 		if(fengAll!=0) {
-			sunShi = Conf.SunShiCount* position - Conf.SunShiCount * fengAll;
-			sunShi = sunShi>0?sunShi:0;
-			Conf.log("===全控制减伤值：" + fengAll + " 士兵损失值：" + sunShi);
-		}else if(fengZhanfa !=0) {
-			sunShi =Conf.SunShiCount* position - Conf.SunShiCount * fengZhanfa * Conf.sf_s_rate;
-			sunShi = sunShi>0?sunShi:0;
-			Conf.log("===控制法术减伤值：" + fengZhanfa +" 士兵损失值：" + sunShi);
-		}else if(fengGongji !=0) {
-			sunShi = Conf.SunShiCount* position - Conf.SunShiCount * fengGongji * Conf.gj_s_rate;
-			sunShi = sunShi>0?sunShi:0;
-			Conf.log("===控制攻击减伤值：" + fengGongji + " 士兵损失值：" + sunShi);
+			float sunshi = Conf.SunShiCount* position - Conf.SunShiCount * fengAll;
+			sunshi = sunshi>0?sunshi:0;
+			Conf.log("===全控制减伤值：" + fengAll + " 士兵损失值：" + sunshi);
+			sunShi += sunshi;
+		}
+		if(fengZhanfa !=0) {
+			float sunshi =Conf.SunShiCount* position - Conf.SunShiCount * fengZhanfa * Conf.sf_s_rate;
+			sunshi = sunshi>0?sunshi:0;
+			Conf.log("===控制法术减伤值：" + fengZhanfa +" 士兵损失值：" + sunshi);
+			sunShi += sunshi;
+		}
+		if(fengGongji !=0) {
+			float sunshi = Conf.SunShiCount* position - Conf.SunShiCount * fengGongji * Conf.gj_s_rate;
+			sunshi = sunshi>0?sunshi:0;
+			Conf.log("===控制攻击减伤值：" + fengGongji + " 士兵损失值：" + sunshi);
+			sunShi += sunshi;
 		}
 		//法术伤害
 		if(fengAll==0 && fengZhanfa==0) {
