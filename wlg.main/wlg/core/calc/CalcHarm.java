@@ -79,6 +79,10 @@ public class CalcHarm {
 		QiangShiZhanFa b = (QiangShiZhanFa)zf;
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
 		//每个人数的随机概率
 		float evrate = 1.0f/b.getPersons().getPersons().length;
 		for(int p:b.getPersons().getPersons()) {
@@ -107,6 +111,10 @@ public class CalcHarm {
 		float unHurtVal = 0.0f;
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
 		//每个人数的随机概率
 		float evrate = 1.0f/b.getPersons().getPersons().length;
 		for(int p:b.getPersons().getPersons()) {
@@ -144,6 +152,10 @@ public class CalcHarm {
 		}
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
 		//不受伤害的概率
 		float unHurt = p/1.0f/huihe.getWujiangCount();
 		unHurt = unHurt>1 ? rate:rate*unHurt;
@@ -161,6 +173,10 @@ public class CalcHarm {
 		float unHurtVal = 0.0f;
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
 		//每个人数的随机概率
 		float evrate = 1.0f/b.getPersons().getPersons().length;
 		for(int p:b.getPersons().getPersons()) {
@@ -188,6 +204,10 @@ public class CalcHarm {
 		KongZhiAndHarmZhanFa b = (KongZhiAndHarmZhanFa)zf;
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
 		//每个人数的随机概率
 		float evrate = 1.0f/b.getPersons().getPersons().length;
 		for(int p:b.getPersons().getPersons()) {
@@ -202,6 +222,7 @@ public class CalcHarm {
 			unHurt = unHurt>1 ? rate:rate*unHurt;
 			if(huihe.getId()>b.getKeephuihe()) {
 				unHurt = 0;
+				return 0;
 			}
 			//控制主的概率
 			float kongzhiVal = unHurt * b.getDoneRate();
@@ -218,6 +239,10 @@ public class CalcHarm {
 		float unHurtVal = 0.0f;
 		//控制战法发动成功的概率
 		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
 		//每个人数的随机概率
 		float evrate = 1.0f/b.getPersons().getPersons().length;
 		for(int p:b.getPersons().getPersons()) {

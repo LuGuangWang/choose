@@ -231,8 +231,17 @@ public class CheckUtil {
 	 * @return
 	 */
 	public static boolean isAllCalc(ZhanFa zf) {
-		boolean isAllCalc = isKongZhi(zf) || isJiaShang(zf);
-		
+		boolean isAllCalc = isJiaShang(zf);
+//		switch (zf.getT()) {
+//		case ZhuDong_KongZhi_ALL:
+//		case ZhiHui_JianshangFashu_KongZhiFaShu:
+//		case ZhuDong_JianShang_KongZhiFaShu:
+//			isAllCalc = true;
+//			break;
+//		default:
+//			isAllCalc = false;
+//			break;
+//		}
 		return isAllCalc;
 	}
 }
