@@ -11,6 +11,7 @@ public enum ZFType {
 	
 	ZhiHui_FuZhu_ALL,//指挥类 增加法术和攻击伤害
 	ZhiHui_Multiple_FaShu,//指挥类 多种伤害效果
+	ZhiHui_JiaShuXing_JiaJuLi,//指挥类 加属性 加距离
 	ZhiHui_KongZhiGongJi_FaShuShangHai,//指挥类 先控制攻击 然后法术伤害
 	ZhiHui_JianshangFashu_KongZhiFaShu,//指挥类  降低法术伤害 控制法术伤害
 	ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi,//指挥类 法术加成 法术攻击 本身不造成攻击伤害

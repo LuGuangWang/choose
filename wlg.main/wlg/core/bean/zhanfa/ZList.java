@@ -23,7 +23,8 @@ public abstract class ZList {
 	public static ZhanFa quhutunlang = new ZhanFa("驱虎吞狼",ZFType.ZhuDong_FaShu,0,0.3f,1.43f,5,new Person(3));
 	//张春华 强势
 	public static QiangShiZhanFa qiangshi = new QiangShiZhanFa("强势",ZFType.ZhuDong_JianShang_KongZhiFaShu, 0, 0.35f, 0.32f, 5, new Person(2),2);
-	
+	//曹操 魏武之世
+	public static WeiWuZhiShiZhanFa weiwuzhishi = new WeiWuZhiShiZhanFa("魏武之世", ZFType.ZhiHui_JiaShuXing_JiaJuLi, 0, 1, 1.15f,1,5, new Person(3));
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

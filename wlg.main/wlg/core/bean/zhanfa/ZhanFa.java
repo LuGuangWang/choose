@@ -160,6 +160,7 @@ public class ZhanFa implements Harm, Cloneable {
 		return position;
 	}
 	public void setPosition(int position) {
+		Conf.log("=======战法 " + name + " 位置发生变化:" + this.position + " -> " + position);
 		this.position = position;
 	}
 

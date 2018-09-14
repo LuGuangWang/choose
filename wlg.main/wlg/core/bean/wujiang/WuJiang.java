@@ -237,9 +237,21 @@ public class WuJiang implements Cloneable{
 		return this;
 	}
 	
+	public WuJiang changeProp(int attack, int speed, int strategy, int defense,int distance) {
+		WuJiang wj = changeProp(attack,speed,strategy,defense);
+		Conf.log("=====武将" + name + " 攻击距离发生变化：" + wj.distance + " -> " + distance);
+		wj.distance = distance;
+		return wj;
+	}
+	
 	//更新武将属性值
 	public WuJiang changeProp(int attack, int speed, int strategy, int defense) {
 		WuJiang wj = this.clone();
+		Conf.log("=====武将" + name + " 攻击属性发生变化：" + wj.attack + " -> " + attack);
+		Conf.log("=====武将" + name + " 速度属性发生变化：" + wj.speed + " -> " + speed);
+		Conf.log("=====武将" + name + " 谋略属性发生变化：" + wj.strategy + " -> " + strategy);
+		Conf.log("=====武将" + name + " 防御属性发生变化：" + wj.defense + " -> " + defense);
+		
 		wj.attack=attack;
 		wj.speed = speed;
 		wj.defense=defense;
@@ -248,6 +260,7 @@ public class WuJiang implements Cloneable{
 		wj.zhanfaMap.forEach((k,v)->{
 			wj.addWuJiangProp(v);
 		});
+		
 		return wj;
 	}
 }

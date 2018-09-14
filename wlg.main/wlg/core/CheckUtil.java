@@ -231,7 +231,7 @@ public class CheckUtil {
 	 * @return
 	 */
 	public static boolean isAllCalc(ZhanFa zf) {
-		boolean isAllCalc = isJiaShang(zf);
+		boolean isAllCalc = isKongZhi(zf) || isJiaShang(zf);
 		
 		return isAllCalc;
 	}

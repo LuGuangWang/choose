@@ -158,7 +158,8 @@ public class HuiHe implements Cloneable{
 	 * 武将损失
 	 * @param wj
 	 */
-	public void removeWujiang(WuJiang wj) {
+	public boolean removeWujiang(WuJiang wj) {
+		boolean isRemove = false;
 		Conf.log("=========检查武将"+wj.getName()+"是否有损失===========");
 		//TODO to remove
 //		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
@@ -172,6 +173,7 @@ public class HuiHe implements Cloneable{
 		Conf.log("=====武将"+wj.getName()+"剩余兵力:"+left);
 		boolean isDied = (left>0)?false:true;
 		if(isDied && wujiangs.contains(wj)) {
+			isRemove = true;
 			//损失大营
 			if(wj.getPosition()==1) {
 				Conf.log("=====第"+id+"回合损失大营武将"+wj.getName());
@@ -195,6 +197,7 @@ public class HuiHe implements Cloneable{
 				}
 			}
 		}
+		return isRemove;
 	}
 	/**
 	 * 自身士兵损失

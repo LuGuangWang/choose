@@ -4,6 +4,7 @@ import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
+import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
@@ -128,13 +129,23 @@ public class CalcDoRate {
 		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
 			if(huihe.getId()>(t.getKeephuihe()+1)) {
+				t.setHarmRate(0.0f);//会影响增益战法的计算
 				rate = 0;
 			}
 		}
-		//持续多少回合
+		//战斗开始后前多少回合
 		if(zhanfa.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
 			FanJiZhiCeZhanFa t = (FanJiZhiCeZhanFa)zhanfa;
 			if(huihe.getId()>t.getKeephuihe()) {
+				t.setHarmRate(0.0f);//会影响增益战法的计算
+				rate = 0;
+			}
+		}
+		//战斗开始后前多少回合
+		if(zhanfa.getT().equals(ZFType.ZhiHui_FuZhu_ALL)) {
+			JiaShangZhanFa t = (JiaShangZhanFa)zhanfa;
+			if(huihe.getId()>t.getKeephuihe()) {
+				t.setHarmRate(0.0f);//会影响增益战法的计算
 				rate = 0;
 			}
 		}
