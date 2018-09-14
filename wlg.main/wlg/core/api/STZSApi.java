@@ -66,7 +66,7 @@ public class STZSApi {
 			if(STZSConf.zfs.containsKey(p.getZf5())) {
 				qianfeng = qianfeng.setSecondZhanFa(STZSConf.zfs.get(p.getZf5()));
 			}
-			if(STZSConf.zfs.containsKey(p.getZf4())) {
+			if(STZSConf.zfs.containsKey(p.getZf6())) {
 				qianfeng = qianfeng.setThreeZhanFa(STZSConf.zfs.get(p.getZf6()));
 			}
 		}
@@ -124,6 +124,9 @@ public class STZSApi {
 		p2.setZf2("十面埋伏");
 		p2.setWj2("周瑜");
 		p2.setZf3("反计之策");
+		p2.setZf4("深谋远虑");
+		p2.setWj3("曹操");
+		p2.setZf5("回马");
 		STZSResult res2 = STZSApi.$().calcHarmVal(p2);
 		System.out.println(res2.getDesc() + res2.getHarmval());
 		
@@ -132,6 +135,11 @@ public class STZSApi {
 		p1.setZf1("声东击西");
 		p1.setZf2("十面埋伏");
 		p1.setWj2("周瑜");
+		p1.setZf3("反计之策");
+		p1.setZf4("深谋远虑");
+		p1.setWj3("曹操");
+		p1.setZf5("回马");
+		p1.setZf6("楚歌四起");
 		STZSResult res1 = STZSApi.$().calcHarmVal(p1);
 		System.out.println(res1.getDesc() + res1.getHarmval());
 	}
