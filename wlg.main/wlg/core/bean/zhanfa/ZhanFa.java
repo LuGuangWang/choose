@@ -45,12 +45,14 @@ public class ZhanFa implements Harm, Cloneable {
 	private float upStrategy = 0.0f;//提高策略伤害
 
 	/**
-	 * @param doneRate
-	 *            发动概率
-	 * @param harmVal
-	 *            伤害率
-	 * @param persons
-	 *            打击队伍数
+	 * 
+	 * @param name 名称
+	 * @param t 战法类型
+	 * @param ready 准备回合
+	 * @param doneRate 发动概率
+	 * @param harmVal 伤害值
+	 * @param distance 攻击距离
+	 * @param persons 攻击目标
 	 */
 	public ZhanFa(String name, ZFType t, int ready, float doneRate, float harmVal,int distance, Person persons) {
 		this.t = t;
