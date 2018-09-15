@@ -32,6 +32,8 @@ public class WList {
 	public static WuJiang caocao = new WuJiang("曹操", WZType.wei, WBType.qi, 88, 107, 80, 90, 2, ZList.weiwuzhishi);
 	//曹丕
 	public static WuJiang caopi = new WuJiang("曹丕", WZType.wei, WBType.gong, 45, 78, 83, 83, 4, ZList.weiwuzhize);
+	//王异
+	public static WuJiang wangyi = new WuJiang("王异", WZType.wei, WBType.gong, 53, 52, 88, 90, 4, ZList.shichou);
 	/******     汉       *******/
 	
 	

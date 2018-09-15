@@ -286,41 +286,41 @@ public class CalcHarm {
 		int executeJss = 0;
 		//主要伤害
 		for(int i=0;i<zhanfa.length;i++) {
-			T z = zhanfa[i];
+			T zf = zhanfa[i];
 			float shuaxinVal = 0.0f;
 			
-			if(CheckUtil.isStrategy(z)) {
+			if(CheckUtil.isStrategy(zf)) {
 				//只对当前武将的战法生效
-				if(huihe.getWj().getPosition()==z.getPosition()) {
+				if(huihe.getWj().getPosition()==zf.getPosition()) {
 					shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
 				}
 			}
 			
-			if(z.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
-				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
+			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
+				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
 				if(tmp.getKeephuihe()+1 == huihe.getId()) {
 					shuaxinVal += tmp.getExHarmVal();
 				}else {
-					shuaxinVal += z.getHarmRate();
+					shuaxinVal += zf.getHarmRate();
 				}
-			}else if(CheckUtil.isJiaShang(z)){
-				JiaShangZhanFa tmp = (JiaShangZhanFa)z;
+			}else if(CheckUtil.isJiaShang(zf)){
+				JiaShangZhanFa tmp = (JiaShangZhanFa)zf;
 				if(huihe.getId()<=tmp.getKeephuihe()) {
 					jss.add(tmp);
 					continue;
 				} else {//	方便查看日志
 					shuaxinVal = 0.0f;
 				}
-			}else if(z.getT().equals(ZFType.BeiDong_GongJi)){
-				shuaxinVal += z.getHarmRate();
+			}else if(zf.getT().equals(ZFType.BeiDong_GongJi)){
+				shuaxinVal += zf.getHarmRate();
 				//被打后反击
 				int distance = CalCDistance.calcfDistance(huihe.getWj().getDistance(),huihe.getWj().getPosition());
 				float kongzhiVal = huihe.getFengGongji()>0?huihe.getFengGongji():0.0f;
 				Conf.log("========封住攻击的概率：" + huihe.getFengGongji());
 				shuaxinVal *= distance * (1.0f - kongzhiVal);
-			}else if(z.getT().equals(ZFType.ZhiHui_Multiple_FaShu)){
+			}else if(zf.getT().equals(ZFType.ZhiHui_Multiple_FaShu)){
 				float newHVal = 0.0f;
-				MultipleHarmZhanFa tmp = (MultipleHarmZhanFa)z;
+				MultipleHarmZhanFa tmp = (MultipleHarmZhanFa)zf;
 				newHVal += (shuaxinVal + tmp.getHarmRate());
 				if(huihe.getId()>=tmp.getSecondHId()) {
 					newHVal += (shuaxinVal + tmp.getSecondHVal());
@@ -329,41 +329,25 @@ public class CalcHarm {
 					newHVal += (shuaxinVal + tmp.getThreeHVal());
 				}
 				shuaxinVal = newHVal;
-			}else if(CheckUtil.isLianJi(z)) {
+			}else if(CheckUtil.isLianJi(zf)) {
 				//TODO 注意 添加其它连击战法时，注意攻击距离
-				GongJiZhanFa gjzf = (GongJiZhanFa)z;
-				
-				float attack = 0.0f;
-				int wjCount = 0;
-				
-				for(WuJiang wj:huihe.getWujiangs()) {
-					if(!wj.getName().equals(huihe.getWj().getName())) {
-						attack += wj.getAttack();
-						wjCount ++;
-					}
-				}
-				if(wjCount>=1) {
-					float otherAttackVal = attack/wjCount;
-					Conf.log("===========战法"+ gjzf.getName() + "友军平均攻击力："+otherAttackVal);
-					gjzf.setOtherAttackVal(otherAttackVal);
-				}else {
-					gjzf.setOtherAttackVal(0.0f);
-				}
-				
+				addGongJiZfExVal(huihe, zf);
+			}else if(CheckUtil.isZhuiJi(zf)) {
+				shuaxinVal += zf.getHarmRate() * huihe.getLianjiVal();
 			} else {
-				shuaxinVal += z.getHarmRate();
+				shuaxinVal += zf.getHarmRate();
 			}
 			
-			float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, z):CalcDoRate.getCommRate(huihe, z);
+			float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, zf):CalcDoRate.getCommRate(huihe, zf);
 			//TODO 考虑被控制效果  规避效果 不可恢复
 			
-			float shibingVal = huihe.getSolderRate(z.getPosition(),z.getDefense());
-			float harmval = rate * z.getHarmVal(shuaxinVal) * shibingVal;
+			float shibingVal = huihe.getSolderRate(zf.getPosition(),zf.getDefense());
+			float harmval = rate * zf.getHarmVal(shuaxinVal) * shibingVal;
 			//有伤害 才能触发加伤战法
 			if(harmval>0) {
 				executeJss++;
 			}
-			Conf.log("===战法 " + z.getName() + " 最终杀伤力：" + harmval);
+			Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
 			sum += harmval;
 			
 		}
@@ -379,6 +363,27 @@ public class CalcHarm {
 		}
 		
 		return sum;
+	}
+
+	private static <T extends ZhanFa> void addGongJiZfExVal(HuiHe huihe, T z) {
+		GongJiZhanFa gjzf = (GongJiZhanFa)z;
+		
+		float attack = 0.0f;
+		int wjCount = 0;
+		
+		for(WuJiang wj:huihe.getWujiangs()) {
+			if(!wj.getName().equals(huihe.getWj().getName())) {
+				attack += wj.getAttack();
+				wjCount ++;
+			}
+		}
+		if(wjCount>=1) {
+			float otherAttackVal = attack/wjCount;
+			Conf.log("===========战法"+ gjzf.getName() + "友军平均攻击力："+otherAttackVal);
+			gjzf.setOtherAttackVal(otherAttackVal);
+		}else {
+			gjzf.setOtherAttackVal(0.0f);
+		}
 	}
 
 	/**

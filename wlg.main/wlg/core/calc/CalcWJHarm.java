@@ -44,13 +44,11 @@ public class CalcWJHarm {
 		wjs = addExProp(wjs);
 		// 先发指挥战法 补充额外属性
 		wjs = addExPropByZhanFa(wjs);
-
 		// 按速度排序
 		wjs = sortedWuJiang(wjs);
 		List<WuJiang> globalwujiang = new ArrayList<>(Arrays.asList(wjs));
 		// 先发指挥战法 可影响其它战法的结果
 		List<ZhanFa> kongzhi = hasXianFaKongZhi(globalwujiang);
-
 		//可以生效的影响其他武将的战法集合
 		List<ZhanFa> allKongZhi = new ArrayList<>(kongzhi);
 		
@@ -363,6 +361,7 @@ public class CalcWJHarm {
 		huihe.setUpGongJiVal(1.0f);
 		huihe.setKongzhiVal(0.0f);
 		huihe.setHasKongZhi(false);
+		huihe.setLianjiVal(1.0f);
 
 		// 校验所有战法
 		List<ZhanFa> allZfs = new ArrayList<>(Arrays.asList(wj.getZhanfa()));
@@ -379,7 +378,18 @@ public class CalcWJHarm {
 				huihe.setHasBuGong(true);
 			if (CheckUtil.isZiShenJiaCheng(zf))
 				huihe.setHasZiShenJiaCheng(true);
-
+			
+			if(CheckUtil.isLianJi(zf)) {
+				int person = zf.getPersons().getMaxPerson() - 1;
+				int wjCount = huihe.getWujiangCount() - 1;
+				person = person>wjCount?wjCount:person;
+				float lianjiVal = person / 1.0f / wjCount * zf.getDoneRate() + 1.0f;
+				float oldVal = huihe.getLianjiVal();
+				if(lianjiVal>oldVal) {
+					huihe.setLianjiVal(lianjiVal);
+					Conf.log("=====连击战法" + zf.getName() + " 刷新连击值：" + oldVal + "->" + lianjiVal);
+				}
+			}
 			if (zf instanceof ShuaXinZhanFa) {
 				float oldVal = huihe.getShuaxinVal();
 				float newVal = ((ShuaXinZhanFa) zf).getBaseRate();

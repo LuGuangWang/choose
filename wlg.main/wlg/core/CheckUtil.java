@@ -115,7 +115,7 @@ public class CheckUtil {
 	}
 	
 	public static boolean isKongZhi(ZhanFa zf) {
-		boolean isKongZhi = isKongZhiAll(zf)||isKongZhiFaShu(zf)||isKongZhiGongJi(zf);
+		boolean isKongZhi = isKongZhiAll(zf)||isKongZhiFaShu(zf)||isKongZhiGongJi(zf)||isLianJi(zf);
 		return isKongZhi;
 	}
 	
@@ -148,6 +148,7 @@ public class CheckUtil {
 	public static boolean isStrategy(ZhanFa zf) {
 		boolean isStrategy = false;
 		switch (zf.getT()) {
+		case ZhuiJi_FaShu:
 		case ZhuDong_FaShu:
 		case ZhiHui_FuZhu_ALL:
 		case ZhuDong_FaShu_GongJi:
@@ -240,6 +241,19 @@ public class CheckUtil {
 		return isLianJi;
 	}
 	
+	public static boolean isZhuiJi(ZhanFa zf) {
+		boolean isZhuiJi = false;
+		switch (zf.getT()) {
+		case ZhuiJi_FaShu:
+			isZhuiJi = true;
+			break;
+		default:
+			isZhuiJi = false;
+			break;
+		}
+		return isZhuiJi;
+	}
+	
 	/**
 	 * 每个战法都有计算一次
 	 * @param zf
@@ -247,16 +261,6 @@ public class CheckUtil {
 	 */
 	public static boolean isAllCalc(ZhanFa zf) {
 		boolean isAllCalc = isJiaShang(zf);
-//		switch (zf.getT()) {
-//		case ZhuDong_KongZhi_ALL:
-//		case ZhiHui_JianshangFashu_KongZhiFaShu:
-//		case ZhuDong_JianShang_KongZhiFaShu:
-//			isAllCalc = true;
-//			break;
-//		default:
-//			isAllCalc = false;
-//			break;
-//		}
 		return isAllCalc;
 	}
 }

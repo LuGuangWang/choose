@@ -11,4 +11,12 @@ public class Person {
 	public int[] getPersons() {
 		return persons;
 	}
+	
+	public int getMaxPerson() {
+		int max = 0;
+		for(int p:persons) {
+			max = max<p?p:max;
+		}
+		return max;
+	}
 }
