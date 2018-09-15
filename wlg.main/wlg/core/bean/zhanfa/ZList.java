@@ -37,6 +37,8 @@ public abstract class ZList {
 	public static MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa("楚歌四起",ZFType.ZhuDong_FaShu,1, 2, 0.5f, 1.27f, 5,new Person(2, 3));
 	//神兵天降
 	public static JiaShangZhanFa shenbingtianjiang = new JiaShangZhanFa("神兵天降",ZFType.ZhiHui_FuZhu_ALL,0,1,0.3f,4,new Person(2),3);
+	//大赏三军
+	public static JiaShangZhanFa dashangsanjun = new JiaShangZhanFa("大赏三军",ZFType.ZhiHui_FuZhu_ALL,0,1,0.3f,3,new Person(2),3);
 	// 加成战法 不攻
 	public static JiaChengZhanFa bugong = new JiaChengZhanFa("不攻",ZFType.ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi,0, 1, 0.83f, 5,new Person(1), 0.25f);
 	// 刷新战法 深谋远虑
