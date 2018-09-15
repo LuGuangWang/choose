@@ -25,6 +25,8 @@ public abstract class ZList {
 	public static QiangShiZhanFa qiangshi = new QiangShiZhanFa("强势",ZFType.ZhuDong_JianShang_KongZhiFaShu, 0, 0.35f, 0.32f, 5, new Person(2),2);
 	//曹操 魏武之世
 	public static WeiWuZhiShiZhanFa weiwuzhishi = new WeiWuZhiShiZhanFa("魏武之世", ZFType.ZhiHui_JiaShuXing_JiaJuLi, 0, 1, 1.15f,1,5, new Person(3));
+	//曹丕 魏武之泽
+	public static GongJiZhanFa weiwuzhize = new GongJiZhanFa("魏武之泽", ZFType.ZhuDong_JiaGongJi_LianJi, 0, 0.35f, 1.25f, 2, new Person(1,2));
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

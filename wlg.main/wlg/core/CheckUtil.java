@@ -130,6 +130,7 @@ public class CheckUtil {
 		case BeiDong_GongJi:
 		case ZhuDong_GongJi:
 		case ZhuDong_FaShu_GongJi:
+		case ZhuDong_JiaGongJi_LianJi:
 			isAttack = true;
 			break;
 		default:
@@ -225,6 +226,20 @@ public class CheckUtil {
 		
 		return isJiaShang;
 	}
+	
+	public static boolean isLianJi(ZhanFa zf) {
+		boolean isLianJi = false;
+		switch (zf.getT()) {
+		case ZhuDong_JiaGongJi_LianJi:
+			isLianJi = true;
+			break;
+		default:
+			isLianJi = false;
+			break;
+		}
+		return isLianJi;
+	}
+	
 	/**
 	 * 每个战法都有计算一次
 	 * @param zf

@@ -25,6 +25,8 @@ public class HuiHe implements Cloneable{
 	private boolean hasBuGong = false;
 	private boolean hasZiShenJiaCheng = false;
 	
+	//TODO 连击概率 发动概率 * 作用到当前人
+	private float lianjiVal = 0.0f;
 	//本回合刷新战法伤害值
 	private float shuaxinVal = 0.0f;
 	//本回合攻击提高伤害值
@@ -161,13 +163,6 @@ public class HuiHe implements Cloneable{
 	public boolean removeWujiang(WuJiang wj) {
 		boolean isRemove = false;
 		Conf.log("=========检查武将"+wj.getName()+"是否有损失===========");
-		//TODO to remove
-//		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
-//		//包含控制战法
-//		if(hasKongZhi) {
-//			sunShi *= Conf.kongzhi_avg_rate;
-//		}
-//		Conf.log("=========检查武将是否有损失,士兵损失值：" + sunShi);
 		float left = wj.getTotalCount() - wj.getSunshiCount();
 		wj.setTotalCount(left);
 		Conf.log("=====武将"+wj.getName()+"剩余兵力:"+left);
@@ -206,11 +201,9 @@ public class HuiHe implements Cloneable{
 	 * @return
 	 */
 	public float getSolderRate(int position,float defenseVal) {
-		//TODO to remove
-//		float sunShi = getSunShi(wj.getPosition(),wj.getDefense());
-//		boolean isDied = (sunShi< Conf.totalCount)?false:true;
-//		return isDied?0.0f:Conf.binglijishu/id;
+		//设置每回合的兵力损失
 		getSunShi(wj.getPosition(),wj.getDefense());
+		
 		return Conf.binglijishu/id;
 	}
 	/**
@@ -263,7 +256,13 @@ public class HuiHe implements Cloneable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+	public float getLianjiVal() {
+		return lianjiVal;
+	}
+	public void setLianjiVal(float lianjiVal) {
+		this.lianjiVal = lianjiVal;
+	}
+
 	public HuiHe clone() {
 		HuiHe o = null;
 		try {

@@ -30,6 +30,8 @@ public class WList {
 	public static WuJiang zhangchunhua = new WuJiang("张春华", WZType.wei, WBType.gong, 55, 56, 77, 82, 3, ZList.qiangshi);
 	//曹操
 	public static WuJiang caocao = new WuJiang("曹操", WZType.wei, WBType.qi, 88, 107, 80, 90, 2, ZList.weiwuzhishi);
+	//曹丕
+	public static WuJiang caopi = new WuJiang("曹丕", WZType.wei, WBType.gong, 45, 78, 83, 83, 4, ZList.weiwuzhize);
 	/******     汉       *******/
 	
 	

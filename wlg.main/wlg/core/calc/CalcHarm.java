@@ -11,7 +11,9 @@ import java.util.Set;
 import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
+import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
+import wlg.core.bean.zhanfa.GongJiZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
@@ -286,12 +288,14 @@ public class CalcHarm {
 		for(int i=0;i<zhanfa.length;i++) {
 			T z = zhanfa[i];
 			float shuaxinVal = 0.0f;
+			
 			if(CheckUtil.isStrategy(z)) {
 				//只对当前武将的战法生效
 				if(huihe.getWj().getPosition()==z.getPosition()) {
 					shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
 				}
 			}
+			
 			if(z.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) z;
 				if(tmp.getKeephuihe()+1 == huihe.getId()) {
@@ -325,12 +329,33 @@ public class CalcHarm {
 					newHVal += (shuaxinVal + tmp.getThreeHVal());
 				}
 				shuaxinVal = newHVal;
-			}else {
+			}else if(CheckUtil.isLianJi(z)) {
+				//TODO 注意 添加其它连击战法时，注意攻击距离
+				GongJiZhanFa gjzf = (GongJiZhanFa)z;
+				
+				float attack = 0.0f;
+				int wjCount = 0;
+				
+				for(WuJiang wj:huihe.getWujiangs()) {
+					if(!wj.getName().equals(huihe.getWj().getName())) {
+						attack += wj.getAttack();
+						wjCount ++;
+					}
+				}
+				if(wjCount>=1) {
+					float otherAttackVal = attack/wjCount;
+					Conf.log("===========战法"+ gjzf.getName() + "友军平均攻击力："+otherAttackVal);
+					gjzf.setOtherAttackVal(otherAttackVal);
+				}else {
+					gjzf.setOtherAttackVal(0.0f);
+				}
+				
+			} else {
 				shuaxinVal += z.getHarmRate();
 			}
 			
 			float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, z):CalcDoRate.getCommRate(huihe, z);
-			//TODO 考虑被控制效果  规避效果
+			//TODO 考虑被控制效果  规避效果 不可恢复
 			
 			float shibingVal = huihe.getSolderRate(z.getPosition(),z.getDefense());
 			float harmval = rate * z.getHarmVal(shuaxinVal) * shibingVal;

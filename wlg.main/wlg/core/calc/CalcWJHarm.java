@@ -344,11 +344,9 @@ public class CalcWJHarm {
 	private static void buildExProp(HuiHe huihe, WuJiang wj, List<ZhanFa> kongzhi) {
 		//添加控制战法
 		for(ZhanFa zf:wj.getZhanfa()) {
-			if (CheckUtil.isKongZhi(zf)) {
-				if (!kongzhi.contains(zf)) {
-					Conf.log("=========添加控制战法" + zf.getName());
-					kongzhi.add(zf);
-				}
+			if(!kongzhi.contains(zf)  && CheckUtil.isKongZhi(zf)) {
+				Conf.log("=========添加控制战法" + zf.getName());
+				kongzhi.add(zf);
 			}
 		}
 		
