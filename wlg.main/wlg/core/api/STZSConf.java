@@ -23,6 +23,7 @@ public abstract class STZSConf {
 			put(ZList.fanjizhice.getName(),ZList.fanjizhice);
 			put(ZList.jijiaozhishi.getName(),ZList.jijiaozhishi);
 			put(ZList.huima.getName(),ZList.huima);
+			put(ZList.dashangsanjun.getName(),ZList.dashangsanjun);
 		}
 	};
 	//武将  不要忘记 reset方法
