@@ -32,7 +32,7 @@ public class Choose {
 	 */
 	public Map<Float, String> calcWuJiangsVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-		WuJiang one,two,three;
+//		WuJiang one,two,three;
 //		
 //		one = WList.luxun.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
@@ -94,12 +94,12 @@ public class Choose {
 //		String key5 = buildKey(one,two,three);
 //		result.put(sum5, key5);
 		
-		one = WList.caopi.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
-		two = WList.wangyi.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-		three= WList.caocao.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
-		float sum6 = CalcWJHarm.calcVal(one,two,three);
-		String key6 = buildKey(one,two,three);
-		result.put(sum6, key6);
+//		one = WList.caopi.setSecondZhanFa(ZList.shenmouyuanlv).setThreeZhanFa(ZList.chugesiqi);
+//		two = WList.wangyi.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+//		three= WList.caocao.setSecondZhanFa(ZList.zhanbiduanjin).setThreeZhanFa(ZList.jijiaozhishi);
+//		float sum6 = CalcWJHarm.calcVal(one,two,three);
+//		String key6 = buildKey(one,two,three);
+//		result.put(sum6, key6);
 		
 		return result;
 	}
@@ -110,7 +110,7 @@ public class Choose {
 	 */
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-//		WuJiang one;
+		WuJiang one;
 //		
 //		one = WList.huangyueying.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
@@ -169,8 +169,8 @@ public class Choose {
 //		one = WList.caocao.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.huima);
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-//		one = WList.caopi.setSecondZhanFa(ZList.dashangsanjun).setThreeZhanFa(ZList.huima);
-//		result.put(CalcWJHarm.calcVal(one), one.toString());
+		one = WList.caopi.setSecondZhanFa(ZList.zhanbiduanjin).setThreeZhanFa(ZList.huima);
+		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		return result;
 	}

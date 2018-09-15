@@ -20,6 +20,7 @@ import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.MultipleHarmZhanFa;
 import wlg.core.bean.zhanfa.QiangShiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
+import wlg.core.bean.zhanfa.ZhanBiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 public class CalcHarm {
@@ -54,6 +55,8 @@ public class CalcHarm {
 				unHurtVal = calcFanjizhice(huihe,calcPrimy, kongzhiMap, zf, allZfs);
 			}else if(zf.getT().equals(ZFType.ZhuDong_JianShang_KongZhiFaShu)) {
 				unHurtVal = calcQiangShi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+			}else if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi)) {
+				unHurtVal = calcKZGongJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}
 			
 			sum += unHurtVal;
@@ -228,6 +231,37 @@ public class CalcHarm {
 			}
 			//控制主的概率
 			float kongzhiVal = unHurt * b.getDoneRate();
+			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal,p),calcPrimy,zhanfa);
+			kongzhiMap.put(b.getName(), kongzhiVal);
+			unHurtVal += tmp;
+		}
+		return unHurtVal;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static <T extends ZhanFa> float calcKZGongJi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf, T... zhanfa) {
+		ZhanBiZhanFa b = (ZhanBiZhanFa)zf;
+		float unHurtVal = 0.0f;
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		//每个人数的随机概率
+		float evrate = 1.0f/b.getPersons().getPersons().length;
+		for(int p:b.getPersons().getPersons()) {
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
+			if(distance<=0) {
+				continue;
+			}else {
+				p = Math.min(p, distance);
+			}
+			//不受伤害的概率
+			float unHurt = evrate * p/1.0f/huihe.getWujiangCount();
+			unHurt = unHurt>1 ? rate:rate*unHurt;
+			//控制主的概率
+			float kongzhiVal = unHurt * b.getDoneRate()*b.getKonzhiVal();
 			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal,p),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;

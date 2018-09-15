@@ -33,15 +33,15 @@ public abstract class ZList {
 	
 	
 	/*****    -------------   拆解战法     begin -------------   *****/
-	// 战法 十面埋伏
+	// 十面埋伏
 	public static JianShangZhanFa shimianmaifu = new JianShangZhanFa("十面埋伏",ZFType.ZhuDong_FaShu_JianShang,1, 0.4f, 1.3f, 5,new Person(3),0.0f,Conf.dafu_xiajiang);
-	// 战法 声东击西
+	// 声东击西
 	public static ZhanFa shengdongjixi = new ZhanFa("声东击西",ZFType.ZhuDong_FaShu,1, 0.5f, 2.31f, 5,new Person(1, 2));
-	// 埋雷战法 楚歌四起 与速度相关
+	// 楚歌四起 与速度相关
 	public static MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa("楚歌四起",ZFType.ZhuDong_FaShu,1, 2, 0.5f, 1.27f, 5,new Person(2, 3));
 	//神兵天降
 	public static JiaShangZhanFa shenbingtianjiang = new JiaShangZhanFa("神兵天降",ZFType.ZhiHui_FuZhu_ALL,0,1,0.3f,4,new Person(2),3);
-	//大赏三军
+	// 大赏三军
 	public static JiaShangZhanFa dashangsanjun = new JiaShangZhanFa("大赏三军",ZFType.ZhiHui_FuZhu_ALL,0,1,0.3f,3,new Person(2),3);
 	// 加成战法 不攻
 	public static JiaChengZhanFa bugong = new JiaChengZhanFa("不攻",ZFType.ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi,0, 1, 0.83f, 5,new Person(1), 0.25f);
@@ -55,5 +55,7 @@ public abstract class ZList {
 	public static JiJiaoZhiShiZhanFa jijiaozhishi = new JiJiaoZhiShiZhanFa("掎角之势", ZFType.ZhuDong_FaShu_GongJi,0, 0.4f,1.43f, 3,new Person(1,2),0.4f,1.8f);
 	//回马
 	public static FanJiZhanFa huima = new FanJiZhanFa("回马",ZFType.BeiDong_GongJi,0,1,0.6f,5,new Person(1));
+	//战必断金
+	public static ZhanBiZhanFa zhanbiduanjin = new ZhanBiZhanFa("战必断金", ZFType.ZhiHui_KongZhiGongJi, 0, 1, 0.9f, 4, new Person(2),3);
 	/*****    -------------   拆解战法     end -------------   *****/
 }

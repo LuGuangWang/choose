@@ -8,6 +8,7 @@ import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
+import wlg.core.bean.zhanfa.ZhanBiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 /**
  * 计算发动战法成功概率
@@ -149,6 +150,16 @@ public class CalcDoRate {
 				rate = 0;
 			}
 		}
+		//战斗开始后前多少回合
+		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi)) {
+			ZhanBiZhanFa t = (ZhanBiZhanFa)zhanfa;
+			if(huihe.getId()>t.getKeephuihe()) {
+				t.setHarmRate(0.0f);//会影响增益战法的计算
+				rate = 0;
+			}
+		}
+		
 		return rate;
 	}
+	
 }
