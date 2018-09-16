@@ -426,6 +426,11 @@ public class CalcHarm {
 			if(harmval>0) {
 				executeJss++;
 			}
+			if(CheckUtil.isBaoZou(zf)) {
+				float baozouVal = rate * zf.getDoneRate() *Conf.jiashanghai;
+				harmval += baozouVal;
+				Conf.log("===战法 " + zf.getName() + " 暴走杀伤力：" + baozouVal);
+			}
 			Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
 			sum += harmval;
 			

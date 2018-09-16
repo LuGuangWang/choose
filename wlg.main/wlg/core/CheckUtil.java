@@ -260,6 +260,19 @@ public class CheckUtil {
 		return isLianJi;
 	}
 	
+	public static boolean isBaoZou(ZhanFa zf) {
+		boolean isBaoZou = false;
+		switch (zf.getT()) {
+		case ZhuDong_JiaShuXing_KongZhi:
+			isBaoZou = true;
+			break;
+		default:
+			isBaoZou = false;
+			break;
+		}
+		return isBaoZou;
+	}
+	
 	public static boolean isZhuiJi(ZhanFa zf) {
 		boolean isZhuiJi = false;
 		switch (zf.getT()) {

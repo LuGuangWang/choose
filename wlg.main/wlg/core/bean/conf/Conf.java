@@ -27,7 +27,8 @@ public abstract class Conf {
 	public static final float base_speed = 150.0f;
 	//回合初始兵力基数
 	public static final float binglijishu = 4.0f;
-	
+	//暴走伤害基数
+	public static final float jiashanghai = SunShiCount * 0.65f;
 	//是否打印日志
 	public static final boolean log = true;
 	
