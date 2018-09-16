@@ -365,9 +365,14 @@ public class CalcHarm {
 				//只对当前武将的战法生效
 				if(huihe.getWj().getPosition()==zf.getPosition()) {
 					shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
+					//增加自身谋略属性点
+					addStrategyVal = huihe.getUpFaShuVal();
+				}else {
+					//TODO 现在只是奇佐鬼谋   增加谋略属性点
+					float upval = huihe.getUpFaShuVal()-1;
+					upval = 1.0f/(huihe.getWujiangCount()-1) * upval + 1;
+					addStrategyVal = upval;
 				}
-				//增加法术伤害
-				addStrategyVal = huihe.getUpFaShuVal();
 			}
 			
 			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
