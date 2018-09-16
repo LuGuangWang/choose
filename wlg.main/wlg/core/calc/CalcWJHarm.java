@@ -18,6 +18,7 @@ import wlg.core.bean.wujiang.WChengHao;
 import wlg.core.bean.wujiang.WJChengHaoExVal;
 import wlg.core.bean.wujiang.WZType;
 import wlg.core.bean.wujiang.WuJiang;
+import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.WeiWuZhiShiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
@@ -53,6 +54,9 @@ public class CalcWJHarm {
 		List<ZhanFa> allKongZhi = new ArrayList<>(kongzhi);
 		
 		for (int i = 1; i < 9; i++) {
+			//重置战法冲突
+			ConflictList.$().reset();
+			
 			List<WuJiang> wujiang = globalwujiang;
 			if (globalwujiang.size() == 0) {
 				break;
@@ -73,10 +77,6 @@ public class CalcWJHarm {
 				
 				// 补充额外属性 并且增加先发的控制战法
 				buildExProp(huihe, wj, allKongZhi);
-				// 自身战法加成
-				if (huihe.isHasZiShenJiaCheng()) {
-					wj.addJiaCheng();
-				}
 
 				// 主伤害
 				if (huihe.isHasKongZhi()) {
@@ -355,7 +355,6 @@ public class CalcWJHarm {
 
 		huihe.setHasZengYi(false);
 		huihe.setHasBuGong(false);
-		huihe.setHasZiShenJiaCheng(false);
 
 		huihe.setShuaxinVal(0.0f);
 		huihe.setUpGongJiVal(1.0f);
@@ -370,14 +369,21 @@ public class CalcWJHarm {
 			huihe.setHasKongZhi(true);
 			allZfs.addAll(kongzhi);
 		}
+		//检查战法冲突
+		for (ZhanFa zf : allZfs) {
+			ConflictList.$().checkChongTu(zf);
+		}
 
 		for (ZhanFa zf : allZfs) {
 			if (CheckUtil.isZengYi(zf))
 				huihe.setHasZengYi(true);
 			if (CheckUtil.isBuGongJi(zf))
 				huihe.setHasBuGong(true);
-			if (CheckUtil.isZiShenJiaCheng(zf))
-				huihe.setHasZiShenJiaCheng(true);
+			
+			// 自身战法加成 不攻 & 大赏三军
+			if (CheckUtil.isZiShenJiaCheng(zf) && !ConflictList.$().isCeluechongtu()) {
+				wj.addJiaCheng();
+			}
 			
 			if(CheckUtil.isLianJi(zf)) {
 				int person = zf.getPersons().getMaxPerson() - 1;
@@ -407,6 +413,7 @@ public class CalcWJHarm {
 				}
 			}
 		}
+		
 	}
 
 	// 按速度排序

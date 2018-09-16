@@ -23,7 +23,6 @@ public class HuiHe implements Cloneable{
 	private boolean hasZengYi = false;
 	private boolean hasKongZhi = false;
 	private boolean hasBuGong = false;
-	private boolean hasZiShenJiaCheng = false;
 	
 	//TODO 连击概率 发动概率 * 作用到当前人
 	private float lianjiVal = 1.0f;
@@ -147,12 +146,7 @@ public class HuiHe implements Cloneable{
 	public void setHasKongZhi(boolean hasKongZhi) {
 		this.hasKongZhi = hasKongZhi;
 	}
-	public boolean isHasZiShenJiaCheng() {
-		return hasZiShenJiaCheng;
-	}
-	public void setHasZiShenJiaCheng(boolean hasZiShenJiaCheng) {
-		this.hasZiShenJiaCheng = hasZiShenJiaCheng;
-	}
+	
 	public int getId() {
 		return id;
 	}
