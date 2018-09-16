@@ -18,6 +18,7 @@ import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.MultipleHarmZhanFa;
+import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.QiangShiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanBiZhanFa;
@@ -57,6 +58,8 @@ public class CalcHarm {
 				unHurtVal = calcQiangShi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}else if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi)) {
 				unHurtVal = calcKZGongJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+			}else if(zf.getT().equals(ZFType.ZhuDong_JiaShuXing_KongZhi)) {
+				unHurtVal = calcJiaShuXing(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}
 			
 			sum += unHurtVal;
@@ -76,6 +79,40 @@ public class CalcHarm {
 		return sum;
 	}
 	
+	private static float calcJiaShuXing(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, 
+			ZhanFa zf,ZhanFa... zhanfa) {
+		QiZuoGuiMou b = (QiZuoGuiMou)zf;
+		float unHurtVal = 0.0f;
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		//每个人数的随机概率
+		float evrate = 1.0f/b.getPersons().getPersons().length;
+		for(int p:b.getPersons().getPersons()) {
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
+			if(distance<=0) {
+				continue;
+			}else {
+				p = Math.min(p, distance);
+			}
+			//不受伤害的概率
+			float unHurt = evrate * p/1.0f/huihe.getWujiangCount();
+			unHurt = unHurt>1 ? rate:rate*unHurt;
+			//控制主的概率
+			float kongzhiVal = unHurt * b.getDoneRate();
+			float fenggongji = kongzhiVal * 0.5f;
+			float fengfashu = kongzhiVal * 0.5f;
+			
+			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getAllFeng(fengfashu,fenggongji),calcPrimy,zhanfa);
+			kongzhiMap.put(b.getName(), kongzhiVal);
+			unHurtVal += tmp;
+		}
+		return unHurtVal;
+	}
+
 	@SuppressWarnings("unchecked")
 	private static <T extends ZhanFa> float calcQiangShi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap,
 			ZhanFa zf, T... zhanfa) {
@@ -328,6 +365,8 @@ public class CalcHarm {
 				if(huihe.getWj().getPosition()==zf.getPosition()) {
 					shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
 				}
+				//增加法术伤害
+				shuaxinVal += huihe.getUpFaShuVal();
 			}
 			
 			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {

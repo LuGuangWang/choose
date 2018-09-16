@@ -29,6 +29,9 @@ public abstract class ZList {
 	public static GongJiZhanFa weiwuzhize = new GongJiZhanFa("魏武之泽", ZFType.ZhuDong_JiaGongJi_LianJi, 0, 0.35f, 1.25f, 2, new Person(1,2));
 	//王异 世仇 TODO 不可急救和休整 持续2回合
 	public static ZhanFa shichou = new ZhanFa("世仇", ZFType.ZhuiJi_FaShu, 0, 0.6f, 2.33f, 4, new Person(1));
+	//郭嘉 奇佐鬼谋
+	public static QiZuoGuiMou qizuoguimou = new QiZuoGuiMou("奇佐鬼谋", ZFType.ZhuDong_JiaShuXing_KongZhi, 0, 0.35f, 0.22f,1,2, 5, new Person(2));
+	
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

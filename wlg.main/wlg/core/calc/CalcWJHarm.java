@@ -19,6 +19,7 @@ import wlg.core.bean.wujiang.WJChengHaoExVal;
 import wlg.core.bean.wujiang.WZType;
 import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.ConflictList;
+import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.WeiWuZhiShiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
@@ -361,9 +362,10 @@ public class CalcWJHarm {
 		huihe.setKongzhiVal(0.0f);
 		huihe.setHasKongZhi(false);
 		huihe.setLianjiVal(1.0f);
+		huihe.setUpFaShuVal(0.0f);
 
 		// 校验所有战法
-		List<ZhanFa> allZfs = new ArrayList<>(Arrays.asList(wj.getZhanfa()));
+		Set<ZhanFa> allZfs = new HashSet<>(Arrays.asList(wj.getZhanfa()));
 		// 含有先发控制
 		if (kongzhi.size() > 0) {
 			huihe.setHasKongZhi(true);
@@ -410,6 +412,15 @@ public class CalcWJHarm {
 				if (newVal > oldVal) {
 					huihe.setUpGongJiVal(newVal);
 					Conf.log("=====加伤战法" + zf.getName() + " 刷新加伤基值：" + oldVal + "->" + newVal);
+				}
+			}
+			if(CheckUtil.isUpFashu(zf)) {
+				QiZuoGuiMou tmp = (QiZuoGuiMou)zf;
+				float oldVal = huihe.getUpFaShuVal();
+				float newVal = tmp.getUpVal();
+				if (newVal > oldVal) {
+					huihe.setUpFaShuVal(newVal);
+					Conf.log("=====加伤战法" + zf.getName() + " 提高法术伤害值：" + oldVal + "->" + newVal);
 				}
 			}
 		}

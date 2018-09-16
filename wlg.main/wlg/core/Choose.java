@@ -100,13 +100,13 @@ public class Choose {
 //		float sum6 = CalcWJHarm.calcVal(one,two,three);
 //		String key6 = buildKey(one,two,three);
 //		result.put(sum6, key6);
-		
-		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.shimianmaifu);
-		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
-		three= WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.dashangsanjun);
-		float sum7 = CalcWJHarm.calcVal(one,two,three);
-		String key7 = buildKey(one,two,three);
-		result.put(sum7, key7);
+//		
+//		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.shimianmaifu);
+//		two = WList.zhouyv.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+//		three= WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.dashangsanjun);
+//		float sum7 = CalcWJHarm.calcVal(one,two,three);
+//		String key7 = buildKey(one,two,three);
+//		result.put(sum7, key7);
 		
 		return result;
 	}
@@ -117,7 +117,7 @@ public class Choose {
 	 */
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-//		WuJiang one;
+		WuJiang one;
 //		
 //		one = WList.huangyueying.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
@@ -179,8 +179,8 @@ public class Choose {
 //		one = WList.caopi.setSecondZhanFa(ZList.zhanbiduanjin).setThreeZhanFa(ZList.huima);
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-//		one = WList.luxun.setSecondZhanFa(ZList.dashangsanjun).setThreeZhanFa(ZList.bugong);
-//		result.put(CalcWJHarm.calcVal(one), one.toString());
+		one = WList.luxun.setSecondZhanFa(ZList.qizuoguimou);
+		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		
 		return result;

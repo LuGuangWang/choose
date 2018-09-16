@@ -26,6 +26,8 @@ public class HuiHe implements Cloneable{
 	
 	//TODO 连击概率 发动概率 * 作用到当前人
 	private float lianjiVal = 1.0f;
+	//策略提高值
+	private float upFaShuVal = 0.0f;
 	//本回合刷新战法伤害值
 	private float shuaxinVal = 0.0f;
 	//本回合攻击提高伤害值
@@ -90,6 +92,12 @@ public class HuiHe implements Cloneable{
 	}
 	public WuJiang getWj() {
 		return wj;
+	}
+	public float getUpFaShuVal() {
+		return upFaShuVal;
+	}
+	public void setUpFaShuVal(float upFaShuVal) {
+		this.upFaShuVal = upFaShuVal;
 	}
 	public void setWj(WuJiang wj) {
 		this.wj = wj;
@@ -209,38 +217,32 @@ public class HuiHe implements Cloneable{
 	private float getSunShi(int position, float defenseVal) {
 		float sunShi = 0.0f;
 		if(fengAll!=0) {
-			float sunshi = Conf.SunShiCount* position - Conf.SunShiCount * fengAll;
+			float sunshi = Conf.SunShiCount - Conf.SunShiCount * fengAll;
 			sunshi = sunshi>0?sunshi:0;
 			Conf.log("===全控制减伤值：" + fengAll + " 士兵损失值：" + sunshi);
 			sunShi += sunshi;
 		}
 		if(fengZhanfa !=0) {
-			float sunshi =Conf.SunShiCount* position - Conf.SunShiCount * fengZhanfa * Conf.sf_s_rate;
+			float sunshi =(Conf.SunShiCount - Conf.SunShiCount * fengZhanfa) * Conf.sf_s_rate;
 			sunshi = sunshi>0?sunshi:0;
 			Conf.log("===控制法术减伤值：" + fengZhanfa +" 士兵损失值：" + sunshi);
 			sunShi += sunshi;
 		}
 		if(fengGongji !=0) {
-			float sunshi = Conf.SunShiCount* position - Conf.SunShiCount * fengGongji * Conf.gj_s_rate;
+			float sunshi = (Conf.SunShiCount - Conf.SunShiCount * fengGongji) * Conf.gj_s_rate;
 			sunshi = sunshi>0?sunshi:0;
 			Conf.log("===控制攻击减伤值：" + fengGongji + " 士兵损失值：" + sunshi);
 			sunShi += sunshi;
 		}
-		//法术伤害
-		if(fengAll==0 && fengZhanfa==0) {
-			float fangyuVal = Conf.SunShiCount * Conf.sf_s_rate;
-			fangyuVal *= position;
-			Conf.log("==敌军法术造成士兵的损失值：" + fangyuVal);
-			sunShi += fangyuVal;
-		}
 		//防御是防御攻击造成的伤害
 		if(fengAll==0 && fengGongji ==0) {
-			float fangyuVal = Conf.SunShiCount * Conf.gj_s_rate - Conf.fg_rate * defenseVal;
+			float fangyuVal = Conf.SunShiCount - Conf.fg_rate * defenseVal;
 			fangyuVal = fangyuVal>0?fangyuVal:0;
-			fangyuVal *= position;
 			Conf.log("===防御力减伤值：" + defenseVal + " 敌军普通攻击造成的士兵损失值：" + fangyuVal);
 			sunShi += fangyuVal;
 		}
+		
+		sunShi *= position;
 		//按受到最小伤害进行更新
 		this.getWj().setSunshiCount(sunShi);
 		
