@@ -362,7 +362,7 @@ public class CalcWJHarm {
 		huihe.setKongzhiVal(0.0f);
 		huihe.setHasKongZhi(false);
 		huihe.setLianjiVal(1.0f);
-		huihe.setUpFaShuVal(0.0f);
+		huihe.setUpFaShuVal(1.0f);
 
 		// 校验所有战法
 		Set<ZhanFa> allZfs = new HashSet<>(Arrays.asList(wj.getZhanfa()));
@@ -417,7 +417,7 @@ public class CalcWJHarm {
 			if(CheckUtil.isUpFashu(zf)) {
 				QiZuoGuiMou tmp = (QiZuoGuiMou)zf;
 				float oldVal = huihe.getUpFaShuVal();
-				float newVal = tmp.getUpVal();
+				float newVal = tmp.getUpVal() + 1;
 				if (newVal > oldVal) {
 					huihe.setUpFaShuVal(newVal);
 					Conf.log("=====加伤战法" + zf.getName() + " 提高法术伤害值：" + oldVal + "->" + newVal);

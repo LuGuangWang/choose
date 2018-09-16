@@ -21,5 +21,5 @@ public class QiZuoGuiMou extends ZhanFa {
 	public int getKeephuihe() {
 		return keephuihe;
 	}
-
+	
 }

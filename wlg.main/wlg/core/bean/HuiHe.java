@@ -27,7 +27,7 @@ public class HuiHe implements Cloneable{
 	//TODO 连击概率 发动概率 * 作用到当前人
 	private float lianjiVal = 1.0f;
 	//策略提高值
-	private float upFaShuVal = 0.0f;
+	private float upFaShuVal = 1.0f;
 	//本回合刷新战法伤害值
 	private float shuaxinVal = 0.0f;
 	//本回合攻击提高伤害值

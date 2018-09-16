@@ -171,7 +171,7 @@ public class ZhanFa implements Harm, Cloneable {
 
 	@Override
 	public float getHarmVal() {
-		return getHarmVal(this.harmVal);
+		return getHarmVal(this.harmVal,1.0f);
 	}
 	
 	/**
@@ -180,11 +180,11 @@ public class ZhanFa implements Harm, Cloneable {
 	 * @param exharmVal
 	 * @return
 	 */
-	public float getExVal(ZhanFa other, float exharmVal) {
+	public float getExVal(ZhanFa other, float exharmVal,float addStrategyVal) {
 		float sum = 0.0f;
 		if(other.getHarmRate()>0) {
 			float val = exharmVal*this.getDoneRate()*other.getDoneRate();
-			val = addShuXingVal(val);
+			val = addShuXingVal(val,addStrategyVal);
 			int[] persons = other.getPersons().getPersons();
 			
 			int[] ps = this.getPersons().getPersons();
@@ -224,10 +224,10 @@ public class ZhanFa implements Harm, Cloneable {
 	 * @param harmVal
 	 * @return
 	 */
-	public float getHarmVal(float harmVal) {
+	public float getHarmVal(float harmVal,float addStrategyVal) {
 		float sum = 0.0f;
 		float pval = this.doneRate * harmVal;
-		pval = addShuXingVal(pval);
+		pval = addShuXingVal(pval,addStrategyVal);
 		if (persons.getPersons().length > 0) {
 			int len = getPersons().getPersons().length;
 			float rate = 1.0f / len;
@@ -250,9 +250,10 @@ public class ZhanFa implements Harm, Cloneable {
 	 * @param val
 	 * @return
 	 */
-	public float addShuXingVal(float val) {
+	public float addShuXingVal(float val,float addStrategyVal) {
 		if(CheckUtil.isStrategy(this)) {
-			val *= strategy * Conf.fashu_rate;
+			float newStrategy = strategy * addStrategyVal;
+			val *= newStrategy * Conf.fashu_rate;
 		}else if(CheckUtil.isAttack(this)) {
 			val *= attack * Conf.gongji_rate;
 		}else if(CheckUtil.isZeroHarm(this)) {

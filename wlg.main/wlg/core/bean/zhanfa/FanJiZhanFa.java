@@ -19,16 +19,16 @@ public class FanJiZhanFa extends ZhanFa {
 	 * @return
 	 */
 	public float getHarmVal() {
-		return getHarmVal(this.getHarmVal());
+		return getHarmVal(this.getHarmVal(),1.0f);
 	}
 	/**
 	 * 当前战法伤害
 	 * @return
 	 */
-	public float getHarmVal(float harmVal) {
+	public float getHarmVal(float harmVal,float addStrategyVal) {
 		float sum = 0.0f;
 		float pval = this.getDoneRate() * harmVal;
-		pval = addShuXingVal(pval);
+		pval = addShuXingVal(pval,addStrategyVal);
 		int i = 1;
 		int distance = CalCDistance.calcDistance(this.getDistance(), this.getPosition());
 		i = Math.min(i, distance);

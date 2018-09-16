@@ -106,7 +106,7 @@ public class CalcHarm {
 			float fenggongji = kongzhiVal * 0.5f;
 			float fengfashu = kongzhiVal * 0.5f;
 			
-			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getAllFeng(fengfashu,fenggongji),calcPrimy,zhanfa);
+			float tmp = kongzhiVal * b.getKeephuihe() * calcKongZhiAllHuiHe(huihe.getAllFeng(fengfashu,fenggongji),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -359,6 +359,7 @@ public class CalcHarm {
 		for(int i=0;i<zhanfa.length;i++) {
 			T zf = zhanfa[i];
 			float shuaxinVal = 0.0f;
+			float addStrategyVal = 1.0f;
 			
 			if(CheckUtil.isStrategy(zf)) {
 				//只对当前武将的战法生效
@@ -366,7 +367,7 @@ public class CalcHarm {
 					shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
 				}
 				//增加法术伤害
-				shuaxinVal += huihe.getUpFaShuVal();
+				addStrategyVal = huihe.getUpFaShuVal();
 			}
 			
 			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
@@ -415,7 +416,7 @@ public class CalcHarm {
 			//TODO 考虑被控制效果  规避效果 不可恢复
 			
 			float shibingVal = huihe.getSolderRate(zf.getPosition(),zf.getDefense());
-			float harmval = rate * zf.getHarmVal(shuaxinVal) * shibingVal;
+			float harmval = rate * zf.getHarmVal(shuaxinVal,addStrategyVal) * shibingVal;
 			//有伤害 才能触发加伤战法
 			if(harmval>0) {
 				executeJss++;
@@ -482,10 +483,10 @@ public class CalcHarm {
 							if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 								KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
 								if(tmp.getKeephuihe()+1 == huihe.getId()) {
-									exharmVal = rate * b.getExVal(tmp,shuaxinRate) * huihe.getSolderRate(b.getPosition(),b.getDefense());
+									exharmVal = rate * b.getExVal(tmp,shuaxinRate,huihe.getUpFaShuVal()) * huihe.getSolderRate(b.getPosition(),b.getDefense());
 								}
 							}else {
-								exharmVal = rate * b.getExVal(zf,shuaxinRate) * huihe.getSolderRate(b.getPosition(),b.getDefense());
+								exharmVal = rate * b.getExVal(zf,shuaxinRate,huihe.getUpFaShuVal()) * huihe.getSolderRate(b.getPosition(),b.getDefense());
 							}
 							Conf.log("======战法"+zf.getName() + " 触发战法" + b.getName() +" 造成最终额外杀伤力" + exharmVal);
 						}

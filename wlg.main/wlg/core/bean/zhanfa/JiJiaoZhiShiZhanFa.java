@@ -10,9 +10,10 @@ public class JiJiaoZhiShiZhanFa extends ZhanFa {
 	}
 
 	@Override
-	public float getHarmVal(float harmVal) {
+	public float getHarmVal(float harmVal,float addStrategyVal) {
 		float sum = 0.0f;
-		float harmval = this.getDoneRate() * harmVal  * this.getStrategy() * Conf.fashu_rate;
+		float newStrategy = this.getStrategy() * addStrategyVal;
+		float harmval = this.getDoneRate() * harmVal  * newStrategy * Conf.fashu_rate;
 		float exharmval = this.getExRate() * this.getExHarmVal() * this.getAttack() * Conf.gongji_rate;
 		
 		sum = harmval + exharmval;

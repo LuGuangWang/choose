@@ -21,7 +21,7 @@ public class ZengYiZhanFa extends ZhanFa{
 	 * @return
 	 */
 	public float getExVal(ZhanFa other) {
-		float sum = getExVal(other, this.getExHarmVal());
+		float sum = getExVal(other, this.getExHarmVal(),1.0f);
 		return sum;
 	}
 	
