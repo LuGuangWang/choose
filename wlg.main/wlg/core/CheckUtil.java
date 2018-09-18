@@ -76,6 +76,7 @@ public class CheckUtil {
 	public static boolean isKongZhiAll(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
+		case ZhuDong_BaoZou:
 		case ZhuDong_KongZhi_ALL:
 		case ZhuDong_JiaShuXing_KongZhi:
 			isKongZhi = true;
@@ -177,6 +178,7 @@ public class CheckUtil {
 	public static boolean isZeroHarm(ZhanFa zf) {
 		boolean isZeroHarm = false;
 		switch (zf.getT()) {
+		case ZhuDong_BaoZou:
 		case BeiDong_JiaCheng:
 		case ZhuDong_KongZhi_ALL:
 		case ZhiHui_KongZhiGongJi:
@@ -199,6 +201,7 @@ public class CheckUtil {
 	public static boolean isKongZhiKeep(ZhanFa zf) {
 		boolean isKongZhiKeep = false;
 		switch (zf.getT()) {
+		case ZhuDong_BaoZou:
 		case ZhuDong_KongZhi_ALL:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_JianShang_KongZhiFaShu:
@@ -263,6 +266,7 @@ public class CheckUtil {
 	public static boolean isBaoZou(ZhanFa zf) {
 		boolean isBaoZou = false;
 		switch (zf.getT()) {
+		case ZhuDong_BaoZou:
 		case ZhuDong_JiaShuXing_KongZhi:
 			isBaoZou = true;
 			break;

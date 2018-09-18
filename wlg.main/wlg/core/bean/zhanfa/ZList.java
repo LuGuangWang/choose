@@ -60,5 +60,7 @@ public abstract class ZList {
 	public static FanJiZhanFa huima = new FanJiZhanFa("回马",ZFType.BeiDong_GongJi,0,1,0.6f,5,new Person(1));
 	//战必断金
 	public static ZhanBiZhanFa zhanbiduanjin = new ZhanBiZhanFa("战必断金", ZFType.ZhiHui_KongZhiGongJi, 0, 1, 0.9f, 4, new Person(2),3);
+	//妖术
+	public static BaoZouZhanFa yaoshu = new BaoZouZhanFa("妖术", ZFType.ZhuDong_BaoZou, 1, 0.5f, 2, 4, new Person(2));
 	/*****    -------------   拆解战法     end -------------   *****/
 }
