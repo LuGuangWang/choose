@@ -222,24 +222,34 @@ public class HuiHe implements Cloneable{
 			Conf.log("===全控制减伤值：" + fengAll + " 士兵损失值：" + sunshi);
 			sunShi += sunshi;
 		}
+		
 		if(fengZhanfa !=0) {
 			float sunshi =(Conf.SunShiCount - Conf.SunShiCount * fengZhanfa) * Conf.sf_s_rate;
 			sunshi = sunshi>0?sunshi:0;
 			Conf.log("===控制法术减伤值：" + fengZhanfa +" 士兵损失值：" + sunshi);
 			sunShi += sunshi;
-		}
+		} 
+
 		if(fengGongji !=0) {
 			float sunshi = (Conf.SunShiCount - Conf.SunShiCount * fengGongji) * Conf.gj_s_rate;
 			sunshi = sunshi>0?sunshi:0;
 			Conf.log("===控制攻击减伤值：" + fengGongji + " 士兵损失值：" + sunshi);
 			sunShi += sunshi;
 		}
+
 		//防御是防御攻击造成的伤害
 		if(fengAll==0 && fengGongji ==0) {
-			float fangyuVal = Conf.SunShiCount - Conf.fg_rate * defenseVal;
+			float fangyuVal = Conf.SunShiCount * Conf.gj_s_rate - Conf.fg_rate * defenseVal;
 			fangyuVal = fangyuVal>0?fangyuVal:0;
 			Conf.log("===防御力减伤值：" + defenseVal + " 敌军普通攻击造成的士兵损失值：" + fangyuVal);
 			sunShi += fangyuVal;
+		}
+		//法术伤害
+		if(fengAll==0 && fengZhanfa ==0) {
+			float fashuVal = Conf.SunShiCount * Conf.sf_s_rate;
+			fashuVal = fashuVal>0?fashuVal:0;
+			Conf.log("=====敌军法术攻击造成的士兵损失值：" + fashuVal);
+			sunShi += fashuVal;
 		}
 		
 		sunShi *= position;

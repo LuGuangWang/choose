@@ -73,6 +73,7 @@ public class CalcWJHarm {
 
 			for (int j = 0; j < wujiang.size(); j++) {
 				float wjVal = 0.0f;// 武将战斗力
+				float fsVal = 0.0f;//法术伤害值
 				WuJiang wj = wujiang.get(j);
 				Conf.log("===============武将" + wj.getName() + "开始战斗=============");
 				
@@ -82,7 +83,7 @@ public class CalcWJHarm {
 				// 主伤害
 				if (huihe.isHasKongZhi()) {
 					Conf.log("=============计算普通主伤害值==========");
-					wjVal += CalcHarm.calcKongZhiHuiHe(huihe, true, allKongZhi, wj.getZhanfa());
+					fsVal += CalcHarm.calcKongZhiHuiHe(huihe, true, allKongZhi, wj.getZhanfa());
 					// 增益伤害
 					if (huihe.isHasZengYi()) {
 						Conf.log("=============计算增益伤害值==========");
@@ -90,11 +91,11 @@ public class CalcWJHarm {
 						for (int m = j; m < wujiang.size(); m++) {
 							zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
 						}
-						wjVal += CalcHarm.calcKongZhiHuiHe(huihe, false, allKongZhi, wj.getZhanfa());
+						fsVal += CalcHarm.calcKongZhiHuiHe(huihe, false, allKongZhi, wj.getZhanfa());
 					}
 				} else {
 					Conf.log("=============计算普通主伤害值==========");
-					wjVal += CalcHarm.calcCommHuiHe(huihe, wj.getZhanfa());
+					fsVal += CalcHarm.calcCommHuiHe(huihe, wj.getZhanfa());
 					// 增益伤害
 					if (huihe.isHasZengYi()) {
 						Conf.log("=============计算增益伤害值==========");
@@ -102,15 +103,22 @@ public class CalcWJHarm {
 						for (int m = j; m < wujiang.size(); m++) {
 							zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
 						}
-						wjVal += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
+						fsVal += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 					}
 				}
+				//免疫法术 免疫规避
+				fsVal *= wj.getMianyiFSVal() * wj.getMianyiGBVal();
+				//法术伤害
+				wjVal += fsVal;
 				// 普通攻击伤害
 				if (Conf.getCalcPG()) {
 					float gongjiVal = 0.0f;
-					if (!huihe.isHasBuGong() && CalCDistance.calcDistance(wj.getDistance(), wj.getPosition()) > 0) {
-						gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal()
-								* huihe.getSolderRate(wj.getPosition(), wj.getDefense()) * huihe.getUpGongJiVal();
+					boolean canGongJi = CalCDistance.calcDistance(wj.getDistance(), wj.getPosition()) > 0;
+					if (!huihe.isHasBuGong() && canGongJi) {
+						float solderRate = huihe.getSolderRate(wj.getPosition(), wj.getDefense());
+						gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * solderRate * huihe.getUpGongJiVal();
+						//免疫攻击 免疫规避
+						gongjiVal *= wj.getMianyiGJVal() * wj.getMianyiGBVal();
 					}
 					wjVal += gongjiVal;
 					Conf.log("=========武将" + wj.getName() + "普通攻击最终杀伤力：" + gongjiVal);
@@ -353,6 +361,8 @@ public class CalcWJHarm {
 		huihe.setWj(wj);
 		// 重新设置武将回合的损失兵力
 		wj.resetSunshiCount();
+		// 重新设置武将免疫力
+		wj.resetmianyiVal();
 
 		huihe.setHasZengYi(false);
 		huihe.setHasBuGong(false);

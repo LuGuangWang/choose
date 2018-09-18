@@ -303,6 +303,9 @@ public class CalcHarm {
 			if(huihe.getId()>b.getKeephuihe()) {
 				unHurt = 0;
 				return 0;
+			}else {
+				//更新武将免疫攻击的控制力
+				huihe.getWj().setMianyiGBVal(b.getWushiguibi());
 			}
 			//控制主的概率
 			float kongzhiVal = unHurt * b.getDoneRate();

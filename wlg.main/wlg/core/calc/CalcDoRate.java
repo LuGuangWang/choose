@@ -114,6 +114,7 @@ public class CalcDoRate {
 		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
+	
 	/**
 	 * 一般,刷新,控制战法 相同逻辑的概率 
 	 * @param huihe

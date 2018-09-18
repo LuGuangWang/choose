@@ -26,6 +26,12 @@ public class WuJiang implements Cloneable{
 	private float totalCount = Conf.totalCount;//总兵力
 	//本武将兵力损失值
 	private float sunshiCount = 0.0f;
+	//法术免疫控制的能力值
+	private float mianyiFSVal = Conf.mianyi_fashu;
+	//攻击免疫控制的能力值
+	private float mianyiGJVal = Conf.mianyi_gongji;
+	//免疫规避的能力值
+	private float mianyiGBVal = Conf.mianyi_guibi;
 	
 	private WBType wbType;//兵种
 	private WZType wzType;//阵营
@@ -95,6 +101,34 @@ public class WuJiang implements Cloneable{
 	public float getSunshiCount() {
 		return sunshiCount;
 	}
+	public float getMianyiFSVal() {
+		return mianyiFSVal;
+	}
+	public void setMianyiFSVal(float mianyiFSVal) {
+		if(this.mianyiFSVal<mianyiFSVal) {
+			Conf.log("===========更新武将免疫法术的能力值：" + this.mianyiFSVal + " -> " + mianyiFSVal);
+			this.mianyiFSVal = mianyiFSVal;
+		}
+	}
+	public float getMianyiGJVal() {
+		return mianyiGJVal;
+	}
+	public void setMianyiGJVal(float mianyiGJVal) {
+		if(this.mianyiGJVal < mianyiGJVal) {
+			Conf.log("===========更新武将免疫攻击的能力值：" + this.mianyiGJVal + " -> " + mianyiGJVal);
+			this.mianyiGJVal = mianyiGJVal;
+		}
+	}
+	public float getMianyiGBVal() {
+		return mianyiGBVal;
+	}
+	public void setMianyiGBVal(float mianyiGBVal) {
+		if(this.mianyiGBVal<mianyiGBVal) {
+			Conf.log("===========更新武将免疫规避的能力值：" + this.mianyiGBVal + " -> " + mianyiGBVal);
+			this.mianyiGBVal = mianyiGBVal;
+		}
+	}
+
 	//按最小伤害更新
 	public void setSunshiCount(float sunshiCount) {
 		if(this.sunshiCount==0 || sunshiCount<this.sunshiCount) {
@@ -104,6 +138,11 @@ public class WuJiang implements Cloneable{
 	}
 	public void resetSunshiCount() {
 		this.sunshiCount = 0.0f;
+	}
+	public void resetmianyiVal() {
+		this.mianyiFSVal = Conf.mianyi_fashu;
+		this.mianyiGJVal = Conf.mianyi_gongji;
+		this.mianyiGBVal = Conf.mianyi_guibi;
 	}
 	public int getDefense() {
 		return defense;
@@ -233,6 +272,9 @@ public class WuJiang implements Cloneable{
 		this.zhanfaMap.clear();
 		this.zhanfaMap.put(1, finalZf.clone());
 		this.totalCount = Conf.totalCount;
+		this.mianyiFSVal = Conf.mianyi_fashu;
+		this.mianyiGJVal = Conf.mianyi_gongji;
+		this.mianyiGBVal = Conf.mianyi_guibi;
 		this.sunshiCount = 0.0f;
 		return this;
 	}

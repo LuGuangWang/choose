@@ -22,7 +22,7 @@ public abstract class Conf {
 	//总兵力
 	public static final float totalCount = 10000.0f;
 	//每回合损失兵力
-	public static final float SunShiCount = 1000.0f;
+	public static final float SunShiCount = 1200.0f;
 	//速度基准值
 	public static final float base_speed = 150.0f;
 	//回合初始兵力基数
@@ -31,9 +31,14 @@ public abstract class Conf {
 	public static final float baozou_rate = 0.7f;
 	//暴走伤害基数
 	public static final float jiashanghai = SunShiCount * baozou_rate;
-	
+	//法术不被控制的概率
+	public static final float mianyi_fashu = 0.5f; 
+	//攻击被控制的概率
+	public static final float mianyi_gongji = 0.5f;
+	//免疫规避的概率
+	public static final float mianyi_guibi = 0.5f;
 	//是否打印日志
-	public static final boolean log = true;
+	public static final boolean log = false;
 	
 	public static boolean getCalcPG() {
 		return Calc_PuGong;

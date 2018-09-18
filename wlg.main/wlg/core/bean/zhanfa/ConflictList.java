@@ -1,7 +1,7 @@
 package wlg.core.bean.zhanfa;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import wlg.core.bean.conf.Conf;
 
@@ -10,10 +10,10 @@ public class ConflictList {
 	private ConflictList() {}
 	
 	private final String celue_chongtu = "不攻|大赏三军";
-	private List<ZhanFa> celue_list = new ArrayList<>();
+	private Set<String> celue_list = new HashSet<>();
 	
 	private final String baozou_chongtu = "妖术|奇佐鬼谋";
-	private List<ZhanFa> baozou_list = new ArrayList<>();
+	private Set<String> baozou_list = new HashSet<>();
 	
 	public static ConflictList $() {
 		return instance;
@@ -38,16 +38,16 @@ public class ConflictList {
 	
 	public void checkChongTu(ZhanFa zf) {
 		if(celue_chongtu.contains(zf.getName())) {
-			celue_list.add(zf);
+			celue_list.add(zf.getName());
 		}
 		if(baozou_chongtu.contains(zf.getName())) {
-			baozou_list.add(zf);
+			baozou_list.add(zf.getName());
 		}
 	}
 
-	private String listToString(List<ZhanFa> zfs) {
+	private String listToString(Set<String> zfs) {
 		StringBuilder res = new StringBuilder();
-		zfs.forEach(zf->res.append(zf.getName()).append("|"));
+		zfs.forEach(zf->res.append(zf).append("|"));
 		return res.toString();
 	}
 	
