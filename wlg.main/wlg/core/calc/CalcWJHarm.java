@@ -353,14 +353,6 @@ public class CalcWJHarm {
 
 	// 补充额外属性
 	private static void buildExProp(HuiHe huihe, WuJiang wj, List<ZhanFa> kongzhi) {
-		//添加控制战法
-		for(ZhanFa zf:wj.getZhanfa()) {
-			if(!kongzhi.contains(zf)  && CheckUtil.isKongZhi(zf)) {
-				Conf.log("=========添加控制战法" + zf.getName());
-				kongzhi.add(zf);
-			}
-		}
-		
 		// 设置当前武将
 		huihe.setWj(wj);
 		// 重新设置武将回合的损失兵力
@@ -368,6 +360,22 @@ public class CalcWJHarm {
 		// 重新设置武将免疫力
 		wj.resetmianyiVal();
 
+		//添加控制战法
+		for(ZhanFa zf:wj.getZhanfa()) {
+			if(!kongzhi.contains(zf)  && CheckUtil.isKongZhi(zf)) {
+				Conf.log("=========添加控制战法" + zf.getName());
+				kongzhi.add(zf);
+			}
+			if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
+				//TODO 免疫法术的概率
+				float rate = 1 - wj.getSpeed()/Conf.base_speed;
+				rate = rate>0?rate:0;
+				wj.setMianyiFSVal(Conf.mianyi_fashu + rate);
+				//免疫攻击的概率
+				wj.setMianyiGJVal(Conf.mianyi_gongji + rate);
+			}
+		}
+		
 		huihe.setHasZengYi(false);
 		huihe.setHasBuGong(false);
 
@@ -450,13 +458,6 @@ public class CalcWJHarm {
 					huihe.setUpFaShaShangHaiVal(newVal);
 					Conf.log("=====加伤战法" + zf.getName() + " 刷新加伤基值：" + oldVal + "->" + newVal);
 				}
-				
-				//免疫法术的概率
-				float rate = 1 - wj.getSpeed()/Conf.base_speed;
-				rate = rate>0?rate:0;
-				wj.setMianyiFSVal(Conf.mianyi_fashu + rate);
-				//免疫攻击的概率
-				wj.setMianyiGJVal(Conf.mianyi_gongji + rate);
 			}
 		}
 		
