@@ -1,6 +1,5 @@
 package wlg.core;
 
-import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.ZengYiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
@@ -26,6 +25,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case ZhiHui_FuZhu_ALL:
 		case ZhiHui_KongZhiGongJi:
+		case ZhiHui_JiaFaShu_JianShang_MianYi:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhiHui_JianshangFashu_KongZhiFaShu:
 			isKongZhi = true;
@@ -73,7 +73,7 @@ public class CheckUtil {
 		return isBuGongJi;
 	}
 	
-	public static boolean isKongZhiAll(ZhanFa zf) {
+	private static boolean isKongZhiAll(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
 		case ZhuDong_BaoZou:
@@ -88,7 +88,7 @@ public class CheckUtil {
 		return isKongZhi;
 	}
 	
-	public static boolean isKongZhiFaShu(ZhanFa zf) {
+	private static boolean isKongZhiFaShu(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
 		case ZhuDong_JianShang_KongZhiFaShu:
@@ -102,7 +102,7 @@ public class CheckUtil {
 		return isKongZhi;
 	}
 	
-	public static boolean isKongZhiGongJi(ZhanFa zf) {
+	private static boolean isKongZhiGongJi(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
 		case ZhiHui_KongZhiGongJi:
@@ -184,6 +184,7 @@ public class CheckUtil {
 		case ZhiHui_KongZhiGongJi:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_JianShang_KongZhiFaShu:
+		case ZhiHui_JiaFaShu_JianShang_MianYi:
 		case ZhiHui_JianshangFashu_KongZhiFaShu:
 			isZeroHarm = true;
 			break;
@@ -245,8 +246,15 @@ public class CheckUtil {
 	 * @return
 	 */
 	public static boolean isJiaShang(ZhanFa zf) {
-		boolean isJiaShang = (zf instanceof JiaShangZhanFa);
-		
+		boolean isJiaShang = false;
+		switch (zf.getT()) {
+		case ZhiHui_FuZhu_ALL:
+			isJiaShang = true;
+			break;
+		default:
+			isJiaShang = false;
+			break;
+		}
 		return isJiaShang;
 	}
 	

@@ -9,7 +9,7 @@ public class ConflictList {
 	private final static ConflictList instance = new ConflictList();
 	private ConflictList() {}
 	
-	private final String celue_chongtu = "不攻|大赏三军";
+	private final String celue_chongtu = "不攻|大赏三军|始计";
 	private Set<String> celue_list = new HashSet<>();
 	
 	private final String baozou_chongtu = "妖术|奇佐鬼谋";

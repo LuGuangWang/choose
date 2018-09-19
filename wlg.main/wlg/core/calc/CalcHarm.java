@@ -22,6 +22,7 @@ import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.MultipleHarmZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.QiangShiZhanFa;
+import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanBiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -64,6 +65,8 @@ public class CalcHarm {
 				unHurtVal = calcJiaShuXing(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}else if(zf.getT().equals(ZFType.ZhuDong_BaoZou)) {
 				unHurtVal = calcBaoZou(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+			}else if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
+				unHurtVal = calcShiJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}
 			
 			sum += unHurtVal;
@@ -83,6 +86,33 @@ public class CalcHarm {
 		return sum;
 	}
 	
+	private static float calcShiJi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
+			ZhanFa... allZfs) {
+		ShiJiZhanFa b = (ShiJiZhanFa)zf;
+		float unHurtVal = 0.0f;
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		//每个人数的随机概率
+		int p = 1;
+		//不受伤害的概率
+		float unHurt = p/1.0f/huihe.getWujiangCount();
+		unHurt = unHurt>1 ? rate:rate*unHurt;
+		//控制主的概率
+		float kongzhiVal = unHurt * b.getDoneRate() * b.getSpeedVal();
+		//始计 0.5概率生效在战法上
+		float fengAll = kongzhiVal * 0.5f * b.getDownVal();
+		
+		float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getAllFeng(fengAll),calcPrimy,allZfs);
+		kongzhiMap.put(b.getName(), kongzhiVal);
+		unHurtVal += tmp;
+		
+		return unHurtVal;
+	}
+
 	private static float calcBaoZou(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
 			ZhanFa... allZfs) {
 		BaoZouZhanFa b = (BaoZouZhanFa)zf;
@@ -414,6 +444,14 @@ public class CalcHarm {
 					upval = 1.0f/(huihe.getWujiangCount()-1) * upval + 1;
 					addStrategyVal = upval;
 				}
+				//大营战法加成  法术加成概率为0.75
+				if(huihe.getWujiangCount()==3 && huihe.getWj().getFinalp()== 1) {
+					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
+				}else if(huihe.getWujiangCount()==2 && huihe.getWj().getFinalp()== 2) {
+					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
+				}else if(huihe.getWujiangCount()==1 && huihe.getWj().getFinalp()== 3) {
+					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
+				}
 			}
 			
 			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
@@ -454,7 +492,7 @@ public class CalcHarm {
 				addGongJiZfExVal(huihe, zf);
 			}else if(CheckUtil.isZhuiJi(zf)) {
 				shuaxinVal += zf.getHarmRate() * huihe.getLianjiVal();
-			} else {
+			}else {
 				shuaxinVal += zf.getHarmRate();
 			}
 			

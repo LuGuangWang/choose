@@ -1,12 +1,16 @@
 package wlg.core.calc;
 
+import java.util.List;
+
 import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
+import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
+import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanBiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -75,19 +79,61 @@ public class CalcDoRate {
 			rate = 0;
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() > ready) {
-				rate = 1;
+				rate = 1.0f;
 			}
 		}
 		if(CheckUtil.isKongZhiKeep(zhanfa)) {
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId()> ready) {
-				rate = 1 - zhanfa.getDoneRate();
+				rate = 1.0f - zhanfa.getDoneRate();
+			}
+		}
+		if(zhanfa.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
+			boolean isXYDY = isXianYuDaying(huihe.getWujiangs());
+			int keephuihe = ((ShiJiZhanFa)zhanfa).getKeephuihe();
+			rate = 0.0f;
+			if(isXYDY) {
+				if(huihe.getId() <= keephuihe) {
+					rate = 1.0f;
+				}
+			} else {
+				if(huihe.getId() >= 2 && huihe.getId() <= (keephuihe+1)) {
+					rate = 1.0f;
+				}
 			}
 		}
 		
 		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动控制的概率:"+rate);
 		return rate;
 	}
+	
+	private static boolean isXianYuDaying(List<WuJiang> wujiangs) {
+		int dayingPos = 0,zhanfaPos = 3,pos = 0;
+		boolean isXYDY = false;
+		int daying = 1;
+		if(wujiangs.size()==2) {
+			daying = 2;
+		}else if(wujiangs.size()==1) {
+			daying = 3;
+		}
+		
+		for(WuJiang wj:wujiangs) {
+			pos ++ ;
+			if(wj.getFinalp()==daying) {
+				dayingPos = pos;
+			}
+			for(ZhanFa zf:wj.getZhanfa()) {
+				if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
+					zhanfaPos = pos;
+					break;
+				}
+			}
+		}
+		isXYDY = zhanfaPos<=dayingPos;
+		Conf.log("========战法始计是否先发于大营武将:"+isXYDY);
+		return isXYDY;
+	}
+	
 	/**
 	 * 无刷新战法,发动成功的概率
 	 * @param huihe

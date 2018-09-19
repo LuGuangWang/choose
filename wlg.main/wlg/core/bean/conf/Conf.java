@@ -37,8 +37,11 @@ public abstract class Conf {
 	public static final float mianyi_gongji = 0.5f;
 	//免疫规避的概率
 	public static final float mianyi_guibi = 0.5f;
+	//属性缩小倍数
+	public static final float shuxing_suoxiao = 1000.0f;
+	
 	//是否打印日志
-	public static final boolean log = false;
+	public static final boolean log = true;
 	
 	public static boolean getCalcPG() {
 		return Calc_PuGong;

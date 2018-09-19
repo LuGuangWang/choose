@@ -26,8 +26,10 @@ public class HuiHe implements Cloneable{
 	
 	//TODO 连击概率 发动概率 * 作用到当前人
 	private float lianjiVal = 1.0f;
-	//策略提高值
+	//策略属性提高值
 	private float upFaShuVal = 1.0f;
+	//策略伤害提高值
+	private float upFaShaShangHaiVal = 0.0f;
 	//本回合刷新战法伤害值
 	private float shuaxinVal = 0.0f;
 	//本回合攻击提高伤害值
@@ -122,6 +124,12 @@ public class HuiHe implements Cloneable{
 	}
 	public int getWujiangCount() {
 		return wujiangCount;
+	}
+	public float getUpFaShaShangHaiVal() {
+		return upFaShaShangHaiVal;
+	}
+	public void setUpFaShaShangHaiVal(float upFaShaShangHaiVal) {
+		this.upFaShaShangHaiVal = upFaShaShangHaiVal;
 	}
 	public void setWujiangCount(int wujiangCount) {
 		this.wujiangCount = wujiangCount;

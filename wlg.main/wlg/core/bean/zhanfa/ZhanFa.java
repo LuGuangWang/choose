@@ -41,9 +41,6 @@ public class ZhanFa implements Harm, Cloneable {
 	private int strategy = 1;// 谋略
 	private int position = 1;//武将位置武将位置  大营3 中军2 前锋1
 	
-	/** ------额外加成属性---- **/
-	private float upStrategy = 0.0f;//提高策略伤害
-
 	/**
 	 * 
 	 * @param name 名称
@@ -126,14 +123,12 @@ public class ZhanFa implements Harm, Cloneable {
 	public void setPersons(Person persons) {
 		this.persons = persons;
 	}
-	public float getUpStrategy() {
-		return upStrategy;
-	}
-	public void setUpStrategy(float upStrategy) {
-		this.upStrategy = upStrategy;
-	}
 	public int getSpeed() {
 		return speed;
+	}
+	public float getSpeedVal() {
+		float val = this.speed*1.0f/Conf.base_speed;
+		return val >1?1.0f:val;
 	}
 	public void setSpeed(int speed) {
 		this.speed = speed;

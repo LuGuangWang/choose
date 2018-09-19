@@ -20,6 +20,7 @@ import wlg.core.bean.wujiang.WZType;
 import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
+import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.WeiWuZhiShiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
@@ -119,6 +120,9 @@ public class CalcWJHarm {
 						gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * solderRate * huihe.getUpGongJiVal();
 						//免疫攻击 免疫规避
 						gongjiVal *= wj.getMianyiGJVal() * wj.getMianyiGBVal();
+						//攻击加成伤害
+						float upval = 1.0f + huihe.getUpFaShaShangHaiVal() * 0.25f;
+						gongjiVal *= upval;
 					}
 					wjVal += gongjiVal;
 					Conf.log("=========武将" + wj.getName() + "普通攻击最终杀伤力：" + gongjiVal);
@@ -373,6 +377,7 @@ public class CalcWJHarm {
 		huihe.setHasKongZhi(false);
 		huihe.setLianjiVal(1.0f);
 		huihe.setUpFaShuVal(1.0f);
+		huihe.setUpFaShaShangHaiVal(0.0f);
 
 		// 校验所有战法
 		Set<ZhanFa> allZfs = new HashSet<>(Arrays.asList(wj.getZhanfa()));
@@ -392,7 +397,7 @@ public class CalcWJHarm {
 			if (CheckUtil.isBuGongJi(zf))
 				huihe.setHasBuGong(true);
 			
-			// 自身战法加成 不攻 & 大赏三军
+			// 自身战法加成 不攻 & 大赏三军 & 始计
 			if (CheckUtil.isZiShenJiaCheng(zf) && !ConflictList.$().isCeluechongtu()) {
 				wj.addJiaCheng();
 			}
@@ -418,7 +423,9 @@ public class CalcWJHarm {
 			}
 			if (CheckUtil.isJiaShang(zf)) {
 				float oldVal = huihe.getUpGongJiVal();
-				float newVal = zf.getHarmRate() + 1.0f;
+				//受谋略影响
+				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
+				float newVal = zf.getHarmRate() + val + 1.0f;
 				if (newVal > oldVal) {
 					huihe.setUpGongJiVal(newVal);
 					Conf.log("=====加伤战法" + zf.getName() + " 刷新加伤基值：" + oldVal + "->" + newVal);
@@ -432,6 +439,24 @@ public class CalcWJHarm {
 					huihe.setUpFaShuVal(newVal);
 					Conf.log("=====加伤战法" + zf.getName() + " 提高法术伤害值：" + oldVal + "->" + newVal);
 				}
+			}
+			//始计
+			if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
+				float oldVal = huihe.getUpFaShaShangHaiVal();
+				//受谋略影响
+				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
+				float newVal = ((ShiJiZhanFa)zf).getUpVal() + val;
+				if (newVal > oldVal) {
+					huihe.setUpFaShaShangHaiVal(newVal);
+					Conf.log("=====加伤战法" + zf.getName() + " 刷新加伤基值：" + oldVal + "->" + newVal);
+				}
+				
+				//免疫法术的概率
+				float rate = 1 - wj.getSpeed()/Conf.base_speed;
+				rate = rate>0?rate:0;
+				wj.setMianyiFSVal(Conf.mianyi_fashu + rate);
+				//免疫攻击的概率
+				wj.setMianyiGJVal(Conf.mianyi_gongji + rate);
 			}
 		}
 		
