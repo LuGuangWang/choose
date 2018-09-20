@@ -78,6 +78,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case ZhuDong_BaoZou:
 		case ZhuDong_KongZhi_ALL:
+		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 			isKongZhi = true;
 			break;
@@ -182,6 +183,7 @@ public class CheckUtil {
 		case BeiDong_JiaCheng:
 		case ZhuDong_KongZhi_ALL:
 		case ZhiHui_KongZhiGongJi:
+		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhiHui_JiaFaShu_JianShang_MianYi:
@@ -204,6 +206,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case ZhuDong_BaoZou:
 		case ZhuDong_KongZhi_ALL:
+		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
@@ -306,5 +309,17 @@ public class CheckUtil {
 	public static boolean isAllCalc(ZhanFa zf) {
 		boolean isAllCalc = isJiaShang(zf);
 		return isAllCalc;
+	}
+	public static boolean isDownFangYu(ZhanFa zf) {
+		boolean isDownFangYu = false;
+		switch (zf.getT()) {
+		case ZhuDong_BaoZou_jianFangYu:
+			isDownFangYu = true;
+			break;
+		default:
+			isDownFangYu = false;
+			break;
+		}
+		return isDownFangYu;
 	}
 }

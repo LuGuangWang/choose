@@ -13,6 +13,7 @@ import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.BaoZouZhanFa;
+import wlg.core.bean.zhanfa.BiYueZhanFa;
 import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
 import wlg.core.bean.zhanfa.GongJiZhanFa;
@@ -67,6 +68,8 @@ public class CalcHarm {
 				unHurtVal = calcBaoZou(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}else if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
 				unHurtVal = calcShiJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+			}else if(zf.getT().equals(ZFType.ZhuDong_BaoZou_jianFangYu)) {
+				unHurtVal = calcBiyue(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}
 			
 			sum += unHurtVal;
@@ -86,6 +89,40 @@ public class CalcHarm {
 		return sum;
 	}
 	
+	private static float calcBiyue(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
+			ZhanFa... allZfs) {
+		BiYueZhanFa b = (BiYueZhanFa)zf;
+		float unHurtVal = 0.0f;
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		//每个人数的随机概率
+		float evrate = 1.0f/b.getPersons().getPersons().length;
+		for(int p:b.getPersons().getPersons()) {
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
+			if(distance<=0) {
+				continue;
+			}else {
+				p = Math.min(p, distance);
+			}
+			//不受伤害的概率
+			float unHurt = evrate * p/1.0f/huihe.getWujiangCount();
+			unHurt = unHurt>1 ? rate:rate*unHurt;
+			//控制主的概率
+			float kongzhiVal = unHurt * b.getDoneRate();
+			
+			float fengAll = kongzhiVal * Conf.baozou_rate * ConflictList.$().baozouChongTuRate();
+			
+			float tmp = kongzhiVal * b.getKeephuihe() * calcKongZhiAllHuiHe(huihe.getAllFeng(fengAll),calcPrimy,allZfs);
+			kongzhiMap.put(b.getName(), kongzhiVal);
+			unHurtVal += tmp;
+		}
+		return unHurtVal;
+	}
+
 	private static float calcShiJi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
 			ZhanFa... allZfs) {
 		ShiJiZhanFa b = (ShiJiZhanFa)zf;
@@ -501,14 +538,16 @@ public class CalcHarm {
 			
 			float shibingVal = huihe.getSolderRate(zf.getPosition(),zf.getDefense());
 			float harmval = rate * zf.getHarmVal(shuaxinVal,addStrategyVal) * shibingVal;
-			//有伤害 才能触发加伤战法
-			if(harmval>0) {
-				executeJss++;
-			}
 			if(CheckUtil.isBaoZou(zf)) {
 				float baozouVal = rate * zf.getDoneRate() * Conf.jiashanghai * ConflictList.$().baozouChongTuRate();
 				harmval += baozouVal;
 				Conf.log("===战法 " + zf.getName() + " 暴走杀伤力：" + baozouVal);
+			}
+			//有伤害 才能触发加伤战法
+			if(harmval>0) {
+				executeJss++;
+				//降低防御属性增加的伤害值
+				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
 			}
 			Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
 			sum += harmval;
@@ -520,11 +559,12 @@ public class CalcHarm {
 			for(JiaShangZhanFa zf:jss) {
 				float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, zf):CalcDoRate.getCommRate(huihe, zf);
 				float harmval = rate * executeJss * zf.getHarmVal() * huihe.getSolderRate(zf.getPosition(),zf.getDefense());
+				//降低防御属性增加的伤害值
+				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
 				Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
 				sum += harmval;
 			}
 		}
-		
 		return sum;
 	}
 

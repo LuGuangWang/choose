@@ -82,12 +82,6 @@ public class CalcDoRate {
 				rate = 1.0f;
 			}
 		}
-		if(CheckUtil.isKongZhiKeep(zhanfa)) {
-			int ready = zhanfa.getReady() + 1;
-			if(huihe.getId()> ready) {
-				rate = 1.0f - zhanfa.getDoneRate();
-			}
-		}
 		if(zhanfa.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
 			boolean isXYDY = isXianYuDaying(huihe.getWujiangs());
 			int keephuihe = ((ShiJiZhanFa)zhanfa).getKeephuihe();
@@ -173,6 +167,12 @@ public class CalcDoRate {
 		if(huihe.getId() > zhanfa.getReady()) {
 			rate = 1;
 		} 
+		if(CheckUtil.isKongZhiKeep(zhanfa)) {
+			int ready = zhanfa.getReady() + 1;
+			if(huihe.getId()> ready) {
+				rate = 1.0f - zhanfa.getDoneRate();
+			}
+		}
 		//持续多少回合后
 		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;

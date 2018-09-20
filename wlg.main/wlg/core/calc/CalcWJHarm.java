@@ -18,6 +18,7 @@ import wlg.core.bean.wujiang.WChengHao;
 import wlg.core.bean.wujiang.WJChengHaoExVal;
 import wlg.core.bean.wujiang.WZType;
 import wlg.core.bean.wujiang.WuJiang;
+import wlg.core.bean.zhanfa.BiYueZhanFa;
 import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
@@ -123,6 +124,8 @@ public class CalcWJHarm {
 						//攻击加成伤害
 						float upval = 1.0f + huihe.getUpFaShaShangHaiVal() * 0.25f;
 						gongjiVal *= upval;
+						//降低敌军防御属性
+						gongjiVal += huihe.getDownFangYuVal() * Conf.fg_rate;
 					}
 					wjVal += gongjiVal;
 					Conf.log("=========武将" + wj.getName() + "普通攻击最终杀伤力：" + gongjiVal);
@@ -426,7 +429,7 @@ public class CalcWJHarm {
 				float newVal = ((ShuaXinZhanFa) zf).getBaseRate();
 				if (newVal > oldVal) {
 					huihe.setShuaxinVal(newVal);
-					Conf.log("=====刷新战法" + zf.getName() + " 刷新伤害基值：" + oldVal + "->" + newVal);
+					Conf.log("=====刷新战法" + zf.getName() + " 刷新谋略伤害基值：" + oldVal + "->" + newVal);
 				}
 			}
 			if (CheckUtil.isJiaShang(zf)) {
@@ -436,7 +439,7 @@ public class CalcWJHarm {
 				float newVal = zf.getHarmRate() + val + 1.0f;
 				if (newVal > oldVal) {
 					huihe.setUpGongJiVal(newVal);
-					Conf.log("=====加伤战法" + zf.getName() + " 刷新加伤基值：" + oldVal + "->" + newVal);
+					Conf.log("=====战法" + zf.getName() + " 刷新谋略伤害基值：" + oldVal + "->" + newVal);
 				}
 			}
 			if(CheckUtil.isUpFashu(zf)) {
@@ -445,7 +448,20 @@ public class CalcWJHarm {
 				float newVal = tmp.getUpVal() + 1;
 				if (newVal > oldVal) {
 					huihe.setUpFaShuVal(newVal);
-					Conf.log("=====加伤战法" + zf.getName() + " 提高法术伤害值：" + oldVal + "->" + newVal);
+					Conf.log("=====战法" + zf.getName() + " 提高策略属性值：" + oldVal + "->" + newVal);
+				}
+			}
+			if(CheckUtil.isDownFangYu(zf)) {
+				BiYueZhanFa tmp = (BiYueZhanFa)zf;
+				float oldVal = huihe.getDownFangYuVal();
+				//受谋略影响
+				float val = zf.getStrategy()/Conf.shuxing_suoxiao*100;
+				float newVal = tmp.getDownFShuXingVal() + val;
+				float rate = CalcDoRate.getCommRate(huihe, zf) * zf.getDoneRate();
+				newVal *= rate;
+				if (newVal > oldVal) {
+					huihe.setDownFangYuVal(newVal);
+					Conf.log("=====战法" + zf.getName() + " 降低防御属性值：" + oldVal + "->" + newVal);
 				}
 			}
 			//始计
@@ -456,7 +472,7 @@ public class CalcWJHarm {
 				float newVal = ((ShiJiZhanFa)zf).getUpVal() + val;
 				if (newVal > oldVal) {
 					huihe.setUpFaShaShangHaiVal(newVal);
-					Conf.log("=====加伤战法" + zf.getName() + " 刷新加伤基值：" + oldVal + "->" + newVal);
+					Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
 				}
 			}
 		}
