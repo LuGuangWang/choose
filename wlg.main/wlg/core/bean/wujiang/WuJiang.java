@@ -105,6 +105,7 @@ public class WuJiang implements Cloneable{
 		return mianyiFSVal;
 	}
 	public void setMianyiFSVal(float mianyiFSVal) {
+		mianyiFSVal = mianyiFSVal>1?1:mianyiFSVal;
 		if(this.mianyiFSVal<mianyiFSVal) {
 			Conf.log("===========更新武将免疫法术的能力值：" + this.mianyiFSVal + " -> " + mianyiFSVal);
 			this.mianyiFSVal = mianyiFSVal;

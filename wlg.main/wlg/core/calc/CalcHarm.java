@@ -493,10 +493,11 @@ public class CalcHarm {
 			
 			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
+				//此控制效果结束后，才造成一次伤害
 				if(tmp.getKeephuihe()+1 == huihe.getId()) {
 					shuaxinVal += tmp.getExHarmVal();
 				}else {
-					shuaxinVal += zf.getHarmRate();
+					shuaxinVal = 0;
 				}
 			}else if(CheckUtil.isJiaShang(zf)){
 				JiaShangZhanFa tmp = (JiaShangZhanFa)zf;

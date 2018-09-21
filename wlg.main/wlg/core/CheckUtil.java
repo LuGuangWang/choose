@@ -278,6 +278,7 @@ public class CheckUtil {
 		boolean isBaoZou = false;
 		switch (zf.getT()) {
 		case ZhuDong_BaoZou:
+		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 			isBaoZou = true;
 			break;
