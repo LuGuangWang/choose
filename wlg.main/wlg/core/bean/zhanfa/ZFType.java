@@ -23,8 +23,9 @@ public enum ZFType {
 	ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi,//指挥类 法术加成 法术攻击 本身不造成攻击伤害
 	
 	
-	BeiDong_JiaCheng,//被动类 加成 本身不造成伤害
+	BeiDong_huifu,//被动类 恢复
 	BeiDong_GongJi,//被动类，攻击伤害
+	BeiDong_JiaCheng,//被动类 加成 本身不造成伤害
 	
 	ZhuiJi_FaShu,//追击类 法术伤害
 	

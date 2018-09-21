@@ -108,8 +108,6 @@ public class CalcWJHarm {
 						fsVal += CalcHarm.calcExVal(huihe, zfList.toArray(new ZhanFa[zfList.size()]));
 					}
 				}
-				//免疫法术 免疫规避
-				fsVal *= wj.getMianyiFSVal() * wj.getMianyiGBVal();
 				//法术伤害
 				wjVal += fsVal;
 				// 普通攻击伤害

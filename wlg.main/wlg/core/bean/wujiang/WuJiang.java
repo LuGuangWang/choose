@@ -105,7 +105,7 @@ public class WuJiang implements Cloneable{
 		return mianyiFSVal;
 	}
 	public void setMianyiFSVal(float mianyiFSVal) {
-		mianyiFSVal = mianyiFSVal>1?1:mianyiFSVal;
+		mianyiFSVal = mianyiFSVal>1.0f?1.0f:mianyiFSVal;
 		if(this.mianyiFSVal<mianyiFSVal) {
 			Conf.log("===========更新武将免疫法术的能力值：" + this.mianyiFSVal + " -> " + mianyiFSVal);
 			this.mianyiFSVal = mianyiFSVal;
@@ -115,6 +115,7 @@ public class WuJiang implements Cloneable{
 		return mianyiGJVal;
 	}
 	public void setMianyiGJVal(float mianyiGJVal) {
+		mianyiGJVal = mianyiGJVal>1.0f?1.0f:mianyiGJVal;
 		if(this.mianyiGJVal < mianyiGJVal) {
 			Conf.log("===========更新武将免疫攻击的能力值：" + this.mianyiGJVal + " -> " + mianyiGJVal);
 			this.mianyiGJVal = mianyiGJVal;
@@ -124,6 +125,7 @@ public class WuJiang implements Cloneable{
 		return mianyiGBVal;
 	}
 	public void setMianyiGBVal(float mianyiGBVal) {
+		mianyiGBVal = mianyiGBVal>1.0f?1.0f:mianyiGBVal;
 		if(this.mianyiGBVal<mianyiGBVal) {
 			Conf.log("===========更新武将免疫规避的能力值：" + this.mianyiGBVal + " -> " + mianyiGBVal);
 			this.mianyiGBVal = mianyiGBVal;

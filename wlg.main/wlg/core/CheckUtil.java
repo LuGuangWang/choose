@@ -323,4 +323,27 @@ public class CheckUtil {
 		}
 		return isDownFangYu;
 	}
+	
+	public static boolean isMianYiKongZhi(ZhanFa zf) {
+		boolean isZhuDong = false;
+		switch (zf.getT()) {
+		case BeiDong_huifu:
+		case BeiDong_GongJi:
+		case BeiDong_JiaCheng:
+		case ZhiHui_FuZhu_ALL:
+		case ZhiHui_KongZhiGongJi:
+		case ZhiHui_Multiple_FaShu:
+		case ZhiHui_JiaShuXing_JiaJuLi:
+		case ZhiHui_JiaFaShu_JianShang_MianYi:
+		case ZhiHui_KongZhiGongJi_FaShuShangHai:
+		case ZhiHui_JianshangFashu_KongZhiFaShu:
+		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
+			isZhuDong = true;
+			break;
+		default:
+			isZhuDong = false;
+			break;
+		}
+		return isZhuDong;
+	}
 }

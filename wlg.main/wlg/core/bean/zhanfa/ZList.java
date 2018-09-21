@@ -65,5 +65,7 @@ public abstract class ZList {
 	public static BaoZouZhanFa yaoshu = new BaoZouZhanFa("妖术", ZFType.ZhuDong_BaoZou, 1, 0.5f, 2, 4, new Person(2));
 	//始计
 	public static ShiJiZhanFa shiji = new ShiJiZhanFa("始计", ZFType.ZhiHui_JiaFaShu_JianShang_MianYi, 0, 1.0f, 1.2f,0.3f,1, 1, new Person(1),4);
+	//青囊秘要
+//	public static ZhanFa qingnangmiyao = new ZhanFa("青囊秘要", ZFType., ready, doneRate, harmVal, distance, persons);
 	/*****    -------------   拆解战法     end -------------   *****/
 }

@@ -6,7 +6,7 @@ public class ZhanBiZhanFa extends ZhanFa {
 	private int keephuihe;
 	
 	public ZhanBiZhanFa(String name, ZFType t, int ready, float doneRate, float konzhiVal, int distance, Person persons,int keephuihe) {
-		super(name, t, ready, doneRate, 0, distance, persons);
+		super(name, t, ready, doneRate, 0.0f, distance, persons);
 		this.konzhiVal = konzhiVal;
 		this.keephuihe=keephuihe;
 	}
