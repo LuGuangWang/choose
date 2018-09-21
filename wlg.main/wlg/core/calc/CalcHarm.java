@@ -468,6 +468,7 @@ public class CalcHarm {
 			T zf = zhanfa[i];
 			float shuaxinVal = 0.0f;
 			float addStrategyVal = 1.0f;
+			zf.setUpStrategyVal(1.0f);
 			
 			if(CheckUtil.isStrategy(zf)) {
 				//只对当前武将的战法生效
@@ -502,6 +503,7 @@ public class CalcHarm {
 			}else if(CheckUtil.isJiaShang(zf)){
 				JiaShangZhanFa tmp = (JiaShangZhanFa)zf;
 				if(huihe.getId()<=tmp.getKeephuihe()) {
+					tmp.setUpStrategyVal(addStrategyVal);
 					jss.add(tmp);
 					continue;
 				} else {//	方便查看日志
@@ -557,11 +559,11 @@ public class CalcHarm {
 			
 		}
 		
-		//计算加伤战法
+		//计算加伤战法  TODO 以后不要使用这种写法
 		if(jss.size()>0) {
 			for(JiaShangZhanFa zf:jss) {
 				float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, zf):CalcDoRate.getCommRate(huihe, zf);
-				float harmval = rate * executeJss * zf.getHarmVal(zf.getUpVal(),1.0f) * huihe.getSolderRate(zf.getPosition(),zf.getDefense());
+				float harmval = rate * executeJss * zf.getHarmVal(zf.getUpVal(),zf.getUpStrategyVal()) * huihe.getSolderRate(zf.getPosition(),zf.getDefense());
 				//降低防御属性增加的伤害值
 				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
 				//免疫规避
