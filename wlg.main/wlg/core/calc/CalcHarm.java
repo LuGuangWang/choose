@@ -497,7 +497,7 @@ public class CalcHarm {
 				if(tmp.getKeephuihe()+1 == huihe.getId()) {
 					shuaxinVal += tmp.getExHarmVal();
 				}else {
-					shuaxinVal = 0;
+					shuaxinVal = 0.0f;
 				}
 			}else if(CheckUtil.isJiaShang(zf)){
 				JiaShangZhanFa tmp = (JiaShangZhanFa)zf;
