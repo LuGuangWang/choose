@@ -189,7 +189,7 @@ public class Choose {
 		one = WList.lvmeng.setSecondZhanFa(ZList.shiji);
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
-		one = WList.handiaochan.setSecondZhanFa(ZList.shengdongjixi);
+		one = WList.handiaochan.setSecondZhanFa(ZList.qingnangmiyao);
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		return result;

@@ -179,6 +179,7 @@ public class CheckUtil {
 	public static boolean isZeroHarm(ZhanFa zf) {
 		boolean isZeroHarm = false;
 		switch (zf.getT()) {
+		case BeiDong_huifu:
 		case ZhuDong_BaoZou:
 		case BeiDong_JiaCheng:
 		case ZhuDong_KongZhi_ALL:
@@ -345,5 +346,18 @@ public class CheckUtil {
 			break;
 		}
 		return isZhuDong;
+	}
+	
+	public static boolean isHuiFu(ZhanFa zf) {
+		boolean isHuiFu = false;
+		switch (zf.getT()) {
+		case BeiDong_huifu:
+			isHuiFu = true;
+			break;
+		default:
+			isHuiFu = false;
+			break;
+		}
+		return isHuiFu;
 	}
 }

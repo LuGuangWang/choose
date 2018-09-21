@@ -3,8 +3,11 @@ package wlg.core.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.wujiang.WuJiang;
+import wlg.core.bean.zhanfa.HuiFuZhanFa;
+import wlg.core.bean.zhanfa.ZhanFa;
 
 /**
  * 回合
@@ -181,6 +184,8 @@ public class HuiHe implements Cloneable{
 	public boolean removeWujiang(WuJiang wj) {
 		boolean isRemove = false;
 		Conf.log("=========检查武将"+wj.getName()+"是否有损失===========");
+		//
+		
 		float left = wj.getTotalCount() - wj.getSunshiCount();
 		wj.setTotalCount(left);
 		Conf.log("=====武将"+wj.getName()+"剩余兵力:"+left);
@@ -213,15 +218,14 @@ public class HuiHe implements Cloneable{
 		return isRemove;
 	}
 	/**
-	 * 自身士兵损失
+	 * 自身士兵损失，恢复自身的
 	 * @param position 武将位置
 	 * @param defenseVal 防御属性值
 	 * @return
 	 */
-	public float getSolderRate(int position,float defenseVal) {
+	public float getSolderRate(ZhanFa zf) {
 		//设置每回合的兵力损失
-		getSunShi(wj.getPosition(),wj.getDefense());
-		
+		getSunShi(zf,wj.getPosition(),wj.getDefense());
 		return Conf.binglijishu/id;
 	}
 	/**
@@ -230,7 +234,7 @@ public class HuiHe implements Cloneable{
 	 * @param defenseVal
 	 * @return
 	 */
-	private float getSunShi(int position, float defenseVal) {
+	private float getSunShi(ZhanFa zf,int position, float defenseVal) {
 		float sunShi = 0.0f;
 		if(fengAll!=0) {
 			float sunshi = Conf.SunShiCount - Conf.SunShiCount * fengAll;
@@ -266,6 +270,19 @@ public class HuiHe implements Cloneable{
 			fashuVal = fashuVal>0?fashuVal:0;
 			Conf.log("=====敌军法术攻击造成的士兵损失值：" + fashuVal);
 			sunShi += fashuVal;
+		}
+		//战法救援
+		if(zf!=null) {
+			if(CheckUtil.isHuiFu(zf)) {
+				HuiFuZhanFa hzf = (HuiFuZhanFa)zf;
+				float huifuCount = hzf.getHuifuVal() * wj.getStrategy() * Conf.fashu_rate;
+				Conf.log("=====战法"+hzf.getName()+"救援士兵：" + huifuCount);
+				if(huifuCount<sunShi) {
+					sunShi -= huifuCount;
+				}else {
+					sunShi = 1;
+				}
+			}
 		}
 		
 		sunShi *= position;

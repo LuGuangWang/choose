@@ -115,7 +115,7 @@ public class CalcWJHarm {
 					float gongjiVal = 0.0f;
 					boolean canGongJi = CalCDistance.calcDistance(wj.getDistance(), wj.getPosition()) > 0;
 					if (!huihe.isHasBuGong() && canGongJi) {
-						float solderRate = huihe.getSolderRate(wj.getPosition(), wj.getDefense());
+						float solderRate = huihe.getSolderRate(null);
 						gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * solderRate * huihe.getUpGongJiVal();
 						//免疫攻击 免疫规避
 						gongjiVal *= wj.getMianyiGJVal() * wj.getMianyiGBVal();
@@ -387,7 +387,7 @@ public class CalcWJHarm {
 		huihe.setLianjiVal(1.0f);
 		huihe.setUpFaShuVal(1.0f);
 		huihe.setUpFaShaShangHaiVal(0.0f);
-
+		
 		// 校验所有战法
 		Set<ZhanFa> allZfs = new HashSet<>(Arrays.asList(wj.getZhanfa()));
 		// 含有先发控制
