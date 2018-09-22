@@ -479,7 +479,9 @@ public class CalcHarm {
 				}else {
 					//TODO 现在只是奇佐鬼谋   增加谋略属性点
 					float upval = huihe.getUpFaShuVal()-1;
-					upval = 1.0f/(huihe.getWujiangCount()-1) * upval + 1;
+					int otherCount = huihe.getWujiangCount()-1;
+					otherCount = otherCount<=0?1:otherCount;
+					upval = 1.0f/otherCount * upval + 1;
 					addStrategyVal = upval;
 				}
 				//大营战法加成  法术加成概率为0.75
