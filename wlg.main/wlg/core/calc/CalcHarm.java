@@ -68,7 +68,8 @@ public class CalcHarm {
 				unHurtVal = calcBaoZou(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}else if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
 				unHurtVal = calcShiJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
-			}else if(zf.getT().equals(ZFType.ZhuDong_BaoZou_jianFangYu)) {
+			}else if(zf.getT().equals(ZFType.ZhuDong_BaoZou_jianFangYu)
+					|| zf.getT().equals(ZFType.ZhuDOng_FaShu_BaoZou)) {
 				unHurtVal = calcBiyue(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}
 			

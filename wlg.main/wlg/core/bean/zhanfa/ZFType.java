@@ -6,6 +6,7 @@ public enum ZFType {
 	ZhuDong_GongJi,//主动类 攻击伤害
 	ZhuDong_KongZhi_ALL,//控制攻击与法术,本身不造成伤害
 	ZhuDong_FaShu_GongJi,//主动类 攻击伤害 法术伤害
+	ZhuDOng_FaShu_BaoZou,//主动类 法术伤害 暴走效果
 	ZhuDong_FaShu_JianShang,//主动类 法术伤害 减伤
 	ZhuDong_JiaGongJi_LianJi,//主动类 加攻击 然后连击
 	ZhuDong_BaoZou_jianFangYu,//主动类 暴走 降低防御属性

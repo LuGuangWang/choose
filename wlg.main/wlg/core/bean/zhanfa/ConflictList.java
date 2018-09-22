@@ -12,7 +12,7 @@ public class ConflictList {
 	private final String celue_chongtu = "不攻|大赏三军|始计";
 	private Set<String> celue_list = new HashSet<>();
 	
-	private final String baozou_chongtu = "妖术|奇佐鬼谋|闭月";
+	private final String baozou_chongtu = "妖术|奇佐鬼谋|闭月|迷阵";
 	private Set<String> baozou_list = new HashSet<>();
 	
 	public static ConflictList $() {
