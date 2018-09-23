@@ -122,6 +122,13 @@ public class Choose {
 		String key9 = buildKey(one,two,three);
 		result.put(sum9, key9);
 		
+		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.shimianmaifu);
+		two = WList.guojia.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
+		three= WList.lvmeng.setSecondZhanFa(ZList.fanjizhice).setThreeZhanFa(ZList.jijiaozhishi);
+		float sum10 = CalcWJHarm.calcVal(one,two,three);
+		String key10 = buildKey(one,two,three);
+		result.put(sum10, key10);
+		
 		return result;
 	}
 	
@@ -200,6 +207,9 @@ public class Choose {
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		one = WList.mayunlu.setSecondZhanFa(ZList.dunbingcuorui);
+		result.put(CalcWJHarm.calcVal(one), one.toString());
+		
+		one = WList.guojia.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		return result;
