@@ -33,6 +33,8 @@ public abstract class ZList {
 	public static QiZuoGuiMou qizuoguimou = new QiZuoGuiMou("奇佐鬼谋", ZFType.ZhuDong_JiaShuXing_KongZhi, 0, 0.35f, 0.22f,1,2, 5, new Person(2));
 	//汉貂蝉 闭月
 	public static BiYueZhanFa biyue = new BiYueZhanFa("闭月", ZFType.ZhuDong_BaoZou_jianFangYu, 1, 0.35f, 29.0f, 4, new Person(2),3);
+	//马云禄 红颜铁骑
+	public static LianJiZhanFa hongyantieqi = new LianJiZhanFa("红颜铁骑", ZFType.BeiDong_LianJi_jiagongji, 0, 1.0f, 30.0f, 1, new Person(1),2);
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

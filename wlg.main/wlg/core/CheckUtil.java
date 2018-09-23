@@ -137,6 +137,7 @@ public class CheckUtil {
 		case ZhuDong_GongJi:
 		case ZhuDong_FaShu_GongJi:
 		case ZhuDong_JiaGongJi_LianJi:
+		case BeiDong_LianJi_jiagongji:
 			isAttack = true;
 			break;
 		default:

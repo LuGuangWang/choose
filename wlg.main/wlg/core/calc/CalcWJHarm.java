@@ -21,6 +21,7 @@ import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.BiYueZhanFa;
 import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.GongJiZhanFa;
+import wlg.core.bean.zhanfa.LianJiZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
@@ -47,7 +48,7 @@ public class CalcWJHarm {
 		WChengHao.reset();
 		// 阵营 兵种加成 称号加成
 		wjs = addExProp(wjs);
-		// 先发指挥战法 补充额外属性
+		// 被动加属性 与 先发指挥战法 补充额外属性
 		wjs = addExPropByZhanFa(wjs);
 		// 按速度排序
 		wjs = sortedWuJiang(wjs);
@@ -165,6 +166,12 @@ public class CalcWJHarm {
 					WeiWuZhiShiZhanFa w = (WeiWuZhiShiZhanFa) zf;
 					addVal = addVal < w.getAddVal() ? w.getAddVal() : addVal;
 					addDis = addDis < w.getAddDis() ? w.getAddDis() : addDis;
+				}
+				if(zf.getT().equals(ZFType.BeiDong_LianJi_jiagongji)) {
+					float upVal = ((LianJiZhanFa)zf).getUpGongJiVal();
+					int newGongJi = Math.round(wj.getAttack() + upVal);
+					WuJiang newWJ = wj.changeProp(newGongJi);
+					wjs[i] = newWJ;
 				}
 			}
 		}
@@ -477,7 +484,7 @@ public class CalcWJHarm {
 		int wjCount = huihe.getWujiangCount() - 1;
 		person = person>wjCount?wjCount:person;
 		int lianjiCount = ((GongJiZhanFa)zf).getLianjiCount();
-		float lianjiVal = person / 1.0f / wjCount * zf.getDoneRate()*lianjiCount+ 1.0f;
+		float lianjiVal = (person / 1.0f / wjCount * zf.getDoneRate() + 1.0f)*lianjiCount;
 		float oldVal = huihe.getLianjiVal();
 		if(lianjiVal>oldVal) {
 			huihe.setLianjiVal(lianjiVal);

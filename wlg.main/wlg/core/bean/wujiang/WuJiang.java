@@ -282,6 +282,11 @@ public class WuJiang implements Cloneable{
 		return this;
 	}
 	
+	public WuJiang changeProp(int attack) {
+		WuJiang wj = changeProp(attack,speed,strategy,defense);
+		return wj;
+	}
+	
 	public WuJiang changeProp(int attack, int speed, int strategy, int defense,int distance) {
 		WuJiang wj = changeProp(attack,speed,strategy,defense);
 		Conf.log("=====武将" + name + " 攻击距离发生变化：" + wj.distance + " -> " + distance);
