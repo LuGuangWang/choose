@@ -27,6 +27,7 @@ import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanBiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
+import wlg.core.bean.zhanfa.ZhuiJiZhanFa;
 
 public class CalcHarm {
 	
@@ -69,8 +70,10 @@ public class CalcHarm {
 			}else if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
 				unHurtVal = calcShiJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}else if(zf.getT().equals(ZFType.ZhuDong_BaoZou_jianFangYu)
-					|| zf.getT().equals(ZFType.ZhuDOng_FaShu_BaoZou)) {
+					|| zf.getT().equals(ZFType.ZhuDong_FaShu_BaoZou)) {
 				unHurtVal = calcBiyue(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+			}else if(zf.getT().equals(ZFType.ZhuiJi_GongJi_KongZhiGongJi)) {
+				unHurtVal = calcZhuiJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}
 			
 			sum += unHurtVal;
@@ -90,6 +93,44 @@ public class CalcHarm {
 		return sum;
 	}
 	
+	private static float calcZhuiJi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
+			ZhanFa... allZfs) {
+		ZhuiJiZhanFa b = (ZhuiJiZhanFa)zf;
+		float unHurtVal = 0.0f;
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		//每个人数的随机概率
+		float evrate = 1.0f/b.getPersons().getPersons().length;
+		for(int p:b.getPersons().getPersons()) {
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
+			if(distance<=0) {
+				continue;
+			}else {
+				p = Math.min(p, distance);
+			}
+			//不受伤害的概率
+			float unHurt = evrate * p/1.0f/huihe.getWujiangCount();
+			unHurt = unHurt>1 ? rate:rate*unHurt;
+			//控制主的概率
+			float kongzhiVal = unHurt * b.getDoneRate();
+			
+			if(huihe.getWj().getZishenlianjiVal()>0) {
+				kongzhiVal *= huihe.getWj().getZishenlianjiVal();
+			}
+			
+			kongzhiVal = kongzhiVal>1?1:kongzhiVal;
+			
+			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(kongzhiVal,p),calcPrimy,allZfs);
+			kongzhiMap.put(b.getName(), kongzhiVal);
+			unHurtVal += tmp;
+		}
+		return unHurtVal;
+	}
+
 	private static float calcBiyue(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
 			ZhanFa... allZfs) {
 		BiYueZhanFa b = (BiYueZhanFa)zf;

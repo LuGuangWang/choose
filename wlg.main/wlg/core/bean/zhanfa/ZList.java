@@ -70,6 +70,9 @@ public abstract class ZList {
 	//青囊秘要
 	public static HuiFuZhanFa qingnangmiyao = new HuiFuZhanFa("青囊秘要", ZFType.BeiDong_huifu, 0, 1.0f, 1.5f, 1, new Person(1));
 	//迷阵
-	public static BiYueZhanFa mizhen = new BiYueZhanFa("迷阵", ZFType.ZhuDOng_FaShu_BaoZou, 0, 0.35f, 1.55f, 4, new Person(1));
+	public static BiYueZhanFa mizhen = new BiYueZhanFa("迷阵", ZFType.ZhuDong_FaShu_BaoZou, 0, 0.35f, 1.55f, 4, new Person(1));
+	//钝兵挫锐
+	public static ZhuiJiZhanFa dunbingcuorui = new ZhuiJiZhanFa("钝兵挫锐", ZFType.ZhuiJi_GongJi_KongZhiGongJi, 0, 0.3f, 2.0f, 5, new Person(1));
+	
 	/*****    -------------   拆解战法     end -------------   *****/
 }

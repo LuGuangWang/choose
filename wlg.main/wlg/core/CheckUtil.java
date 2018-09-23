@@ -78,7 +78,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case ZhuDong_BaoZou:
 		case ZhuDong_KongZhi_ALL:
-		case ZhuDOng_FaShu_BaoZou:
+		case ZhuDong_FaShu_BaoZou:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 			isKongZhi = true;
@@ -109,6 +109,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case ZhiHui_KongZhiGongJi:
 		case ZhuDong_FaShu_JianShang:
+		case ZhuiJi_GongJi_KongZhiGongJi:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 			isKongZhi = true;
@@ -138,6 +139,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu_GongJi:
 		case ZhuDong_JiaGongJi_LianJi:
 		case BeiDong_LianJi_jiagongji:
+		case ZhuiJi_GongJi_KongZhiGongJi:
 			isAttack = true;
 			break;
 		default:
@@ -159,7 +161,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu:
 		case ZhiHui_FuZhu_ALL:
 		case ZhuDong_FaShu_GongJi:
-		case ZhuDOng_FaShu_BaoZou:
+		case ZhuDong_FaShu_BaoZou:
 		case ZhiHui_Multiple_FaShu:
 		case ZhuDong_FaShu_JianShang:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
@@ -282,7 +284,7 @@ public class CheckUtil {
 		boolean isBaoZou = false;
 		switch (zf.getT()) {
 		case ZhuDong_BaoZou:
-		case ZhuDOng_FaShu_BaoZou:
+		case ZhuDong_FaShu_BaoZou:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 			isBaoZou = true;
@@ -330,26 +332,27 @@ public class CheckUtil {
 	}
 	
 	public static boolean isMianYiKongZhi(ZhanFa zf) {
-		boolean isZhuDong = false;
+		boolean isMianYi = true;
 		switch (zf.getT()) {
-		case BeiDong_huifu:
-		case BeiDong_GongJi:
-		case BeiDong_JiaCheng:
-		case ZhiHui_FuZhu_ALL:
-		case ZhiHui_KongZhiGongJi:
-		case ZhiHui_Multiple_FaShu:
-		case ZhiHui_JiaShuXing_JiaJuLi:
-		case ZhiHui_JiaFaShu_JianShang_MianYi:
-		case ZhiHui_KongZhiGongJi_FaShuShangHai:
-		case ZhiHui_JianshangFashu_KongZhiFaShu:
-		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
-			isZhuDong = true;
+		case ZhuDong_FaShu:
+		case ZhuDong_BaoZou:
+		case ZhuDong_GongJi:
+		case ZhuDong_KongZhi_ALL:
+		case ZhuDong_FaShu_GongJi:
+		case ZhuDong_FaShu_BaoZou:
+		case ZhuDong_FaShu_JianShang:
+		case ZhuDong_JiaGongJi_LianJi:
+		case ZhuDong_BaoZou_jianFangYu:
+		case ZhuDong_JiaShuXing_KongZhi:
+		case ZhuDong_JianShang_KongZhiFaShu:
+		case ZhuDong_FaShuShangHai_KongZhiGongji:
+			isMianYi = false;
 			break;
 		default:
-			isZhuDong = false;
+			isMianYi = true;
 			break;
 		}
-		return isZhuDong;
+		return isMianYi;
 	}
 	
 	public static boolean isHuiFu(ZhanFa zf) {

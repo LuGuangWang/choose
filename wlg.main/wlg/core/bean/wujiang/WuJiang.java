@@ -36,6 +36,8 @@ public class WuJiang implements Cloneable{
 	private WBType wbType;//兵种
 	private WZType wzType;//阵营
 	
+	private float zishenlianjiVal = 0.0f;//武将自身连击值
+	
 	/**
 	 * 
 	 * @param name 名字
@@ -162,6 +164,15 @@ public class WuJiang implements Cloneable{
 	public int getStrategy() {
 		return strategy;
 	}
+	public float getZishenlianjiVal() {
+		return zishenlianjiVal;
+	}
+	public void setZishenlianjiVal(float zishenlianjiVal) {
+		if(zishenlianjiVal>this.zishenlianjiVal) {
+			Conf.log("====更新武将自身连击值：" + this.zishenlianjiVal + " -> " + zishenlianjiVal);
+			this.zishenlianjiVal = zishenlianjiVal;
+		}
+	}
 	//对自身战法加成
 	public void addJiaCheng() {
 		List<ZhanFa> fashujiacheng = new ArrayList<>();
@@ -279,6 +290,7 @@ public class WuJiang implements Cloneable{
 		this.mianyiGJVal = Conf.mianyi_gongji;
 		this.mianyiGBVal = Conf.mianyi_guibi;
 		this.sunshiCount = 0.0f;
+		this.zishenlianjiVal = 0.0f;
 		return this;
 	}
 	

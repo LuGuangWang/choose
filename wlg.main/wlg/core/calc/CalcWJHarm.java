@@ -368,6 +368,8 @@ public class CalcWJHarm {
 		wj.resetSunshiCount();
 		// 重新设置武将免疫力
 		wj.resetmianyiVal();
+		// 重新设置连击值
+		wj.setZishenlianjiVal(0.0f);
 
 		//添加控制战法
 		for(ZhanFa zf:wj.getZhanfa()) {
@@ -382,6 +384,12 @@ public class CalcWJHarm {
 				wj.setMianyiFSVal(Conf.mianyi_fashu + rate);
 				//免疫攻击的概率
 				wj.setMianyiGJVal(Conf.mianyi_gongji + rate);
+			}
+			//自身可以连击的概率值
+			if(zf.getT().equals(ZFType.BeiDong_LianJi_jiagongji)) {
+				int lianjicount = ((LianJiZhanFa)zf).getLianjiCount();
+				float lianjiVal = CalcDoRate.getCommRate(huihe, zf) * (zf.getDoneRate() * lianjicount * (lianjicount-1) + 1.0f);
+				wj.setZishenlianjiVal(lianjiVal);
 			}
 		}
 		
@@ -484,7 +492,7 @@ public class CalcWJHarm {
 		int wjCount = huihe.getWujiangCount() - 1;
 		person = person>wjCount?wjCount:person;
 		int lianjiCount = ((GongJiZhanFa)zf).getLianjiCount();
-		float lianjiVal = (person / 1.0f / wjCount * zf.getDoneRate() + 1.0f)*lianjiCount;
+		float lianjiVal = person / 1.0f / wjCount * zf.getDoneRate()*lianjiCount + 1.0f;
 		float oldVal = huihe.getLianjiVal();
 		if(lianjiVal>oldVal) {
 			huihe.setLianjiVal(lianjiVal);
