@@ -26,7 +26,7 @@ public abstract class ZList {
 	//曹操 魏武之世
 	public static WeiWuZhiShiZhanFa weiwuzhishi = new WeiWuZhiShiZhanFa("魏武之世", ZFType.ZhiHui_JiaShuXing_JiaJuLi, 0, 1, 1.15f,1,5, new Person(3));
 	//曹丕 魏武之泽
-	public static GongJiZhanFa weiwuzhize = new GongJiZhanFa("魏武之泽", ZFType.ZhuDong_JiaGongJi_LianJi, 0, 0.35f, 1.25f, 2, new Person(1,2));
+	public static GongJiZhanFa weiwuzhize = new GongJiZhanFa("魏武之泽", ZFType.ZhuDong_JiaGongJi_LianJi, 0, 0.35f, 1.25f, 2, new Person(1,2),2);
 	//王异 世仇 TODO 不可急救和休整 持续2回合
 	public static ZhanFa shichou = new ZhanFa("世仇", ZFType.ZhuiJi_FaShu, 0, 0.6f, 2.33f, 4, new Person(1));
 	//郭嘉 奇佐鬼谋

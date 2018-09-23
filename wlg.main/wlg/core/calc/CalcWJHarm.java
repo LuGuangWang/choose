@@ -20,6 +20,7 @@ import wlg.core.bean.wujiang.WZType;
 import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.BiYueZhanFa;
 import wlg.core.bean.zhanfa.ConflictList;
+import wlg.core.bean.zhanfa.GongJiZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
@@ -415,7 +416,8 @@ public class CalcWJHarm {
 				int person = zf.getPersons().getMaxPerson() - 1;
 				int wjCount = huihe.getWujiangCount() - 1;
 				person = person>wjCount?wjCount:person;
-				float lianjiVal = person / 1.0f / wjCount * zf.getDoneRate() + 1.0f;
+				int lianjiCount = ((GongJiZhanFa)zf).getLianjiCount();
+				float lianjiVal = person / 1.0f / wjCount * zf.getDoneRate()*lianjiCount+ 1.0f;
 				float oldVal = huihe.getLianjiVal();
 				if(lianjiVal>oldVal) {
 					huihe.setLianjiVal(lianjiVal);

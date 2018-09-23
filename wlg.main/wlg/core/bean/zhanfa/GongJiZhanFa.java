@@ -11,12 +11,17 @@ public class GongJiZhanFa extends ZhanFa {
 
 	private float upGJVal = 1.0f;//提高攻击比
 	private float otherAttackVal = 0.0f;//其他武将的平均攻击力
+	private int lianjiCount;//普攻连击数
 	
-	public GongJiZhanFa(String name, ZFType t, int ready, float doneRate, float upGJVal, int distance, Person persons) {
+	public GongJiZhanFa(String name, ZFType t, int ready, float doneRate, float upGJVal, int distance, Person persons,int lianjiCount) {
 		super(name, t, ready, doneRate, upGJVal, distance, persons);
 		this.upGJVal = upGJVal;
+		this.lianjiCount=lianjiCount;
 	}
 
+	public int getLianjiCount() {
+		return lianjiCount;
+	}
 	public float getOtherAttackVal() {
 		return otherAttackVal;
 	}
