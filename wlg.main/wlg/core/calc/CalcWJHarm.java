@@ -413,15 +413,8 @@ public class CalcWJHarm {
 			}
 			
 			if(CheckUtil.isLianJi(zf)) {
-				int person = zf.getPersons().getMaxPerson() - 1;
-				int wjCount = huihe.getWujiangCount() - 1;
-				person = person>wjCount?wjCount:person;
-				int lianjiCount = ((GongJiZhanFa)zf).getLianjiCount();
-				float lianjiVal = person / 1.0f / wjCount * zf.getDoneRate()*lianjiCount+ 1.0f;
-				float oldVal = huihe.getLianjiVal();
-				if(lianjiVal>oldVal) {
-					huihe.setLianjiVal(lianjiVal);
-					Conf.log("=====连击战法" + zf.getName() + " 刷新连击值：" + oldVal + "->" + lianjiVal);
+				if(zf.getT().equals(ZFType.ZhuDong_JiaGongJi_LianJi)) {
+					setWeiWuZhiZeLianJiVal(huihe, zf);
 				}
 			}
 			if (zf instanceof ShuaXinZhanFa) {
@@ -477,6 +470,19 @@ public class CalcWJHarm {
 			}
 		}
 		
+	}
+
+	private static void setWeiWuZhiZeLianJiVal(HuiHe huihe, ZhanFa zf) {
+		int person = zf.getPersons().getMaxPerson() - 1;
+		int wjCount = huihe.getWujiangCount() - 1;
+		person = person>wjCount?wjCount:person;
+		int lianjiCount = ((GongJiZhanFa)zf).getLianjiCount();
+		float lianjiVal = person / 1.0f / wjCount * zf.getDoneRate()*lianjiCount+ 1.0f;
+		float oldVal = huihe.getLianjiVal();
+		if(lianjiVal>oldVal) {
+			huihe.setLianjiVal(lianjiVal);
+			Conf.log("=====连击战法" + zf.getName() + " 刷新连击值：" + oldVal + "->" + lianjiVal);
+		}
 	}
 
 	// 按速度排序
