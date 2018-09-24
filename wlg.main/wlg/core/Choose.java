@@ -212,6 +212,9 @@ public class Choose {
 		one = WList.guojia.setSecondZhanFa(ZList.shenbingtianjiang).setThreeZhanFa(ZList.hunshuimoyv);
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
+		one = WList.zhangning.reset();
+		result.put(CalcWJHarm.calcVal(one), one.toString());
+		
 		return result;
 	}
 	

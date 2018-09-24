@@ -37,16 +37,18 @@ public class GongJiZhanFa extends ZhanFa {
 	 * @return
 	 */
 	public float getHarmVal() {
-		return getHarmVal(this.getHarmRate(),1.0f);
+		UpVal upVal = new UpVal();
+		upVal.setAddStrategyVal(1.0f);
+		return getHarmVal(this.getHarmRate(),upVal);
 	}
 	/**
 	 * 当前战法伤害
 	 * @return
 	 */
-	public float getHarmVal(float harmVal,float addStrategyVal) {
+	public float getHarmVal(float harmVal,UpVal upVal) {
 		float sum = 0.0f;
 		//受谋略影响
-		float newUpGjVal = this.getStrategy() * addStrategyVal / Conf.shuxing_suoxiao + this.upGJVal;
+		float newUpGjVal = this.getStrategy() * upVal.getAddStrategyVal() / Conf.shuxing_suoxiao + this.upGJVal;
 		
 		harmVal = newUpGjVal * this.getDoneRate();
 		

@@ -21,6 +21,7 @@ import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.BiYueZhanFa;
 import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.GongJiZhanFa;
+import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.LianJiZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
@@ -403,6 +404,7 @@ public class CalcWJHarm {
 		huihe.setLianjiVal(1.0f);
 		huihe.setUpFaShuVal(1.0f);
 		huihe.setUpFaShaShangHaiVal(0.0f);
+		huihe.setUpFSShuXing(0.0f);
 		
 		// 校验所有战法
 		Set<ZhanFa> allZfs = new HashSet<>(Arrays.asList(wj.getZhanfa()));
@@ -451,12 +453,17 @@ public class CalcWJHarm {
 				}
 			}
 			if(CheckUtil.isUpFashu(zf)) {
-				QiZuoGuiMou tmp = (QiZuoGuiMou)zf;
-				float oldVal = huihe.getUpFaShuVal();
-				float newVal = tmp.getUpVal() + 1;
-				if (newVal > oldVal) {
-					huihe.setUpFaShuVal(newVal);
-					Conf.log("=====战法" + zf.getName() + " 提高策略属性值：" + oldVal + "->" + newVal);
+				if(zf instanceof QiZuoGuiMou) {
+					QiZuoGuiMou tmp = (QiZuoGuiMou)zf;
+					float oldVal = huihe.getUpFaShuVal();
+					float newVal = tmp.getUpVal() + 1;
+					if (newVal > oldVal) {
+						huihe.setUpFaShuVal(newVal);
+						Conf.log("=====战法" + zf.getName() + " 提高策略属性值：" + oldVal + "->" + newVal);
+					}
+				}else if(zf instanceof JiaChengZhanFa) {
+					JiaChengZhanFa tmp = (JiaChengZhanFa)zf;
+					huihe.setUpFSShuXing(tmp.getAddStrategyVal());
 				}
 			}
 			if(CheckUtil.isDownFangYu(zf)) {

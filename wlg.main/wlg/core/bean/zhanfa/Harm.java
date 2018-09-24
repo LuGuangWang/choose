@@ -16,10 +16,10 @@ public interface Harm {
 	 * 当前战法伤害
 	 * @return
 	 */
-	public float getHarmVal(float harmVal,float addStrategyVal) ;
+	public float getHarmVal(float harmVal,UpVal upVal) ;
 	/**
 	 * 添加属性加成
 	 * @return
 	 */
-	public float addShuXingVal(float val,float addStrategyVal);
+	public float addShuXingVal(float val,UpVal upVal);
 }

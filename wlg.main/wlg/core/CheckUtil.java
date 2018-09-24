@@ -239,6 +239,7 @@ public class CheckUtil {
 	public static boolean isUpFashu(ZhanFa zf) {
 		boolean isUpFashu = false;
 		switch (zf.getT()) {
+		case ZhuDong_JiaShuXing:
 		case ZhuDong_JiaShuXing_KongZhi:
 			isUpFashu = true;
 			break;
@@ -337,6 +338,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu:
 		case ZhuDong_BaoZou:
 		case ZhuDong_GongJi:
+		case ZhuDong_JiaShuXing:
 		case ZhuDong_KongZhi_ALL:
 		case ZhuDong_FaShu_GongJi:
 		case ZhuDong_FaShu_BaoZou:

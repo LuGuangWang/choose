@@ -31,6 +31,8 @@ public class HuiHe implements Cloneable{
 	private float lianjiVal = 1.0f;
 	//策略属性提高比
 	private float upFaShuVal = 1.0f;
+	//策略属性提高值
+	private float upFSShuXing = 0.0f;
 	//策略伤害提高值
 	private float upFaShaShangHaiVal = 0.0f;
 	//防御属性值降低值
@@ -123,6 +125,15 @@ public class HuiHe implements Cloneable{
 	}
 	public float getUpGongJiVal() {
 		return upGongJiVal;
+	}
+	public float getUpFSShuXing() {
+		return upFSShuXing;
+	}
+	public void setUpFSShuXing(float upFSShuXing) {
+		if(this.upFSShuXing<upFSShuXing) {
+			Conf.log("=====刷新谋略属性提高值" + this.upFSShuXing + " -> " + upFSShuXing);
+			this.upFSShuXing = upFSShuXing;
+		}
 	}
 	public void setUpGongJiVal(float upGongJiVal) {
 		this.upGongJiVal = upGongJiVal;

@@ -4,6 +4,7 @@ public enum ZFType {
 	ZhuDong_FaShu,//主动类 法术伤害
 	ZhuDong_BaoZou,//主动类 暴走
 	ZhuDong_GongJi,//主动类 攻击伤害
+	ZhuDong_JiaShuXing,//主动类 加属性
 	ZhuDong_KongZhi_ALL,//控制攻击与法术,本身不造成伤害
 	ZhuDong_FaShu_GongJi,//主动类 攻击伤害 法术伤害
 	ZhuDong_FaShu_BaoZou,//主动类 法术伤害 暴走效果

@@ -25,13 +25,16 @@ public class LianJiZhanFa extends ZhanFa {
 	 * @return
 	 */
 	public float getHarmVal() {
-		return getHarmVal(this.getHarmRate(),1.0f);
+		UpVal upVal = new UpVal();
+		upVal.setAddStrategyVal(1.0f);
+		
+		return getHarmVal(this.getHarmRate(),upVal);
 	}
 	/**
 	 * 当前战法伤害
 	 * @return
 	 */
-	public float getHarmVal(float harmVal,float addStrategyVal) {
+	public float getHarmVal(float harmVal,UpVal upVal) {
 		float sum = 0.0f;
 		
 		

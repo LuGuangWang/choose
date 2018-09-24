@@ -24,6 +24,7 @@ import wlg.core.bean.zhanfa.MultipleHarmZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.QiangShiZhanFa;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
+import wlg.core.bean.zhanfa.UpVal;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanBiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -584,7 +585,11 @@ public class CalcHarm {
 			//TODO 考虑被控制效果  规避效果 不可恢复
 			
 			float shibingVal = huihe.getSolderRate(zf);
-			float harmval = rate * zf.getHarmVal(shuaxinVal,addStrategyVal) * shibingVal;
+			//属性加成值
+			UpVal upVal = new UpVal();
+			upVal.setAddStrategyVal(addStrategyVal);
+			
+			float harmval = rate * zf.getHarmVal(shuaxinVal,upVal) * shibingVal;
 			if(CheckUtil.isBaoZou(zf)) {
 				float baozouVal = rate * zf.getDoneRate() * Conf.jiashanghai * ConflictList.$().baozouChongTuRate();
 				harmval += baozouVal;
@@ -607,7 +612,12 @@ public class CalcHarm {
 		if(jss.size()>0) {
 			for(JiaShangZhanFa zf:jss) {
 				float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, zf):CalcDoRate.getCommRate(huihe, zf);
-				float harmval = rate * executeJss * zf.getHarmVal(zf.getUpVal(),zf.getUpStrategyVal()) * huihe.getSolderRate(zf);
+				
+				//属性加成值
+				UpVal upVal = new UpVal();
+				upVal.setAddStrategyVal(zf.getUpStrategyVal());
+				
+				float harmval = rate * executeJss * zf.getHarmVal(zf.getUpVal(),upVal) * huihe.getSolderRate(zf);
 				//降低防御属性增加的伤害值
 				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
 				//免疫规避
@@ -660,13 +670,17 @@ public class CalcHarm {
 						ZhanFa zf = zhanfa[j];
 						if(j!= i) {
 							float rate = CalcDoRate.getCommRate(huihe, zf);
+							//属性加成值
+							UpVal upVal = new UpVal();
+							upVal.setAddStrategyVal(huihe.getUpFaShuVal());
+							
 							if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 								KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
 								if(tmp.getKeephuihe()+1 == huihe.getId()) {
-									exharmVal = rate * b.getExVal(tmp,shuaxinRate,huihe.getUpFaShuVal()) * huihe.getSolderRate(b);
+									exharmVal = rate * b.getExVal(tmp,shuaxinRate,upVal) * huihe.getSolderRate(b);
 								}
 							}else {
-								exharmVal = rate * b.getExVal(zf,shuaxinRate,huihe.getUpFaShuVal()) * huihe.getSolderRate(b);
+								exharmVal = rate * b.getExVal(zf,shuaxinRate,upVal) * huihe.getSolderRate(b);
 							}
 							Conf.log("======战法"+zf.getName() + " 触发战法" + b.getName() +" 造成最终额外杀伤力" + exharmVal);
 						}
