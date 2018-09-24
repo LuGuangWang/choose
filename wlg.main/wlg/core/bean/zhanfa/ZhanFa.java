@@ -257,7 +257,11 @@ public class ZhanFa implements Harm, Cloneable {
 	 */
 	public float addShuXingVal(float val,UpVal upVal) {
 		if(CheckUtil.isStrategy(this)) {
-			float newStrategy = strategy * upVal.getAddStrategyVal();
+			float newStrategy1 = strategy * upVal.getAddStrategyVal();
+			//受谋略影响
+			float newStrategy2 = strategy + upVal.getAddFSShuXingVal() + Math.round(strategy * 1.0f /Conf.shuxing_suoxiao);
+			float newStrategy = Math.max(newStrategy1, newStrategy2);
+			
 			val *= newStrategy * Conf.fashu_rate;
 		}else if(CheckUtil.isAttack(this)) {
 			val *= attack * Conf.gongji_rate;

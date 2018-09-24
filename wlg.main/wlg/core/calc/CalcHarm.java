@@ -586,8 +586,7 @@ public class CalcHarm {
 			
 			float shibingVal = huihe.getSolderRate(zf);
 			//属性加成值
-			UpVal upVal = new UpVal();
-			upVal.setAddStrategyVal(addStrategyVal);
+			UpVal upVal = BuildUpVal(huihe, addStrategyVal);
 			
 			float harmval = rate * zf.getHarmVal(shuaxinVal,upVal) * shibingVal;
 			if(CheckUtil.isBaoZou(zf)) {
@@ -614,8 +613,7 @@ public class CalcHarm {
 				float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, zf):CalcDoRate.getCommRate(huihe, zf);
 				
 				//属性加成值
-				UpVal upVal = new UpVal();
-				upVal.setAddStrategyVal(zf.getUpStrategyVal());
+				UpVal upVal = BuildUpVal(huihe, zf.getUpStrategyVal());
 				
 				float harmval = rate * executeJss * zf.getHarmVal(zf.getUpVal(),upVal) * huihe.getSolderRate(zf);
 				//降低防御属性增加的伤害值
@@ -627,6 +625,13 @@ public class CalcHarm {
 			}
 		}
 		return sum;
+	}
+
+	private static UpVal BuildUpVal(HuiHe huihe, float addStrategyVal) {
+		UpVal upVal = new UpVal();
+		upVal.setAddStrategyVal(addStrategyVal);
+		upVal.setAddFSShuXingVal(huihe.getUpFSShuXing());
+		return upVal;
 	}
 
 	private static <T extends ZhanFa> void addGongJiZfExVal(HuiHe huihe, T z) {
@@ -671,8 +676,7 @@ public class CalcHarm {
 						if(j!= i) {
 							float rate = CalcDoRate.getCommRate(huihe, zf);
 							//属性加成值
-							UpVal upVal = new UpVal();
-							upVal.setAddStrategyVal(huihe.getUpFaShuVal());
+							UpVal upVal = BuildUpVal(huihe, huihe.getUpFaShuVal());
 							
 							if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 								KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
