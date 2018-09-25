@@ -77,6 +77,7 @@ public class CheckUtil {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
 		case ZhuDong_BaoZou:
+		case ZhuDong_JiaShuXing:
 		case ZhuDong_KongZhi_ALL:
 		case ZhuDong_FaShu_BaoZou:
 		case ZhuDong_BaoZou_jianFangYu:
@@ -187,6 +188,7 @@ public class CheckUtil {
 		case BeiDong_huifu:
 		case ZhuDong_BaoZou:
 		case BeiDong_JiaCheng:
+		case ZhuDong_JiaShuXing:
 		case ZhuDong_KongZhi_ALL:
 		case ZhiHui_KongZhiGongJi:
 		case ZhuDong_BaoZou_jianFangYu:
@@ -236,10 +238,22 @@ public class CheckUtil {
 		return isZengYi;
 	}
 	
+	public static boolean isUpAllShuXing(ZhanFa zf) {
+		boolean isUpAllShuXing = false;
+		switch (zf.getT()) {
+		case ZhuDong_JiaShuXing:
+			isUpAllShuXing = true;
+			break;
+		default:
+			isUpAllShuXing = false;
+			break;
+		}
+		return isUpAllShuXing;
+	}
+	
 	public static boolean isUpFashu(ZhanFa zf) {
 		boolean isUpFashu = false;
 		switch (zf.getT()) {
-		case ZhuDong_JiaShuXing:
 		case ZhuDong_JiaShuXing_KongZhi:
 			isUpFashu = true;
 			break;

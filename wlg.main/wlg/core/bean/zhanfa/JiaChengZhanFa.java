@@ -11,7 +11,7 @@ public class JiaChengZhanFa extends ZhanFa {
 	 */
 	private float addRate;
 	
-	private float addStrategyVal;//谋略增加值
+	private float upQuanShuXing;//谋略增加值
 	private int person;//受益人数
 	
 	public JiaChengZhanFa(String name,ZFType t,int ready, float doneRate, float harmRate, int distance,Person persons,float addRate) {
@@ -19,17 +19,17 @@ public class JiaChengZhanFa extends ZhanFa {
 		this.addRate=addRate;
 	}
 	
-	public JiaChengZhanFa(String name,ZFType t,int ready, float doneRate, int distance,Person persons,float addStrategyVal,int person) {
+	public JiaChengZhanFa(String name,ZFType t,int ready, float doneRate, int distance,Person persons,float upQuanShuXing,int person) {
 		super(name,t,ready, doneRate, 0.0f, distance,persons);
-		this.addStrategyVal=addStrategyVal;
+		this.upQuanShuXing=upQuanShuXing;
 		this.person=person;
 	}
 
 	public float getAddRate() {
 		return addRate;
 	}
-	public float getAddStrategyVal() {
-		return addStrategyVal;
+	public float getUpQuanShuXing() {
+		return upQuanShuXing;
 	}
 	public int getPerson() {
 		return person;

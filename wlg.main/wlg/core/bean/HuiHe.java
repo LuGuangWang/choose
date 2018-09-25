@@ -31,8 +31,8 @@ public class HuiHe implements Cloneable{
 	private float lianjiVal = 1.0f;
 	//策略属性提高比
 	private float upFaShuVal = 1.0f;
-	//策略属性提高值
-	private float upFSShuXing = 0.0f;
+	//全属性提高值
+	private float upQuanShuXing = 0.0f;
 	//策略伤害提高值
 	private float upFaShaShangHaiVal = 0.0f;
 	//防御属性值降低值
@@ -53,10 +53,24 @@ public class HuiHe implements Cloneable{
 	private float fengGongji = 0.0f;
 	//被封攻击的人数
 	private int fengGJP = 0;
+	//控制是否是 数值计算
+	private boolean isShuZhi = false;
+	
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
 		HuiHe huihe = this.clone();
 		huihe.fengAll = jsRate;
+		huihe.fengZhanfa = 0.0f;
+		huihe.fengGongji = 0.0f;
+		return huihe;
+	}
+	
+	//封战法 也封攻击
+	public HuiHe getAllFeng(float fengVal,boolean isShuZhi) {
+		HuiHe huihe = this.clone();
+		huihe.fengAll = fengVal;
+		huihe.isShuZhi = isShuZhi;
+		
 		huihe.fengZhanfa = 0.0f;
 		huihe.fengGongji = 0.0f;
 		return huihe;
@@ -126,13 +140,13 @@ public class HuiHe implements Cloneable{
 	public float getUpGongJiVal() {
 		return upGongJiVal;
 	}
-	public float getUpFSShuXing() {
-		return upFSShuXing;
+	public float getUpQuanShuXing() {
+		return upQuanShuXing;
 	}
-	public void setUpFSShuXing(float upFSShuXing) {
-		if(this.upFSShuXing<upFSShuXing) {
-			Conf.log("=====刷新谋略属性提高值" + this.upFSShuXing + " -> " + upFSShuXing);
-			this.upFSShuXing = upFSShuXing;
+	public void setUpQuanShuXing(float upQuanShuXing) {
+		if(this.upQuanShuXing<upQuanShuXing) {
+			Conf.log("=====刷新全属性提高值" + this.upQuanShuXing + " -> " + upQuanShuXing);
+			this.upQuanShuXing = upQuanShuXing;
 		}
 	}
 	public void setUpGongJiVal(float upGongJiVal) {
@@ -248,7 +262,12 @@ public class HuiHe implements Cloneable{
 	private float getSunShi(ZhanFa zf,int position, float defenseVal) {
 		float sunShi = 0.0f;
 		if(fengAll!=0) {
-			float sunshi = Conf.SunShiCount - Conf.SunShiCount * fengAll;
+			float sunshi = 0.0f;
+			if(isShuZhi) {
+				sunshi = Conf.SunShiCount - fengAll * Conf.fashu_rate - fengAll * Conf.gongji_rate;
+			}else {
+				sunshi = Conf.SunShiCount - Conf.SunShiCount * fengAll;
+			}
 			sunshi = sunshi>0?sunshi:0;
 			Conf.log("===全控制减伤值：" + fengAll + " 士兵损失值：" + sunshi);
 			sunShi += sunshi;

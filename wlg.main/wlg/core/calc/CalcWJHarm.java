@@ -122,11 +122,18 @@ public class CalcWJHarm {
 						gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * solderRate * huihe.getUpGongJiVal();
 						//免疫攻击 免疫规避
 						gongjiVal *= wj.getMianyiGJVal() * wj.getMianyiGBVal();
-						//攻击加成伤害
+						//始计 攻击加成伤害
 						float upval = 1.0f + huihe.getUpFaShaShangHaiVal() * 0.25f;
 						gongjiVal *= upval;
-						//降低敌军防御属性
-						gongjiVal += huihe.getDownFangYuVal() * Conf.fg_rate;
+						//黄天余音 攻击属性增加
+						float upRate = calcUpVal(huihe, wj);
+						gongjiVal += upRate * Conf.gongji_rate;
+						
+						//闭月 黄天余音 降低敌军防御属性
+						float biyueVal = huihe.getDownFangYuVal() * Conf.fg_rate;
+						float huantianVal = upRate * Conf.fg_rate;
+						float upVal = Math.max(biyueVal, huantianVal);
+						gongjiVal += upVal;
 					}
 					wjVal += gongjiVal;
 					Conf.log("=========武将" + wj.getName() + "普通攻击最终杀伤力：" + gongjiVal);
@@ -153,6 +160,25 @@ public class CalcWJHarm {
 			Conf.log("===========第" + huihe.getId() + "回合结束，最终杀伤力：" + huiheVal);
 		}
 		return sum;
+	}
+
+	private static float calcUpVal(HuiHe huihe, WuJiang wj) {
+		float upRate = 0.0f;
+		boolean isHasHuanTian = false;
+		for(ZhanFa zf:wj.getZhanfa()) {
+			if(CheckUtil.isUpAllShuXing(zf)) {
+				isHasHuanTian = true;
+			}
+		}
+		if(isHasHuanTian) {
+			upRate += huihe.getUpQuanShuXing() * huihe.getWj().getMianyiFSVal();
+		}else {
+			int wjCount = (huihe.getWujiangCount() - 1);
+			wjCount = wjCount<=0?1:wjCount;
+			float rate = 1.0f / wjCount;
+			upRate += huihe.getUpQuanShuXing() * huihe.getWj().getMianyiFSVal() * rate ;
+		}
+		return upRate;
 	}
 
 	private static WuJiang[] addExPropByZhanFa(WuJiang... wjs) {
@@ -404,7 +430,7 @@ public class CalcWJHarm {
 		huihe.setLianjiVal(1.0f);
 		huihe.setUpFaShuVal(1.0f);
 		huihe.setUpFaShaShangHaiVal(0.0f);
-		huihe.setUpFSShuXing(0.0f);
+		huihe.setUpQuanShuXing(0.0f);
 		
 		// 校验所有战法
 		Set<ZhanFa> allZfs = new HashSet<>(Arrays.asList(wj.getZhanfa()));
@@ -452,25 +478,26 @@ public class CalcWJHarm {
 					Conf.log("=====战法" + zf.getName() + " 刷新谋略伤害基值：" + oldVal + "->" + newVal);
 				}
 			}
+			if(CheckUtil.isUpAllShuXing(zf)) {
+				JiaChengZhanFa tmp = (JiaChengZhanFa)zf;
+				//受谋略属性影响
+				float upQuan = tmp.getUpQuanShuXing() + Math.round(1.0f * tmp.getStrategy() / Conf.shuxing_val_suoxiao);
+				huihe.setUpQuanShuXing(upQuan);
+			}
 			if(CheckUtil.isUpFashu(zf)) {
-				if(zf instanceof QiZuoGuiMou) {
-					QiZuoGuiMou tmp = (QiZuoGuiMou)zf;
-					float oldVal = huihe.getUpFaShuVal();
-					float newVal = tmp.getUpVal() + 1;
-					if (newVal > oldVal) {
-						huihe.setUpFaShuVal(newVal);
-						Conf.log("=====战法" + zf.getName() + " 提高策略属性值：" + oldVal + "->" + newVal);
-					}
-				}else if(zf instanceof JiaChengZhanFa) {
-					JiaChengZhanFa tmp = (JiaChengZhanFa)zf;
-					huihe.setUpFSShuXing(tmp.getAddStrategyVal());
+				QiZuoGuiMou tmp = (QiZuoGuiMou)zf;
+				float oldVal = huihe.getUpFaShuVal();
+				float newVal = tmp.getUpVal() + 1;
+				if (newVal > oldVal) {
+					huihe.setUpFaShuVal(newVal);
+					Conf.log("=====战法" + zf.getName() + " 提高策略属性值：" + oldVal + "->" + newVal);
 				}
 			}
 			if(CheckUtil.isDownFangYu(zf)) {
 				BiYueZhanFa tmp = (BiYueZhanFa)zf;
 				float oldVal = huihe.getDownFangYuVal();
 				//受谋略影响
-				float val = zf.getStrategy()/Conf.shuxing_suoxiao*100;
+				float val = zf.getStrategy()/Conf.shuxing_val_suoxiao;
 				float newVal = tmp.getDownFShuXingVal() + val;
 				float rate = CalcDoRate.getCommRate(huihe, zf) * zf.getDoneRate();
 				newVal *= rate;

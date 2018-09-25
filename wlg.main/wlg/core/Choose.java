@@ -129,6 +129,27 @@ public class Choose {
 		String key10 = buildKey(one,two,three);
 		result.put(sum10, key10);
 		
+		one = WList.luxun.setSecondZhanFa(ZList.shengdongjixi).setThreeZhanFa(ZList.shimianmaifu);
+		two = WList.zhangchunhua.setSecondZhanFa(ZList.yaoshu).setThreeZhanFa(ZList.dashangsanjun);
+		three= WList.caocao.setSecondZhanFa(ZList.huima).setThreeZhanFa(ZList.jijiaozhishi);
+		float sum11 = CalcWJHarm.calcVal(one,two,three);
+		String key11 = buildKey(one,two,three);
+		result.put(sum11, key11);
+		
+		one = WList.luxun.setSecondZhanFa(ZList.shengdongjixi).setThreeZhanFa(ZList.shimianmaifu);
+		two = WList.zhangning.setSecondZhanFa(ZList.yaoshu).setThreeZhanFa(ZList.mizhen);
+		three= WList.caocao.setSecondZhanFa(ZList.dashangsanjun).setThreeZhanFa(ZList.jijiaozhishi);
+		float sum12 = CalcWJHarm.calcVal(one,two,three);
+		String key12 = buildKey(one,two,three);
+		result.put(sum12, key12);
+		
+		one = WList.luxun.setSecondZhanFa(ZList.shengdongjixi).setThreeZhanFa(ZList.shimianmaifu);
+		two = WList.zhangchunhua.setSecondZhanFa(ZList.yaoshu).setThreeZhanFa(ZList.mizhen);
+		three= WList.zhaoyun.setSecondZhanFa(ZList.qingnangmiyao).setThreeZhanFa(ZList.huima);
+		float sum13 = CalcWJHarm.calcVal(one,two,three);
+		String key13 = buildKey(one,two,three);
+		result.put(sum13, key13);
+		
 		return result;
 	}
 	

@@ -75,6 +75,8 @@ public class CalcHarm {
 				unHurtVal = calcBiyue(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}else if(zf.getT().equals(ZFType.ZhuiJi_GongJi_KongZhiGongJi)) {
 				unHurtVal = calcZhuiJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+			}else if(zf.getT().equals(ZFType.ZhuDong_JiaShuXing)) {
+				unHurtVal = calcJianShuXing(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}
 			
 			sum += unHurtVal;
@@ -94,6 +96,37 @@ public class CalcHarm {
 		return sum;
 	}
 	
+	private static float calcJianShuXing(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
+			ZhanFa... allZfs) {
+		float unHurtVal = 0.0f;
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,zf);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		//每个人数的随机概率
+		float evrate = 1.0f/zf.getPersons().getPersons().length;
+		for(int p:zf.getPersons().getPersons()) {
+			int distance = CalCDistance.calcDistance(zf.getDistance(), zf.getPosition());
+			if(distance<=0) {
+				continue;
+			}else {
+				p = Math.min(p, distance);
+			}
+			//不受伤害的概率
+			float unHurt = evrate * p/1.0f/huihe.getWujiangCount();
+			unHurt = unHurt>1 ? rate:rate*unHurt;
+			//控制主的概率
+			float kongzhiVal = unHurt * zf.getDoneRate();
+			
+			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getAllFeng(kongzhiVal * huihe.getUpQuanShuXing(),true),calcPrimy,allZfs);
+			kongzhiMap.put(zf.getName(), kongzhiVal);
+			unHurtVal += tmp;
+		}
+		return unHurtVal;
+	}
+
 	private static float calcZhuiJi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
 			ZhanFa... allZfs) {
 		ZhuiJiZhanFa b = (ZhuiJiZhanFa)zf;
@@ -615,23 +648,27 @@ public class CalcHarm {
 	}
 
 	private static UpVal buildUpVal(HuiHe huihe, ZhanFa zf) {
-		float addStrategyVal = 1.0f;
+		float addStrategyVal = 1.0f;//策略属性加成比
+		float addQuanShuXingVal = 0.0f;//策略属性加成值
 		
 		UpVal upVal = new UpVal();
 		if(huihe.getWj().getPosition()==zf.getPosition()) {
 			//增加自身谋略属性点
 			addStrategyVal = huihe.getUpFaShuVal();
+			addQuanShuXingVal = huihe.getUpQuanShuXing();
 		}else {
-			//TODO 现在只是奇佐鬼谋   增加谋略属性点
-			float upval = huihe.getUpFaShuVal()-1;
 			int otherCount = huihe.getWujiangCount()-1;
 			otherCount = otherCount<=0?1:otherCount;
+			//奇佐鬼谋 
+			float upval = huihe.getUpFaShuVal()-1;
 			upval = 1.0f/otherCount * upval + 1;
 			addStrategyVal = upval;
+			//黄天余音
+			addQuanShuXingVal = 1.0f/otherCount * huihe.getUpQuanShuXing();
 		}
 		
 		upVal.setAddStrategyVal(addStrategyVal);
-		upVal.setAddFSShuXingVal(huihe.getUpFSShuXing());
+		upVal.setAddQuanShuXingVal(addQuanShuXingVal);
 		return upVal;
 	}
 
