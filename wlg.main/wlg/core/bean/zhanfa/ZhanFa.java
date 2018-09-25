@@ -41,8 +41,6 @@ public class ZhanFa implements Harm, Cloneable {
 	private int strategy = 1;// 谋略
 	private int position = 1;//武将位置武将位置  大营3 中军2 前锋1
 	
-	//谋略增加值
-	private float upStrategyVal = 0.0f;
 	/**
 	 * 
 	 * @param name 名称
@@ -80,12 +78,6 @@ public class ZhanFa implements Harm, Cloneable {
 		this.finalExHarmVal = this.exHarmVal;
 	}
 
-	public float getUpStrategyVal() {
-		return upStrategyVal<1.0f?1.0f:upStrategyVal;
-	}
-	public void setUpStrategyVal(float upStrategyVal) {
-		this.upStrategyVal = upStrategyVal;
-	}
 	public int getDistance() {
 		return distance;
 	}

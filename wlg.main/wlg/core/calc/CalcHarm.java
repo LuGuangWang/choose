@@ -510,22 +510,10 @@ public class CalcHarm {
 		for(int i=0;i<zhanfa.length;i++) {
 			T zf = zhanfa[i];
 			float shuaxinVal = 0.0f;
-			float addStrategyVal = 1.0f;
-			zf.setUpStrategyVal(1.0f);
-			
 			if(CheckUtil.isStrategy(zf)) {
 				//只对当前武将的战法生效
 				if(huihe.getWj().getPosition()==zf.getPosition()) {
 					shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
-					//增加自身谋略属性点
-					addStrategyVal = huihe.getUpFaShuVal();
-				}else {
-					//TODO 现在只是奇佐鬼谋   增加谋略属性点
-					float upval = huihe.getUpFaShuVal()-1;
-					int otherCount = huihe.getWujiangCount()-1;
-					otherCount = otherCount<=0?1:otherCount;
-					upval = 1.0f/otherCount * upval + 1;
-					addStrategyVal = upval;
 				}
 				//大营战法加成  法术加成概率为0.75
 				if(huihe.getWujiangCount()==3 && huihe.getWj().getFinalp()== 1) {
@@ -548,7 +536,6 @@ public class CalcHarm {
 			}else if(CheckUtil.isJiaShang(zf)){
 				JiaShangZhanFa tmp = (JiaShangZhanFa)zf;
 				if(huihe.getId()<=tmp.getKeephuihe()) {
-					tmp.setUpStrategyVal(addStrategyVal);
 					jss.add(tmp);
 					continue;
 				} else {//	方便查看日志
@@ -586,7 +573,7 @@ public class CalcHarm {
 			
 			float shibingVal = huihe.getSolderRate(zf);
 			//属性加成值
-			UpVal upVal = BuildUpVal(huihe, addStrategyVal);
+			UpVal upVal = buildUpVal(huihe,zf);
 			
 			float harmval = rate * zf.getHarmVal(shuaxinVal,upVal) * shibingVal;
 			if(CheckUtil.isBaoZou(zf)) {
@@ -613,7 +600,7 @@ public class CalcHarm {
 				float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, zf):CalcDoRate.getCommRate(huihe, zf);
 				
 				//属性加成值
-				UpVal upVal = BuildUpVal(huihe, zf.getUpStrategyVal());
+				UpVal upVal = buildUpVal(huihe,zf);
 				
 				float harmval = rate * executeJss * zf.getHarmVal(zf.getUpVal(),upVal) * huihe.getSolderRate(zf);
 				//降低防御属性增加的伤害值
@@ -627,8 +614,22 @@ public class CalcHarm {
 		return sum;
 	}
 
-	private static UpVal BuildUpVal(HuiHe huihe, float addStrategyVal) {
+	private static UpVal buildUpVal(HuiHe huihe, ZhanFa zf) {
+		float addStrategyVal = 1.0f;
+		
 		UpVal upVal = new UpVal();
+		if(huihe.getWj().getPosition()==zf.getPosition()) {
+			//增加自身谋略属性点
+			addStrategyVal = huihe.getUpFaShuVal();
+		}else {
+			//TODO 现在只是奇佐鬼谋   增加谋略属性点
+			float upval = huihe.getUpFaShuVal()-1;
+			int otherCount = huihe.getWujiangCount()-1;
+			otherCount = otherCount<=0?1:otherCount;
+			upval = 1.0f/otherCount * upval + 1;
+			addStrategyVal = upval;
+		}
+		
 		upVal.setAddStrategyVal(addStrategyVal);
 		upVal.setAddFSShuXingVal(huihe.getUpFSShuXing());
 		return upVal;
@@ -676,7 +677,7 @@ public class CalcHarm {
 						if(j!= i) {
 							float rate = CalcDoRate.getCommRate(huihe, zf);
 							//属性加成值
-							UpVal upVal = BuildUpVal(huihe, huihe.getUpFaShuVal());
+							UpVal upVal = buildUpVal(huihe,zf);
 							
 							if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 								KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
