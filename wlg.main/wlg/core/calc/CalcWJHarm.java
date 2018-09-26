@@ -117,6 +117,9 @@ public class CalcWJHarm {
 					}
 				}
 				//法术伤害
+				if(fsVal>0) {//法术造成伤害后，行兵之极中军有益效果消失
+					huihe.setZhongjunUpVal(0.0f);
+				}
 				wjVal += fsVal;
 				// 普通攻击伤害
 				if (Conf.getCalcPG()) {
@@ -134,7 +137,7 @@ public class CalcWJHarm {
 						float upRate = calcUpVal(huihe, wj);
 						gongjiVal += upRate * Conf.gongji_rate;
 						//行兵之极  中军首次加伤害				
-						if(huihe.getWj().getFinalp()==Conf.zhongjun) {
+						if(huihe.isIsxingbing() && huihe.getWj().getFinalp()==Conf.zhongjun) {
 							gongjiVal *= (1.0f + huihe.getZhongjunUpVal());
 							huihe.setZhongjunUpVal(0.0f);
 						}

@@ -347,7 +347,7 @@ public class HuiHe implements Cloneable{
 			}
 		}
 		//行兵之极 前锋
-		if(finalP==Conf.qianfeng) {
+		if(this.isxingbing && finalP==Conf.qianfeng) {
 			sunShi *= (1.0f - this.getQianfengUpVal());
 		}
 		sunShi *= position;

@@ -618,9 +618,8 @@ public class CalcHarm {
 			if(harmval>0) {
 				executeJss++;
 				//行兵之极  中军首次加伤害				
-				if(huihe.getWj().getFinalp()==Conf.zhongjun) {
+				if(huihe.isIsxingbing() && huihe.getWj().getFinalp()==Conf.zhongjun && executeJss==1) {
 					harmval *= (1.0f + huihe.getZhongjunUpVal());
-					huihe.setZhongjunUpVal(0.0f);
 				}
 				//降低防御属性增加的伤害值
 				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
