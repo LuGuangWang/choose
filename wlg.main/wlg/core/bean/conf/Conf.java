@@ -41,8 +41,13 @@ public abstract class Conf {
 	public static final float shuxing_suoxiao = 1000.0f;
 	//属性值缩小倍数
 	public static final float shuxing_val_suoxiao = 10.0f;
+	
+	public static final int daying = 1;
+	public static final int zhongjun = 2;
+	public static final int qianfeng = 3;
+	
 	//是否打印日志
-	public static final boolean log = false;
+	public static final boolean log = true;
 	
 	public static boolean getCalcPG() {
 		return Calc_PuGong;

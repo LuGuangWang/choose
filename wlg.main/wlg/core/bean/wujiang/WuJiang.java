@@ -19,8 +19,8 @@ public class WuJiang implements Cloneable{
 	private int strategy;//谋略
 	private final ZhanFa finalZf;//自身的战法
 	private Map<Integer,ZhanFa> zhanfaMap = new HashMap<>();
-	private int position = 3;//武将位置  大营1 中军2 前锋3
-	private int finalp = 3;//原始武将位置  大营1 中军2 前锋3
+	private int position = Conf.qianfeng;//武将位置  大营1 中军2 前锋3
+	private int finalp = Conf.qianfeng;//原始武将位置  大营1 中军2 前锋3
 	private int distance = 1;//攻击距离
 	//武将总兵力
 	private float totalCount = Conf.totalCount;//总兵力
@@ -242,13 +242,13 @@ public class WuJiang implements Cloneable{
 	public String toKey() {
 		StringBuilder s = new StringBuilder();
 		switch(finalp) {
-		case 1:
+		case Conf.daying:
 			s.append("大营 ");
 			break;
-		case 2:
+		case Conf.zhongjun:
 			s.append("中军 ");
 			break;
-		case 3:
+		case Conf.qianfeng:
 			s.append("前锋 ");
 			break;
 		}
@@ -304,6 +304,10 @@ public class WuJiang implements Cloneable{
 		Conf.log("=====武将" + name + " 攻击距离发生变化：" + wj.distance + " -> " + distance);
 		wj.distance = distance;
 		return wj;
+	}
+	
+	public String getZiDaiZFName() {
+		return finalZf.getName();
 	}
 	
 	//更新武将属性值

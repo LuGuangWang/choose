@@ -27,6 +27,7 @@ import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.WeiWuZhiShiZhanFa;
+import wlg.core.bean.zhanfa.XingBingZhiJi;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanFa;
 
@@ -47,8 +48,10 @@ public class CalcWJHarm {
 		float sum = 0;
 		// 重置称号
 		WChengHao.reset();
+		//形兵之极是否生效
+		ExModel isxingbing = new ExModel();
 		// 阵营 兵种加成 称号加成
-		wjs = addExProp(wjs);
+		wjs = addExProp(isxingbing,wjs);
 		// 被动加属性 与 先发指挥战法 补充额外属性
 		wjs = addExPropByZhanFa(wjs);
 		// 按速度排序
@@ -74,7 +77,9 @@ public class CalcWJHarm {
 			Conf.log("===============第" + huihe.getId() + "回合开始=============");
 
 			huihe.setWujiangs(wujiang);
+			huihe.setIsxingbing(isxingbing.isIsxingbing());
 			huihe.setWujiangCount(wujiang.size());
+			
 
 			for (int j = 0; j < wujiang.size(); j++) {
 				float wjVal = 0.0f;// 武将战斗力
@@ -128,7 +133,11 @@ public class CalcWJHarm {
 						//黄天余音 攻击属性增加
 						float upRate = calcUpVal(huihe, wj);
 						gongjiVal += upRate * Conf.gongji_rate;
-						
+						//行兵之极  中军首次加伤害				
+						if(huihe.getWj().getFinalp()==Conf.zhongjun) {
+							gongjiVal *= (1.0f + huihe.getZhongjunUpVal());
+							huihe.setZhongjunUpVal(0.0f);
+						}
 						//闭月 黄天余音 降低敌军防御属性
 						float biyueVal = huihe.getDownFangYuVal() * Conf.fg_rate;
 						float huantianVal = upRate * Conf.fg_rate;
@@ -223,7 +232,7 @@ public class CalcWJHarm {
 	 * @param wjs
 	 * @return
 	 */
-	private static WuJiang[] addExProp(WuJiang... wjs) {
+	private static WuJiang[] addExProp(ExModel isxingbing,WuJiang... wjs) {
 		// 两个以上的武将才有加成
 		if (wjs.length == 1) {
 			return wjs;
@@ -260,6 +269,8 @@ public class CalcWJHarm {
 		// 阵营加成
 		addZhenYingExProp(zhenying);
 
+		//行兵之极是否生效
+		isxingbing.setIsxingbing(bingzhong.size()==3);
 		// 兵种加成
 		addBingZhongExProp(bingzhong);
 
@@ -419,18 +430,8 @@ public class CalcWJHarm {
 				wj.setZishenlianjiVal(lianjiVal);
 			}
 		}
-		
-		huihe.setHasZengYi(false);
-		huihe.setHasBuGong(false);
-
-		huihe.setShuaxinVal(0.0f);
-		huihe.setUpGongJiVal(1.0f);
-		huihe.setKongzhiVal(0.0f);
-		huihe.setHasKongZhi(false);
-		huihe.setLianjiVal(1.0f);
-		huihe.setUpFaShuVal(1.0f);
-		huihe.setUpFaShaShangHaiVal(0.0f);
-		huihe.setUpQuanShuXing(0.0f);
+		//注意 重置回合中的属性
+		resetHuiHeProp(huihe);
 		
 		// 校验所有战法
 		Set<ZhanFa> allZfs = new HashSet<>(Arrays.asList(wj.getZhanfa()));
@@ -449,7 +450,13 @@ public class CalcWJHarm {
 				huihe.setHasZengYi(true);
 			if (CheckUtil.isBuGongJi(zf))
 				huihe.setHasBuGong(true);
-			
+			//行兵之极
+			if(huihe.isIsxingbing() && zf.getT().equals(ZFType.ZhiHui_DaYing_ZhongJun_QianFeng)) {
+				XingBingZhiJi xb = (XingBingZhiJi)zf;
+				huihe.setDayingUpZFVal(xb.getDayingGaiLv());
+				huihe.setZhongjunUpVal(xb.getZhongjunJiaShang());
+				huihe.setQianfengUpVal(xb.getQianfengJianShang());
+			}
 			// 自身战法加成 不攻 & 大赏三军 & 始计
 			if (CheckUtil.isZiShenJiaCheng(zf) && !ConflictList.$().isCeluechongtu()) {
 				wj.addJiaCheng();
@@ -519,6 +526,23 @@ public class CalcWJHarm {
 			}
 		}
 		
+	}
+
+	private static void resetHuiHeProp(HuiHe huihe) {
+		huihe.setHasZengYi(false);
+		huihe.setHasBuGong(false);
+		huihe.setHasKongZhi(false);
+
+		huihe.setShuaxinVal(0.0f);
+		huihe.setUpGongJiVal(1.0f);
+		huihe.setKongzhiVal(0.0f);
+		huihe.setLianjiVal(1.0f);
+		huihe.setUpFaShuVal(1.0f);
+		huihe.setUpFaShaShangHaiVal(0.0f);
+		huihe.setUpQuanShuXing(0.0f);
+		huihe.setDayingUpZFVal(0.0f);
+		huihe.setZhongjunUpVal(0.0f);
+		huihe.setQianfengUpVal(0.0f);
 	}
 
 	private static void setWeiWuZhiZeLianJiVal(HuiHe huihe, ZhanFa zf) {

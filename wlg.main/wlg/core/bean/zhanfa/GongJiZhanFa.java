@@ -50,7 +50,7 @@ public class GongJiZhanFa extends ZhanFa {
 		//受谋略影响
 		float newUpGjVal = this.getStrategy() * upVal.getAddStrategyVal() / Conf.shuxing_suoxiao + this.upGJVal;
 		
-		harmVal = newUpGjVal * this.getDoneRate();
+		harmVal = newUpGjVal * (this.getDoneRate()+upVal.getDayingUpZFVal());
 		
 		float pval = harmVal * this.getAttack() * Conf.gongji_rate;
 		float otherval = harmVal * otherAttackVal * Conf.gongji_rate;

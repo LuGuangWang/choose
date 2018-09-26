@@ -19,11 +19,11 @@ public enum ZFType {
 	ZhiHui_KongZhiGongJi,//指挥类 控制攻击
 	ZhiHui_Multiple_FaShu,//指挥类 多种伤害效果
 	ZhiHui_JiaShuXing_JiaJuLi,//指挥类 加属性 加距离
+	ZhiHui_DaYing_ZhongJun_QianFeng,//指挥类 大营加概率，中军加伤害，前锋减伤
 	ZhiHui_JiaFaShu_JianShang_MianYi,//指挥类 加攻击或法术伤害 减攻击或法术伤害 免疫被控制
 	ZhiHui_KongZhiGongJi_FaShuShangHai,//指挥类 先控制攻击 然后法术伤害
 	ZhiHui_JianshangFashu_KongZhiFaShu,//指挥类  降低法术伤害 控制法术伤害
 	ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi,//指挥类 法术加成 法术攻击 本身不造成攻击伤害
-	
 	
 	BeiDong_huifu,//被动类 恢复
 	BeiDong_GongJi,//被动类，攻击伤害

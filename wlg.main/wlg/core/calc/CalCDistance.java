@@ -13,13 +13,13 @@ public class CalCDistance {
 	public static int calcDistance(int zfDis,int wjPosition) {
 		int distance = 1;
 		switch(wjPosition) {
-		case 1://大营
+		case Conf.daying://大营
 			distance = zfDis - 2;
 			break;
-		case 2://中军
+		case Conf.zhongjun://中军
 			distance = zfDis - 1;
 			break;
-		case 3://前锋
+		case Conf.qianfeng://前锋
 			distance = zfDis;
 			break;
 		default:

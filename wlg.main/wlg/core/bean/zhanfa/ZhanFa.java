@@ -180,7 +180,7 @@ public class ZhanFa implements Harm, Cloneable {
 	public float getExVal(ZhanFa other, float exharmVal,UpVal upVal) {
 		float sum = 0.0f;
 		if(other.getHarmRate()>0) {
-			float val = exharmVal*this.getDoneRate()*other.getDoneRate();
+			float val = exharmVal*(this.getDoneRate() + upVal.getDayingUpZFVal())*other.getDoneRate();
 			val = addShuXingVal(val,upVal);
 			int[] persons = other.getPersons().getPersons();
 			
@@ -223,7 +223,7 @@ public class ZhanFa implements Harm, Cloneable {
 	 */
 	public float getHarmVal(float harmVal,UpVal upVal) {
 		float sum = 0.0f;
-		float pval = this.doneRate * harmVal;
+		float pval = (this.doneRate + upVal.getDayingUpZFVal()) * harmVal;
 		pval = addShuXingVal(pval,upVal);
 		if (persons.getPersons().length > 0) {
 			int len = getPersons().getPersons().length;

@@ -13,7 +13,7 @@ public class JiJiaoZhiShiZhanFa extends ZhanFa {
 	public float getHarmVal(float harmVal,UpVal upVal) {
 		float sum = 0.0f;
 		float newStrategy = this.getStrategy() * upVal.getAddStrategyVal();
-		float harmval = this.getDoneRate() * harmVal  * newStrategy * Conf.fashu_rate;
+		float harmval = (this.getDoneRate()+upVal.getDayingUpZFVal()) * harmVal  * newStrategy * Conf.fashu_rate;
 		float exharmval = this.getExRate() * this.getExHarmVal() * this.getAttack() * Conf.gongji_rate;
 		
 		sum = harmval + exharmval;

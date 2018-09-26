@@ -549,11 +549,11 @@ public class CalcHarm {
 					shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
 				}
 				//大营战法加成  法术加成概率为0.75
-				if(huihe.getWujiangCount()==3 && huihe.getWj().getFinalp()== 1) {
+				if(huihe.getWujiangCount()==3 && huihe.getWj().getFinalp()== Conf.daying) {
 					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
-				}else if(huihe.getWujiangCount()==2 && huihe.getWj().getFinalp()== 2) {
+				}else if(huihe.getWujiangCount()==2 && huihe.getWj().getFinalp()== Conf.zhongjun) {
 					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
-				}else if(huihe.getWujiangCount()==1 && huihe.getWj().getFinalp()== 3) {
+				}else if(huihe.getWujiangCount()==1 && huihe.getWj().getFinalp()== Conf.qianfeng) {
 					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
 				}
 			}
@@ -617,6 +617,11 @@ public class CalcHarm {
 			//有伤害 才能触发加伤战法
 			if(harmval>0) {
 				executeJss++;
+				//行兵之极  中军首次加伤害				
+				if(huihe.getWj().getFinalp()==Conf.zhongjun) {
+					harmval *= (1.0f + huihe.getZhongjunUpVal());
+					huihe.setZhongjunUpVal(0.0f);
+				}
 				//降低防御属性增加的伤害值
 				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
 				//免疫规避
@@ -652,6 +657,7 @@ public class CalcHarm {
 		float addQuanShuXingVal = 0.0f;//策略属性加成值
 		
 		UpVal upVal = new UpVal();
+		
 		if(huihe.getWj().getPosition()==zf.getPosition()) {
 			//增加自身谋略属性点
 			addStrategyVal = huihe.getUpFaShuVal();
@@ -665,6 +671,16 @@ public class CalcHarm {
 			addStrategyVal = upval;
 			//黄天余音
 			addQuanShuXingVal = 1.0f/otherCount * huihe.getUpQuanShuXing();
+		}
+		//行兵之极
+		if(huihe.isIsxingbing()) {
+			if(huihe.getWj().getFinalp()==Conf.daying) {//行兵之极 大营
+				boolean beCan = CheckUtil.isZhuiJi(zf) || CheckUtil.isZiDaiZHuDong(zf);
+				if(huihe.getWj().getZiDaiZFName().equals(zf.getName()) && beCan) {
+					Conf.log("=======战法" + zf.getName() + "发动概率提升:" + huihe.getDayingUpZFVal());
+					upVal.setDayingUpZFVal(huihe.getDayingUpZFVal());
+				}
+			}
 		}
 		
 		upVal.setAddStrategyVal(addStrategyVal);

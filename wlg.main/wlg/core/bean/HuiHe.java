@@ -55,6 +55,14 @@ public class HuiHe implements Cloneable{
 	private int fengGJP = 0;
 	//控制是否是 数值计算
 	private boolean isShuZhi = false;
+	//行兵之极是否生效
+	private boolean isxingbing = false;
+	//行兵之极 大营加战法发动概率
+	private float dayingUpZFVal;
+	//行兵之极 中军增加伤害
+	private float zhongjunUpVal;
+	//行兵之极 前锋降低伤害
+	private float qianfengUpVal;
 	
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
@@ -84,7 +92,6 @@ public class HuiHe implements Cloneable{
 		huihe.fengAll = 0.0f;
 		return huihe;
 	}
-	
 	//封攻击 概率和人数
 	public HuiHe getFengGongji(float jsRate,int fengGJP) {
 		HuiHe huihe = this.clone();
@@ -115,6 +122,12 @@ public class HuiHe implements Cloneable{
 	}
 	public WuJiang getWj() {
 		return wj;
+	}
+	public boolean isIsxingbing() {
+		return isxingbing;
+	}
+	public void setIsxingbing(boolean isxingbing) {
+		this.isxingbing = isxingbing;
 	}
 	public float getUpFaShuVal() {
 		return upFaShuVal;
@@ -163,6 +176,24 @@ public class HuiHe implements Cloneable{
 	}
 	public float getUpFaShaShangHaiVal() {
 		return upFaShaShangHaiVal;
+	}
+	public float getDayingUpZFVal() {
+		return dayingUpZFVal;
+	}
+	public void setDayingUpZFVal(float dayingUpZFVal) {
+		this.dayingUpZFVal = dayingUpZFVal;
+	}
+	public float getZhongjunUpVal() {
+		return zhongjunUpVal;
+	}
+	public void setZhongjunUpVal(float zhongjunUpVal) {
+		this.zhongjunUpVal = zhongjunUpVal;
+	}
+	public float getQianfengUpVal() {
+		return qianfengUpVal;
+	}
+	public void setQianfengUpVal(float qianfengUpVal) {
+		this.qianfengUpVal = qianfengUpVal;
 	}
 	public void setUpFaShaShangHaiVal(float upFaShaShangHaiVal) {
 		this.upFaShaShangHaiVal = upFaShaShangHaiVal;
@@ -250,16 +281,17 @@ public class HuiHe implements Cloneable{
 	 */
 	public float getSolderRate(ZhanFa zf) {
 		//设置每回合的兵力损失
-		getSunShi(zf,wj.getPosition(),wj.getDefense());
+		getSunShi(zf,wj.getPosition(),wj.getDefense(),wj.getFinalp());
 		return Conf.binglijishu/id;
 	}
 	/**
 	 * 自身士兵损失值
 	 * @param position
 	 * @param defenseVal
+	 * @param finalP 武将原始位置
 	 * @return
 	 */
-	private float getSunShi(ZhanFa zf,int position, float defenseVal) {
+	private float getSunShi(ZhanFa zf,int position, float defenseVal,int finalP) {
 		float sunShi = 0.0f;
 		if(fengAll!=0) {
 			float sunshi = 0.0f;
@@ -314,7 +346,10 @@ public class HuiHe implements Cloneable{
 				}
 			}
 		}
-		
+		//行兵之极 前锋
+		if(finalP==Conf.qianfeng) {
+			sunShi *= (1.0f - this.getQianfengUpVal());
+		}
 		sunShi *= position;
 		//按受到最小伤害进行更新
 		this.getWj().setSunshiCount(sunShi);

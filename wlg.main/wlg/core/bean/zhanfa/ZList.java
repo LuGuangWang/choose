@@ -75,6 +75,7 @@ public abstract class ZList {
 	public static BiYueZhanFa mizhen = new BiYueZhanFa("迷阵", ZFType.ZhuDong_FaShu_BaoZou, 0, 0.35f, 1.55f, 4, new Person(1));
 	//钝兵挫锐
 	public static ZhuiJiZhanFa dunbingcuorui = new ZhuiJiZhanFa("钝兵挫锐", ZFType.ZhuiJi_GongJi_KongZhiGongJi, 0, 0.3f, 2.0f, 5, new Person(1));
-	
+	//S3 形兵之极
+	public static XingBingZhiJi xingbingzhiji = new XingBingZhiJi("形兵之极", ZFType.ZhiHui_DaYing_ZhongJun_QianFeng, 0, 1.0f, 2, new Person(3),0.1f,0.4f,0.5f);
 	/*****    -------------   拆解战法     end -------------   *****/
 }
