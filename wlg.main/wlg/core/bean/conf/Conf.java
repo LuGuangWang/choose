@@ -42,7 +42,7 @@ public abstract class Conf {
 	//属性值缩小倍数
 	public static final float shuxing_val_suoxiao = 10.0f;
 	//每回合兵力恢复基数
-	public static final float bingli_huifu = 400.0f;
+	public static final float bingli_huifu = 500.0f;
 	
 	
 	public static final int daying = 1;

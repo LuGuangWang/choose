@@ -628,7 +628,9 @@ public class CalcHarm {
 				//降低防御属性增加的伤害值
 				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
 				//免疫规避
-				harmval *= huihe.getWj().getMianyiGBVal();
+				if(!CheckUtil.isMianYiGuiBi(zf)) {
+					harmval *= huihe.getWj().getMianyiGBVal();
+				}
 			}
 			Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
 			sum += harmval;
@@ -647,7 +649,9 @@ public class CalcHarm {
 				//降低防御属性增加的伤害值
 				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
 				//免疫规避
-				harmval *= huihe.getWj().getMianyiGBVal();
+				if(!CheckUtil.isMianYiGuiBi(zf)) {
+					harmval *= huihe.getWj().getMianyiGBVal();
+				}
 				Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
 				sum += harmval;
 			}

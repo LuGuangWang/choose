@@ -37,6 +37,8 @@ public abstract class ZList {
 	public static LianJiZhanFa hongyantieqi = new LianJiZhanFa("红颜铁骑", ZFType.BeiDong_LianJi_jiagongji, 0, 1.0f, 30.0f, 1, new Person(1),2);
 	//张宁 黄天余音
 	public static JiaChengZhanFa huangtianyvyin = new JiaChengZhanFa("黄天余音", ZFType.ZhuDong_JiaShuXing, 0, 1.0f, 4, new Person(1),26,2);
+	//灵帝 帝临回光  TODO 自身不可回复兵力
+	public static DiGuangHuiLin dilinhuiguang = new DiGuangHuiLin("帝临回光", ZFType.ZhiHui_JiaJuLi_FenBing_KongHuang, 2, 1.0f, 0.59f, 5, new Person(3),0.7f,new Person(1,1,2));
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

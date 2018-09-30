@@ -15,6 +15,11 @@ public class ConflictList {
 	private final String baozou_chongtu = "妖术|奇佐鬼谋|闭月|迷阵";
 	private Set<String> baozou_list = new HashSet<>();
 	
+	private final String zhihui_konghuang_chongtu = "匠心不竭|帝临回光";
+	private Set<String> zhihui_konghuang_list = new HashSet<>();
+	
+	
+	
 	public static ConflictList $() {
 		return instance;
 	}
@@ -23,6 +28,14 @@ public class ConflictList {
 		boolean chongtu = false;
 		if(chongtu = celue_list.size()>1) {
 			Conf.log("=========战法冲突：" + listToString(celue_list));
+		}
+		return chongtu;
+	}
+	
+	public boolean isZhiHuiKonghuangchongtu() {
+		boolean chongtu = false;
+		if(chongtu = zhihui_konghuang_list.size()>1) {
+			Conf.log("=========战法冲突：" + listToString(zhihui_konghuang_list));
 		}
 		return chongtu;
 	}
@@ -43,6 +56,9 @@ public class ConflictList {
 		if(baozou_chongtu.contains(zf.getName())) {
 			baozou_list.add(zf.getName());
 		}
+		if(zhihui_konghuang_chongtu.contains(zf.getName())) {
+			zhihui_konghuang_list.add(zf.getName());
+		}
 	}
 
 	private String listToString(Set<String> zfs) {
@@ -54,5 +70,6 @@ public class ConflictList {
 	public void reset() {
 		celue_list.clear();
 		baozou_list.clear();
+		zhihui_konghuang_list.clear();
 	}
 }

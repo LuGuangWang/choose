@@ -169,6 +169,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu_JianShang:
 		case ZhuDong_FaShu_KeepHuiHe:
 		case ZhuDong_FaShu_KongZhiHuiFu:
+		case ZhiHui_JiaJuLi_FenBing_KongHuang:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
@@ -242,6 +243,19 @@ public class CheckUtil {
 		boolean isZengYi = (zf instanceof ZengYiZhanFa);
 		
 		return isZengYi;
+	}
+	
+	public static boolean isMianYiGuiBi(ZhanFa zf) {
+		boolean isMianYiGuiBi = false;
+		switch (zf.getT()) {
+		case ZhiHui_JiaJuLi_FenBing_KongHuang:
+			isMianYiGuiBi = true;
+			break;
+		default:
+			isMianYiGuiBi = false;
+			break;
+		}
+		return isMianYiGuiBi;
 	}
 	
 	public static boolean isUpAllShuXing(ZhanFa zf) {

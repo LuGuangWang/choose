@@ -6,6 +6,7 @@ import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.wujiang.WuJiang;
+import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
@@ -234,6 +235,10 @@ public class CalcDoRate {
 				t.setHarmRate(0.0f);//会影响增益战法的计算
 				rate = 0;
 			}
+		}
+		//帝临回光
+		if(zhanfa.getT().equals(ZFType.ZhiHui_JiaJuLi_FenBing_KongHuang) && ConflictList.$().isZhiHuiKonghuangchongtu()) {
+			rate = 0;
 		}
 		
 		return rate;

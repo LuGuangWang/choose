@@ -40,7 +40,8 @@ public class WList {
 	/******     汉       *******/
 	//貂蝉
 	public static WuJiang handiaochan = new WuJiang("汉貂蝉", WZType.han, WBType.gong, 68, 74, 79, 88, 2, ZList.biyue);
-	
+	//灵帝
+	public static WuJiang lingdi = new WuJiang("灵帝", WZType.han, WBType.gong, 65, 91, 85, 84, 5, ZList.dilinhuiguang);
 	/******     群       *******/
 	//张宁
 	public static WuJiang zhangning = new WuJiang("张宁", WZType.qun, WBType.bu, 47, 72, 37, 88, 2, ZList.huangtianyvyin);
