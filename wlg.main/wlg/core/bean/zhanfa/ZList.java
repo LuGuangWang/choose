@@ -10,7 +10,7 @@ import wlg.core.bean.conf.Conf;
 public abstract class ZList {
 	/*****    -------------   武将自带战法     begin -------------   *****/
 	//陆逊 火势风威
-	public static ZengYiZhanFa huoshifengwei = new ZengYiZhanFa("火势风威",ZFType.ZhuDong_FaShu,1, 0.4f, 1.11f, 5,new Person(3), 0f, 2.21f);
+	public static ZengYiZhanFa huoshifengwei = new ZengYiZhanFa("火势风威",ZFType.ZhuDong_FaShu_ZiDai,1, 0.4f, 1.11f, 5,new Person(3), 0f, 2.21f);
 	//吕蒙 白衣渡江
 	public static KongZhiAndHarmZhanFa baiyidujiang = new KongZhiAndHarmZhanFa("白衣渡江",ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai, 2, 2.15f, 1.0f,5,new Person(2));
 	//周瑜 玄武巨流
@@ -19,15 +19,15 @@ public abstract class ZList {
 	public static DieJiaZhanFa yinlonggudan = new DieJiaZhanFa("银龙孤胆",ZFType.ZhuDong_GongJi,1,0.4f,0.8f,7,0.08f,5,new Person(1,2,3));
 	//黄月英 匠心不竭
 	public static MultipleHarmZhanFa jiangxinbujie = new MultipleHarmZhanFa("匠心不竭", ZFType.ZhiHui_Multiple_FaShu, 0, 1, 0.34f, 3,0.41f, 5,0.44f, 6, new Person(3));
-	//荀彧 驱虎吞狼 TODO 不可恢复兵力
-	public static ZhanFa quhutunlang = new ZhanFa("驱虎吞狼",ZFType.ZhuDong_FaShu,0,0.3f,1.43f,5,new Person(3));
+	//荀彧 驱虎吞狼
+	public static ZhanFa quhutunlang = new ZhanFa("驱虎吞狼",ZFType.ZhuDong_FaShu_KongZhiHuiFu,0,0.3f,1.43f,5,new Person(3));
 	//张春华 强势
 	public static QiangShiZhanFa qiangshi = new QiangShiZhanFa("强势",ZFType.ZhuDong_JianShang_KongZhiFaShu, 0, 0.35f, 0.32f, 5, new Person(2),2);
 	//曹操 魏武之世
 	public static WeiWuZhiShiZhanFa weiwuzhishi = new WeiWuZhiShiZhanFa("魏武之世", ZFType.ZhiHui_JiaShuXing_JiaJuLi, 0, 1, 1.15f,1,5, new Person(3));
 	//曹丕 魏武之泽
 	public static GongJiZhanFa weiwuzhize = new GongJiZhanFa("魏武之泽", ZFType.ZhuDong_JiaGongJi_LianJi, 0, 0.35f, 1.25f, 2, new Person(1,2),2);
-	//王异 世仇 TODO 不可急救和休整 持续2回合
+	//王异 世仇 
 	public static ZhanFa shichou = new ZhanFa("世仇", ZFType.ZhuiJi_FaShu, 0, 0.6f, 2.33f, 4, new Person(1));
 	//郭嘉 奇佐鬼谋
 	public static QiZuoGuiMou qizuoguimou = new QiZuoGuiMou("奇佐鬼谋", ZFType.ZhuDong_JiaShuXing_KongZhi, 0, 0.35f, 0.22f,1,2, 5, new Person(2));
@@ -46,7 +46,7 @@ public abstract class ZList {
 	// 声东击西
 	public static ZhanFa shengdongjixi = new ZhanFa("声东击西",ZFType.ZhuDong_FaShu,1, 0.5f, 2.31f, 5,new Person(1, 2));
 	// 楚歌四起 与速度相关
-	public static MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa("楚歌四起",ZFType.ZhuDong_FaShu,1, 2, 0.5f, 1.27f, 5,new Person(2, 3));
+	public static MaiLeiZhanFa chugesiqi = new MaiLeiZhanFa("楚歌四起",ZFType.ZhuDong_FaShu_KeepHuiHe,1, 2, 0.5f, 1.27f, 5,new Person(2, 3));
 	//神兵天降
 	public static JiaShangZhanFa shenbingtianjiang = new JiaShangZhanFa("神兵天降",ZFType.ZhiHui_FuZhu_ALL,0,1,0.3f,4,new Person(2),3);
 	// 大赏三军

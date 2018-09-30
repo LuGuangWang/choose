@@ -58,8 +58,6 @@ public class CalcDoRate {
 				//刷新战法只对本武将生效
 				if(huihe.getWj().getPosition() == zhanfa.getPosition()){
 					rate = 1;
-				}else {
-					rate = 1 - zhanfa.getDoneRate();
 				}
 			}
 		}
@@ -148,6 +146,7 @@ public class CalcDoRate {
 	public static <T extends ZhanFa> float getCommRate(HuiHe huihe, T zhanfa) {
 		float rate = getSameRate(huihe, zhanfa);
 		//埋雷战法
+		//TODO 同类型 同效果战法才不能叠加
 		if(zhanfa instanceof MaiLeiZhanFa) {
 			rate = 0;
 			MaiLeiZhanFa mz = (MaiLeiZhanFa) zhanfa;
@@ -155,10 +154,6 @@ public class CalcDoRate {
 			if(huihe.getId() == ready) {
 				float tr = mz.getSpeed()/Conf.base_speed;
 				rate = tr>1 ?1:tr;
-			//TODO 同类型 同效果战法才不能叠加
-			//可能已发动过战法 存在同等或更高程度,不会叠加战法
-			}else if(huihe.getId()> ready) {
-				rate = 1 - zhanfa.getDoneRate();
 			}
 		}
 		//免疫控制
@@ -183,10 +178,29 @@ public class CalcDoRate {
 		if(huihe.getId() > zhanfa.getReady()) {
 			rate = 1;
 		} 
+		//可能已发动过战法 存在同等或更高程度,不会叠加战法
 		if(CheckUtil.isKongZhiKeep(zhanfa)) {
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId()> ready) {
-				rate = 1.0f - zhanfa.getDoneRate();
+				int wjCount = huihe.getWujiangCount();
+				int psize = zhanfa.getPersons().getPersons().length;
+				float thiR = 0.0f;
+				for(int p:zhanfa.getPersons().getPersons()) {
+					int live = (wjCount-Math.min(p,wjCount));
+					live = live>0?live:0;
+					//同样两个人的概率
+					switch(live) {
+					case 2:
+						thiR += 1.0f/3.0f/psize * zhanfa.getDoneRate();
+						break;
+					case 1:
+						thiR += 1.0f/6.0f/psize * zhanfa.getDoneRate();
+						break;
+					default:
+						thiR += 1.0f/psize * zhanfa.getDoneRate();
+					}
+				}
+				rate = (1 - thiR)>0?1 - thiR:0.0f;
 			}
 		}
 		//持续多少回合后

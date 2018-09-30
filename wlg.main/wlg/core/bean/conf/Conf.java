@@ -28,7 +28,7 @@ public abstract class Conf {
 	//回合初始兵力基数
 	public static final float binglijishu = 4.0f;
 	//暴走造成敌军伤害的概率
-	public static final float baozou_rate = 0.7f;
+	public static final float baozou_rate = 0.8f;
 	//暴走伤害基数
 	public static final float jiashanghai = SunShiCount * baozou_rate * 4.0f;
 	//法术不被控制的概率
@@ -41,6 +41,9 @@ public abstract class Conf {
 	public static final float shuxing_suoxiao = 1000.0f;
 	//属性值缩小倍数
 	public static final float shuxing_val_suoxiao = 10.0f;
+	//每回合兵力恢复基数
+	public static final float bingli_huifu = 400.0f;
+	
 	
 	public static final int daying = 1;
 	public static final int zhongjun = 2;

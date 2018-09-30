@@ -613,6 +613,10 @@ public class CalcHarm {
 				float baozouVal = rate * zf.getDoneRate() * Conf.jiashanghai * ConflictList.$().baozouChongTuRate();
 				harmval += baozouVal;
 				Conf.log("===战法 " + zf.getName() + " 暴走杀伤力：" + baozouVal);
+			}if(CheckUtil.isKongZhiHuiFu(zf)){
+				float bukehuifu = rate * zf.getDoneRate() * zf.getPersons().getMaxPerson() * Conf.bingli_huifu;
+				harmval += bukehuifu;
+				Conf.log("===战法 " + zf.getName() + " 不可恢复兵力杀伤力：" + bukehuifu);
 			}
 			//有伤害 才能触发加伤战法
 			if(harmval>0) {

@@ -109,15 +109,15 @@ public class Choose {
 		result.put(sum7, key7);
 		
 		one = WList.luxun.setSecondZhanFa(ZList.shengdongjixi).setThreeZhanFa(ZList.shimianmaifu);
-		two = WList.zhangchunhua.setSecondZhanFa(ZList.yaoshu).setThreeZhanFa(ZList.yaoshu);
+		two = WList.zhangchunhua.setSecondZhanFa(ZList.yaoshu).setThreeZhanFa(ZList.mizhen);
 		three= WList.zhaoyun.setSecondZhanFa(ZList.jijiaozhishi).setThreeZhanFa(ZList.huima);
 		float sum8 = CalcWJHarm.calcVal(one,two,three);
 		String key8 = buildKey(one,two,three);
 		result.put(sum8, key8);
 		
 		one = WList.luxun.setSecondZhanFa(ZList.shengdongjixi).setThreeZhanFa(ZList.shimianmaifu);
-		two = WList.xunyv.setSecondZhanFa(ZList.yaoshu).setThreeZhanFa(ZList.dashangsanjun);
-		three= WList.caocao.setSecondZhanFa(ZList.qingnangmiyao).setThreeZhanFa(ZList.huima);
+		two = WList.xunyv.setSecondZhanFa(ZList.yaoshu).setThreeZhanFa(ZList.jijiaozhishi);
+		three= WList.caocao.setSecondZhanFa(ZList.dashangsanjun).setThreeZhanFa(ZList.huima);
 		float sum9 = CalcWJHarm.calcVal(one,two,three);
 		String key9 = buildKey(one,two,three);
 		result.put(sum9, key9);
@@ -150,9 +150,9 @@ public class Choose {
 		String key13 = buildKey(one,two,three);
 		result.put(sum13, key13);
 		
-		one = WList.luxun.setSecondZhanFa(ZList.shengdongjixi).setThreeZhanFa(ZList.shimianmaifu);
-		two = WList.zhangchunhua.setSecondZhanFa(ZList.mizhen).setThreeZhanFa(ZList.yaoshu);
-		three= WList.caocao.setSecondZhanFa(ZList.dashangsanjun).setThreeZhanFa(ZList.jijiaozhishi);
+		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.shimianmaifu);
+		two = WList.handiaochan.setSecondZhanFa(ZList.shengdongjixi).setThreeZhanFa(ZList.yaoshu);
+		three= WList.caocao.setSecondZhanFa(ZList.xingbingzhiji).setThreeZhanFa(ZList.huima);
 		float sum14 = CalcWJHarm.calcVal(one,two,three);
 		String key14 = buildKey(one,two,three);
 		result.put(sum14, key14);
