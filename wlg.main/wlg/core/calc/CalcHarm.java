@@ -20,6 +20,7 @@ import wlg.core.bean.zhanfa.GongJiZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
+import wlg.core.bean.zhanfa.MuYiFuMeng;
 import wlg.core.bean.zhanfa.MultipleHarmZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.QiangShiZhanFa;
@@ -77,6 +78,8 @@ public class CalcHarm {
 				unHurtVal = calcZhuiJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}else if(zf.getT().equals(ZFType.ZhuDong_JiaShuXing)) {
 				unHurtVal = calcJianShuXing(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+			}else if(zf.getT().equals(ZFType.ZhiHui_GuiBi_JianShang )) {
+				unHurtVal = calcMuYiFuMeng(huihe,calcPrimy,kongzhiMap,zf,allZfs);
 			}
 			
 			sum += unHurtVal;
@@ -96,6 +99,41 @@ public class CalcHarm {
 		return sum;
 	}
 	
+	private static float calcMuYiFuMeng(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
+			ZhanFa... allZfs) {
+		MuYiFuMeng b = (MuYiFuMeng)zf;
+		float unHurtVal = 0.0f;
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		//每个人数的随机概率
+		float evrate = 1.0f/b.getPersons().getPersons().length;
+		for(int p:b.getPersons().getPersons()) {
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
+			if(distance<=0) {
+				continue;
+			} else {
+				p = Math.min(p, distance);
+			}
+			float unHurt = evrate * p/1.0f/huihe.getWujiangCount();
+			unHurt = unHurt>1 ? rate:rate*unHurt;
+			//控制主的概率
+			float kongzhiVal = unHurt * b.getDoneRate() * b.getJiangshangRate();
+			float tmp = 0.0f;
+			if(huihe.getId()==1) {
+				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getGuiBi(0.5f,kongzhiVal * b.getJianshangVal()),calcPrimy,allZfs);
+			} else {
+				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getAllFeng(kongzhiVal * b.getJianshangVal()),calcPrimy,allZfs);
+			}
+			kongzhiMap.put(b.getName(), kongzhiVal);
+			unHurtVal += tmp;
+		}
+		return unHurtVal;
+	}
+
 	private static float calcJianShuXing(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
 			ZhanFa... allZfs) {
 		float unHurtVal = 0.0f;
@@ -217,8 +255,10 @@ public class CalcHarm {
 		//控制主的概率
 		float kongzhiVal = unHurt * b.getDoneRate() * b.getSpeedVal();
 		//始计 0.5概率生效在战法上
-		float fengAll = kongzhiVal * 0.5f * b.getDownVal();
-		
+		float fengAll = 0.0f;
+		if(!ConflictList.$().isCelueJianShangchongtu()) {
+			fengAll = kongzhiVal * 0.5f * b.getDownVal();
+		}
 		float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getAllFeng(fengAll),calcPrimy,allZfs);
 		kongzhiMap.put(b.getName(), kongzhiVal);
 		unHurtVal += tmp;

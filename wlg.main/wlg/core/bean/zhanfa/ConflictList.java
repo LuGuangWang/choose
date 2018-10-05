@@ -18,10 +18,19 @@ public class ConflictList {
 	private final String zhihui_konghuang_chongtu = "匠心不竭|帝临回光";
 	private Set<String> zhihui_konghuang_list = new HashSet<>();
 	
-	
+	private final String celue_jiangshang_chongtu = "始计|母仪浮梦";
+	private Set<String> celue_jiangshang_list = new HashSet<>();
 	
 	public static ConflictList $() {
 		return instance;
+	}
+	
+	public boolean isCelueJianShangchongtu() {
+		boolean chongtu = false;
+		if(chongtu = celue_jiangshang_list.size()>1) {
+			Conf.log("=========战法冲突：" + listToString(celue_jiangshang_list));
+		}
+		return chongtu;
 	}
 	
 	public boolean isCeluechongtu() {
@@ -58,6 +67,9 @@ public class ConflictList {
 		}
 		if(zhihui_konghuang_chongtu.contains(zf.getName())) {
 			zhihui_konghuang_list.add(zf.getName());
+		}
+		if(celue_jiangshang_chongtu.contains(zf.getName())) {
+			celue_jiangshang_list.add(zf.getName());
 		}
 	}
 

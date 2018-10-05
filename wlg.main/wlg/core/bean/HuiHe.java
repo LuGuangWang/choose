@@ -54,7 +54,9 @@ public class HuiHe implements Cloneable{
 	//被封攻击的人数
 	private int fengGJP = 0;
 	//控制是否是 数值计算
-	private boolean isShuZhi = false;
+	private boolean isShuZhi = false;	
+	//规避伤害
+	private float guibiVal = 0.0f;
 	//行兵之极是否生效
 	private boolean isxingbing = false;
 	//行兵之极 大营加战法发动概率
@@ -68,6 +70,17 @@ public class HuiHe implements Cloneable{
 	public HuiHe getAllFeng(float jsRate) {
 		HuiHe huihe = this.clone();
 		huihe.fengAll = jsRate;
+		huihe.fengZhanfa = 0.0f;
+		huihe.fengGongji = 0.0f;
+		return huihe;
+	}
+	
+	//规避伤害
+	public HuiHe getGuiBi(float guibiVal,float kongzhiALl) {
+		HuiHe huihe = this.clone();
+		huihe.guibiVal = guibiVal;
+		huihe.fengAll = kongzhiALl;
+		
 		huihe.fengZhanfa = 0.0f;
 		huihe.fengGongji = 0.0f;
 		return huihe;
@@ -281,7 +294,7 @@ public class HuiHe implements Cloneable{
 	 */
 	public float getSolderRate(ZhanFa zf) {
 		//设置每回合的兵力损失
-		getSunShi(zf,wj.getPosition(),wj.getDefense(),wj.getFinalp());
+		getSunShi(zf,wj.getPosition(),wj.getDefense(),wj.getStrategy(),wj.getFinalp());
 		return Conf.binglijishu/id;
 	}
 	/**
@@ -291,7 +304,7 @@ public class HuiHe implements Cloneable{
 	 * @param finalP 武将原始位置
 	 * @return
 	 */
-	private float getSunShi(ZhanFa zf,int position, float defenseVal,int finalP) {
+	private float getSunShi(ZhanFa zf,float position, float defenseVal,float strategy,int finalP) {
 		float sunShi = 0.0f;
 		if(fengAll!=0) {
 			float sunshi = 0.0f;
@@ -328,7 +341,7 @@ public class HuiHe implements Cloneable{
 		}
 		//法术伤害
 		if(fengAll==0 && fengZhanfa ==0) {
-			float fashuVal = Conf.SunShiCount * Conf.sf_s_rate;
+			float fashuVal = Conf.SunShiCount * Conf.sf_s_rate - Conf.fashu_rate * strategy;
 			fashuVal = fashuVal>0?fashuVal:0;
 			Conf.log("=====敌军法术攻击造成的士兵损失值：" + fashuVal);
 			sunShi += fashuVal;
@@ -349,6 +362,11 @@ public class HuiHe implements Cloneable{
 		//行兵之极 前锋
 		if(this.isxingbing && finalP==Conf.qianfeng) {
 			sunShi *= (1.0f - this.getQianfengUpVal());
+		}
+		//规避伤害
+		if(this.guibiVal>0.0f) {
+			position -= this.guibiVal;
+			position = position>0?position:0;
 		}
 		sunShi *= position;
 		//按受到最小伤害进行更新

@@ -11,6 +11,7 @@ import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.MaiLeiZhanFa;
+import wlg.core.bean.zhanfa.MuYiFuMeng;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanBiZhanFa;
@@ -86,8 +87,7 @@ public class CalcDoRate {
 			if(huihe.getId() > ready) {
 				rate = 1.0f;
 			}
-		}
-		if(zhanfa.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
+		}else if(zhanfa.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
 			boolean isXYDY = isXianYuDaying(huihe.getWujiangs());
 			int keephuihe = ((ShiJiZhanFa)zhanfa).getKeephuihe();
 			rate = 0.0f;
@@ -99,6 +99,11 @@ public class CalcDoRate {
 				if(huihe.getId() >= 2 && huihe.getId() <= (keephuihe+1)) {
 					rate = 1.0f;
 				}
+			}
+		}else if(zhanfa.getT().equals(ZFType.ZhiHui_GuiBi_JianShang)) {
+			int keephuihe = ((MuYiFuMeng)zhanfa).getKeephuihe();
+			if(huihe.getId()>keephuihe) {
+				rate = 0.0f;
 			}
 		}
 		//免疫控制
@@ -211,25 +216,22 @@ public class CalcDoRate {
 				t.setHarmRate(0.0f);//会影响增益战法的计算
 				rate = 0;
 			}
-		}
 		//战斗开始后前多少回合
-		if(zhanfa.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
+		}else if(zhanfa.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
 			FanJiZhiCeZhanFa t = (FanJiZhiCeZhanFa)zhanfa;
 			if(huihe.getId()>t.getKeephuihe()) {
 				t.setHarmRate(0.0f);//会影响增益战法的计算
 				rate = 0;
 			}
-		}
 		//战斗开始后前多少回合
-		if(zhanfa.getT().equals(ZFType.ZhiHui_FuZhu_ALL)) {
+		}else if(zhanfa.getT().equals(ZFType.ZhiHui_FuZhu_ALL)) {
 			JiaShangZhanFa t = (JiaShangZhanFa)zhanfa;
 			if(huihe.getId()>t.getKeephuihe()) {
 				t.setHarmRate(0.0f);//会影响增益战法的计算
 				rate = 0;
 			}
-		}
 		//战斗开始后前多少回合
-		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi)) {
+		}else if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi)) {
 			ZhanBiZhanFa t = (ZhanBiZhanFa)zhanfa;
 			if(huihe.getId()>t.getKeephuihe()) {
 				t.setHarmRate(0.0f);//会影响增益战法的计算
