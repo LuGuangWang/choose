@@ -12,6 +12,7 @@ public enum ZFType {
 	ZhuDong_FaShu_KeepHuiHe,//主动类 法术伤害 持续回合
 	ZhuDong_FaShu_JianShang,//主动类 法术伤害 减伤
 	ZhuDong_JiaGongJi_LianJi,//主动类 加攻击 然后连击
+	ZhuDong_FaShu_jianGongJi,//主动类 法术伤害 降低攻击属性
 	ZhuDong_BaoZou_jianFangYu,//主动类 暴走 降低防御属性
 	ZhuDong_JiaShuXing_KongZhi,//主动类 加属性点 控制战法
 	ZhuDong_FaShu_KongZhiHuiFu,//主动类 法术伤害 控制恢复

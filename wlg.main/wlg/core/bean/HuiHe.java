@@ -70,6 +70,9 @@ public class HuiHe implements Cloneable{
 	public HuiHe getAllFeng(float jsRate) {
 		HuiHe huihe = this.clone();
 		huihe.fengAll = jsRate;
+		
+		huihe.fengGJP = 0;
+		huihe.isShuZhi = false;
 		huihe.fengZhanfa = 0.0f;
 		huihe.fengGongji = 0.0f;
 		return huihe;
@@ -81,6 +84,8 @@ public class HuiHe implements Cloneable{
 		huihe.guibiVal = guibiVal;
 		huihe.fengAll = kongzhiALl;
 		
+		huihe.fengGJP = 0;
+		huihe.isShuZhi = false;
 		huihe.fengZhanfa = 0.0f;
 		huihe.fengGongji = 0.0f;
 		return huihe;
@@ -92,6 +97,7 @@ public class HuiHe implements Cloneable{
 		huihe.fengAll = fengVal;
 		huihe.isShuZhi = isShuZhi;
 		
+		huihe.fengGJP = 0;
 		huihe.fengZhanfa = 0.0f;
 		huihe.fengGongji = 0.0f;
 		return huihe;
@@ -102,15 +108,31 @@ public class HuiHe implements Cloneable{
 		HuiHe huihe = this.clone();
 		huihe.fengZhanfa = fashuRate;
 		huihe.fengGongji = gongjiRate;
+		
+		huihe.fengGJP = 0;
+		huihe.isShuZhi = false;
 		huihe.fengAll = 0.0f;
 		return huihe;
 	}
+	//封攻击 概率和人数
+	public HuiHe getFengGongji(float jsRate,boolean isShuZhi) {
+		HuiHe huihe = this.clone();
+		huihe.fengGongji = jsRate;
+		huihe.isShuZhi = isShuZhi;
+		
+		huihe.fengGJP = 0;
+		huihe.fengAll = 0.0f;
+		huihe.fengZhanfa = 0.0f;
+		return huihe;
+	}
+	
 	//封攻击 概率和人数
 	public HuiHe getFengGongji(float jsRate,int fengGJP) {
 		HuiHe huihe = this.clone();
 		huihe.fengGongji = jsRate;
 		huihe.fengGJP = fengGJP;
 		
+		huihe.isShuZhi = false;
 		huihe.fengAll = 0.0f;
 		huihe.fengZhanfa = 0.0f;
 		return huihe;
@@ -119,6 +141,9 @@ public class HuiHe implements Cloneable{
 	public HuiHe getFengZhanfa(float jsRate) {
 		HuiHe huihe = this.clone();
 		huihe.fengZhanfa = jsRate;
+		
+		huihe.fengGJP = 0;
+		huihe.isShuZhi = false;
 		huihe.fengAll = 0.0f;
 		huihe.fengGongji = 0.0f;
 		return huihe;
@@ -326,7 +351,12 @@ public class HuiHe implements Cloneable{
 		} 
 
 		if(fengGongji !=0) {
-			float sunshi = (Conf.SunShiCount - Conf.SunShiCount * fengGongji) * Conf.gj_s_rate;
+			float sunshi = 0.0f;
+			if(isShuZhi) {
+				sunshi = Conf.SunShiCount * Conf.gj_s_rate - Conf.gongji_rate * fengGongji;
+			}else {
+				sunshi = (Conf.SunShiCount - Conf.SunShiCount * fengGongji) * Conf.gj_s_rate;
+			}
 			sunshi = sunshi>0?sunshi:0;
 			Conf.log("===控制攻击减伤值：" + fengGongji + " 士兵损失值：" + sunshi);
 			sunShi += sunshi;

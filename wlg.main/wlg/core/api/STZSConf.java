@@ -32,6 +32,7 @@ public abstract class STZSConf {
 			put(ZList.dunbingcuorui.getName(),ZList.dunbingcuorui);
 			put(ZList.xingbingzhiji.getName(),ZList.xingbingzhiji);
 			put(ZList.yanfenjizhen.getName(),ZList.yanfenjizhen);
+			put(ZList.shuiyanqijun.getName(),ZList.shuiyanqijun);
 		}
 	};
 	//武将  不要忘记 reset方法

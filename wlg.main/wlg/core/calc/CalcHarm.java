@@ -25,6 +25,7 @@ import wlg.core.bean.zhanfa.MultipleHarmZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.QiangShiZhanFa;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
+import wlg.core.bean.zhanfa.ShuiYanQiJun;
 import wlg.core.bean.zhanfa.UpVal;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanBiZhanFa;
@@ -80,6 +81,8 @@ public class CalcHarm {
 				unHurtVal = calcJianShuXing(huihe, calcPrimy, kongzhiMap, zf,allZfs);
 			}else if(zf.getT().equals(ZFType.ZhiHui_GuiBi_JianShang )) {
 				unHurtVal = calcMuYiFuMeng(huihe,calcPrimy,kongzhiMap,zf,allZfs);
+			}else if(zf.getT().equals(ZFType.ZhuDong_FaShu_jianGongJi)) {
+				unHurtVal = calcJianGongJi(huihe,calcPrimy,kongzhiMap,zf,allZfs);
 			}
 			
 			sum += unHurtVal;
@@ -99,6 +102,38 @@ public class CalcHarm {
 		return sum;
 	}
 	
+	private static float calcJianGongJi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
+			ZhanFa... allZfs) {
+		ShuiYanQiJun b = (ShuiYanQiJun)zf;
+		float unHurtVal = 0.0f;
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		//每个人数的随机概率
+		float evrate = 1.0f/b.getPersons().getPersons().length;
+		for(int p:b.getPersons().getPersons()) {
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
+			if(distance<=0) {
+				continue;
+			} else {
+				p = Math.min(p, distance);
+			}
+			float unHurt = evrate * p/1.0f/huihe.getWujiangCount();
+			unHurt = unHurt>1 ? rate:rate*unHurt;
+			//控制主的概率
+			float kongzhiVal = unHurt * b.getDoneRate();
+			//受谋略属性影响
+			float fengVal = b.getJianGongJiVal() + Math.round(1.0f * b.getStrategy() / Conf.shuxing_val_suoxiao);
+			float tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(fengVal, true),calcPrimy,allZfs);
+			kongzhiMap.put(b.getName(), kongzhiVal);
+			unHurtVal += tmp;
+		}
+		return unHurtVal;
+	}
+
 	private static float calcMuYiFuMeng(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
 			ZhanFa... allZfs) {
 		MuYiFuMeng b = (MuYiFuMeng)zf;

@@ -112,6 +112,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case ZhiHui_KongZhiGongJi:
 		case ZhuDong_FaShu_JianShang:
+		case ZhuDong_FaShu_jianGongJi:
 		case ZhuiJi_GongJi_KongZhiGongJi:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
@@ -169,6 +170,7 @@ public class CheckUtil {
 		case ZhiHui_Multiple_FaShu:
 		case ZhuDong_FaShu_JianShang:
 		case ZhuDong_FaShu_KeepHuiHe:
+		case ZhuDong_FaShu_jianGongJi:
 		case ZhuDong_FaShu_KongZhiHuiFu:
 		case ZhiHui_JiaJuLi_FenBing_KongHuang:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
@@ -223,6 +225,7 @@ public class CheckUtil {
 		case ZhuDong_BaoZou:
 		case ZhuDong_KongZhi_ALL:
 		case ZhuDong_FaShu_KeepHuiHe:
+		case ZhuDong_FaShu_jianGongJi:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_JianShang_KongZhiFaShu:
@@ -390,6 +393,7 @@ public class CheckUtil {
 		boolean isAllCalc = isJiaShang(zf);
 		return isAllCalc;
 	}
+	
 	public static boolean isDownFangYu(ZhanFa zf) {
 		boolean isDownFangYu = false;
 		switch (zf.getT()) {
@@ -401,6 +405,19 @@ public class CheckUtil {
 			break;
 		}
 		return isDownFangYu;
+	}
+	
+	public static boolean isDownGongJi(ZhanFa zf) {
+		boolean isDownGongJi = false;
+		switch (zf.getT()) {
+		case ZhuDong_FaShu_jianGongJi:
+			isDownGongJi = true;
+			break;
+		default:
+			isDownGongJi = false;
+			break;
+		}
+		return isDownGongJi;
 	}
 	
 	public static boolean isMianYiKongZhi(ZhanFa zf) {
@@ -416,6 +433,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu_BaoZou:
 		case ZhuDong_FaShu_JianShang:
 		case ZhuDong_FaShu_KeepHuiHe:
+		case ZhuDong_FaShu_jianGongJi:
 		case ZhuDong_JiaGongJi_LianJi:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
