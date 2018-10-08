@@ -18,6 +18,11 @@ public interface Harm {
 	 */
 	public float getHarmVal(float harmVal,UpVal upVal) ;
 	/**
+	 * 当前战法伤害
+	 * @return
+	 */
+	public float getHarmVal(float doneRate,float harmVal,UpVal upVal);
+	/**
 	 * 添加属性加成
 	 * @return
 	 */

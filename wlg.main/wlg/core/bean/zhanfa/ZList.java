@@ -81,5 +81,7 @@ public abstract class ZList {
 	public static ZhuiJiZhanFa dunbingcuorui = new ZhuiJiZhanFa("钝兵挫锐", ZFType.ZhuiJi_GongJi_KongZhiGongJi, 0, 0.3f, 2.0f, 5, new Person(1));
 	//S3 形兵之极
 	public static XingBingZhiJi xingbingzhiji = new XingBingZhiJi("形兵之极", ZFType.ZhiHui_DaYing_ZhongJun_QianFeng, 0, 1.0f, 2, new Person(3),0.1f,0.4f,0.5f);
+	//焰焚箕轸
+	public static YanFenJiZhen yanfenjizhen = new YanFenJiZhen("焰焚箕轸", ZFType.ZhuDong_FaShu, 1, 0.5f, 1.19f, 4, new Person(2,3),1.19f);
 	/*****    -------------   拆解战法     end -------------   *****/
 }

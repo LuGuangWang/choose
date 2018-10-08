@@ -222,8 +222,12 @@ public class ZhanFa implements Harm, Cloneable {
 	 * @return
 	 */
 	public float getHarmVal(float harmVal,UpVal upVal) {
+		return getHarmVal(this.doneRate, harmVal, upVal);
+	}
+	
+	public float getHarmVal(float doneRate,float harmVal,UpVal upVal) {
 		float sum = 0.0f;
-		float pval = (this.doneRate + upVal.getDayingUpZFVal()) * harmVal;
+		float pval = (doneRate + upVal.getDayingUpZFVal()) * harmVal;
 		pval = addShuXingVal(pval,upVal);
 		if (persons.getPersons().length > 0) {
 			int len = getPersons().getPersons().length;
