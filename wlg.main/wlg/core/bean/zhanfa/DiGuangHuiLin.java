@@ -2,6 +2,7 @@ package wlg.core.bean.zhanfa;
 
 import wlg.core.bean.conf.Conf;
 import wlg.core.calc.CalCDistance;
+import wlg.core.calc.CalcDoRate;
 
 public class DiGuangHuiLin extends ZhanFa{
 
@@ -36,7 +37,10 @@ public class DiGuangHuiLin extends ZhanFa{
 
 	private float getGongjiVal(UpVal upVal) {
 		float sum = 0.0f;
-		float pval = (Conf.mianyi_gongji + upVal.getDayingUpZFVal()) * secondHarmVal;
+		
+		float mianyiVal = CalcDoRate.calcMianyiVal(this.getSpeed());
+		
+		float pval = (mianyiVal + upVal.getDayingUpZFVal()) * secondHarmVal;
 		pval *= (this.getAttack() + upVal.getAddQuanShuXingVal()) * Conf.gongji_rate;
 		if (secondPerson.getPersons().length > 0) {
 			int len = getPersons().getPersons().length;

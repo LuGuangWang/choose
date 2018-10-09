@@ -422,9 +422,9 @@ public class CalcWJHarm {
 				//TODO 免疫法术的概率
 				float rate = 1 - wj.getSpeed()/Conf.base_speed;
 				rate = rate>0?rate:0;
-				wj.setMianyiFSVal(Conf.mianyi_fashu + rate);
+				wj.setMianyiFSVal(Conf.min_mianyi_fashu + rate);
 				//免疫攻击的概率
-				wj.setMianyiGJVal(Conf.mianyi_gongji + rate);
+				wj.setMianyiGJVal(Conf.min_mianyi_fashu + rate);
 			}
 			//自身可以连击的概率值
 			if(zf.getT().equals(ZFType.BeiDong_LianJi_jiagongji)) {

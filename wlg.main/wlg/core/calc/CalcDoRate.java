@@ -207,4 +207,10 @@ public class CalcDoRate {
 		return rate;
 	}
 	
+	public static float calcMianyiVal(int speed) {
+		float mianyiVal =  speed/Conf.base_speed;
+		mianyiVal = mianyiVal > Conf.max_mianyi_fashu?Conf.max_mianyi_fashu:(mianyiVal<Conf.min_mianyi_fashu?Conf.min_mianyi_fashu:mianyiVal);
+		return mianyiVal;
+	}
+	
 }

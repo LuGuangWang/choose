@@ -9,6 +9,7 @@ import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanFa;
+import wlg.core.calc.CalcDoRate;
 import wlg.core.calc.CalcJiaCheng;
 
 public class WuJiang implements Cloneable{
@@ -27,9 +28,9 @@ public class WuJiang implements Cloneable{
 	//本武将兵力损失值
 	private float sunshiCount = 0.0f;
 	//法术免疫控制的能力值
-	private float mianyiFSVal = Conf.mianyi_fashu;
+	private float mianyiFSVal = Conf.min_mianyi_fashu;
 	//攻击免疫控制的能力值
-	private float mianyiGJVal = Conf.mianyi_gongji;
+	private float mianyiGJVal = Conf.min_mianyi_gongji;
 	//免疫规避的能力值
 	private float mianyiGBVal = Conf.mianyi_guibi;
 	
@@ -146,8 +147,8 @@ public class WuJiang implements Cloneable{
 	}
 	public void resetmianyiVal() {
 		//免疫法术配置
-		float mianyiVal = 1.0f * this.position * this.speed/Conf.base_speed;
-		this.mianyiFSVal = mianyiVal > Conf.mianyi_fashu?Conf.mianyi_fashu:mianyiVal;
+		float mianyiVal = CalcDoRate.calcMianyiVal(this.getSpeed());
+		this.mianyiFSVal = mianyiVal;
 		this.mianyiGJVal = this.mianyiFSVal;
 		
 		this.mianyiGBVal = Conf.mianyi_guibi;
@@ -290,8 +291,8 @@ public class WuJiang implements Cloneable{
 		this.zhanfaMap.put(1, finalZf.clone());
 		this.totalCount = Conf.totalCount;
 		
-		float mianyiVal = 1.0f * this.position * this.speed/Conf.base_speed;
-		this.mianyiFSVal = mianyiVal > Conf.mianyi_fashu?Conf.mianyi_fashu:mianyiVal;
+		float mianyiVal = CalcDoRate.calcMianyiVal(this.getSpeed());
+		this.mianyiFSVal = mianyiVal;
 		this.mianyiGJVal = this.mianyiFSVal;
 		this.mianyiGBVal = Conf.mianyi_guibi;
 		

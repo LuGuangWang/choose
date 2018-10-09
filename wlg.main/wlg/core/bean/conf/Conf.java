@@ -24,7 +24,7 @@ public abstract class Conf {
 	//每回合损失兵力
 	public static final float SunShiCount = 1200.0f;
 	//速度基准值
-	public static final float base_speed = 150.0f;
+	public static final float base_speed = 120.0f;
 	//回合初始兵力基数
 	public static final float binglijishu = 4.0f;
 	//暴走造成敌军伤害的概率
@@ -32,9 +32,13 @@ public abstract class Conf {
 	//暴走伤害基数
 	public static final float jiashanghai = SunShiCount * baozou_rate * 4.0f;
 	//法术不被控制的概率
-	public static final float mianyi_fashu = 0.75f; 
+	public static final float max_mianyi_fashu = 0.8f; 
 	//攻击被控制的概率
-	public static final float mianyi_gongji = 0.75f;
+	public static final float max_mianyi_gongji = 0.8f;
+	//法术不被控制的概率
+	public static final float min_mianyi_fashu = 0.5f; 
+	//攻击被控制的概率
+	public static final float min_mianyi_gongji = 0.5f;
 	//免疫规避的概率
 	public static final float mianyi_guibi = 0.5f;
 	//属性伤害比缩小倍数
