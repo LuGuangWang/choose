@@ -67,9 +67,12 @@ public class HuiHe implements Cloneable{
 	private float zhongjunUpVal;
 	//行兵之极 前锋降低伤害
 	private float qianfengUpVal;
-	//胜兵求战
+	/** 胜兵求战 begin**/
 	private float skipReadyVal = 0.0f;
 	private int skipReadyPos = 0;
+	private float prevZhuDongRate = 0.0f;//上一回合主动战法发动的概率
+	private float shengbingUpVal = 0.0f;
+	/** 胜兵求战 end**/
 	
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
@@ -187,11 +190,26 @@ public class HuiHe implements Cloneable{
 	public void setSkipReadyPos(int skipReadyPos) {
 		this.skipReadyPos = skipReadyPos;
 	}
+	public float getShengbingUpVal() {
+		return shengbingUpVal;
+	}
+	public void setShengbingUpVal(float shengbingUpVal) {
+		this.shengbingUpVal = shengbingUpVal;
+	}
 	public void setDownFangYuVal(float downFangYuVal) {
 		this.downFangYuVal = downFangYuVal;
 	}
 	public void setWj(WuJiang wj) {
 		this.wj = wj;
+	}
+	public float getPrevZhuDongRate() {
+		return prevZhuDongRate;
+	}
+	public void setPrevZhuDongRate(float prevZhuDongRate) {
+		this.prevZhuDongRate = prevZhuDongRate;
+	}
+	public void addPrevZhuDongRate(float prevZhuDongRate) {
+		this.prevZhuDongRate += prevZhuDongRate;
 	}
 	public float getSkipReadyVal() {
 		return skipReadyVal;

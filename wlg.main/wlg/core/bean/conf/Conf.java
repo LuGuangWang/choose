@@ -54,7 +54,7 @@ public abstract class Conf {
 	public static final int qianfeng = 3;
 	
 	//是否打印日志
-	public static final boolean log = true;
+	public static final boolean log = false;
 	
 	public static boolean getCalcPG() {
 		return Calc_PuGong;

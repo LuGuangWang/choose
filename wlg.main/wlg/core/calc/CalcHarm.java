@@ -633,6 +633,10 @@ public class CalcHarm {
 					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
 				}
 			}
+			//胜兵求战
+			if(huihe.getShengbingUpVal()>0 && zf.getPosition()==huihe.getSkipReadyPos()) {
+				shuaxinVal += huihe.getShengbingUpVal() * 0.15f * huihe.getPrevZhuDongRate();
+			}
 			
 			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
@@ -715,6 +719,10 @@ public class CalcHarm {
 			Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
 			sum += harmval;
 			
+			//胜兵求战 计算上一回合主动战法发动概率
+			if(zf.getPosition()!=huihe.getSkipReadyPos() && zf.isZhuDong()) {
+				huihe.addPrevZhuDongRate(zf.getDoneRate()*rate);
+			}
 		}
 		
 		//计算加伤战法  TODO 以后不要使用这种写法

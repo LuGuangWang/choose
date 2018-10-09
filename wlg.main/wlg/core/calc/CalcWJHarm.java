@@ -457,7 +457,11 @@ public class CalcWJHarm {
 			//行兵之极
 			if(huihe.isIsxingbing() && zf.getT().equals(ZFType.ZhiHui_DaYing_ZhongJun_QianFeng)) {
 				XingBingZhiJi xb = (XingBingZhiJi)zf;
-				huihe.setDayingUpZFVal(xb.getDayingGaiLv());
+				if(ConflictList.$().isCeluechongtu()) {
+					huihe.setDayingUpZFVal(xb.getDayingGaiLv() / 3.0f);
+				}else {
+					huihe.setDayingUpZFVal(xb.getDayingGaiLv());
+				}
 				huihe.setZhongjunUpVal(xb.getZhongjunJiaShang());
 				huihe.setQianfengUpVal(xb.getQianfengJianShang());
 			}
@@ -467,8 +471,14 @@ public class CalcWJHarm {
 			}
 			//胜兵求战
 			if(zf.getT().equals(ZFType.ZhiHui_SkipReady_Jiashang)) {
-				huihe.setSkipReadyVal(((ShengBingQiuZhan)zf).getSkipRate());
+				ShengBingQiuZhan sbqz = (ShengBingQiuZhan)zf;
+				huihe.setSkipReadyVal(sbqz.getSkipRate());
 				huihe.setSkipReadyPos(wj.getPosition());
+				if(ConflictList.$().isCeluechongtu()) {
+					huihe.setShengbingUpVal(sbqz.getAddShangHai()/3.0f);
+				}else {
+					huihe.setShengbingUpVal(sbqz.getAddShangHai());
+				}
 			}
 			if(CheckUtil.isLianJi(zf)) {
 				if(zf.getT().equals(ZFType.ZhuDong_JiaGongJi_LianJi)) {
@@ -528,6 +538,9 @@ public class CalcWJHarm {
 				//受谋略影响
 				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
 				float newVal = ((ShiJiZhanFa)zf).getUpVal() + val;
+				if(ConflictList.$().isCeluechongtu()) {
+					newVal /= 3.0f;
+				}
 				if (newVal > oldVal) {
 					huihe.setUpFaShaShangHaiVal(newVal);
 					Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
@@ -553,6 +566,7 @@ public class CalcWJHarm {
 		huihe.setUpFaShaShangHaiVal(0.0f);
 		huihe.setUpQuanShuXing(0.0f);
 		huihe.setDayingUpZFVal(0.0f);
+		huihe.setShengbingUpVal(0.0f);
 		huihe.setZhongjunUpVal(0.0f);
 		huihe.setQianfengUpVal(0.0f);
 	}

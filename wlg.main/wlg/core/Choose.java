@@ -32,8 +32,8 @@ public class Choose {
 	 */
 	public Map<Float, String> calcWuJiangsVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-//		WuJiang one,two,three;
-//		
+		WuJiang one,two,three;
+		
 //		one = WList.luxun.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		

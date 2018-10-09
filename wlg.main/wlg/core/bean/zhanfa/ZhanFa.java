@@ -246,6 +246,11 @@ public class ZhanFa implements Harm, Cloneable {
 		return sum;
 	}
 	
+	public boolean isZhuDong() {
+		String zfType = this.t.toString().toLowerCase();
+		return zfType.startsWith("zhudong_");
+	}
+	
 	/**
 	 * 不同属性的攻击
 	 * @param val
