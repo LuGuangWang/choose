@@ -633,10 +633,6 @@ public class CalcHarm {
 					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
 				}
 			}
-			//胜兵求战
-			if(huihe.getShengbingUpVal()>0 && zf.getPosition()==huihe.getSkipReadyPos()) {
-				shuaxinVal += huihe.getShengbingUpVal() * 0.15f * huihe.getPrevZhuDongRate();
-			}
 			
 			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
@@ -682,8 +678,8 @@ public class CalcHarm {
 			}
 			
 			float rate = CalcDoRate.getCommRate(huihe, zf);
-			//TODO 考虑被控制效果  规避效果 不可恢复
 			
+			//TODO 考虑被控制效果  规避效果 不可恢复
 			float shibingVal = huihe.getSolderRate(zf);
 			//属性加成值
 			UpVal upVal = buildUpVal(huihe,zf);
@@ -709,6 +705,10 @@ public class CalcHarm {
 				if(huihe.isIsxingbing() && huihe.getWj().getFinalp()==Conf.zhongjun && executeJss==1) {
 					harmval *= (1.0f + huihe.getZhongjunUpVal());
 				}
+				//胜兵求战 首次加伤害
+				if(huihe.getShengbingUpVal()>0 && zf.getPosition()==huihe.getSkipReadyPos() && executeJss==1) {
+					harmval *= (huihe.getShengbingUpVal() * 0.5f + 1.0f);
+				}
 				//降低防御属性增加的伤害值
 				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
 				//免疫规避
@@ -718,11 +718,6 @@ public class CalcHarm {
 			}
 			Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
 			sum += harmval;
-			
-			//胜兵求战 计算上一回合主动战法发动概率
-			if(zf.getPosition()!=huihe.getSkipReadyPos() && zf.isZhuDong()) {
-				huihe.addPrevZhuDongRate(zf.getDoneRate()*rate);
-			}
 		}
 		
 		//计算加伤战法  TODO 以后不要使用这种写法

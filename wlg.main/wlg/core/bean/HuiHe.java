@@ -70,6 +70,7 @@ public class HuiHe implements Cloneable{
 	/** 胜兵求战 begin**/
 	private float skipReadyVal = 0.0f;
 	private int skipReadyPos = 0;
+	//TODO 胜兵求战的上一回合
 	private float prevZhuDongRate = 0.0f;//上一回合主动战法发动的概率
 	private float shengbingUpVal = 0.0f;
 	/** 胜兵求战 end**/

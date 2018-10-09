@@ -142,6 +142,10 @@ public class CalcWJHarm {
 							gongjiVal *= (1.0f + huihe.getZhongjunUpVal());
 							huihe.setZhongjunUpVal(0.0f);
 						}
+						//胜兵求战 计算上一回合主动战法发动概率
+						if(wj.getPosition()==huihe.getSkipReadyPos()) {
+							gongjiVal *=  (huihe.getShengbingUpVal() * 0.5f + 1.0f);
+						}
 						//闭月 黄天余音 降低敌军防御属性
 						float biyueVal = huihe.getDownFangYuVal() * Conf.fg_rate;
 						float huantianVal = upRate * Conf.fg_rate;
