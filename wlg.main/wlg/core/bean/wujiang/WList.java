@@ -36,6 +36,8 @@ public class WList {
 	public static WuJiang wangyi = new WuJiang("王异", WZType.wei, WBType.gong, 53, 52, 88, 90, 4, ZList.shichou);
 	//郭嘉
 	public static WuJiang guojia = new WuJiang("郭嘉", WZType.wei, WBType.qi, 78, 87, 40, 100, 2, ZList.qizuoguimou);
+	//小郭嘉
+	public static WuJiang xiaoguojia = new WuJiang("小郭嘉", WZType.wei, WBType.qi, 85, 65, 50, 100, 3, ZList.guimou);
 	
 	/******     汉       *******/
 	//貂蝉

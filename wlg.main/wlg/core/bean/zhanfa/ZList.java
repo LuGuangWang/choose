@@ -30,7 +30,9 @@ public abstract class ZList {
 	//王异 世仇 
 	public static ZhanFa shichou = new ZhanFa("世仇", ZFType.ZhuiJi_FaShu, 0, 0.6f, 2.33f, 4, new Person(1));
 	//郭嘉 奇佐鬼谋
-	public static QiZuoGuiMou qizuoguimou = new QiZuoGuiMou("奇佐鬼谋", ZFType.ZhuDong_JiaShuXing_KongZhi, 0, 0.35f, 0.22f,1,2, 5, new Person(2));
+	public static QiZuoGuiMou qizuoguimou = new QiZuoGuiMou("奇佐鬼谋", ZFType.ZhuDong_JiaShuXing_KongZhi, 0, 0.35f, 0.22f,2, 5, new Person(2));
+	//小郭嘉 鬼谋
+	public static QiZuoGuiMou guimou = new QiZuoGuiMou("鬼谋", ZFType.ZhuDong_Multiple_KongZhi, 0, 0.35f, 3, 5, new Person(1),0.4f);
 	//汉貂蝉 闭月
 	public static BiYueZhanFa biyue = new BiYueZhanFa("闭月", ZFType.ZhuDong_BaoZou_jianFangYu, 1, 0.35f, 29.0f, 4, new Person(2),3);
 	//马云禄 红颜铁骑

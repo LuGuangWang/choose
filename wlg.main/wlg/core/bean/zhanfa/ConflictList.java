@@ -9,19 +9,19 @@ public class ConflictList {
 	private final static ConflictList instance = new ConflictList();
 	private ConflictList() {}
 	
-	private final String celue_chongtu = "不攻|大赏三军|始计";
+	private final String celue_chongtu = "|不攻|大赏三军|始计|";
 	private Set<String> celue_list = new HashSet<>();
 	
-	private final String baozou_chongtu = "妖术|奇佐鬼谋|闭月|迷阵";
+	private final String baozou_chongtu = "|妖术|奇佐鬼谋|闭月|迷阵|鬼谋|";
 	private Set<String> baozou_list = new HashSet<>();
 	
-	private final String zhihui_konghuang_chongtu = "匠心不竭|帝临回光";
+	private final String zhihui_konghuang_chongtu = "|匠心不竭|帝临回光|";
 	private Set<String> zhihui_konghuang_list = new HashSet<>();
 	
-	private final String celue_jiangshang_chongtu = "始计|母仪浮梦";
+	private final String celue_jiangshang_chongtu = "|始计|母仪浮梦|";
 	private Set<String> celue_jiangshang_list = new HashSet<>();
 	
-	private final String huogong_chongtu = "焰焚箕轸|火势风威";
+	private final String huogong_chongtu = "|焰焚箕轸|火势风威|";
 	private Set<String> huogong_list = new HashSet<>();
 	
 	public static ConflictList $() {
@@ -71,19 +71,20 @@ public class ConflictList {
 	}
 	
 	public void checkChongTu(ZhanFa zf) {
-		if(celue_chongtu.contains(zf.getName())) {
+		String zfName = "|"+zf.getName()+"|";
+		if(celue_chongtu.contains(zfName)) {
 			celue_list.add(zf.getName());
 		}
-		if(baozou_chongtu.contains(zf.getName())) {
+		if(baozou_chongtu.contains(zfName)) {
 			baozou_list.add(zf.getName());
 		}
-		if(zhihui_konghuang_chongtu.contains(zf.getName())) {
+		if(zhihui_konghuang_chongtu.contains(zfName)) {
 			zhihui_konghuang_list.add(zf.getName());
 		}
-		if(celue_jiangshang_chongtu.contains(zf.getName())) {
+		if(celue_jiangshang_chongtu.contains(zfName)) {
 			celue_jiangshang_list.add(zf.getName());
 		}
-		if(huogong_chongtu.contains(zf.getName())) {
+		if(huogong_chongtu.contains(zfName)) {
 			huogong_list.add(zf.getName());
 		}
 	}
