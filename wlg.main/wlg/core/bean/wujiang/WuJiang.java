@@ -145,8 +145,11 @@ public class WuJiang implements Cloneable{
 		this.sunshiCount = 0.0f;
 	}
 	public void resetmianyiVal() {
-		this.mianyiFSVal = Conf.mianyi_fashu;
-		this.mianyiGJVal = Conf.mianyi_gongji;
+		//免疫法术配置
+		float mianyiVal = 1.0f * this.position * this.speed/Conf.base_speed;
+		this.mianyiFSVal = mianyiVal > Conf.mianyi_fashu?Conf.mianyi_fashu:mianyiVal;
+		this.mianyiGJVal = this.mianyiFSVal;
+		
 		this.mianyiGBVal = Conf.mianyi_guibi;
 	}
 	public int getDefense() {
@@ -286,9 +289,12 @@ public class WuJiang implements Cloneable{
 		this.zhanfaMap.clear();
 		this.zhanfaMap.put(1, finalZf.clone());
 		this.totalCount = Conf.totalCount;
-		this.mianyiFSVal = Conf.mianyi_fashu;
-		this.mianyiGJVal = Conf.mianyi_gongji;
+		
+		float mianyiVal = 1.0f * this.position * this.speed/Conf.base_speed;
+		this.mianyiFSVal = mianyiVal > Conf.mianyi_fashu?Conf.mianyi_fashu:mianyiVal;
+		this.mianyiGJVal = this.mianyiFSVal;
 		this.mianyiGBVal = Conf.mianyi_guibi;
+		
 		this.sunshiCount = 0.0f;
 		this.zishenlianjiVal = 0.0f;
 		return this;

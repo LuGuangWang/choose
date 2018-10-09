@@ -32,9 +32,9 @@ public abstract class Conf {
 	//暴走伤害基数
 	public static final float jiashanghai = SunShiCount * baozou_rate * 4.0f;
 	//法术不被控制的概率
-	public static final float mianyi_fashu = 0.5f; 
+	public static final float mianyi_fashu = 0.75f; 
 	//攻击被控制的概率
-	public static final float mianyi_gongji = 0.5f;
+	public static final float mianyi_gongji = 0.75f;
 	//免疫规避的概率
 	public static final float mianyi_guibi = 0.5f;
 	//属性伤害比缩小倍数
