@@ -26,6 +26,7 @@ public class CheckUtil {
 		case ZhiHui_FuZhu_ALL:
 		case ZhiHui_KongZhiGongJi:
 		case ZhiHui_GuiBi_JianShang:
+		case ZhiHui_SkipReady_Jiashang:
 		case ZhiHui_DaYing_ZhongJun_QianFeng:
 		case ZhiHui_JiaFaShu_JianShang_MianYi:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
@@ -202,6 +203,7 @@ public class CheckUtil {
 		case ZhiHui_KongZhiGongJi:
 		case ZhiHui_GuiBi_JianShang:
 		case ZhuDong_Multiple_KongZhi:
+		case ZhiHui_SkipReady_Jiashang:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_JianShang_KongZhiFaShu:
@@ -453,6 +455,26 @@ public class CheckUtil {
 			break;
 		}
 		return isMianYi;
+	}
+	/**
+	 * 自带需要准备的战法
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isZiDaiReady(ZhanFa zf) {
+		boolean isZiDaiReady = false;
+		switch (zf.getT()) {
+		case ZhuDong_GongJi:
+		case ZhuDong_FaShu_ZiDai:
+		case ZhuDong_BaoZou_jianFangYu:
+		case ZhuDong_FaShuShangHai_KongZhiGongji:
+			isZiDaiReady = true;
+			break;
+		default:
+			isZiDaiReady = false;
+			break;
+		}
+		return isZiDaiReady;
 	}
 	
 	public static boolean isHuiFu(ZhanFa zf) {

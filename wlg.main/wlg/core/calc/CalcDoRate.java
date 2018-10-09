@@ -137,7 +137,14 @@ public class CalcDoRate {
 		//可以发动战法  //控制战法 效果一样 相当于叠加
 		if(huihe.getId() > zhanfa.getReady()) {
 			rate = 1.0f;
-		} 
+		} else {
+			//胜兵求战 只对自带准备战法生效
+			if(huihe.getSkipReadyVal()>0  
+					&& huihe.getSkipReadyPos() == zhanfa.getPosition() 
+					&& CheckUtil.isZiDaiReady(zhanfa)) {
+				rate = huihe.getSkipReadyVal();
+			}
+		}
 		//可能已发动过战法 存在同等或更高程度,不会叠加战法
 		if(CheckUtil.isKongZhiKeep(zhanfa)) {
 			int ready = zhanfa.getReady() + 1;
@@ -145,7 +152,7 @@ public class CalcDoRate {
 				//有刷新，且有伤害，刷新对当武将自身战法生效
 				if(huihe.getShuaxinVal()>0 
 						&& zhanfa.getHarmRate()>0
-						&& huihe.getWj().getPosition() == zhanfa.getPosition()){
+						&& huihe.getShuaxinPos() == zhanfa.getPosition()){
 					rate = 1.0f;
 				} else {
 					int wjCount = huihe.getWujiangCount();

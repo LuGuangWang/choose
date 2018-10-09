@@ -87,5 +87,7 @@ public abstract class ZList {
 	public static YanFenJiZhen yanfenjizhen = new YanFenJiZhen("焰焚箕轸", ZFType.ZhuDong_FaShu, 1, 0.5f, 1.19f, 4, new Person(2,3),1.19f);
 	//水淹七军
 	public static ShuiYanQiJun shuiyanqijun = new ShuiYanQiJun("水淹七军", ZFType.ZhuDong_FaShu_jianGongJi, 1, 0.5f, 2.05f, 3, new Person(2),10.0f);
+	//胜兵求战
+	public static ShengBingQiuZhan shengbingqiuzhan = new ShengBingQiuZhan("胜兵求战", ZFType.ZhiHui_SkipReady_Jiashang, 0, 1.0f, 0.8f, 2, new Person(3),0.15f);
 	/*****    -------------   拆解战法     end -------------   *****/
 }

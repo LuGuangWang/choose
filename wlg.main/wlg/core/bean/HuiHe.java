@@ -39,6 +39,8 @@ public class HuiHe implements Cloneable{
 	private float downFangYuVal = 0.0f;
 	//本回合刷新战法伤害值
 	private float shuaxinVal = 0.0f;
+	//本回合刷新战法的位置
+	private int shuaxinPos;
 	//本回合攻击提高伤害值
 	private float upGongJiVal = 1.0f;
 	//本回合控制力
@@ -65,6 +67,9 @@ public class HuiHe implements Cloneable{
 	private float zhongjunUpVal;
 	//行兵之极 前锋降低伤害
 	private float qianfengUpVal;
+	//胜兵求战
+	private float skipReadyVal = 0.0f;
+	private int skipReadyPos = 0;
 	
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
@@ -176,11 +181,23 @@ public class HuiHe implements Cloneable{
 	public float getDownFangYuVal() {
 		return downFangYuVal;
 	}
+	public int getSkipReadyPos() {
+		return skipReadyPos;
+	}
+	public void setSkipReadyPos(int skipReadyPos) {
+		this.skipReadyPos = skipReadyPos;
+	}
 	public void setDownFangYuVal(float downFangYuVal) {
 		this.downFangYuVal = downFangYuVal;
 	}
 	public void setWj(WuJiang wj) {
 		this.wj = wj;
+	}
+	public float getSkipReadyVal() {
+		return skipReadyVal;
+	}
+	public void setSkipReadyVal(float skipReadyVal) {
+		this.skipReadyVal = skipReadyVal;
 	}
 	public List<WuJiang> getWujiangs() {
 		return wujiangs;
@@ -251,6 +268,12 @@ public class HuiHe implements Cloneable{
 	}
 	public void addKongzhiVal(float kongzhiVal) {
 		this.kongzhiVal += kongzhiVal;
+	}
+	public int getShuaxinPos() {
+		return shuaxinPos;
+	}
+	public void setShuaxinPos(int shuaxinPos) {
+		this.shuaxinPos = shuaxinPos;
 	}
 	public void setShuaxinVal(float shuaxinVal) {
 		this.shuaxinVal = shuaxinVal;

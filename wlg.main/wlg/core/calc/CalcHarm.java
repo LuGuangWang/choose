@@ -621,7 +621,7 @@ public class CalcHarm {
 			float shuaxinVal = 0.0f;
 			if(CheckUtil.isStrategy(zf)) {
 				//只对当前武将的战法生效
-				if(huihe.getWj().getPosition()==zf.getPosition()) {
+				if( huihe.getShuaxinPos() == zf.getPosition()) {
 					shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
 				}
 				//大营战法加成  法术加成概率为0.75

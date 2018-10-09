@@ -25,6 +25,7 @@ public enum ZFType {
 	ZhiHui_Multiple_FaShu,//指挥类 多种伤害效果
 	ZhiHui_GuiBi_JianShang,//指挥类 规避伤害 降低伤害
 	ZhiHui_JiaShuXing_JiaJuLi,//指挥类 加属性 加距离
+	ZhiHui_SkipReady_Jiashang,//指挥类 跳过准备 下一次攻击加伤害
 	ZhiHui_DaYing_ZhongJun_QianFeng,//指挥类 大营加概率，中军加伤害，前锋减伤
 	ZhiHui_JiaFaShu_JianShang_MianYi,//指挥类 加攻击或法术伤害 减攻击或法术伤害 免疫被控制
 	ZhiHui_KongZhiGongJi_FaShuShangHai,//指挥类 先控制攻击 然后法术伤害

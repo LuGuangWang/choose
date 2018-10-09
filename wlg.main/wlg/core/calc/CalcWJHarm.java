@@ -24,6 +24,7 @@ import wlg.core.bean.zhanfa.GongJiZhanFa;
 import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.LianJiZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
+import wlg.core.bean.zhanfa.ShengBingQiuZhan;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.WeiWuZhiShiZhanFa;
@@ -464,7 +465,11 @@ public class CalcWJHarm {
 			if (CheckUtil.isZiShenJiaCheng(zf) && !ConflictList.$().isCeluechongtu()) {
 				wj.addJiaCheng();
 			}
-			
+			//胜兵求战
+			if(zf.getT().equals(ZFType.ZhiHui_SkipReady_Jiashang)) {
+				huihe.setSkipReadyVal(((ShengBingQiuZhan)zf).getSkipRate());
+				huihe.setSkipReadyPos(wj.getPosition());
+			}
 			if(CheckUtil.isLianJi(zf)) {
 				if(zf.getT().equals(ZFType.ZhuDong_JiaGongJi_LianJi)) {
 					setWeiWuZhiZeLianJiVal(huihe, zf);
@@ -475,6 +480,7 @@ public class CalcWJHarm {
 				float newVal = ((ShuaXinZhanFa) zf).getBaseRate();
 				if (newVal > oldVal) {
 					huihe.setShuaxinVal(newVal);
+					huihe.setShuaxinPos(wj.getPosition());
 					Conf.log("=====刷新战法" + zf.getName() + " 刷新谋略伤害基值：" + oldVal + "->" + newVal);
 				}
 			}
@@ -535,8 +541,11 @@ public class CalcWJHarm {
 		huihe.setHasZengYi(false);
 		huihe.setHasBuGong(false);
 		huihe.setHasKongZhi(false);
-
+		
+		huihe.setSkipReadyVal(0.0f);
+		huihe.setSkipReadyPos(0);
 		huihe.setShuaxinVal(0.0f);
+		huihe.setShuaxinPos(0);
 		huihe.setUpGongJiVal(1.0f);
 		huihe.setKongzhiVal(0.0f);
 		huihe.setLianjiVal(1.0f);
