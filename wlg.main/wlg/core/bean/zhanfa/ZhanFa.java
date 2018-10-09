@@ -267,6 +267,14 @@ public class ZhanFa implements Harm, Cloneable {
 		return val;
 	}
 
+	public boolean equals(Object obj) {
+		return this.getName().equals(((ZhanFa)obj).getName());
+	}
+	
+	public int hashCode() {
+		return this.name.hashCode();
+	}
+	
 	public ZhanFa clone() {
 		ZhanFa o = null;
 		try {

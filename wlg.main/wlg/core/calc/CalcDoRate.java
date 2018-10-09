@@ -10,7 +10,6 @@ import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
-import wlg.core.bean.zhanfa.MaiLeiZhanFa;
 import wlg.core.bean.zhanfa.MuYiFuMeng;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
@@ -38,38 +37,22 @@ public class CalcDoRate {
 		Conf.log("====战法"+zf.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
+	
 	/**
-	 * 有刷新战法,发动战法成功概率
+	 * 无刷新战法,发动成功的概率
 	 * @param huihe
-	 * @param zhanfa
+	 * @param zhanfas
 	 * @return
 	 */
-	public static <T extends ZhanFa> float getShuaXinRate(HuiHe huihe, T zhanfa) {
+	public static <T extends ZhanFa> float getCommRate(HuiHe huihe, T zhanfa) {
 		float rate = getSameRate(huihe, zhanfa);
-		//埋雷战法
-		if(zhanfa instanceof MaiLeiZhanFa) {
-			rate = 0;
-			MaiLeiZhanFa mz = (MaiLeiZhanFa) zhanfa;
-			int ready = zhanfa.getReady() + 1;
-			
-			if(huihe.getId() == ready) {
-				float tr = mz.getSpeed()/Conf.base_speed;
-				rate = tr>1?1:tr;
-			//刷新后,战法可以叠加
-			}else if(huihe.getId()> ready) {
-				//刷新战法只对本武将生效
-				if(huihe.getWj().getPosition() == zhanfa.getPosition()){
-					rate = 1;
-				}
-			}
-		}
 		//免疫控制
 		if(!CheckUtil.isMianYiKongZhi(zhanfa)) {
 			rate *= huihe.getWj().getMianyiFSVal();
 		}else if(CheckUtil.isAttack(zhanfa)) {
 			rate *= huihe.getWj().getMianyiGJVal();
 		}
-		Conf.log("======第"+huihe.getId()+"回合受刷新影响，战法"+zhanfa.getName()+"成功发动的概率:"+rate);
+		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
 		return rate;
 	}
 	/**
@@ -144,35 +127,6 @@ public class CalcDoRate {
 	}
 	
 	/**
-	 * 无刷新战法,发动成功的概率
-	 * @param huihe
-	 * @param zhanfas
-	 * @return
-	 */
-	public static <T extends ZhanFa> float getCommRate(HuiHe huihe, T zhanfa) {
-		float rate = getSameRate(huihe, zhanfa);
-		//埋雷战法
-		//TODO 同类型 同效果战法才不能叠加
-		if(zhanfa instanceof MaiLeiZhanFa) {
-			rate = 0;
-			MaiLeiZhanFa mz = (MaiLeiZhanFa) zhanfa;
-			int ready = zhanfa.getReady() + 1;
-			if(huihe.getId() == ready) {
-				float tr = mz.getSpeed()/Conf.base_speed;
-				rate = tr>1 ?1:tr;
-			}
-		}
-		//免疫控制
-		if(!CheckUtil.isMianYiKongZhi(zhanfa)) {
-			rate *= huihe.getWj().getMianyiFSVal();
-		}else if(CheckUtil.isAttack(zhanfa)) {
-			rate *= huihe.getWj().getMianyiGJVal();
-		}
-		Conf.log("======第"+huihe.getId()+"回合战法"+zhanfa.getName()+"成功发动的概率:"+rate);
-		return rate;
-	}
-	
-	/**
 	 * 一般,刷新,控制战法 相同逻辑的概率 
 	 * @param huihe
 	 * @param zhanfa
@@ -182,31 +136,38 @@ public class CalcDoRate {
 		float rate = 0;
 		//可以发动战法  //控制战法 效果一样 相当于叠加
 		if(huihe.getId() > zhanfa.getReady()) {
-			rate = 1;
+			rate = 1.0f;
 		} 
 		//可能已发动过战法 存在同等或更高程度,不会叠加战法
 		if(CheckUtil.isKongZhiKeep(zhanfa)) {
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId()> ready) {
-				int wjCount = huihe.getWujiangCount();
-				int psize = zhanfa.getPersons().getPersons().length;
-				float thiR = 0.0f;
-				for(int p:zhanfa.getPersons().getPersons()) {
-					int live = (wjCount-Math.min(p,wjCount));
-					live = live>0?live:0;
-					//同样两个人的概率
-					switch(live) {
-					case 2:
-						thiR += 1.0f/3.0f/psize * zhanfa.getDoneRate();
-						break;
-					case 1:
-						thiR += 1.0f/6.0f/psize * zhanfa.getDoneRate();
-						break;
-					default:
-						thiR += 1.0f/psize * zhanfa.getDoneRate();
+				//有刷新，且有伤害，刷新对当武将自身战法生效
+				if(huihe.getShuaxinVal()>0 
+						&& zhanfa.getHarmRate()>0
+						&& huihe.getWj().getPosition() == zhanfa.getPosition()){
+					rate = 1.0f;
+				} else {
+					int wjCount = huihe.getWujiangCount();
+					int psize = zhanfa.getPersons().getPersons().length;
+					float thiR = 0.0f;
+					for(int p:zhanfa.getPersons().getPersons()) {
+						int live = (wjCount-Math.min(p,wjCount));
+						live = live>0?live:0;
+						//同样两个人的概率
+						switch(live) {
+						case 2:
+							thiR += 1.0f/3.0f/psize * zhanfa.getDoneRate();
+							break;
+						case 1:
+							thiR += 1.0f/6.0f/psize * zhanfa.getDoneRate();
+							break;
+						default:
+							thiR += 1.0f/psize * zhanfa.getDoneRate();
+						}
 					}
+					rate = (1 - thiR)>0?1 - thiR:0.0f;
 				}
-				rate = (1 - thiR)>0?1 - thiR:0.0f;
 			}
 		}
 		//持续多少回合后

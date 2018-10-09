@@ -677,7 +677,7 @@ public class CalcHarm {
 				shuaxinVal += zf.getHarmRate();
 			}
 			
-			float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, zf):CalcDoRate.getCommRate(huihe, zf);
+			float rate = CalcDoRate.getCommRate(huihe, zf);
 			//TODO 考虑被控制效果  规避效果 不可恢复
 			
 			float shibingVal = huihe.getSolderRate(zf);
@@ -720,7 +720,7 @@ public class CalcHarm {
 		//计算加伤战法  TODO 以后不要使用这种写法
 		if(jss.size()>0) {
 			for(JiaShangZhanFa zf:jss) {
-				float rate = huihe.getShuaxinVal()>0?CalcDoRate.getShuaXinRate(huihe, zf):CalcDoRate.getCommRate(huihe, zf);
+				float rate = CalcDoRate.getCommRate(huihe, zf);
 				
 				//属性加成值
 				UpVal upVal = buildUpVal(huihe,zf);
