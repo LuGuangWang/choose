@@ -421,7 +421,7 @@ public class HuiHe implements Cloneable{
 		if(zf!=null) {
 			if(CheckUtil.isHuiFu(zf)) {
 				HuiFuZhanFa hzf = (HuiFuZhanFa)zf;
-				float huifuCount = hzf.getHuifuVal() * wj.getStrategy() * Conf.fashu_rate;
+				float huifuCount = hzf.getHuifuVal() * wj.getStrategy() * Conf.huifu_rate;
 				Conf.log("=====战法"+hzf.getName()+"救援士兵：" + huifuCount);
 				if(huifuCount<sunShi) {
 					sunShi -= huifuCount;

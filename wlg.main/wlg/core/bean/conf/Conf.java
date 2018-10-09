@@ -1,10 +1,12 @@
 package wlg.core.bean.conf;
 
 public abstract class Conf {
-	//伤害倍数
+	//法术伤害倍数
 	public static final float fashu_rate = 2.1f;
-	//伤害倍数
-	public static final float gongji_rate = 1.95f;
+	//攻击伤害倍数
+	public static final float gongji_rate = 2.1f;
+	//恢复倍数
+	public static final float huifu_rate = 4.0f;
 	//防御攻击倍数 
 	public static final float fg_rate = 1.5f;
 	//大幅下降

@@ -136,13 +136,10 @@ public class CalcDoRate {
 		float rate = 0;
 		//可以发动战法  //控制战法 效果一样 相当于叠加
 		if(huihe.getId() > zhanfa.getReady()) {
-			rate = 1.0f;
-		} else {
-			//胜兵求战 只对自带准备战法生效
-			if(huihe.getSkipReadyVal()>0  
-					&& huihe.getSkipReadyPos() == zhanfa.getPosition() 
-					&& CheckUtil.isZiDaiReady(zhanfa)) {
-				rate = huihe.getSkipReadyVal();
+			if(zhanfa.getReady()>0) {
+				rate = 0.5f;
+			}else {
+				rate = 1.0f;
 			}
 		}
 		//可能已发动过战法 存在同等或更高程度,不会叠加战法
@@ -153,7 +150,11 @@ public class CalcDoRate {
 				if(huihe.getShuaxinVal()>0 
 						&& zhanfa.getHarmRate()>0
 						&& huihe.getShuaxinPos() == zhanfa.getPosition()){
-					rate = 1.0f;
+					if(zhanfa.getReady()>0) {
+						rate = 0.5f;
+					}else {
+						rate = 1.0f;
+					}
 				} else {
 					int wjCount = huihe.getWujiangCount();
 					int psize = zhanfa.getPersons().getPersons().length;
@@ -174,9 +175,20 @@ public class CalcDoRate {
 						}
 					}
 					rate = (1 - thiR)>0?1 - thiR:0.0f;
+					if(zhanfa.getReady()>0) {
+						rate *= 0.5f;
+					}
 				}
 			}
 		}
+		
+		//胜兵求战
+		if(huihe.getSkipReadyVal()>0  
+				&& huihe.getSkipReadyPos() == zhanfa.getPosition() 
+				&& CheckUtil.isZiDaiReady(zhanfa)) {
+			rate = rate<huihe.getSkipReadyVal()?huihe.getSkipReadyVal():rate;
+		}
+		
 		//持续多少回合后
 		if(zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 			KongZhiAndHarmZhanFa t = (KongZhiAndHarmZhanFa)zhanfa;
