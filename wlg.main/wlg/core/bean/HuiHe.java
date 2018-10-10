@@ -362,7 +362,12 @@ public class HuiHe implements Cloneable{
 	public float getSolderRate(ZhanFa zf) {
 		//设置每回合的兵力损失
 		getSunShi(zf,wj.getPosition(),wj.getDefense(),wj.getStrategy(),wj.getFinalp());
-		return Conf.binglijishu/id;
+		
+		float left = wj.getTotalCount() - wj.getSunshiCount();
+		
+		float rate = left/Conf.totalCount + 1.0f;
+		
+		return rate>1.0f?(rate>2.0f?2.0f:rate):1.0f;
 	}
 	/**
 	 * 自身士兵损失值

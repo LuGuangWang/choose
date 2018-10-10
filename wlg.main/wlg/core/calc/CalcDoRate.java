@@ -64,12 +64,14 @@ public class CalcDoRate {
 	public static <T extends ZhanFa> float getKongZhiRate(HuiHe huihe, T zhanfa) {
 		float rate = getSameRate(huihe, zhanfa);
 		//发动后下一回合生效
+		//十面埋伏
 		if(zhanfa.getT().equals(ZFType.ZhuDong_FaShu_JianShang)) {
 			rate = 0;
 			int ready = zhanfa.getReady() + 1;
 			if(huihe.getId() > ready) {
-				rate = 1.0f;
+				rate = 0.5f;
 			}
+		//始计
 		}else if(zhanfa.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
 			boolean isXYDY = isXianYuDaying(huihe.getWujiangs());
 			int keephuihe = ((ShiJiZhanFa)zhanfa).getKeephuihe();
@@ -83,6 +85,7 @@ public class CalcDoRate {
 					rate = 1.0f;
 				}
 			}
+		//母仪浮梦
 		}else if(zhanfa.getT().equals(ZFType.ZhiHui_GuiBi_JianShang)) {
 			int keephuihe = ((MuYiFuMeng)zhanfa).getKeephuihe();
 			if(huihe.getId()>keephuihe) {

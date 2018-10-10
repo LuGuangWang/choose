@@ -36,8 +36,9 @@ public class DieJiaZhanFa extends ZhanFa {
 		int distance = CalCDistance.calcDistance(this.getDistance(), this.getPosition());
 		p = Math.min(p, distance);
 		if(p>0) {
+			float baseVal = harmVal * pval;
 			for(int i=0;i<keep;i++) {
-				sum += (harmVal+ baseVal * i) * pval;
+				sum += baseVal * (1.0f + i*this.baseVal);
 			}
 		}
 		
