@@ -79,10 +79,8 @@ public class CheckUtil {
 	private static boolean isKongZhiAll(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
-		case ZhuDong_BaoZou:
 		case ZhuDong_JiaShuXing:
 		case ZhuDong_KongZhi_ALL:
-		case ZhuDong_FaShu_BaoZou:
 		case ZhuDong_Multiple_KongZhi:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:

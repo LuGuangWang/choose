@@ -55,7 +55,7 @@ public class ConflictList {
 	public float baozouChongTuRate() {
 		float rate = 1.0f;
 		if(baozou_list.size()>1) {
-			rate = 1.0f/baozou_list.size();
+			rate = 0.7f;
 			Conf.log("=========战法冲突：" + listToString(baozou_list));
 		}
 		return rate;
@@ -72,20 +72,21 @@ public class ConflictList {
 	
 	public void checkChongTu(ZhanFa zf) {
 		String zfName = "|"+zf.getName()+"|";
+		String content = zf.getName()+"_"+zf.getPosition();
 		if(celue_chongtu.contains(zfName)) {
-			celue_list.add(zf.getName());
+			celue_list.add(content);
 		}
 		if(baozou_chongtu.contains(zfName)) {
-			baozou_list.add(zf.getName());
+			baozou_list.add(content);
 		}
 		if(zhihui_konghuang_chongtu.contains(zfName)) {
-			zhihui_konghuang_list.add(zf.getName());
+			zhihui_konghuang_list.add(content);
 		}
 		if(celue_jiangshang_chongtu.contains(zfName)) {
-			celue_jiangshang_list.add(zf.getName());
+			celue_jiangshang_list.add(content);
 		}
 		if(huogong_chongtu.contains(zfName)) {
-			huogong_list.add(zf.getName());
+			huogong_list.add(content);
 		}
 	}
 

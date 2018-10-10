@@ -135,7 +135,7 @@ public class CalcDoRate {
 	private static <T extends ZhanFa> float getSameRate(HuiHe huihe, T zhanfa) {
 		float rate = 0;
 		//可以发动战法  //控制战法 效果一样 相当于叠加
-		if(huihe.getId() > zhanfa.getReady()) {
+		if(huihe.getId()>zhanfa.getReady()) {
 			if(zhanfa.getReady()>0) {
 				rate = 0.5f;
 			}else {
@@ -148,15 +148,15 @@ public class CalcDoRate {
 			if(huihe.getId()> ready) {
 				//有刷新，且有伤害，刷新对当武将自身战法生效
 				if(huihe.getShuaxinVal()>0 
-						&& zhanfa.getHarmRate()>0
-						&& huihe.getShuaxinPos() == zhanfa.getPosition()){
+					&& zhanfa.getHarmRate()>0
+					&& huihe.getShuaxinPos() == zhanfa.getPosition()){
 					if(zhanfa.getReady()>0) {
 						rate = 0.5f;
 					}else {
 						rate = 1.0f;
 					}
 				} else {
-					int wjCount = huihe.getWujiangCount();
+					int wjCount = Conf.WuJiang_Count;
 					int psize = zhanfa.getPersons().getPersons().length;
 					float thiR = 0.0f;
 					for(int p:zhanfa.getPersons().getPersons()) {

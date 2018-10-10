@@ -634,6 +634,8 @@ public class CalcHarm {
 				}
 			}
 			
+			float rate = CalcDoRate.getCommRate(huihe, zf);
+			
 			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
 				//此控制效果结束后，才造成一次伤害
@@ -673,11 +675,14 @@ public class CalcHarm {
 				addGongJiZfExVal(huihe, zf);
 			}else if(CheckUtil.isZhuiJi(zf)) {
 				shuaxinVal += zf.getHarmRate() * huihe.getLianjiVal();
+			}else if(huihe.getSkipReadyVal()>0 
+					&& zf.getPosition()==huihe.getSkipReadyPos()
+					&& CheckUtil.isZiDaiReady(zf)){//胜兵求战
+				rate *= 2.0f;
+				shuaxinVal += zf.getHarmRate();
 			}else {
 				shuaxinVal += zf.getHarmRate();
 			}
-			
-			float rate = CalcDoRate.getCommRate(huihe, zf);
 			
 			//TODO 考虑被控制效果  规避效果 不可恢复
 			float shibingVal = huihe.getSolderRate(zf);
@@ -685,19 +690,7 @@ public class CalcHarm {
 			UpVal upVal = buildUpVal(huihe,zf);
 			
 			float harmval = rate * zf.getHarmVal(shuaxinVal,upVal) * shibingVal;
-			if(CheckUtil.isBaoZou(zf)) {
-				float baozouVal = rate * zf.getDoneRate() * Conf.jiashanghai * ConflictList.$().baozouChongTuRate();
-				if(zf.getT().equals(ZFType.ZhuDong_JiaShuXing_KongZhi)
-					|| zf.getT().equals(ZFType.ZhuDong_Multiple_KongZhi)) {
-					baozouVal *= 0.2f;
-				}
-				harmval += baozouVal;
-				Conf.log("===战法 " + zf.getName() + " 暴走杀伤力：" + baozouVal);
-			}if(CheckUtil.isKongZhiHuiFu(zf)){
-				float bukehuifu = rate * zf.getDoneRate() * zf.getPersons().getMaxPerson() * Conf.bingli_huifu;
-				harmval += bukehuifu;
-				Conf.log("===战法 " + zf.getName() + " 不可恢复兵力杀伤力：" + bukehuifu);
-			}
+			
 			//有伤害 才能触发加伤战法
 			if(harmval>0) {
 				executeJss++;
@@ -812,6 +805,7 @@ public class CalcHarm {
 			for(int i=0;i<zhanfa.length;i++) {
 				T b = zhanfa[i];
 				if(CheckUtil.isZengYi(b)) {
+					float zengyiRate = CalcDoRate.getCommRate(huihe, b);
 					float shuaxinRate = huihe.getShuaxinVal() * huihe.getId();
 					shuaxinRate += b.getExHarmVal();
 					for(int j=0;j<zhanfa.length;j++) {
@@ -819,6 +813,15 @@ public class CalcHarm {
 						ZhanFa zf = zhanfa[j];
 						if(j!= i) {
 							float rate = CalcDoRate.getCommRate(huihe, zf);
+			
+							//胜兵求战
+							if(huihe.getSkipReadyVal()>0  
+									&& huihe.getSkipReadyPos() == b.getPosition() 
+									&& CheckUtil.isZiDaiReady(b)) {
+								rate *= zengyiRate * 2.0f;
+							}else {
+								rate *= zengyiRate;
+							}
 							//属性加成值
 							UpVal upVal = buildUpVal(huihe,zf);
 							
@@ -836,6 +839,8 @@ public class CalcHarm {
 					}
 				}
 			}
+			
+			
 		}
 		return sum;
 	}

@@ -18,6 +18,7 @@ import wlg.core.bean.wujiang.WChengHao;
 import wlg.core.bean.wujiang.WJChengHaoExVal;
 import wlg.core.bean.wujiang.WZType;
 import wlg.core.bean.wujiang.WuJiang;
+import wlg.core.bean.zhanfa.BaoZouZhanFa;
 import wlg.core.bean.zhanfa.BiYueZhanFa;
 import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.GongJiZhanFa;
@@ -121,6 +122,43 @@ public class CalcWJHarm {
 				if(fsVal>0) {//法术造成伤害后，行兵之极中军有益效果消失
 					huihe.setZhongjunUpVal(0.0f);
 				}
+				//暴走总伤害 & 不可恢复
+				for(ZhanFa zf:wj.getZhanfa()) {
+					if(CheckUtil.isBaoZou(zf)) {
+						float rate = CalcDoRate.getCommRate(huihe, zf);
+						float gongjiDiRen = zf.getPersons().getMaxPerson() / 6.0f;
+						float baozouVal = rate * zf.getDoneRate() * gongjiDiRen * Conf.jiashanghai * ConflictList.$().baozouChongTuRate();
+						switch(zf.getT()) {
+						case ZhuDong_BaoZou://妖术
+							baozouVal *= ((BaoZouZhanFa)zf).getKeephuihe();
+							break;
+						case ZhuDong_Multiple_KongZhi://鬼谋
+							baozouVal *= ((QiZuoGuiMou)zf).getKeephuihe();
+							break;
+						case ZhuDong_BaoZou_jianFangYu://闭月
+							baozouVal *= ((BiYueZhanFa)zf).getKeephuihe();
+							break;
+						case ZhuDong_JiaShuXing_KongZhi://奇佐鬼谋
+							baozouVal *= ((QiZuoGuiMou)zf).getKeephuihe();
+							break;
+						default:
+							break;
+						}
+						
+						if(zf.getT().equals(ZFType.ZhuDong_JiaShuXing_KongZhi)
+							|| zf.getT().equals(ZFType.ZhuDong_Multiple_KongZhi)) {
+							baozouVal *= 0.2f;
+						}
+						fsVal += baozouVal;
+						Conf.log("===战法 " + zf.getName() + " 暴走杀伤力：" + baozouVal);
+					}if(CheckUtil.isKongZhiHuiFu(zf)){
+						float rate = CalcDoRate.getCommRate(huihe, zf);
+						float bukehuifu = rate * zf.getDoneRate() * zf.getPersons().getMaxPerson() * Conf.bingli_huifu;
+						fsVal += bukehuifu;
+						Conf.log("===战法 " + zf.getName() + " 不可恢复兵力杀伤力：" + bukehuifu);
+					}
+				}
+				
 				wjVal += fsVal;
 				// 普通攻击伤害
 				if (Conf.getCalcPG()) {
@@ -477,7 +515,7 @@ public class CalcWJHarm {
 			if(zf.getT().equals(ZFType.ZhiHui_SkipReady_Jiashang)) {
 				ShengBingQiuZhan sbqz = (ShengBingQiuZhan)zf;
 				huihe.setSkipReadyVal(sbqz.getSkipRate());
-				huihe.setSkipReadyPos(wj.getPosition());
+				huihe.setSkipReadyPos(zf.getPosition());
 				if(ConflictList.$().isCeluechongtu()) {
 					huihe.setShengbingUpVal(sbqz.getAddShangHai()/3.0f);
 				}else {
@@ -494,7 +532,7 @@ public class CalcWJHarm {
 				float newVal = ((ShuaXinZhanFa) zf).getBaseRate();
 				if (newVal > oldVal) {
 					huihe.setShuaxinVal(newVal);
-					huihe.setShuaxinPos(wj.getPosition());
+					huihe.setShuaxinPos(zf.getPosition());
 					Conf.log("=====刷新战法" + zf.getName() + " 刷新谋略伤害基值：" + oldVal + "->" + newVal);
 				}
 			}
