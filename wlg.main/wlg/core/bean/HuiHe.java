@@ -3,10 +3,8 @@ package wlg.core.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.wujiang.WuJiang;
-import wlg.core.bean.zhanfa.HuiFuZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 /**
@@ -75,6 +73,9 @@ public class HuiHe implements Cloneable{
 	private float shengbingUpVal = 0.0f;
 	/** 胜兵求战 end**/
 	
+	//每个武将的恢复率
+	private float zishenHuifuVal = 0.0f;
+	private int zishenHuifuPos = 0;
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
 		HuiHe huihe = this.clone();
@@ -187,6 +188,21 @@ public class HuiHe implements Cloneable{
 	}
 	public int getSkipReadyPos() {
 		return skipReadyPos;
+	}
+	public float getZishenHuifuVal() {
+		return zishenHuifuVal;
+	}
+	public void setZishenHuifuVal(float zishenHuifuVal) {
+		this.zishenHuifuVal = zishenHuifuVal;
+	}
+	public void addZishenHuifuVal(float zishenHuifuVal) {
+		this.zishenHuifuVal += zishenHuifuVal;
+	}
+	public int getZishenHuifuPos() {
+		return zishenHuifuPos;
+	}
+	public void setZishenHuifuPos(int zishenHuifuPos) {
+		this.zishenHuifuPos = zishenHuifuPos;
 	}
 	public void setSkipReadyPos(int skipReadyPos) {
 		this.skipReadyPos = skipReadyPos;
@@ -423,17 +439,13 @@ public class HuiHe implements Cloneable{
 			Conf.log("=====敌军法术攻击造成的士兵损失值：" + fashuVal);
 			sunShi += fashuVal;
 		}
-		//战法救援
-		if(zf!=null) {
-			if(CheckUtil.isHuiFu(zf)) {
-				HuiFuZhanFa hzf = (HuiFuZhanFa)zf;
-				float huifuCount = hzf.getHuifuVal() * wj.getStrategy() * Conf.huifu_rate;
-				Conf.log("=====战法"+hzf.getName()+"救援士兵：" + huifuCount);
-				if(huifuCount<sunShi) {
-					sunShi -= huifuCount;
-				}else {
-					sunShi = 1;
-				}
+		//战法救援武将自身
+		if(this.zishenHuifuPos==position) {
+			float huifuCount = this.zishenHuifuVal;
+			if(huifuCount<sunShi) {
+				sunShi -= huifuCount;
+			}else{
+				sunShi = 1;
 			}
 		}
 		//行兵之极 前锋

@@ -6,7 +6,7 @@ public abstract class Conf {
 	//攻击伤害倍数
 	public static final float gongji_rate = 2.1f;
 	//恢复倍数
-	public static final float huifu_rate = 4.0f;
+	public static final float huifu_rate = 2.34f;
 	//防御攻击倍数 
 	public static final float fg_rate = 1.5f;
 	//大幅下降

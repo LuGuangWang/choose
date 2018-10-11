@@ -89,5 +89,9 @@ public abstract class ZList {
 	public static ShuiYanQiJun shuiyanqijun = new ShuiYanQiJun("水淹七军", ZFType.ZhuDong_FaShu_jianGongJi, 1, 0.5f, 2.05f, 3, new Person(2),10.0f);
 	//胜兵求战
 	public static ShengBingQiuZhan shengbingqiuzhan = new ShengBingQiuZhan("胜兵求战", ZFType.ZhiHui_SkipReady_Jiashang, 0, 1.0f, 0.8f, 2, new Person(3),0.15f);
+	//合流
+	public static HuiFuZhanFa heliu = new HuiFuZhanFa("合流", ZFType.ZhuDong_ZiSheng_YouJun_HuiFu, 0, 0.4f, 1.31f, 3, new Person(2));
+	//增援
+	public static HuiFuZhanFa zengyuan = new HuiFuZhanFa("增援", ZFType.ZhuDong_QunTi_HuiFu, 1, 0.45f, 1.98f, 3, new Person(2));
 	/*****    -------------   拆解战法     end -------------   *****/
 }

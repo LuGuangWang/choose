@@ -7,6 +7,7 @@ public enum ZFType {
 	ZhuDong_JiaShuXing,//主动类 加属性
 	ZhuDong_KongZhi_ALL,//控制攻击与法术,本身不造成伤害
 	ZhuDong_FaShu_ZiDai,//主动类 法术伤害 武将自带战法
+	ZhuDong_QunTi_HuiFu,//主动类 群体类 恢复
 	ZhuDong_FaShu_GongJi,//主动类 攻击伤害 法术伤害
 	ZhuDong_FaShu_BaoZou,//主动类 法术伤害 暴走效果
 	ZhuDong_FaShu_KeepHuiHe,//主动类 法术伤害 持续回合
@@ -17,8 +18,11 @@ public enum ZFType {
 	ZhuDong_BaoZou_jianFangYu,//主动类 暴走 降低防御属性
 	ZhuDong_JiaShuXing_KongZhi,//主动类 加属性点 控制战法
 	ZhuDong_FaShu_KongZhiHuiFu,//主动类 法术伤害 控制恢复
+	ZhuDong_ZiSheng_YouJun_HuiFu,//主动类 自身和友军恢复
 	ZhuDong_JianShang_KongZhiFaShu,//主动类 减伤 然后控制法术,本身不造成伤害
 	ZhuDong_FaShuShangHai_KongZhiGongji,//主动类 先法术伤害 然后控制攻击
+	
+	
 	
 	ZhiHui_FuZhu_ALL,//指挥类 增加法术和攻击伤害
 	ZhiHui_KongZhiGongJi,//指挥类 控制攻击

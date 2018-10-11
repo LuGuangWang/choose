@@ -22,6 +22,7 @@ import wlg.core.bean.zhanfa.BaoZouZhanFa;
 import wlg.core.bean.zhanfa.BiYueZhanFa;
 import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.GongJiZhanFa;
+import wlg.core.bean.zhanfa.HuiFuZhanFa;
 import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.LianJiZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
@@ -81,7 +82,6 @@ public class CalcWJHarm {
 			huihe.setWujiangs(wujiang);
 			huihe.setIsxingbing(isxingbing.isIsxingbing());
 			huihe.setWujiangCount(wujiang.size());
-			
 
 			for (int j = 0; j < wujiang.size(); j++) {
 				float wjVal = 0.0f;// 武将战斗力
@@ -574,6 +574,15 @@ public class CalcWJHarm {
 					Conf.log("=====战法" + zf.getName() + " 降低防御属性值：" + oldVal + "->" + newVal);
 				}
 			}
+			//自身恢复
+			if(CheckUtil.isZiShenHuiFu(zf)) {
+				HuiFuZhanFa hzf = (HuiFuZhanFa)zf;
+				float rate = CalcDoRate.getCommRate(huihe, zf);
+				float huifuCount = rate * zf.getDoneRate() * hzf.getHuifuVal() * wj.getStrategy() * Conf.huifu_rate;
+				Conf.log("=====战法"+hzf.getName()+"救援士兵：" + huifuCount);
+				huihe.setZishenHuifuPos(zf.getPosition());
+				huihe.addZishenHuifuVal(huifuCount);
+			}
 			//始计
 			if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
 				float oldVal = huihe.getUpFaShaShangHaiVal();
@@ -611,6 +620,8 @@ public class CalcWJHarm {
 		huihe.setShengbingUpVal(0.0f);
 		huihe.setZhongjunUpVal(0.0f);
 		huihe.setQianfengUpVal(0.0f);
+		huihe.setZishenHuifuPos(0);
+		huihe.setZishenHuifuVal(0.0f);
 	}
 
 	private static void setWeiWuZhiZeLianJiVal(HuiHe huihe, ZhanFa zf) {

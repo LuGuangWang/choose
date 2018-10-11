@@ -198,12 +198,14 @@ public class CheckUtil {
 		case BeiDong_JiaCheng:
 		case ZhuDong_JiaShuXing:
 		case ZhuDong_KongZhi_ALL:
+		case ZhuDong_QunTi_HuiFu:
 		case ZhiHui_KongZhiGongJi:
 		case ZhiHui_GuiBi_JianShang:
 		case ZhuDong_Multiple_KongZhi:
 		case ZhiHui_SkipReady_Jiashang:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
+		case ZhuDong_ZiSheng_YouJun_HuiFu:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhiHui_DaYing_ZhongJun_QianFeng:
 		case ZhiHui_JiaFaShu_JianShang_MianYi:
@@ -434,6 +436,7 @@ public class CheckUtil {
 		case ZhuDong_JiaShuXing:
 		case ZhuDong_KongZhi_ALL:
 		case ZhuDong_FaShu_ZiDai:
+		case ZhuDong_QunTi_HuiFu:
 		case ZhuDong_FaShu_GongJi:
 		case ZhuDong_FaShu_BaoZou:
 		case ZhuDong_FaShu_JianShang:
@@ -444,6 +447,7 @@ public class CheckUtil {
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_FaShu_KongZhiHuiFu:
+		case ZhuDong_ZiSheng_YouJun_HuiFu:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 			isMianYi = false;
@@ -475,7 +479,7 @@ public class CheckUtil {
 		return isZiDaiReady;
 	}
 	
-	public static boolean isHuiFu(ZhanFa zf) {
+	public static boolean isZiShenHuiFu(ZhanFa zf) {
 		boolean isHuiFu = false;
 		switch (zf.getT()) {
 		case BeiDong_huifu:
