@@ -483,6 +483,21 @@ public class CheckUtil {
 		boolean isHuiFu = false;
 		switch (zf.getT()) {
 		case BeiDong_huifu:
+		case ZhuDong_ZiSheng_YouJun_HuiFu:
+			isHuiFu = true;
+			break;
+		default:
+			isHuiFu = false;
+			break;
+		}
+		return isHuiFu;
+	}
+	
+	public static boolean isQunTiHuiFu(ZhanFa zf) {
+		boolean isHuiFu = false;
+		switch (zf.getT()) {
+		case ZhuDong_QunTi_HuiFu:
+		case ZhuDong_ZiSheng_YouJun_HuiFu:
 			isHuiFu = true;
 			break;
 		default:

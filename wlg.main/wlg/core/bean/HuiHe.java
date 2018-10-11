@@ -76,6 +76,8 @@ public class HuiHe implements Cloneable{
 	//每个武将的恢复率
 	private float zishenHuifuVal = 0.0f;
 	private int zishenHuifuPos = 0;
+	private float huifuVal = 0.0f;
+	
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
 		HuiHe huihe = this.clone();
@@ -209,6 +211,15 @@ public class HuiHe implements Cloneable{
 	}
 	public float getShengbingUpVal() {
 		return shengbingUpVal;
+	}
+	public float getHuifuVal() {
+		return huifuVal;
+	}
+	public void setHuifuVal(float huifuVal) {
+		this.huifuVal = huifuVal;
+	}
+	public void addHuifuVal(float huifuVal) {
+		this.huifuVal += huifuVal;
 	}
 	public void setShengbingUpVal(float shengbingUpVal) {
 		this.shengbingUpVal = shengbingUpVal;
@@ -442,6 +453,15 @@ public class HuiHe implements Cloneable{
 		//战法救援武将自身
 		if(this.zishenHuifuPos==position) {
 			float huifuCount = this.zishenHuifuVal;
+			if(huifuCount<sunShi) {
+				sunShi -= huifuCount;
+			}else{
+				sunShi = 1;
+			}
+		}
+		//群体救援战法
+		if(this.huifuVal>0) {
+			float huifuCount = this.huifuVal;
 			if(huifuCount<sunShi) {
 				sunShi -= huifuCount;
 			}else{

@@ -583,6 +583,15 @@ public class CalcWJHarm {
 				huihe.setZishenHuifuPos(zf.getPosition());
 				huihe.addZishenHuifuVal(huifuCount);
 			}
+			//群体恢复
+			if(CheckUtil.isQunTiHuiFu(zf)) {
+				HuiFuZhanFa hzf = (HuiFuZhanFa)zf;
+				float rate = CalcDoRate.getCommRate(huihe, zf);
+				float pre = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
+				float huifuCount = pre * rate * zf.getDoneRate() * hzf.getHuifuVal() * wj.getStrategy() * Conf.huifu_rate;
+				Conf.log("=====战法"+hzf.getName()+"救援士兵：" + huifuCount);
+				huihe.addHuifuVal(huifuCount);
+			}
 			//始计
 			if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
 				float oldVal = huihe.getUpFaShaShangHaiVal();
@@ -622,6 +631,7 @@ public class CalcWJHarm {
 		huihe.setQianfengUpVal(0.0f);
 		huihe.setZishenHuifuPos(0);
 		huihe.setZishenHuifuVal(0.0f);
+		huihe.setHuifuVal(0.0f);
 	}
 
 	private static void setWeiWuZhiZeLianJiVal(HuiHe huihe, ZhanFa zf) {
