@@ -32,7 +32,7 @@ public abstract class Conf {
 	//暴走造成敌军伤害的概率
 	public static final float baozou_rate = 0.8f;
 	//暴走伤害基数
-	public static final float jiashanghai = SunShiCount * 6;
+	public static final float jiashanghai = SunShiCount * 3;
 	//法术不被控制的概率
 	public static final float max_mianyi_fashu = 0.8f; 
 	//攻击被控制的概率
