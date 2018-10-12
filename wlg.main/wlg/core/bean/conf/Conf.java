@@ -14,9 +14,9 @@ public abstract class Conf {
 	//含控制战法，士兵损失增加1.5倍
 	public static final float kongzhi_avg_rate = 0.7f;
 	//法术损失基数
-	public static final float sf_s_rate = 0.6f;
+	public static final float sf_s_rate = 0.5f;
 	//攻击损失基数
-	public static final float gj_s_rate = 0.4f;
+	public static final float gj_s_rate = 0.5f;
 	//部队武将数
 	public static final int WuJiang_Count = 3;
 	//不计算武将普通攻击
