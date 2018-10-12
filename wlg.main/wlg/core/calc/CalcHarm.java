@@ -123,11 +123,12 @@ public class CalcHarm {
 				p = Math.min(p, distance);
 			}
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate();
+			float kongzhiVal = rate*unHurt * b.getDoneRate();
 			//受谋略属性影响
 			float fengVal = b.getJianGongJiVal() + Math.round(1.0f * b.getStrategy() / Conf.shuxing_val_suoxiao);
+			fengVal = rate>0?fengVal*unHurt:0.0f;
 			float tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(fengVal, true),calcPrimy,allZfs);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
@@ -155,14 +156,17 @@ public class CalcHarm {
 				p = Math.min(p, distance);
 			}
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate() * b.getJiangshangRate();
+			float kongzhiVal = rate*unHurt * b.getDoneRate() * b.getJiangshangRate();
 			float tmp = 0.0f;
 			if(huihe.getId()==1) {
-				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getGuiBi(0.5f,b.getJianshangVal()),calcPrimy,allZfs);
+				float fengVal = rate>0?0.5f*unHurt:0.0f;
+				float fengVal2 = rate>0?b.getJianshangVal()*unHurt:0.0f;
+				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getGuiBi(fengVal,fengVal2),calcPrimy,allZfs);
 			} else {
-				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getAllFeng(b.getJianshangVal()),calcPrimy,allZfs);
+				float fengVal2 = rate>0?b.getJianshangVal():0.0f;
+				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getAllFeng(fengVal2),calcPrimy,allZfs);
 			}
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
@@ -190,11 +194,11 @@ public class CalcHarm {
 			}
 			//不受伤害的概率
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * zf.getDoneRate();
-			
-			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getAllFeng(huihe.getUpQuanShuXing(),true),calcPrimy,allZfs);
+			float kongzhiVal = rate*unHurt * zf.getDoneRate();
+			float fengVal = rate>0?huihe.getUpQuanShuXing()*unHurt:0.0f;
+			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getAllFeng(fengVal,true),calcPrimy,allZfs);
 			kongzhiMap.put(zf.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -222,17 +226,17 @@ public class CalcHarm {
 			}
 			//不受伤害的概率
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate();
+			float kongzhiVal = rate*unHurt * b.getDoneRate();
 			
 			if(huihe.getWj().getZishenlianjiVal()>0) {
 				kongzhiVal *= huihe.getWj().getZishenlianjiVal();
 			}
 			
 			kongzhiVal = kongzhiVal>1?1:kongzhiVal;
-			
-			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(1.0f,p),calcPrimy,allZfs);
+			float fengVal = rate>0?unHurt:0.0f;
+			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(fengVal,p),calcPrimy,allZfs);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -260,13 +264,13 @@ public class CalcHarm {
 			}
 			//不受伤害的概率
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate();
+			float kongzhiVal = rate*unHurt * b.getDoneRate();
 			
 			float fengAll = kongzhiVal * Conf.baozou_rate * ConflictList.$().baozouChongTuRate();
-			
-			float tmp = fengAll * b.getKeephuihe() * calcKongZhiAllHuiHe(huihe.getAllFeng(b.getDoneRate()),calcPrimy,allZfs);
+			float fengVal = rate>0?b.getDoneRate()*unHurt:0.0f;
+			float tmp = fengAll * b.getKeephuihe() * calcKongZhiAllHuiHe(huihe.getAllFeng(fengVal),calcPrimy,allZfs);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -287,15 +291,16 @@ public class CalcHarm {
 		int p = 1;
 		//不受伤害的概率
 		float unHurt = p/1.0f/Conf.WuJiang_Count;
-		unHurt = unHurt>1 ? rate:rate*unHurt;
+		unHurt = unHurt>1 ? 1.0f:unHurt;
 		//控制主的概率
-		float kongzhiVal = unHurt * b.getDoneRate() * b.getSpeedVal();
+		float kongzhiVal = rate*unHurt * b.getDoneRate() * b.getSpeedVal();
 		//始计 0.5概率生效在战法上
 		float fengAll = kongzhiVal;
 		if(!ConflictList.$().isCelueJianShangchongtu()) {
 			fengAll = kongzhiVal * 0.5f * b.getDownVal();
 		}
-		float tmp = fengAll * calcKongZhiAllHuiHe(huihe.getAllFeng(b.getDownVal()),calcPrimy,allZfs);
+		float fengVal = rate>0?b.getDownVal()*unHurt:0.0f;
+		float tmp = fengAll * calcKongZhiAllHuiHe(huihe.getAllFeng(fengVal),calcPrimy,allZfs);
 		kongzhiMap.put(b.getName(), kongzhiVal);
 		unHurtVal += tmp;
 		
@@ -323,13 +328,13 @@ public class CalcHarm {
 			}
 			//不受伤害的概率
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1?1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate();
+			float kongzhiVal = rate*unHurt * b.getDoneRate();
 			
 			float fengAll = kongzhiVal * Conf.baozou_rate * ConflictList.$().baozouChongTuRate();
-			
-			float tmp = fengAll * b.getKeephuihe() * calcKongZhiAllHuiHe(huihe.getAllFeng(b.getDoneRate()),calcPrimy,allZfs);
+			float fengVal = rate>0?b.getDoneRate()*unHurt:0.0f;
+			float tmp = fengAll * b.getKeephuihe() * calcKongZhiAllHuiHe(huihe.getAllFeng(fengVal),calcPrimy,allZfs);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -357,11 +362,11 @@ public class CalcHarm {
 			}
 			//不受伤害的概率
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1?1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate() * b.getKongzhiRate();
-			float fenggongji =  0.4f;
-			float fengfashu =  0.4f;
+			float kongzhiVal = rate*unHurt * b.getDoneRate() * b.getKongzhiRate();
+			float fenggongji = rate>0?0.4f*unHurt:0.0f;
+			float fengfashu =  rate>0?0.4f*unHurt:0.0f;
 			
 			float tmp = kongzhiVal * b.getKeephuihe() * calcKongZhiAllHuiHe(huihe.getAllFeng(fengfashu,fenggongji),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
@@ -392,11 +397,13 @@ public class CalcHarm {
 				p = Math.min(p, distance);
 			}
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate();
+			float kongzhiVal = rate*unHurt * b.getDoneRate();
 			float tmp = 0.0f;
-			tmp =  kongzhiVal * b.getKeephuihe() * calcKongZhiAllHuiHe(huihe.getAllFeng(1.0f, b.getJianshangVal()),calcPrimy,zhanfa);
+			float fengVal = rate>0?unHurt:0.0f;
+			float fengVal2 = rate>0?unHurt * b.getJianshangVal():0.0f;
+			tmp =  kongzhiVal * b.getKeephuihe() * calcKongZhiAllHuiHe(huihe.getAllFeng(fengVal, fengVal2),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -424,14 +431,16 @@ public class CalcHarm {
 				p = Math.min(p, distance);
 			}
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate();
+			float kongzhiVal = rate*unHurt * b.getDoneRate();
 			float tmp = 0.0f;
 			if(huihe.getId()==1) {
-				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(1.0f),calcPrimy,zhanfa);
+				float fengVal = rate>0?unHurt:0.0f;
+				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(fengVal),calcPrimy,zhanfa);
 			}else {
-				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(b.getHarmRate()),calcPrimy,zhanfa);
+				float fengVal = rate>0?b.getHarmRate()*unHurt:0.0f;
+				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(fengVal),calcPrimy,zhanfa);
 			}
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
@@ -457,10 +466,11 @@ public class CalcHarm {
 		}
 		//不受伤害的概率
 		float unHurt = p/1.0f/Conf.WuJiang_Count;
-		unHurt = unHurt>1 ? rate:rate*unHurt;
+		unHurt = unHurt>1 ? 1.0f:unHurt;
 		//控制主的概率
-		float kongzhiVal = unHurt * b.getDoneRate();
-		float unHurtVal = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(b.getExHarmVal(),p),calcPrimy,zhanfa);
+		float kongzhiVal = rate*unHurt * b.getDoneRate();
+		float fengVal = rate>0?b.getExHarmVal()*unHurt:0.0f;
+		float unHurtVal = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(fengVal,p),calcPrimy,zhanfa);
 		kongzhiMap.put(b.getName(), kongzhiVal);
 		return unHurtVal;
 	}
@@ -486,10 +496,11 @@ public class CalcHarm {
 				p = Math.min(p, distance);
 			}
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate();
-			float tmp = b.getKeephuihe() * kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(1.0f,p),calcPrimy,zhanfa);
+			float kongzhiVal = rate*unHurt * b.getDoneRate();
+			float fengVal = rate>0?unHurt:0.0f;
+			float tmp = b.getKeephuihe() * kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(fengVal,p),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -518,7 +529,7 @@ public class CalcHarm {
 			}
 			//不受伤害的概率
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
 			if(huihe.getId()>b.getKeephuihe()) {
 				unHurt = 0;
 				return 0;
@@ -527,8 +538,9 @@ public class CalcHarm {
 				huihe.getWj().setMianyiGBVal(b.getWushiguibi());
 			}
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate();
-			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(1.0f,p),calcPrimy,zhanfa);
+			float kongzhiVal = rate*unHurt * b.getDoneRate();
+			float fengVal = rate>0?unHurt:0.0f;
+			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(fengVal,p),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -556,10 +568,11 @@ public class CalcHarm {
 			}
 			//不受伤害的概率
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1?1.0f:unHurt;
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate()*b.getKonzhiVal();
-			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(b.getKonzhiVal(),p),calcPrimy,zhanfa);
+			float kongzhiVal = rate*unHurt * b.getDoneRate()*b.getKonzhiVal();
+			float fengVal = rate>0?b.getKonzhiVal()*unHurt:0.0f;
+			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(fengVal,p),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
@@ -587,10 +600,13 @@ public class CalcHarm {
 			}
 			//不受伤害的概率
 			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
-			unHurt = unHurt>1 ? rate:rate*unHurt;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
+			float fengVal = rate>0?b.getDoneRate()*unHurt:0.0f;
+			
 			//控制主的概率
-			float kongzhiVal = unHurt * b.getDoneRate();
-			float tmp = kongzhiVal * b.getKeep() * calcKongZhiAllHuiHe(huihe.getAllFeng(b.getDoneRate()),calcPrimy,zhanfa);
+			float kongzhiVal = rate * unHurt * b.getDoneRate();
+			
+			float tmp = kongzhiVal * b.getKeep() * calcKongZhiAllHuiHe(huihe.getAllFeng(fengVal),calcPrimy,zhanfa);
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}

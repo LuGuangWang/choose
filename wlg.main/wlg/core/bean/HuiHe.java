@@ -450,8 +450,19 @@ public class HuiHe implements Cloneable{
 			Conf.log("=====敌军法术攻击造成的士兵损失值：" + fashuVal);
 			sunShi += fashuVal;
 		}
+		//行兵之极 前锋
+		if(this.isxingbing && finalP==Conf.qianfeng) {
+			sunShi *= (1.0f - this.getQianfengUpVal());
+		}
+		//规避伤害
+		if(this.guibiVal>0.0f) {
+			position -= this.guibiVal;
+			position = position>0?position:0;
+		}
+		sunShi *= position;
+		
 		//战法救援武将自身
-		if(this.zishenHuifuPos==position) {
+		if(this.zishenHuifuPos==wj.getPosition()) {
 			float huifuCount = this.zishenHuifuVal;
 			if(huifuCount<sunShi) {
 				sunShi -= huifuCount;
@@ -468,16 +479,7 @@ public class HuiHe implements Cloneable{
 				sunShi = 1;
 			}
 		}
-		//行兵之极 前锋
-		if(this.isxingbing && finalP==Conf.qianfeng) {
-			sunShi *= (1.0f - this.getQianfengUpVal());
-		}
-		//规避伤害
-		if(this.guibiVal>0.0f) {
-			position -= this.guibiVal;
-			position = position>0?position:0;
-		}
-		sunShi *= position;
+		
 		//按受到最小伤害进行更新
 		this.getWj().setSunshiCount(sunShi);
 		
