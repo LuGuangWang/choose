@@ -445,7 +445,7 @@ public class HuiHe implements Cloneable{
 		}
 		//法术伤害
 		if(fengAll==0 && fengZhanfa ==0) {
-			float fashuVal = Conf.SunShiCount * Conf.sf_s_rate - Conf.fashu_rate * strategy;
+			float fashuVal = Conf.SunShiCount * Conf.sf_s_rate - Conf.fg_rate * strategy;
 			fashuVal = fashuVal>0?fashuVal:0;
 			Conf.log("=====敌军法术攻击造成的士兵损失值：" + fashuVal);
 			sunShi += fashuVal;
