@@ -74,7 +74,7 @@ public abstract class ZList {
 	//妖术
 	public static BaoZouZhanFa yaoshu = new BaoZouZhanFa("妖术", ZFType.ZhuDong_BaoZou, 1, 0.5f, 2, 4, new Person(2));
 	//始计
-	public static ShiJiZhanFa shiji = new ShiJiZhanFa("始计", ZFType.ZhiHui_JiaFaShu_JianShang_MianYi, 0, 1.0f, 1.2f,0.3f,1, 1, new Person(1),4);
+	public static ShiJiZhanFa shiji = new ShiJiZhanFa("始计", ZFType.ZhiHui_JiaFaShu_JianShang_MianYi, 0, 1.0f, 0.2f,0.3f,1, 1, new Person(1),4);
 	//青囊秘要
 	public static HuiFuZhanFa qingnangmiyao = new HuiFuZhanFa("青囊秘要", ZFType.BeiDong_huifu, 0, 1.0f, 1.5f, 1, new Person(1));
 	//迷阵

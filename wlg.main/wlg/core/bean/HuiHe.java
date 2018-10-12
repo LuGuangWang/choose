@@ -454,11 +454,19 @@ public class HuiHe implements Cloneable{
 		if(this.isxingbing && finalP==Conf.qianfeng) {
 			sunShi *= (1.0f - this.getQianfengUpVal());
 		}
+		if(wj.getPosition()==Conf.zhongjun) {
+			position = 1.8f;
+		}else if(wj.getPosition()==Conf.daying) {
+			position = 2.0f;
+		}else if(wj.getPosition()==Conf.qianfeng) {
+			position = 2.3f;
+		}
 		//规避伤害
 		if(this.guibiVal>0.0f) {
 			position -= this.guibiVal;
 			position = position>0?position:0;
 		}
+		
 		sunShi *= position;
 		
 		//战法救援武将自身

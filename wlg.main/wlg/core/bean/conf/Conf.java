@@ -24,7 +24,7 @@ public abstract class Conf {
 	//总兵力
 	public static final float totalCount = 10000.0f;
 	//每回合损失兵力
-	public static final float SunShiCount = 1200.0f;
+	public static final float SunShiCount = 1000.0f;
 	//速度基准值
 	public static final float base_speed = 120.0f;
 	//回合初始兵力基数
@@ -42,7 +42,7 @@ public abstract class Conf {
 	//攻击被控制的概率
 	public static final float min_mianyi_gongji = 0.5f;
 	//免疫规避的概率
-	public static final float mianyi_guibi = 0.5f;
+	public static final float mianyi_guibi = 0.6f;
 	//属性伤害比缩小倍数
 	public static final float shuxing_suoxiao = 1000.0f;
 	//属性值缩小倍数

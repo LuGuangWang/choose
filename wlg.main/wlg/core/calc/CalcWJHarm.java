@@ -492,6 +492,12 @@ public class CalcWJHarm {
 		}
 
 		for (ZhanFa zf : allZfs) {
+			//先判断战法是否还生效
+			float isValid = CalcDoRate.getCommRate(huihe, zf);
+			if(isValid<=0) {
+				continue;
+			}
+			
 			if (CheckUtil.isZengYi(zf))
 				huihe.setHasZengYi(true);
 			if (CheckUtil.isBuGongJi(zf))
