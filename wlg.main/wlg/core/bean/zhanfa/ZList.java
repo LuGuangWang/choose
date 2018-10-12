@@ -93,5 +93,7 @@ public abstract class ZList {
 	public static HuiFuZhanFa heliu = new HuiFuZhanFa("合流", ZFType.ZhuDong_ZiSheng_YouJun_HuiFu, 0, 0.4f, 1.31f, 3, new Person(2));
 	//增援
 	public static HuiFuZhanFa zengyuan = new HuiFuZhanFa("增援", ZFType.ZhuDong_QunTi_HuiFu, 1, 0.45f, 1.98f, 3, new Person(2));
+	//危崖困军 TODO 降低防御属性
+	public static ZhanFa weiyakunjun = new ZhanFa("危崖困军",ZFType.ZhuDong_FaShu, 1, 0.5f, 2.1f, 2, new Person(2));
 	/*****    -------------   拆解战法     end -------------   *****/
 }
