@@ -9,6 +9,7 @@ import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
+import wlg.core.bean.zhanfa.JieZhenGuanDong;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.MuYiFuMeng;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
@@ -53,9 +54,12 @@ public class CalcDoRate {
 		// 免疫控制
 		if (!CheckUtil.isMianYiKongZhi(zhanfa)) {
 			rate *= huihe.getWj().getMianyiFSVal();
-		} else if (CheckUtil.isAttack(zhanfa)) {
-			rate *= huihe.getWj().getMianyiGJVal();
-		}
+		} 
+		//先手效果
+		rate += huihe.getXianshouRate();
+		
+		rate = rate>1.0f?1.0f:rate;
+		
 		Conf.log("======第" + huihe.getId() + "回合战法" + zhanfa.getName() + "成功发动的概率:" + rate);
 		return rate;
 	}
@@ -72,9 +76,12 @@ public class CalcDoRate {
 		// 免疫控制
 		if (!CheckUtil.isMianYiKongZhi(zhanfa)) {
 			rate *= huihe.getWj().getMianyiFSVal();
-		} else if (CheckUtil.isAttack(zhanfa)) {
-			rate *= huihe.getWj().getMianyiGJVal();
-		}
+		} 
+		//先手效果
+		rate += huihe.getXianshouRate();
+		
+		rate = rate>1.0f?1.0f:rate;
+		
 		Conf.log("======第" + huihe.getId() + "回合战法" + zhanfa.getName() + "成功发动控制的概率:" + rate);
 		return rate;
 	}
@@ -220,6 +227,12 @@ public class CalcDoRate {
 			// 母仪浮梦
 		} else if (zhanfa.getT().equals(ZFType.ZhiHui_GuiBi_JianShang)) {
 			int keephuihe = ((MuYiFuMeng) zhanfa).getKeephuihe();
+			if (huihe.getId() > keephuihe) {
+				rate = 0.0f;
+			}
+		//节镇关东
+		} else if(zhanfa.getT().equals(ZFType.ZhiHui_YouXian_DongYao)) {
+			int keephuihe = ((JieZhenGuanDong) zhanfa).getKeepHuihe();
 			if (huihe.getId() > keephuihe) {
 				rate = 0.0f;
 			}

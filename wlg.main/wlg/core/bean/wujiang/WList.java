@@ -46,7 +46,8 @@ public class WList {
 	public static WuJiang lingdi = new WuJiang("灵帝", WZType.han, WBType.gong, 65, 91, 85, 84, 5, ZList.dilinhuiguang);
 	//何太后
 	public static WuJiang hetaihou = new WuJiang("何太后", WZType.han, WBType.gong, 53, 77, 68, 81, 3, ZList.muyifumeng);
-	
+	//朱儁
+	public static WuJiang xiaozhujun = new WuJiang("小朱儁", WZType.han, WBType.gong, 48, 83, 89, 75, 4, ZList.jiezhenguandong);
 	/******     群       *******/
 	//张宁
 	public static WuJiang zhangning = new WuJiang("张宁", WZType.qun, WBType.bu, 47, 72, 37, 88, 2, ZList.huangtianyvyin);

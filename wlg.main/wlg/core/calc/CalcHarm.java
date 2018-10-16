@@ -1,12 +1,9 @@
 package wlg.core.calc;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import wlg.core.CheckUtil;
 import wlg.core.bean.HuiHe;
@@ -34,18 +31,9 @@ import wlg.core.bean.zhanfa.ZhuiJiZhanFa;
 
 public class CalcHarm {
 	
-	public static <T extends ZhanFa> float calcKongZhiHuiHe(HuiHe huihe, boolean calcPrimy,List<ZhanFa> kongzhiZf,T[] zhanfa) {
+	public static <T extends ZhanFa> float calcKongZhiHuiHe(HuiHe huihe, boolean calcPrimy,List<ZhanFa> kongzhiZf,T[] zhanfas) {
 		float sum = 0;
 		Map<String,Float> kongzhiMap = new HashMap<>();
-		//所有战法
-		Set<ZhanFa> allZfSet= new HashSet<>(Arrays.asList(zhanfa));
-		//对其他武将影响的战法
-		kongzhiZf.forEach(zf->{
-			if(CheckUtil.isAllCalc(zf)) {
-				allZfSet.add(zf);
-			}
-		});
-		ZhanFa[] allZfs = allZfSet.toArray(new ZhanFa[allZfSet.size()]);
 		
 		Conf.log("==================计算控制战法生效时造成的伤害值==============");
 		for(int i=0;i<kongzhiZf.size();i++) {
@@ -53,37 +41,37 @@ public class CalcHarm {
 			float unHurtVal = 0.0f;
 			
 			if(zf instanceof KongZhiZhanFa) {
-				unHurtVal = calcKZZhanFa(huihe,calcPrimy, kongzhiMap, zf, allZfs);
+				unHurtVal = calcKZZhanFa(huihe,calcPrimy, kongzhiMap, zf, zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
-				unHurtVal = calcKZGongJiThenFaShuShanghai(huihe, calcPrimy,kongzhiMap, zf, allZfs);
+				unHurtVal = calcKZGongJiThenFaShuShanghai(huihe, calcPrimy,kongzhiMap, zf, zhanfas);
 			}else  if(zf.getT().equals(ZFType.ZhuDong_FaShuShangHai_KongZhiGongji)) {
-				unHurtVal = calcFashuShangHaiThenKZGongji(huihe, calcPrimy,kongzhiMap, zf, allZfs);
+				unHurtVal = calcFashuShangHaiThenKZGongji(huihe, calcPrimy,kongzhiMap, zf, zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhuDong_FaShu_JianShang)){
-				unHurtVal = calcJianshang(huihe, calcPrimy,kongzhiMap, zf, allZfs);
+				unHurtVal = calcJianshang(huihe, calcPrimy,kongzhiMap, zf, zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
-				unHurtVal = calcFanjizhice(huihe,calcPrimy, kongzhiMap, zf, allZfs);
+				unHurtVal = calcFanjizhice(huihe,calcPrimy, kongzhiMap, zf, zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhuDong_JianShang_KongZhiFaShu)) {
-				unHurtVal = calcQiangShi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+				unHurtVal = calcQiangShi(huihe, calcPrimy, kongzhiMap, zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi)) {
-				unHurtVal = calcKZGongJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+				unHurtVal = calcKZGongJi(huihe, calcPrimy, kongzhiMap, zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhuDong_JiaShuXing_KongZhi)
 					|| zf.getT().equals(ZFType.ZhuDong_Multiple_KongZhi)) {
-				unHurtVal = calcJiaShuXing(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+				unHurtVal = calcJiaShuXing(huihe, calcPrimy, kongzhiMap, zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhuDong_BaoZou)) {
-				unHurtVal = calcBaoZou(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+				unHurtVal = calcBaoZou(huihe, calcPrimy, kongzhiMap, zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
-				unHurtVal = calcShiJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+				unHurtVal = calcShiJi(huihe, calcPrimy, kongzhiMap, zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhuDong_BaoZou_jianFangYu)
 					|| zf.getT().equals(ZFType.ZhuDong_FaShu_BaoZou)) {
-				unHurtVal = calcBiyue(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+				unHurtVal = calcBiyue(huihe, calcPrimy, kongzhiMap, zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhuiJi_GongJi_KongZhiGongJi)) {
-				unHurtVal = calcZhuiJi(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+				unHurtVal = calcZhuiJi(huihe, calcPrimy, kongzhiMap, zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhuDong_JiaShuXing)) {
-				unHurtVal = calcJianShuXing(huihe, calcPrimy, kongzhiMap, zf,allZfs);
+				unHurtVal = calcJianShuXing(huihe, calcPrimy, kongzhiMap, zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhiHui_GuiBi_JianShang )) {
-				unHurtVal = calcMuYiFuMeng(huihe,calcPrimy,kongzhiMap,zf,allZfs);
+				unHurtVal = calcMuYiFuMeng(huihe,calcPrimy,kongzhiMap,zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhuDong_FaShu_jianGongJi)) {
-				unHurtVal = calcJianGongJi(huihe,calcPrimy,kongzhiMap,zf,allZfs);
+				unHurtVal = calcJianGongJi(huihe,calcPrimy,kongzhiMap,zf,zhanfas);
 			}
 			
 			sum += unHurtVal;
@@ -97,7 +85,7 @@ public class CalcHarm {
 		float hurt = 1 - kongzhiRate;
 		Conf.log("======本回合不受伤概率下造成的伤害：" + sum + " 不受伤的概率为："+kongzhiRate);
 		hurt = hurt>0 ? hurt:0;
-		float hurtVal = hurt *  calcKongZhiAllHuiHe(huihe,calcPrimy,allZfs);
+		float hurtVal = hurt *  calcKongZhiAllHuiHe(huihe,calcPrimy,zhanfas);
 		sum += hurtVal;
 		
 		return sum;

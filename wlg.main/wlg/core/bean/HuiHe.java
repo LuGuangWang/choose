@@ -41,8 +41,6 @@ public class HuiHe implements Cloneable{
 	private float shuaxinVal = 0.0f;
 	//本回合刷新战法的位置
 	private int shuaxinPos;
-	//本回合攻击提高伤害值
-	private float upGongJiVal = 1.0f;
 	//本回合控制力
 	private float kongzhiVal = 0.0f;
 	//武将数 
@@ -79,6 +77,8 @@ public class HuiHe implements Cloneable{
 	private float zishenHuifuVal = 0.0f;
 	private int zishenHuifuPos = 0;
 	private float huifuVal = 0.0f;
+	//每个武将先手的概率
+	private float xianshouRate = 0.0f;
 	
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
@@ -175,6 +175,12 @@ public class HuiHe implements Cloneable{
 	public WuJiang getWj() {
 		return wj;
 	}
+	public float getXianshouRate() {
+		return xianshouRate;
+	}
+	public void setXianshouRate(float xianshouRate) {
+		this.xianshouRate = xianshouRate;
+	}
 	public boolean isIsxingbing() {
 		return isxingbing;
 	}
@@ -253,9 +259,6 @@ public class HuiHe implements Cloneable{
 	public void setWujiangs(List<WuJiang> wujiangs) {
 		this.wujiangs = wujiangs;
 	}
-	public float getUpGongJiVal() {
-		return upGongJiVal;
-	}
 	public float getUpQuanShuXing() {
 		return upQuanShuXing;
 	}
@@ -264,9 +267,6 @@ public class HuiHe implements Cloneable{
 			Conf.log("=====刷新全属性提高值" + this.upQuanShuXing + " -> " + upQuanShuXing);
 			this.upQuanShuXing = upQuanShuXing;
 		}
-	}
-	public void setUpGongJiVal(float upGongJiVal) {
-		this.upGongJiVal = upGongJiVal;
 	}
 	public boolean isHasBuGong() {
 		return hasBuGong;
@@ -395,14 +395,18 @@ public class HuiHe implements Cloneable{
 	 * @return
 	 */
 	public float getSolderRate(ZhanFa zf) {
+		//先手的概率
+		float xianshou = wj.getSpeed()/Conf.base_speed + this.xianshouRate;
+		xianshou = xianshou>1.0f?1.0f:xianshou;
 		//设置每回合的兵力损失
 		getSunShi(zf,wj.getPosition(),wj.getDefense(),wj.getStrategy(),wj.getFinalp());
 		
-		float left = wj.getTotalCount() - wj.getSunshiCount();
+		//如果是先手不会有士兵损失
+		float left = wj.getTotalCount() - wj.getSunshiCount()*(1-xianshou);
 		
-		float rate = left/Conf.totalCount + 1.5f;
+		float rate = left/Conf.totalCount + 1.1f;
 		
-		return rate>1.0f?(rate>2.5f?2.0f:rate):1.0f;
+		return rate>1.0f?(rate>2.1f?2.1f:rate):rate;
 	}
 	/**
 	 * 自身士兵损失值

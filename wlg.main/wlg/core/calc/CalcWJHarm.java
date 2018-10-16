@@ -167,7 +167,10 @@ public class CalcWJHarm {
 					boolean canGongJi = CalCDistance.calcDistance(wj.getDistance(), wj.getPosition()) > 0;
 					if (!huihe.isHasBuGong() && canGongJi) {
 						float solderRate = huihe.getSolderRate(null);
-						gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * solderRate * huihe.getUpGongJiVal();
+						gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * solderRate;
+						//增加全武将的谋略与攻击伤害
+						float upallWjVal = huihe.getUpAllWjVal() * wj.getWJHarmVal();
+						gongjiVal += upallWjVal;
 						//免疫攻击 免疫规避
 						gongjiVal *= wj.getMianyiGJVal() * wj.getMianyiGBVal();
 						//始计 攻击加成伤害
@@ -494,8 +497,8 @@ public class CalcWJHarm {
 
 		for (ZhanFa zf : allZfs) {
 			//先判断战法是否还生效
-			float isValid = CalcDoRate.getCommRate(huihe, zf);
-			if(isValid<=0) {
+			float rate = CalcDoRate.getCommRate(huihe, zf);
+			if(rate<=0) {
 				continue;
 			}
 			
@@ -543,20 +546,11 @@ public class CalcWJHarm {
 					Conf.log("=====刷新战法" + zf.getName() + " 刷新谋略伤害基值：" + oldVal + "->" + newVal);
 				}
 			}
-			if (CheckUtil.isJiaShang(zf)) {
-				float oldVal = huihe.getUpGongJiVal();
-				//受谋略影响
-				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
-				float newVal = zf.getHarmRate() + val + 1.0f;
-				if (newVal > oldVal) {
-					huihe.setUpGongJiVal(newVal);
-					Conf.log("=====战法" + zf.getName() + " 刷新谋略伤害基值：" + oldVal + "->" + newVal);
-				}
-			}
 			if(CheckUtil.isUpAllShuXing(zf)) {
 				JiaChengZhanFa tmp = (JiaChengZhanFa)zf;
 				//受谋略属性影响
 				float upQuan = tmp.getUpQuanShuXing() + Math.round(1.0f * tmp.getStrategy() / Conf.shuxing_val_suoxiao);
+				upQuan *= rate * zf.getDoneRate();
 				huihe.setUpQuanShuXing(upQuan);
 			}
 			if(CheckUtil.isUpFashu(zf)) {
@@ -574,8 +568,7 @@ public class CalcWJHarm {
 				//受谋略影响
 				float val = zf.getStrategy()/Conf.shuxing_val_suoxiao;
 				float newVal = tmp.getDownFShuXingVal() + val;
-				float rate = CalcDoRate.getCommRate(huihe, zf) * zf.getDoneRate();
-				newVal *= rate;
+				newVal *= rate * zf.getDoneRate();
 				if (newVal > oldVal) {
 					huihe.setDownFangYuVal(newVal);
 					Conf.log("=====战法" + zf.getName() + " 降低防御属性值：" + oldVal + "->" + newVal);
@@ -584,7 +577,6 @@ public class CalcWJHarm {
 			//自身恢复
 			if(CheckUtil.isZiShenHuiFu(zf)) {
 				HuiFuZhanFa hzf = (HuiFuZhanFa)zf;
-				float rate = CalcDoRate.getCommRate(huihe, zf);
 				float huifuCount = rate * zf.getDoneRate() * hzf.getHuifuVal() * wj.getStrategy() * Conf.huifu_rate;
 				if(zf.getT().equals(ZFType.ZhuDong_ZiSheng_YouJun_HuiFu)) {
 					float pre = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
@@ -598,7 +590,6 @@ public class CalcWJHarm {
 			//群体恢复
 			if(CheckUtil.isQunTiHuiFu(zf)) {
 				HuiFuZhanFa hzf = (HuiFuZhanFa)zf;
-				float rate = CalcDoRate.getCommRate(huihe, zf);
 				float pre = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
 				float huifuCount = pre * rate * zf.getDoneRate() * hzf.getHuifuVal() * wj.getStrategy() * Conf.huifu_rate;
 				Conf.log("=====战法"+hzf.getName()+"救援士兵：" + huifuCount);
@@ -621,8 +612,6 @@ public class CalcWJHarm {
 			//增加谋略和攻击伤害
 			if(CheckUtil.isJiaShang(zf)) {
 				float oldVal = huihe.getUpFaShaShangHaiVal();
-				
-				float rate = CalcDoRate.getCommRate(huihe, zf);
 				float pre = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
 				//受谋略影响
 				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
@@ -634,6 +623,12 @@ public class CalcWJHarm {
 					huihe.setUpAllWjVal(newVal);
 					Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
 				}
+			}
+			//先手战法
+			if(zf.getT().equals(ZFType.ZhiHui_YouXian_DongYao)) {
+				float pre = 1.0f * zf.getPersons().getMaxPerson()/Conf.WuJiang_Count;
+				pre *= rate;
+				huihe.setXianshouRate(pre);
 			}
 		}
 		
@@ -648,7 +643,6 @@ public class CalcWJHarm {
 		huihe.setSkipReadyPos(0);
 		huihe.setShuaxinVal(0.0f);
 		huihe.setShuaxinPos(0);
-		huihe.setUpGongJiVal(1.0f);
 		huihe.setKongzhiVal(0.0f);
 		huihe.setLianjiVal(1.0f);
 		huihe.setUpFaShuVal(1.0f);
@@ -662,6 +656,7 @@ public class CalcWJHarm {
 		huihe.setZishenHuifuVal(0.0f);
 		huihe.setHuifuVal(0.0f);
 		huihe.setUpAllWjVal(0.0f);
+		huihe.setXianshouRate(0.0f);
 	}
 
 	private static void setWeiWuZhiZeLianJiVal(HuiHe huihe, ZhanFa zf) {

@@ -43,6 +43,8 @@ public abstract class ZList {
 	public static DiGuangHuiLin dilinhuiguang = new DiGuangHuiLin("帝临回光", ZFType.ZhiHui_JiaJuLi_FenBing_KongHuang, 2, 1.0f, 0.59f, 5, new Person(3),0.7f,new Person(1,1,2));
 	//何太后 母仪浮梦
 	public static MuYiFuMeng muyifumeng = new MuYiFuMeng("母仪浮梦", ZFType.ZhiHui_GuiBi_JianShang, 0, 1.0f, 0.5f,0.3f, 5, new Person(3),1,4);
+	//朱儁 节镇关东
+	public static JieZhenGuanDong jiezhenguandong = new JieZhenGuanDong("节镇关东", ZFType.ZhiHui_YouXian_DongYao, 0, 1.0f, 1.2f, 5, new Person(2),2,1.0f,1.0f);
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	
@@ -81,8 +83,6 @@ public abstract class ZList {
 	public static BiYueZhanFa mizhen = new BiYueZhanFa("迷阵", ZFType.ZhuDong_FaShu_BaoZou, 0, 0.35f, 1.55f, 4, new Person(1));
 	//钝兵挫锐
 	public static ZhuiJiZhanFa dunbingcuorui = new ZhuiJiZhanFa("钝兵挫锐", ZFType.ZhuiJi_GongJi_KongZhiGongJi, 0, 0.3f, 2.0f, 5, new Person(1));
-	//S3 形兵之极
-	public static XingBingZhiJi xingbingzhiji = new XingBingZhiJi("形兵之极", ZFType.ZhiHui_DaYing_ZhongJun_QianFeng, 0, 1.0f, 2, new Person(3),0.1f,0.4f,0.5f);
 	//焰焚箕轸
 	public static YanFenJiZhen yanfenjizhen = new YanFenJiZhen("焰焚箕轸", ZFType.ZhuDong_FaShu, 1, 0.5f, 1.19f, 4, new Person(2,3),1.19f);
 	//水淹七军
@@ -95,5 +95,9 @@ public abstract class ZList {
 	public static HuiFuZhanFa zengyuan = new HuiFuZhanFa("增援", ZFType.ZhuDong_QunTi_HuiFu, 1, 0.45f, 1.98f, 3, new Person(2));
 	//危崖困军 TODO 降低防御属性
 	public static ZhanFa weiyakunjun = new ZhanFa("危崖困军",ZFType.ZhuDong_FaShu, 1, 0.5f, 2.1f, 2, new Person(2));
+	
+	/**   =============S3 =================== **/
+	//形兵之极
+	public static XingBingZhiJi xingbingzhiji = new XingBingZhiJi("形兵之极", ZFType.ZhiHui_DaYing_ZhongJun_QianFeng, 0, 1.0f, 2, new Person(3),0.1f,0.4f,0.5f);
 	/*****    -------------   拆解战法     end -------------   *****/
 }

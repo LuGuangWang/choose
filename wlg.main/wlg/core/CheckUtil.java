@@ -26,6 +26,7 @@ public class CheckUtil {
 		case ZhiHui_FuZhu_ALL:
 		case ZhiHui_KongZhiGongJi:
 		case ZhiHui_GuiBi_JianShang:
+		case ZhiHui_YouXian_DongYao:
 		case ZhiHui_SkipReady_Jiashang:
 		case ZhiHui_DaYing_ZhongJun_QianFeng:
 		case ZhiHui_JiaFaShu_JianShang_MianYi:
@@ -170,6 +171,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu_GongJi:
 		case ZhuDong_FaShu_BaoZou:
 		case ZhiHui_Multiple_FaShu:
+		case ZhiHui_YouXian_DongYao:
 		case ZhuDong_FaShu_JianShang:
 		case ZhuDong_FaShu_KeepHuiHe:
 		case ZhuDong_FaShu_jianGongJi:
@@ -260,6 +262,7 @@ public class CheckUtil {
 	public static boolean isMianYiGuiBi(ZhanFa zf) {
 		boolean isMianYiGuiBi = false;
 		switch (zf.getT()) {
+		case ZhiHui_YouXian_DongYao:
 		case ZhiHui_JiaJuLi_FenBing_KongHuang:
 			isMianYiGuiBi = true;
 			break;
@@ -393,16 +396,6 @@ public class CheckUtil {
 		return isZhuiJi;
 	}
 	
-	/**
-	 * 每个战法都有计算一次
-	 * @param zf
-	 * @return
-	 */
-	public static boolean isAllCalc(ZhanFa zf) {
-		boolean isAllCalc = isJiaShang(zf);
-		return isAllCalc;
-	}
-	
 	public static boolean isDownFangYu(ZhanFa zf) {
 		boolean isDownFangYu = false;
 		switch (zf.getT()) {
@@ -452,6 +445,11 @@ public class CheckUtil {
 		case ZhuDong_ZiSheng_YouJun_HuiFu:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
+		/** 被动类攻击战法 **/
+		case BeiDong_GongJi:
+		case BeiDong_LianJi_jiagongji:
+		/** 追击类攻击战法 **/
+		case ZhuiJi_GongJi_KongZhiGongJi:
 			isMianYi = false;
 			break;
 		default:

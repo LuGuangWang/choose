@@ -60,6 +60,7 @@ public abstract class STZSConf {
 			put(WList.lingdi.getName(),WList.lingdi.reset());
 			put(WList.hetaihou.getName(),WList.hetaihou.reset());
 			put(WList.xiaoguojia.getName(),WList.xiaoguojia.reset());
+			put(WList.xiaozhujun.getName(),WList.xiaozhujun.reset());
 		}
 	};
 	
