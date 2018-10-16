@@ -24,6 +24,7 @@ import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.GongJiZhanFa;
 import wlg.core.bean.zhanfa.HuiFuZhanFa;
 import wlg.core.bean.zhanfa.JiaChengZhanFa;
+import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.LianJiZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.ShengBingQiuZhan;
@@ -617,6 +618,23 @@ public class CalcWJHarm {
 					Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
 				}
 			}
+			//增加谋略和攻击伤害
+			if(CheckUtil.isJiaShang(zf)) {
+				float oldVal = huihe.getUpFaShaShangHaiVal();
+				
+				float rate = CalcDoRate.getCommRate(huihe, zf);
+				float pre = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
+				//受谋略影响
+				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
+				float newVal = rate * pre * ((JiaShangZhanFa)zf).getUpVal() + val;
+				if(ConflictList.$().isCeluechongtu()) {
+					newVal /= 3.0f;
+				}
+				if (newVal > oldVal) {
+					huihe.setUpAllWjVal(newVal);
+					Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
+				}
+			}
 		}
 		
 	}
@@ -643,6 +661,7 @@ public class CalcWJHarm {
 		huihe.setZishenHuifuPos(0);
 		huihe.setZishenHuifuVal(0.0f);
 		huihe.setHuifuVal(0.0f);
+		huihe.setUpAllWjVal(0.0f);
 	}
 
 	private static void setWeiWuZhiZeLianJiVal(HuiHe huihe, ZhanFa zf) {

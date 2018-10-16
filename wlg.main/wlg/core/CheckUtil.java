@@ -282,7 +282,7 @@ public class CheckUtil {
 		}
 		return isUpAllShuXing;
 	}
-	
+	//增加策略属性值
 	public static boolean isUpFashu(ZhanFa zf) {
 		boolean isUpFashu = false;
 		switch (zf.getT()) {

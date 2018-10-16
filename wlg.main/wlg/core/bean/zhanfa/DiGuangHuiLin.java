@@ -40,7 +40,7 @@ public class DiGuangHuiLin extends ZhanFa{
 		
 		float mianyiVal = CalcDoRate.calcMianyiVal(this.getSpeed());
 		
-		float pval = (mianyiVal + upVal.getDayingUpZFVal()) * secondHarmVal;
+		float pval = (mianyiVal + upVal.getDayingUpZFVal()+ upVal.getAddAllWjVal()) * secondHarmVal;
 		pval *= (this.getAttack() + upVal.getAddQuanShuXingVal()) * Conf.gongji_rate;
 		if (secondPerson.getPersons().length > 0) {
 			int len = getPersons().getPersons().length;

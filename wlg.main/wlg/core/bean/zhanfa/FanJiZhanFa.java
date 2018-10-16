@@ -29,7 +29,7 @@ public class FanJiZhanFa extends ZhanFa {
 	 */
 	public float getHarmVal(float harmVal,UpVal upVal) {
 		float sum = 0.0f;
-		float pval = (this.getDoneRate()+upVal.getDayingUpZFVal()) * harmVal;
+		float pval = (this.getDoneRate()+upVal.getDayingUpZFVal()+ upVal.getAddAllWjVal()) * harmVal;
 		pval = addShuXingVal(pval,upVal);
 		int i = 1;
 		int distance = CalCDistance.calcDistance(this.getDistance(), this.getPosition());

@@ -33,6 +33,8 @@ public class HuiHe implements Cloneable{
 	private float upQuanShuXing = 0.0f;
 	//策略伤害提高值
 	private float upFaShaShangHaiVal = 0.0f;
+	//增加所有武将的攻击和谋略伤害比
+	private float upAllWjVal = 0.0f;
 	//防御属性值降低值
 	private float downFangYuVal = 0.0f;
 	//本回合刷新战法伤害值
@@ -275,6 +277,12 @@ public class HuiHe implements Cloneable{
 	public int getWujiangCount() {
 		return wujiangCount;
 	}
+	public float getUpAllWjVal() {
+		return upAllWjVal;
+	}
+	public void setUpAllWjVal(float upAllWjVal) {
+		this.upAllWjVal = upAllWjVal;
+	}
 	public float getUpFaShaShangHaiVal() {
 		return upFaShaShangHaiVal;
 	}
@@ -392,9 +400,9 @@ public class HuiHe implements Cloneable{
 		
 		float left = wj.getTotalCount() - wj.getSunshiCount();
 		
-		float rate = left/Conf.totalCount + 1.0f;
+		float rate = left/Conf.totalCount + 1.5f;
 		
-		return rate>1.0f?(rate>2.0f?2.0f:rate):1.0f;
+		return rate>1.0f?(rate>2.5f?2.0f:rate):1.0f;
 	}
 	/**
 	 * 自身士兵损失值

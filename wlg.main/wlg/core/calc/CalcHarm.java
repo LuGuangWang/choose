@@ -729,25 +729,6 @@ public class CalcHarm {
 			sum += harmval;
 		}
 		
-		//计算加伤战法  TODO 以后不要使用这种写法
-		if(jss.size()>0) {
-			for(JiaShangZhanFa zf:jss) {
-				float rate = CalcDoRate.getCommRate(huihe, zf);
-				
-				//属性加成值
-				UpVal upVal = buildUpVal(huihe,zf);
-				
-				float harmval = rate * executeJss * zf.getHarmVal(zf.getUpVal(),upVal) * huihe.getSolderRate(zf);
-				//降低防御属性增加的伤害值
-				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
-				//免疫规避
-				if(!CheckUtil.isMianYiGuiBi(zf)) {
-					harmval *= huihe.getWj().getMianyiGBVal();
-				}
-				Conf.log("===战法 " + zf.getName() + " 最终杀伤力：" + harmval);
-				sum += harmval;
-			}
-		}
 		return sum;
 	}
 
@@ -784,6 +765,7 @@ public class CalcHarm {
 		
 		upVal.setAddStrategyVal(addStrategyVal);
 		upVal.setAddQuanShuXingVal(addQuanShuXingVal);
+		upVal.setAddAllWjVal(huihe.getUpAllWjVal());
 		return upVal;
 	}
 
