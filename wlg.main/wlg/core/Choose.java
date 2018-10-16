@@ -151,7 +151,7 @@ public class Choose {
 		result.put(sum10, key10);
 		
 		one = WList.luxun.setSecondZhanFa(ZList.bugong).setThreeZhanFa(ZList.shimianmaifu);
-		two = WList.xunyv.setSecondZhanFa(ZList.yanfenjizhen).setThreeZhanFa(ZList.qingnangmiyao);
+		two = WList.xunyv.setSecondZhanFa(ZList.mizhen).setThreeZhanFa(ZList.chugesiqi);
 		three= WList.caocao.setSecondZhanFa(ZList.yaoshu).setThreeZhanFa(ZList.jijiaozhishi);
 		float sum11 = CalcWJHarm.calcVal(one,two,three);
 		String key11 = buildKey(one,two,three);

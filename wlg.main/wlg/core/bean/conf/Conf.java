@@ -6,13 +6,11 @@ public abstract class Conf {
 	//攻击伤害倍数
 	public static final float gongji_rate = 2.1f;
 	//恢复倍数
-	public static final float huifu_rate = 2.34f;
+	public static final float huifu_rate = 4.0f;
 	//防御攻击倍数 
-	public static final float fg_rate = 1.5f;
+	public static final float fg_rate = 1.8f;
 	//大幅下降
 	public static final float dafu_xiajiang = 0.65f;
-	//含控制战法，士兵损失增加1.5倍
-	public static final float kongzhi_avg_rate = 0.7f;
 	//法术损失基数
 	public static final float sf_s_rate = 0.5f;
 	//攻击损失基数
@@ -27,8 +25,6 @@ public abstract class Conf {
 	public static final float SunShiCount = 1000.0f;
 	//速度基准值
 	public static final float base_speed = 120.0f;
-	//回合初始兵力基数
-	public static final float binglijishu = 4.0f;
 	//暴走造成敌军伤害的概率
 	public static final float baozou_rate = 0.8f;
 	//暴走伤害基数

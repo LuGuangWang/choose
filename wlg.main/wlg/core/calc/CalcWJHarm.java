@@ -585,6 +585,11 @@ public class CalcWJHarm {
 				HuiFuZhanFa hzf = (HuiFuZhanFa)zf;
 				float rate = CalcDoRate.getCommRate(huihe, zf);
 				float huifuCount = rate * zf.getDoneRate() * hzf.getHuifuVal() * wj.getStrategy() * Conf.huifu_rate;
+				if(zf.getT().equals(ZFType.ZhuDong_ZiSheng_YouJun_HuiFu)) {
+					float pre = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
+					float otherCount = pre * rate * zf.getDoneRate() * hzf.getHuifuVal() * wj.getStrategy() * Conf.huifu_rate;
+					huifuCount -= otherCount;
+				}
 				Conf.log("=====战法"+hzf.getName()+"救援士兵：" + huifuCount);
 				huihe.setZishenHuifuPos(zf.getPosition());
 				huihe.addZishenHuifuVal(huifuCount);
