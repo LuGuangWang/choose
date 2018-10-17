@@ -34,9 +34,9 @@ public abstract class Conf {
 	//攻击被控制的概率
 	public static final float max_mianyi_gongji = 0.85f;
 	//法术不被控制的概率
-	public static final float min_mianyi_fashu = 0.6f; 
+	public static final float min_mianyi_fashu = 0.65f; 
 	//攻击被控制的概率
-	public static final float min_mianyi_gongji = 0.6f;
+	public static final float min_mianyi_gongji = 0.65f;
 	//免疫规避的概率
 	public static final float mianyi_guibi = 0.85f;
 	//属性伤害比缩小倍数
