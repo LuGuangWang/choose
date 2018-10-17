@@ -121,6 +121,7 @@ public class CalcHarm {
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
+		
 		return unHurtVal;
 	}
 
@@ -564,6 +565,7 @@ public class CalcHarm {
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
+	
 		return unHurtVal;
 	}
 
@@ -598,7 +600,8 @@ public class CalcHarm {
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
-		return unHurtVal;
+		float kongzhiHarm = zf.getDoneRate()*Conf.SunShiCount;
+		return unHurtVal + kongzhiHarm;
 	}
 
 	@SuppressWarnings("unchecked")
