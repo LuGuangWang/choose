@@ -43,8 +43,11 @@ public abstract class ZList {
 	public static DiGuangHuiLin dilinhuiguang = new DiGuangHuiLin("帝临回光", ZFType.ZhiHui_JiaJuLi_FenBing_KongHuang, 2, 1.0f, 0.59f, 5, new Person(3),0.7f,new Person(1,1,2));
 	//何太后 母仪浮梦
 	public static MuYiFuMeng muyifumeng = new MuYiFuMeng("母仪浮梦", ZFType.ZhiHui_GuiBi_JianShang, 0, 1.0f, 0.5f,0.3f, 5, new Person(3),1,4);
-	//朱儁 节镇关东
+	//小朱儁 节镇关东
 	public static JieZhenGuanDong jiezhenguandong = new JieZhenGuanDong("节镇关东", ZFType.ZhiHui_YouXian_DongYao, 0, 1.0f, 1.2f, 5, new Person(2),2,1.0f,1.0f);
+	//小甘宁 轻侠妄为
+	public static QingXiaWangWei qingxiawangwei = new QingXiaWangWei("轻侠妄为", ZFType.ZhiHui_MianYi_jiagongji, 0, 1.0f, 0.4f, 1, new Person(1),3);
+	
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

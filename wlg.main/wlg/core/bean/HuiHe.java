@@ -51,8 +51,6 @@ public class HuiHe implements Cloneable{
 	private float fengZhanfa = 0.0f;
 	//封闭普攻
 	private float fengGongji = 0.0f;
-	//被封攻击的人数
-	private int fengGJP = 0;
 	//控制是否是 数值计算
 	private boolean isShuZhi = false;	
 	//规避伤害
@@ -79,13 +77,15 @@ public class HuiHe implements Cloneable{
 	private float huifuVal = 0.0f;
 	//每个武将先手的概率
 	private float xianshouRate = 0.0f;
+	//提高自身攻击伤害
+	private int zishenUpGjPos = 0;
+	private float zishenUpGjRate = 0.0f;//提高自身攻击伤害比
 	
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
 		HuiHe huihe = this.clone();
 		huihe.fengAll = jsRate;
 		
-		huihe.fengGJP = 0;
 		huihe.isShuZhi = false;
 		huihe.fengZhanfa = 0.0f;
 		huihe.fengGongji = 0.0f;
@@ -98,7 +98,6 @@ public class HuiHe implements Cloneable{
 		huihe.guibiVal = guibiVal;
 		huihe.fengAll = kongzhiALl;
 		
-		huihe.fengGJP = 0;
 		huihe.isShuZhi = false;
 		huihe.fengZhanfa = 0.0f;
 		huihe.fengGongji = 0.0f;
@@ -111,7 +110,6 @@ public class HuiHe implements Cloneable{
 		huihe.fengAll = fengVal;
 		huihe.isShuZhi = isShuZhi;
 		
-		huihe.fengGJP = 0;
 		huihe.fengZhanfa = 0.0f;
 		huihe.fengGongji = 0.0f;
 		return huihe;
@@ -123,7 +121,6 @@ public class HuiHe implements Cloneable{
 		huihe.fengZhanfa = fashuRate;
 		huihe.fengGongji = gongjiRate;
 		
-		huihe.fengGJP = 0;
 		huihe.isShuZhi = false;
 		huihe.fengAll = 0.0f;
 		return huihe;
@@ -134,17 +131,15 @@ public class HuiHe implements Cloneable{
 		huihe.fengGongji = jsRate;
 		huihe.isShuZhi = isShuZhi;
 		
-		huihe.fengGJP = 0;
 		huihe.fengAll = 0.0f;
 		huihe.fengZhanfa = 0.0f;
 		return huihe;
 	}
 	
 	//封攻击 概率和人数
-	public HuiHe getFengGongji(float jsRate,int fengGJP) {
+	public HuiHe getFengGongji(float jsRate) {
 		HuiHe huihe = this.clone();
 		huihe.fengGongji = jsRate;
-		huihe.fengGJP = fengGJP;
 		
 		huihe.isShuZhi = false;
 		huihe.fengAll = 0.0f;
@@ -156,7 +151,6 @@ public class HuiHe implements Cloneable{
 		HuiHe huihe = this.clone();
 		huihe.fengZhanfa = jsRate;
 		
-		huihe.fengGJP = 0;
 		huihe.isShuZhi = false;
 		huihe.fengAll = 0.0f;
 		huihe.fengGongji = 0.0f;
@@ -169,8 +163,17 @@ public class HuiHe implements Cloneable{
 		}
 		return fengGongji;
 	}
-	public int getFengGJP() {
-		return fengGJP;
+	public int getZishenUpGjPos() {
+		return zishenUpGjPos;
+	}
+	public void setZishenUpGjPos(int zishenUpGjPos) {
+		this.zishenUpGjPos = zishenUpGjPos;
+	}
+	public float getZishenUpGjRate() {
+		return zishenUpGjRate;
+	}
+	public void setZishenUpGjRate(float zishenUpGjRate) {
+		this.zishenUpGjRate = zishenUpGjRate;
 	}
 	public WuJiang getWj() {
 		return wj;
@@ -402,7 +405,7 @@ public class HuiHe implements Cloneable{
 		getSunShi(zf,wj.getPosition(),wj.getDefense(),wj.getStrategy(),wj.getFinalp());
 		
 		//如果是先手不会有士兵损失
-		float left = wj.getTotalCount() - wj.getSunshiCount()*(1-xianshou);
+		float left = wj.getTotalCount() - wj.getSunshiCount() * (1- xianshou);
 		
 		float rate = left/Conf.totalCount + 1.1f;
 		

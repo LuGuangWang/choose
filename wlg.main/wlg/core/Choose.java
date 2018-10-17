@@ -250,7 +250,7 @@ public class Choose {
 	 */
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-//		WuJiang one;
+		WuJiang one;
 //		
 //		one = WList.luxun.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
@@ -305,6 +305,9 @@ public class Choose {
 //
 //		one = WList.zhujun.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
+		
+		one = WList.xiaoganning.reset();
+		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 //		one = WList.handiaochan.setSecondZhanFa(ZList.weiyakunjun);
 //		result.put(CalcWJHarm.calcVal(one), one.toString());

@@ -1,5 +1,6 @@
 package wlg.core.bean.zhanfa;
 
+import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
 import wlg.core.calc.CalCDistance;
 
@@ -29,7 +30,13 @@ public class FanJiZhanFa extends ZhanFa {
 	 */
 	public float getHarmVal(float harmVal,UpVal upVal) {
 		float sum = 0.0f;
-		float pval = (this.getDoneRate()+upVal.getDayingUpZFVal()+ upVal.getAddAllWjVal()) * harmVal;
+		//伤害值
+		harmVal += upVal.getAddAllWjVal();
+		if(CheckUtil.isAttack(this)) {
+			harmVal += upVal.getAddZiShenGJRate();
+		}
+		//发动概率
+		float pval = (this.getDoneRate()+upVal.getDayingUpZFVal()) * harmVal;
 		pval = addShuXingVal(pval,upVal);
 		int i = 1;
 		int distance = CalCDistance.calcDistance(this.getDistance(), this.getPosition());

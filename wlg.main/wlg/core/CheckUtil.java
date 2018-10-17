@@ -129,10 +129,22 @@ public class CheckUtil {
 	}
 	
 	public static boolean isKongZhi(ZhanFa zf) {
-		boolean isKongZhi = isKongZhiAll(zf)||isKongZhiFaShu(zf)||isKongZhiGongJi(zf)||isLianJi(zf);
+		boolean isKongZhi = isKongZhiAll(zf)||isKongZhiFaShu(zf)||isKongZhiGongJi(zf)||isLianJi(zf)||isFuZhuKongZhi(zf);
 		return isKongZhi;
 	}
 	
+	private static boolean isFuZhuKongZhi(ZhanFa zf) {
+		boolean isKongZhi = false;
+		switch (zf.getT()) {
+		case ZhiHui_MianYi_jiagongji:
+			isKongZhi = true;
+			break;
+		default:
+			isKongZhi = false;
+			break;
+		}
+		return isKongZhi;
+	}
 	/**
 	 * 是否攻击伤害
 	 * @param zf
@@ -205,6 +217,7 @@ public class CheckUtil {
 		case ZhuDong_QunTi_HuiFu:
 		case ZhiHui_KongZhiGongJi:
 		case ZhiHui_GuiBi_JianShang:
+		case ZhiHui_MianYi_jiagongji:
 		case ZhuDong_Multiple_KongZhi:
 		case ZhiHui_SkipReady_Jiashang:
 		case ZhuDong_BaoZou_jianFangYu:
@@ -285,7 +298,7 @@ public class CheckUtil {
 		}
 		return isUpAllShuXing;
 	}
-	//增加策略属性值
+	//增加策略属性值比
 	public static boolean isUpFashu(ZhanFa zf) {
 		boolean isUpFashu = false;
 		switch (zf.getT()) {

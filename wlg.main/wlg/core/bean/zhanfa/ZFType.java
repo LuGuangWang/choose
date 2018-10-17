@@ -22,8 +22,6 @@ public enum ZFType {
 	ZhuDong_JianShang_KongZhiFaShu,//主动类 减伤 然后控制法术,本身不造成伤害
 	ZhuDong_FaShuShangHai_KongZhiGongji,//主动类 先法术伤害 然后控制攻击
 	
-	
-	
 	ZhiHui_FuZhu_ALL,//指挥类 增加法术和攻击伤害
 	ZhiHui_KongZhiGongJi,//指挥类 控制攻击
 	ZhiHui_Multiple_FaShu,//指挥类 多种伤害效果
@@ -37,6 +35,7 @@ public enum ZFType {
 	ZhiHui_JianshangFashu_KongZhiFaShu,//指挥类  降低法术伤害 控制法术伤害
 	ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi,//指挥类 法术加成 法术攻击 本身不造成攻击伤害
 	ZhiHui_JiaJuLi_FenBing_KongHuang,//指挥类 加攻击距离 分兵 恐慌
+	ZhiHui_MianYi_jiagongji,//指挥类 免疫控制 加攻击
 	
 	BeiDong_huifu,//被动类 恢复
 	BeiDong_GongJi,//被动类，攻击伤害

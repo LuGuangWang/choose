@@ -5,6 +5,7 @@ public class UpVal {
 	private float addStrategyVal = 0.0f;//策略属性提高比
 	private float addQuanShuXingVal = 0.0f;//策略属性提高值
 	private float addAllWjVal = 0.0f;//增加所有武将策略和攻击伤害
+	private float addZiShenGJRate = 0.0f;
 	
 	//行兵之极 大营加战法发动概率
 	private float dayingUpZFVal = 0.0f;
@@ -13,6 +14,12 @@ public class UpVal {
 	//行兵之极 前锋降低伤害
 	private float qianfengUpVal = 0.0f;
 	
+	public float getAddZiShenGJRate() {
+		return addZiShenGJRate;
+	}
+	public void setAddZiShenGJRate(float addZiShenGJRate) {
+		this.addZiShenGJRate = addZiShenGJRate;
+	}
 	public float getAddStrategyVal() {
 		return addStrategyVal;
 	}

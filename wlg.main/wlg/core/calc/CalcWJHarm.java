@@ -27,6 +27,7 @@ import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.LianJiZhanFa;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
+import wlg.core.bean.zhanfa.QingXiaWangWei;
 import wlg.core.bean.zhanfa.ShengBingQiuZhan;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
@@ -624,6 +625,13 @@ public class CalcWJHarm {
 					Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
 				}
 			}
+			//自身攻击加成比
+			if(zf.getT().equals(ZFType.ZhiHui_MianYi_jiagongji)) {
+				huihe.getWj().setMianyiFSVal(1.0f);
+				huihe.getWj().setMianyiGJVal(1.0f);
+				huihe.setZishenUpGjPos(zf.getPosition());
+				huihe.setZishenUpGjRate(((QingXiaWangWei)zf).getUpGongJiRate());
+			}
 			//先手战法
 			if(zf.getT().equals(ZFType.ZhiHui_YouXian_DongYao)) {
 				float pre = 1.0f * zf.getPersons().getMaxPerson()/Conf.WuJiang_Count;
@@ -657,6 +665,8 @@ public class CalcWJHarm {
 		huihe.setHuifuVal(0.0f);
 		huihe.setUpAllWjVal(0.0f);
 		huihe.setXianshouRate(0.0f);
+		huihe.setZishenUpGjPos(0);
+		huihe.setZishenUpGjRate(0.0f);
 	}
 
 	private static void setWeiWuZhiZeLianJiVal(HuiHe huihe, ZhanFa zf) {

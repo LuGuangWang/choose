@@ -8,7 +8,7 @@ public abstract class Conf {
 	//恢复倍数
 	public static final float huifu_rate = 4.0f;
 	//防御攻击倍数 
-	public static final float fg_rate = 1.5f;
+	public static final float fg_rate = 1.0f;
 	//大幅下降
 	public static final float dafu_xiajiang = 0.65f;
 	//法术损失基数
