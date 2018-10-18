@@ -10,7 +10,7 @@ public abstract class Conf {
 	//防御攻击倍数 
 	public static final float fg_rate = 1.0f;
 	//大幅下降
-	public static final float dafu_xiajiang = 0.65f;
+	public static final float dafu_xiajiang = 0.95f;
 	//法术损失基数
 	public static final float sf_s_rate = 0.5f;
 	//攻击损失基数

@@ -77,7 +77,7 @@ public class CheckUtil {
 		return isBuGongJi;
 	}
 
-	private static boolean isKongZhiAll(ZhanFa zf) {
+	public static boolean isKongZhiAll(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
 		case ZhuDong_BaoZou:
