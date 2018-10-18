@@ -34,7 +34,6 @@ import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.WeiWuZhiShiZhanFa;
 import wlg.core.bean.zhanfa.XingBingZhiJi;
 import wlg.core.bean.zhanfa.ZFType;
-import wlg.core.bean.zhanfa.ZhanBiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 /**
@@ -97,11 +96,11 @@ public class CalcWJHarm {
 
 				// 主伤害
 				if (huihe.isHasKongZhi()) {
-					Conf.log("=============计算普通主伤害值==========");
+					Conf.log("=============计算控制普通主伤害值==========");
 					fsVal += CalcHarm.calcKongZhiHuiHe(huihe, true, allKongZhi, wj.getZhanfa());
 					// 增益伤害
 					if (huihe.isHasZengYi()) {
-						Conf.log("=============计算增益伤害值==========");
+						Conf.log("=============计算控制增益伤害值==========");
 						List<ZhanFa> zfList = new ArrayList<>();
 						for (int m = j; m < wujiang.size(); m++) {
 							zfList.addAll(Arrays.asList(wujiang.get(m).getZhanfa()));
@@ -164,25 +163,25 @@ public class CalcWJHarm {
 				
 				wjVal += fsVal;
 				//控制力转化为伤害值
-				float kongzhiHarm = 0.0f;
-				for(ZhanFa zf:allKongZhi) {
-					float kzHarm = 0.0f;
-					float rate = CalcDoRate.getCommRate(huihe, zf);
-					if(rate>0) {
-						//浑水摸鱼
-						if(zf.getT().equals(ZFType.ZhuDong_KongZhi_ALL)) {
-							kzHarm = zf.getDoneRate() * Conf.SunShiCount * Conf.fashu_rate * zf.getPersons().getMaxPerson() / Conf.WuJiang_Count;
-							kongzhiHarm = Math.max(kzHarm, kongzhiHarm);
-						}
-						//战比断金
-						if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi)) {
-							kzHarm = ((ZhanBiZhanFa)zf).getKonzhiVal() * zf.getDoneRate() * zf.getPersons().getMaxPerson() / Conf.WuJiang_Count;
-							kzHarm *= Conf.SunShiCount * Conf.fashu_rate * Conf.gj_s_rate;
-							kongzhiHarm = Math.max(kzHarm, kongzhiHarm);
-						}
-					}
-				}
-				wjVal += kongzhiHarm;
+//				float kongzhiHarm = 0.0f;
+//				for(ZhanFa zf:allKongZhi) {
+//					float kzHarm = 0.0f;
+//					float rate = CalcDoRate.getCommRate(huihe, zf);
+//					if(rate>0) {
+//						//浑水摸鱼
+//						if(zf.getT().equals(ZFType.ZhuDong_KongZhi_ALL)) {
+//							kzHarm = zf.getDoneRate() * Conf.SunShiCount;
+//							kongzhiHarm = Math.max(kzHarm, kongzhiHarm);
+//						}
+//						//战比断金
+//						if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi)) {
+//							kzHarm = ((ZhanBiZhanFa)zf).getKonzhiVal() * zf.getDoneRate() * zf.getPersons().getMaxPerson() / Conf.WuJiang_Count;
+//							kzHarm *= Conf.SunShiCount * Conf.fashu_rate * Conf.gj_s_rate;
+//							kongzhiHarm = Math.max(kzHarm, kongzhiHarm);
+//						}
+//					}
+//				}
+//				wjVal += kongzhiHarm;
 				// 普通攻击伤害
 				if (Conf.getCalcPG()) {
 					float gongjiVal = 0.0f;

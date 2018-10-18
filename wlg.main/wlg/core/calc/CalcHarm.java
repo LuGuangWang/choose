@@ -40,7 +40,7 @@ public class CalcHarm {
 			ZhanFa zf = kongzhiZf.get(i);
 			float unHurtVal = 0.0f;
 			
-			if(zf instanceof KongZhiZhanFa) {
+			if(zf.getT().equals(ZFType.ZhuDong_KongZhi_ALL)) {
 				unHurtVal = calcKZZhanFa(huihe,calcPrimy, kongzhiMap, zf, zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				unHurtVal = calcKZGongJiThenFaShuShanghai(huihe, calcPrimy,kongzhiMap, zf, zhanfas);
@@ -600,8 +600,8 @@ public class CalcHarm {
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
-//		float kongzhiHarm = zf.getDoneRate()*Conf.SunShiCount;
-		return unHurtVal;
+		float kongzhiHarm = zf.getDoneRate()*Conf.SunShiCount*zf.getPersons().getMaxPerson()/Conf.WuJiang_Count;
+		return unHurtVal + kongzhiHarm;
 	}
 
 	@SuppressWarnings("unchecked")
