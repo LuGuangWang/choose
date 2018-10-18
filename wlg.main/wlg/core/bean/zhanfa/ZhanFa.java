@@ -301,4 +301,9 @@ public class ZhanFa implements Harm, Cloneable {
 		}
 		return o;
 	}
+
+	@Override
+	public int getChiXuHuihe() {
+		return 10;
+	}
 }

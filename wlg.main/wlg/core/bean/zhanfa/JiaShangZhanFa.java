@@ -24,5 +24,8 @@ public class JiaShangZhanFa extends ZhanFa{
 		return keephuihe;
 	}
 	
-	
+	@Override
+	public int getChiXuHuihe() {
+		return keephuihe;
+	}
 }

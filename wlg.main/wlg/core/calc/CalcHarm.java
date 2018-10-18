@@ -428,7 +428,7 @@ public class CalcHarm {
 				float fengVal = rate>0?unHurt:0.0f;
 				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(fengVal),calcPrimy,zhanfa);
 			}else {
-				float fengVal = rate>0?b.getHarmRate()*unHurt:0.0f;
+				float fengVal = rate>0?b.getDownVal()*unHurt:0.0f;
 				tmp =  kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(fengVal),calcPrimy,zhanfa);
 			}
 			kongzhiMap.put(b.getName(), kongzhiVal);

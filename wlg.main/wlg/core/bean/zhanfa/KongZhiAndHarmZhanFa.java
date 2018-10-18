@@ -6,7 +6,7 @@ public class KongZhiAndHarmZhanFa extends ZhanFa {
 	private float wushiguibi = 0.0f;
 	
 	public KongZhiAndHarmZhanFa(String name, ZFType t, int keephuihe,float exHarmRate,float wushiguibi, int distance,Person persons) {
-		super(name, t, 0, 1f, 0f, distance,persons,0.0f,exHarmRate);
+		super(name, t, 0, 1f, 0.0f, distance,persons,0.0f,exHarmRate);
 		this.keephuihe = keephuihe;
 		this.wushiguibi = wushiguibi;
 	}

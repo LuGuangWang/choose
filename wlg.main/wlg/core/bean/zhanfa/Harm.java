@@ -27,4 +27,6 @@ public interface Harm {
 	 * @return
 	 */
 	public float addShuXingVal(float val,UpVal upVal);
+	
+	public int getChiXuHuihe();
 }

@@ -19,5 +19,9 @@ public class QingXiaWangWei extends ZhanFa {
 	public float getUpGongJiRate() {
 		return upGongJiRate;
 	}
-
+	
+	@Override
+	public int getChiXuHuihe() {
+		return keephuihe;
+	}
 }

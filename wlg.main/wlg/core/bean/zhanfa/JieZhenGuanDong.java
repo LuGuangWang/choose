@@ -23,5 +23,8 @@ public class JieZhenGuanDong extends ZhanFa {
 	public float getMianyiGBVal() {
 		return mianyiGBVal;
 	}
-
+	@Override
+	public int getChiXuHuihe() {
+		return keepHuihe;
+	}
 }

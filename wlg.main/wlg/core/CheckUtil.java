@@ -201,6 +201,24 @@ public class CheckUtil {
 		return isStrategy;
 	}
 	
+	public static boolean isChiXuHuiHe(ZhanFa zf) {
+		boolean isChiXuHuiHe = false;
+		switch (zf.getT()) {
+		case ZhiHui_FuZhu_ALL:
+		case ZhiHui_KongZhiGongJi:
+		case ZhiHui_GuiBi_JianShang:
+		case ZhiHui_YouXian_DongYao:
+		case ZhiHui_MianYi_jiagongji:
+		case ZhiHui_JianshangFashu_KongZhiFaShu:
+			isChiXuHuiHe = true;
+			break;
+		default:
+			isChiXuHuiHe = false;
+			break;
+		}
+		return isChiXuHuiHe;
+	}
+	
 	/**
 	 * 是否0伤害
 	 * @param zf

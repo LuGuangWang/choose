@@ -27,5 +27,8 @@ public class MuYiFuMeng extends ZhanFa {
 	public int getKeephuihe() {
 		return keephuihe;
 	}
-
+	@Override
+	public int getChiXuHuihe() {
+		return keephuihe;
+	}
 }

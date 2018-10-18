@@ -47,7 +47,8 @@ public abstract class ZList {
 	public static JieZhenGuanDong jiezhenguandong = new JieZhenGuanDong("节镇关东", ZFType.ZhiHui_YouXian_DongYao, 0, 1.0f, 1.2f, 5, new Person(2),2,1.0f,1.0f);
 	//小甘宁 轻侠妄为
 	public static QingXiaWangWei qingxiawangwei = new QingXiaWangWei("轻侠妄为", ZFType.ZhiHui_MianYi_jiagongji, 0, 1.0f, 0.4f, 1, new Person(1),3);
-	
+	//小凌统 国土
+//	public static ZhanFa guotu = new ZhanFa("国土", ZFType.ZhiHui_MianYi_WushiGuiBi, 0, 1.0f, harmVal, 3, new Person(1));
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	
@@ -98,6 +99,7 @@ public abstract class ZList {
 	public static HuiFuZhanFa zengyuan = new HuiFuZhanFa("增援", ZFType.ZhuDong_QunTi_HuiFu, 1, 0.45f, 1.98f, 3, new Person(2));
 	//危崖困军 TODO 降低防御属性
 	public static ZhanFa weiyakunjun = new ZhanFa("危崖困军",ZFType.ZhuDong_FaShu, 1, 0.5f, 2.1f, 2, new Person(2));
+	
 	
 	/**   =============S3 =================== **/
 	//形兵之极

@@ -7,14 +7,9 @@ import wlg.core.bean.HuiHe;
 import wlg.core.bean.conf.Conf;
 import wlg.core.bean.wujiang.WuJiang;
 import wlg.core.bean.zhanfa.ConflictList;
-import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
-import wlg.core.bean.zhanfa.JiaShangZhanFa;
-import wlg.core.bean.zhanfa.JieZhenGuanDong;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
-import wlg.core.bean.zhanfa.MuYiFuMeng;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ZFType;
-import wlg.core.bean.zhanfa.ZhanBiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
 
 /**
@@ -182,28 +177,7 @@ public class CalcDoRate {
 				t.setHarmRate(0.0f);// 会影响增益战法的计算
 				rate = 0;
 			}
-			// 战斗开始后前多少回合
-		} else if (zhanfa.getT().equals(ZFType.ZhiHui_JianshangFashu_KongZhiFaShu)) {
-			FanJiZhiCeZhanFa t = (FanJiZhiCeZhanFa) zhanfa;
-			if (huihe.getId() > t.getKeephuihe()) {
-				t.setHarmRate(0.0f);// 会影响增益战法的计算
-				rate = 0;
-			}
-			// 战斗开始后前多少回合
-		} else if (zhanfa.getT().equals(ZFType.ZhiHui_FuZhu_ALL)) {
-			JiaShangZhanFa t = (JiaShangZhanFa) zhanfa;
-			if (huihe.getId() > t.getKeephuihe()) {
-				t.setHarmRate(0.0f);// 会影响增益战法的计算
-				rate = 0;
-			}
-			// 战斗开始后前多少回合
-		} else if (zhanfa.getT().equals(ZFType.ZhiHui_KongZhiGongJi)) {
-			ZhanBiZhanFa t = (ZhanBiZhanFa) zhanfa;
-			if (huihe.getId() > t.getKeephuihe()) {
-				t.setHarmRate(0.0f);// 会影响增益战法的计算
-				rate = 0;
-			}
-		//十面埋伏
+		// 十面埋伏
 		} else if (zhanfa.getT().equals(ZFType.ZhuDong_FaShu_JianShang)) {
 			rate = 0;
 			int ready = zhanfa.getReady() + 1;
@@ -224,19 +198,15 @@ public class CalcDoRate {
 					rate = 1.0f;
 				}
 			}
-			// 母仪浮梦
-		} else if (zhanfa.getT().equals(ZFType.ZhiHui_GuiBi_JianShang)) {
-			int keephuihe = ((MuYiFuMeng) zhanfa).getKeephuihe();
-			if (huihe.getId() > keephuihe) {
-				rate = 0.0f;
-			}
-		//节镇关东
-		} else if(zhanfa.getT().equals(ZFType.ZhiHui_YouXian_DongYao)) {
-			int keephuihe = ((JieZhenGuanDong) zhanfa).getKeepHuihe();
-			if (huihe.getId() > keephuihe) {
+			
+		}
+		//战斗开始后前多少回合
+		if(CheckUtil.isChiXuHuiHe(zhanfa)) {
+			if (huihe.getId() > zhanfa.getChiXuHuihe()) {
 				rate = 0.0f;
 			}
 		}
+		
 		// 帝临回光
 		if (zhanfa.getT().equals(ZFType.ZhiHui_JiaJuLi_FenBing_KongHuang)
 				&& ConflictList.$().isZhiHuiKonghuangchongtu()) {
