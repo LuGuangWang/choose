@@ -309,6 +309,9 @@ public class Choose {
 //		one = WList.xiaoganning.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
+//		one = WList.xiaolingtong.reset();
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
+		
 //		one = WList.handiaochan.setSecondZhanFa(ZList.weiyakunjun);
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
 		

@@ -17,7 +17,8 @@ public class WList {
 	public static WuJiang zhouyv = new WuJiang("周瑜",WZType.wu,WBType.gong,53,92,70,98,4,ZList.xuanwujuliu);
 	//小甘宁
 	public static WuJiang xiaoganning = new WuJiang("小甘宁", WZType.wu,WBType.gong, 47, 75, 96, 71, 3, ZList.qingxiawangwei);
-	
+	//小凌统
+	public static WuJiang xiaolingtong = new WuJiang("小凌统", WZType.wu,WBType.gong,49, 85, 82, 41, 2, ZList.guotu);
 	/******     蜀国        *******/
 	//赵云
 	public static WuJiang zhaoyun = new WuJiang("SP赵云",WZType.shu,WBType.bu,65,92,101,78,3,ZList.yinlonggudan);

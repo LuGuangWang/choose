@@ -527,6 +527,9 @@ public class CalcWJHarm {
 				huihe.setHasZengYi(true);
 			if (CheckUtil.isBuGongJi(zf))
 				huihe.setHasBuGong(true);
+			if(CheckUtil.isMianYiGuiBi(zf)) {
+				huihe.getWj().setMianyiGBVal(1.0f);
+			}
 			//行兵之极
 			if(huihe.isIsxingbing() && zf.getT().equals(ZFType.ZhiHui_DaYing_ZhongJun_QianFeng)) {
 				XingBingZhiJi xb = (XingBingZhiJi)zf;
@@ -647,10 +650,13 @@ public class CalcWJHarm {
 			}
 			//自身攻击加成比
 			if(zf.getT().equals(ZFType.ZhiHui_MianYi_jiagongji)) {
-				huihe.getWj().setMianyiFSVal(1.0f);
-				huihe.getWj().setMianyiGJVal(1.0f);
 				huihe.setZishenUpGjPos(zf.getPosition());
 				huihe.setZishenUpGjRate(((QingXiaWangWei)zf).getUpGongJiRate());
+			}
+			//免疫控制
+			if(CheckUtil.isMianYiKongZhi(zf)) {
+				huihe.getWj().setMianyiFSVal(1.0f);
+				huihe.getWj().setMianyiGJVal(1.0f);
 			}
 			//先手战法
 			if(zf.getT().equals(ZFType.ZhiHui_YouXian_DongYao)) {

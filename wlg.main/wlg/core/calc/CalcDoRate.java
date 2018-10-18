@@ -47,7 +47,7 @@ public class CalcDoRate {
 	public static <T extends ZhanFa> float getCommRate(HuiHe huihe, T zhanfa) {
 		float rate = getSameRate(huihe, zhanfa);
 		// 免疫控制
-		if (!CheckUtil.isMianYiKongZhi(zhanfa)) {
+		if (CheckUtil.isBeiKongZhi(zhanfa)) {
 			rate *= huihe.getWj().getMianyiFSVal();
 		} 
 		//先手效果
@@ -69,7 +69,7 @@ public class CalcDoRate {
 	public static <T extends ZhanFa> float getKongZhiRate(HuiHe huihe, T zhanfa) {
 		float rate = getSameRate(huihe, zhanfa);
 		// 免疫控制
-		if (!CheckUtil.isMianYiKongZhi(zhanfa)) {
+		if (CheckUtil.isBeiKongZhi(zhanfa)) {
 			rate *= huihe.getWj().getMianyiFSVal();
 		} 
 		//先手效果

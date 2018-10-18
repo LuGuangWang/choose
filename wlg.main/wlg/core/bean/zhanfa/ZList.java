@@ -48,7 +48,7 @@ public abstract class ZList {
 	//小甘宁 轻侠妄为
 	public static QingXiaWangWei qingxiawangwei = new QingXiaWangWei("轻侠妄为", ZFType.ZhiHui_MianYi_jiagongji, 0, 1.0f, 0.4f, 1, new Person(1),3);
 	//小凌统 国土
-//	public static ZhanFa guotu = new ZhanFa("国土", ZFType.ZhiHui_MianYi_WushiGuiBi, 0, 1.0f, harmVal, 3, new Person(1));
+	public static GuoTu guotu = new GuoTu("国土", ZFType.ZhiHui_MianYi_WushiGuiBi, 0, 1.0f, 3, new Person(1),4);
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

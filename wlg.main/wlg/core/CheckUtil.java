@@ -76,7 +76,11 @@ public class CheckUtil {
 		}
 		return isBuGongJi;
 	}
-
+	/**
+	 * 控制攻击与法术
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isKongZhiAll(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
@@ -95,7 +99,11 @@ public class CheckUtil {
 		}
 		return isKongZhi;
 	}
-	
+	/**
+	 * 控制法术伤害
+	 * @param zf
+	 * @return
+	 */
 	private static boolean isKongZhiFaShu(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
@@ -109,7 +117,11 @@ public class CheckUtil {
 		}
 		return isKongZhi;
 	}
-	
+	/**
+	 * 控制攻击伤害
+	 * @param zf
+	 * @return
+	 */
 	private static boolean isKongZhiGongJi(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
@@ -127,16 +139,25 @@ public class CheckUtil {
 		}
 		return isKongZhi;
 	}
-	
+	/**
+	 * 是否有控制效果
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isKongZhi(ZhanFa zf) {
 		boolean isKongZhi = isKongZhiAll(zf)||isKongZhiFaShu(zf)||isKongZhiGongJi(zf)||isLianJi(zf)||isFuZhuKongZhi(zf);
 		return isKongZhi;
 	}
-	
+	/**
+	 * 有益效果的控制 ，像无视规避，无视控制
+	 * @param zf
+	 * @return
+	 */
 	private static boolean isFuZhuKongZhi(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
 		case ZhiHui_MianYi_jiagongji:
+		case ZhiHui_MianYi_WushiGuiBi:
 			isKongZhi = true;
 			break;
 		default:
@@ -200,7 +221,11 @@ public class CheckUtil {
 		}
 		return isStrategy;
 	}
-	
+	/**
+	 * 是否是持续多少回合就失去效果
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isChiXuHuiHe(ZhanFa zf) {
 		boolean isChiXuHuiHe = false;
 		switch (zf.getT()) {
@@ -237,6 +262,7 @@ public class CheckUtil {
 		case ZhiHui_GuiBi_JianShang:
 		case ZhiHui_MianYi_jiagongji:
 		case ZhuDong_Multiple_KongZhi:
+		case ZhiHui_MianYi_WushiGuiBi:
 		case ZhiHui_SkipReady_Jiashang:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
@@ -254,7 +280,7 @@ public class CheckUtil {
 		return isZeroHarm;
 	}
 	/**
-	 * 持续keep回合的控制战法
+	 * 有益效果持续多少回合的控制战法，像：暴走持续多少回合
 	 * @param zf
 	 * @return
 	 */
@@ -289,11 +315,16 @@ public class CheckUtil {
 		
 		return isZengYi;
 	}
-	
+	/**
+	 * 无视规避
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isMianYiGuiBi(ZhanFa zf) {
 		boolean isMianYiGuiBi = false;
 		switch (zf.getT()) {
 		case ZhiHui_YouXian_DongYao:
+		case ZhiHui_MianYi_WushiGuiBi:
 		case ZhiHui_JiaJuLi_FenBing_KongHuang:
 			isMianYiGuiBi = true;
 			break;
@@ -303,7 +334,29 @@ public class CheckUtil {
 		}
 		return isMianYiGuiBi;
 	}
-	
+	/**
+	 * 免疫控制
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isMianYiKongZhi(ZhanFa zf) {
+		boolean isMianYiGuiBi = false;
+		switch (zf.getT()) {
+		case ZhiHui_MianYi_jiagongji:
+		case ZhiHui_MianYi_WushiGuiBi:
+			isMianYiGuiBi = true;
+			break;
+		default:
+			isMianYiGuiBi = false;
+			break;
+		}
+		return isMianYiGuiBi;
+	}
+	/**
+	 * 增加全属性
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isUpAllShuXing(ZhanFa zf) {
 		boolean isUpAllShuXing = false;
 		switch (zf.getT()) {
@@ -347,7 +400,11 @@ public class CheckUtil {
 		}
 		return isJiaShang;
 	}
-	
+	/**
+	 * 是否是连击战法
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isLianJi(ZhanFa zf) {
 		boolean isLianJi = false;
 		switch (zf.getT()) {
@@ -360,7 +417,11 @@ public class CheckUtil {
 		}
 		return isLianJi;
 	}
-	
+	/**
+	 * 是否是暴走
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isBaoZou(ZhanFa zf) {
 		boolean isBaoZou = false;
 		switch (zf.getT()) {
@@ -377,7 +438,11 @@ public class CheckUtil {
 		}
 		return isBaoZou;
 	}
-	
+	/**
+	 * 控制敌军不可恢复兵力
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isKongZhiHuiFu(ZhanFa zf) {
 		boolean isZhuiJi = false;
 		switch (zf.getT()) {
@@ -392,7 +457,11 @@ public class CheckUtil {
 		}
 		return isZhuiJi;
 	}
-	
+	/**
+	 * 追击战法
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isZhuiJi(ZhanFa zf) {
 		boolean isZhuiJi = false;
 		switch (zf.getT()) {
@@ -405,7 +474,11 @@ public class CheckUtil {
 		}
 		return isZhuiJi;
 	}
-	
+	/**
+	 * 武将自带主动类战法
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isZiDaiZHuDong(ZhanFa zf) {
 		boolean isZhuiJi = false;
 		switch (zf.getT()) {
@@ -426,7 +499,11 @@ public class CheckUtil {
 		}
 		return isZhuiJi;
 	}
-	
+	/**
+	 * 降低敌军防御的战法
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isDownFangYu(ZhanFa zf) {
 		boolean isDownFangYu = false;
 		switch (zf.getT()) {
@@ -439,7 +516,11 @@ public class CheckUtil {
 		}
 		return isDownFangYu;
 	}
-	
+	/**
+	 * 降低敌军攻击的战法
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isDownGongJi(ZhanFa zf) {
 		boolean isDownGongJi = false;
 		switch (zf.getT()) {
@@ -452,9 +533,13 @@ public class CheckUtil {
 		}
 		return isDownGongJi;
 	}
-	
-	public static boolean isMianYiKongZhi(ZhanFa zf) {
-		boolean isMianYi = true;
+	/**
+	 * 被控制的战法 像：被混乱控制
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isBeiKongZhi(ZhanFa zf) {
+		boolean isBeiKongZhi = false;
 		switch (zf.getT()) {
 		case ZhuDong_FaShu:
 		case ZhuDong_BaoZou:
@@ -481,13 +566,13 @@ public class CheckUtil {
 		case BeiDong_LianJi_jiagongji:
 		/** 追击类攻击战法 **/
 		case ZhuiJi_GongJi_KongZhiGongJi:
-			isMianYi = false;
+			isBeiKongZhi = true;
 			break;
 		default:
-			isMianYi = true;
+			isBeiKongZhi = false;
 			break;
 		}
-		return isMianYi;
+		return isBeiKongZhi;
 	}
 	/**
 	 * 自带需要准备的战法
@@ -509,7 +594,11 @@ public class CheckUtil {
 		}
 		return isZiDaiReady;
 	}
-	
+	/**
+	 * 恢复自身兵力的战法
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isZiShenHuiFu(ZhanFa zf) {
 		boolean isHuiFu = false;
 		switch (zf.getT()) {
@@ -523,7 +612,11 @@ public class CheckUtil {
 		}
 		return isHuiFu;
 	}
-	
+	/**
+	 * 恢复全体兵力的战法
+	 * @param zf
+	 * @return
+	 */
 	public static boolean isQunTiHuiFu(ZhanFa zf) {
 		boolean isHuiFu = false;
 		switch (zf.getT()) {
