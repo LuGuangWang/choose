@@ -22,6 +22,7 @@ import wlg.core.bean.zhanfa.BaoZouZhanFa;
 import wlg.core.bean.zhanfa.BiYueZhanFa;
 import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.GongJiZhanFa;
+import wlg.core.bean.zhanfa.HuBuGuanYou;
 import wlg.core.bean.zhanfa.HuiFuZhanFa;
 import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
@@ -162,26 +163,6 @@ public class CalcWJHarm {
 				}
 				
 				wjVal += fsVal;
-				//控制力转化为伤害值
-//				float kongzhiHarm = 0.0f;
-//				for(ZhanFa zf:allKongZhi) {
-//					float kzHarm = 0.0f;
-//					float rate = CalcDoRate.getCommRate(huihe, zf);
-//					if(rate>0) {
-//						//浑水摸鱼
-//						if(zf.getT().equals(ZFType.ZhuDong_KongZhi_ALL)) {
-//							kzHarm = zf.getDoneRate() * Conf.SunShiCount;
-//							kongzhiHarm = Math.max(kzHarm, kongzhiHarm);
-//						}
-//						//战比断金
-//						if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi)) {
-//							kzHarm = ((ZhanBiZhanFa)zf).getKonzhiVal() * zf.getDoneRate() * zf.getPersons().getMaxPerson() / Conf.WuJiang_Count;
-//							kzHarm *= Conf.SunShiCount * Conf.fashu_rate * Conf.gj_s_rate;
-//							kongzhiHarm = Math.max(kzHarm, kongzhiHarm);
-//						}
-//					}
-//				}
-//				wjVal += kongzhiHarm;
 				// 普通攻击伤害
 				if (Conf.getCalcPG()) {
 					float gongjiVal = 0.0f;
@@ -651,7 +632,11 @@ public class CalcWJHarm {
 			//自身攻击加成比
 			if(zf.getT().equals(ZFType.ZhiHui_MianYi_jiagongji)) {
 				huihe.setZishenUpGjPos(zf.getPosition());
-				huihe.setZishenUpGjRate(((QingXiaWangWei)zf).getUpGongJiRate());
+				huihe.setZishenUpGjRate(((QingXiaWangWei)zf).getUpGongJiRate() * rate);
+			//自身首次攻击加成比
+			}else if(zf.getT().equals(ZFType.ZhuDong_ShouCi_JiaGongJi)) {
+				huihe.setZishenSCUpGjPos(zf.getPosition());
+				huihe.setZishenSCUpGjRate(((HuBuGuanYou)zf).getUpGJVal() * rate);
 			}
 			//免疫控制
 			if(CheckUtil.isMianYiKongZhi(zf)) {
@@ -693,6 +678,8 @@ public class CalcWJHarm {
 		huihe.setXianshouRate(0.0f);
 		huihe.setZishenUpGjPos(0);
 		huihe.setZishenUpGjRate(0.0f);
+		huihe.setZishenSCUpGjPos(0);
+		huihe.setZishenSCUpGjRate(0.0f);
 	}
 
 	private static void setWeiWuZhiZeLianJiVal(HuiHe huihe, ZhanFa zf) {

@@ -709,6 +709,11 @@ public class CalcHarm {
 				if(huihe.getShengbingUpVal()>0 && zf.getPosition()==huihe.getSkipReadyPos() && executeJss==1) {
 					harmval *= (huihe.getShengbingUpVal() * 0.5f + 1.0f);
 				}
+				//虎步关右
+				if(huihe.getZishenSCUpGjPos()==huihe.getWj().getPosition()
+						&& CheckUtil.isAttack(zf) && executeJss==1) {
+					harmval *= (huihe.getZishenSCUpGjRate() + 1.0f);
+				}
 				//降低防御属性增加的伤害值
 				harmval += huihe.getDownFangYuVal() * Conf.fg_rate;
 				//免疫规避
@@ -755,7 +760,7 @@ public class CalcHarm {
 		}
 		
 		if(huihe.getWj().getPosition()==huihe.getZishenUpGjPos()) {
-			upVal.setAddAllWjVal(huihe.getZishenUpGjRate());
+			upVal.setAddZiShenGJRate(huihe.getZishenUpGjRate());
 		}
 		
 		upVal.setAddStrategyVal(addStrategyVal);

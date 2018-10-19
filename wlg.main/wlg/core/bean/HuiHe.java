@@ -80,7 +80,9 @@ public class HuiHe implements Cloneable{
 	//提高自身攻击伤害
 	private int zishenUpGjPos = 0;
 	private float zishenUpGjRate = 0.0f;//提高自身攻击伤害比
-	
+	//提高自身首次攻击伤害
+	private int zishenSCUpGjPos = 0;
+	private float zishenSCUpGjRate = 0.0f;//提高自身首次攻击伤害比
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
 		HuiHe huihe = this.clone();
@@ -517,6 +519,18 @@ public class HuiHe implements Cloneable{
 	}
 	public void setLianjiVal(float lianjiVal) {
 		this.lianjiVal = lianjiVal;
+	}
+	public int getZishenSCUpGjPos() {
+		return zishenSCUpGjPos;
+	}
+	public void setZishenSCUpGjPos(int zishenSCUpGjPos) {
+		this.zishenSCUpGjPos = zishenSCUpGjPos;
+	}
+	public float getZishenSCUpGjRate() {
+		return zishenSCUpGjRate;
+	}
+	public void setZishenSCUpGjRate(float zishenSCUpGjRate) {
+		this.zishenSCUpGjRate = zishenSCUpGjRate;
 	}
 
 	public HuiHe clone() {

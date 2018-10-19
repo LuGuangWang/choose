@@ -10,7 +10,7 @@ import wlg.core.bean.zhanfa.ZhanFa;
  */
 public class CheckUtil {
 	
-	//自身加成
+	//自身加成 以后不要这样写 TODO 改造
 	public static boolean isZiShenJiaCheng(ZhanFa zf) {
 		boolean isJiaCheng = isFaShuJiaCheng(zf);
 		return isJiaCheng;
@@ -158,6 +158,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case ZhiHui_MianYi_jiagongji:
 		case ZhiHui_MianYi_WushiGuiBi:
+		case ZhuDong_ShouCi_JiaGongJi:
 			isKongZhi = true;
 			break;
 		default:
@@ -262,6 +263,7 @@ public class CheckUtil {
 		case ZhiHui_GuiBi_JianShang:
 		case ZhiHui_MianYi_jiagongji:
 		case ZhuDong_Multiple_KongZhi:
+		case ZhuDong_ShouCi_JiaGongJi:
 		case ZhiHui_MianYi_WushiGuiBi:
 		case ZhiHui_SkipReady_Jiashang:
 		case ZhuDong_BaoZou_jianFangYu:
@@ -485,6 +487,7 @@ public class CheckUtil {
 		case ZhuDong_GongJi:
 		case ZhuDong_JiaShuXing:
 		case ZhuDong_FaShu_ZiDai:
+		case ZhuDong_ShouCi_JiaGongJi:
 		case ZhuDong_JiaGongJi_LianJi:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
@@ -555,6 +558,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu_jianGongJi:
 		case ZhuDong_Multiple_KongZhi:
 		case ZhuDong_JiaGongJi_LianJi:
+		case ZhuDong_ShouCi_JiaGongJi:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_FaShu_KongZhiHuiFu:
