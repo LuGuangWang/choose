@@ -159,6 +159,7 @@ public class CheckUtil {
 		case ZhiHui_MianYi_jiagongji:
 		case ZhiHui_MianYi_WushiGuiBi:
 		case ZhuDong_ShouCi_JiaGongJi:
+		case ZhiHui_JiaSuDu_JiaPuGong:
 			isKongZhi = true;
 			break;
 		default:
@@ -179,6 +180,7 @@ public class CheckUtil {
 		case ZhuDong_GongJi:
 		case ZhuDong_FaShu_GongJi:
 		case ZhuDong_JiaGongJi_LianJi:
+		case ZhiHui_JiaSuDu_JiaPuGong:
 		case BeiDong_LianJi_jiagongji:
 		case ZhuiJi_GongJi_KongZhiGongJi:
 			isAttack = true;
@@ -235,6 +237,7 @@ public class CheckUtil {
 		case ZhiHui_GuiBi_JianShang:
 		case ZhiHui_YouXian_DongYao:
 		case ZhiHui_MianYi_jiagongji:
+		case ZhiHui_JiaSuDu_JiaPuGong:
 		case ZhiHui_JianshangFashu_KongZhiFaShu:
 			isChiXuHuiHe = true;
 			break;

@@ -28,9 +28,7 @@ public class WuJiang implements Cloneable{
 	//本武将兵力损失值
 	private float sunshiCount = 0.0f;
 	//法术免疫控制的能力值
-	private float mianyiFSVal = Conf.min_mianyi_fashu;
-	//攻击免疫控制的能力值
-	private float mianyiGJVal = Conf.min_mianyi_gongji;
+	private float mianyiVal = Conf.min_mianyi_val;
 	//免疫规避的能力值
 	private float mianyiGBVal = Conf.mianyi_guibi;
 	
@@ -104,26 +102,17 @@ public class WuJiang implements Cloneable{
 	public float getSunshiCount() {
 		return sunshiCount;
 	}
-	public float getMianyiFSVal() {
-		return mianyiFSVal;
+	public float getMianyiVal() {
+		return mianyiVal;
 	}
-	public void setMianyiFSVal(float mianyiFSVal) {
-		mianyiFSVal = mianyiFSVal>1.0f?1.0f:mianyiFSVal;
-		if(this.mianyiFSVal<mianyiFSVal) {
-			Conf.log("===========更新武将免疫法术的能力值：" + this.mianyiFSVal + " -> " + mianyiFSVal);
-			this.mianyiFSVal = mianyiFSVal;
+	public void setMianyiVal(float mianyiVal) {
+		mianyiVal = mianyiVal>1.0f?1.0f:mianyiVal;
+		if(this.mianyiVal<mianyiVal) {
+			Conf.log("===========更新武将免疫法术的能力值：" + this.mianyiVal + " -> " + mianyiVal);
+			this.mianyiVal = mianyiVal;
 		}
 	}
-	public float getMianyiGJVal() {
-		return mianyiGJVal;
-	}
-	public void setMianyiGJVal(float mianyiGJVal) {
-		mianyiGJVal = mianyiGJVal>1.0f?1.0f:mianyiGJVal;
-		if(this.mianyiGJVal < mianyiGJVal) {
-			Conf.log("===========更新武将免疫攻击的能力值：" + this.mianyiGJVal + " -> " + mianyiGJVal);
-			this.mianyiGJVal = mianyiGJVal;
-		}
-	}
+
 	public float getMianyiGBVal() {
 		return mianyiGBVal;
 	}
@@ -148,8 +137,7 @@ public class WuJiang implements Cloneable{
 	public void resetmianyiVal() {
 		//免疫法术配置
 		float mianyiVal = CalcDoRate.calcMianyiVal(this.getSpeed());
-		this.mianyiFSVal = mianyiVal;
-		this.mianyiGJVal = this.mianyiFSVal;
+		this.mianyiVal = mianyiVal;
 		
 		this.mianyiGBVal = Conf.mianyi_guibi;
 	}
@@ -292,8 +280,7 @@ public class WuJiang implements Cloneable{
 		this.totalCount = Conf.totalCount;
 		
 		float mianyiVal = CalcDoRate.calcMianyiVal(this.getSpeed());
-		this.mianyiFSVal = mianyiVal;
-		this.mianyiGJVal = this.mianyiFSVal;
+		this.mianyiVal = mianyiVal;
 		this.mianyiGBVal = Conf.mianyi_guibi;
 		
 		this.sunshiCount = 0.0f;

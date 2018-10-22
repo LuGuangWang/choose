@@ -19,6 +19,7 @@ import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.MuYiFuMeng;
 import wlg.core.bean.zhanfa.MultipleHarmZhanFa;
+import wlg.core.bean.zhanfa.QiJiRuFeng;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.QiangShiZhanFa;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
@@ -39,6 +40,18 @@ public class CalcHarm {
 		for(int i=0;i<kongzhiZf.size();i++) {
 			ZhanFa zf = kongzhiZf.get(i);
 			float unHurtVal = 0.0f;
+			//改变属性的放在前面
+			if(zf.getT().equals(ZFType.ZhiHui_JiaSuDu_JiaPuGong)) {
+				float rate = CalcDoRate.getKongZhiRate(huihe,zf);
+				if(rate<=0) {
+					continue;
+				}
+				//受谋略影响
+				float speed = ((QiJiRuFeng)zf).getUpSpeedVal() + Math.round(zf.getStrategy() * 1.0f / Conf.shuxing_val_suoxiao);
+				float newSpeed = huihe.getWj().getSpeed() + speed;
+				float mianYiVal = newSpeed/Conf.base_speed;
+				huihe.getWj().setMianyiVal(mianYiVal);
+			}
 			
 			if(zf.getT().equals(ZFType.ZhuDong_KongZhi_ALL)) {
 				unHurtVal = calcKZZhanFa(huihe,calcPrimy, kongzhiMap, zf, zhanfas);
@@ -72,6 +85,7 @@ public class CalcHarm {
 				unHurtVal = calcMuYiFuMeng(huihe,calcPrimy,kongzhiMap,zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhuDong_FaShu_jianGongJi)) {
 				unHurtVal = calcJianGongJi(huihe,calcPrimy,kongzhiMap,zf,zhanfas);
+			//其疾如风
 			}
 			
 			sum += unHurtVal;

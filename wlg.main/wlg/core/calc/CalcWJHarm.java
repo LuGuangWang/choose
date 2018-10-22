@@ -27,6 +27,7 @@ import wlg.core.bean.zhanfa.HuiFuZhanFa;
 import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.LianJiZhanFa;
+import wlg.core.bean.zhanfa.QiJiRuFeng;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.QingXiaWangWei;
 import wlg.core.bean.zhanfa.ShengBingQiuZhan;
@@ -159,6 +160,13 @@ public class CalcWJHarm {
 						float bukehuifu = rate * zf.getDoneRate() * zf.getPersons().getMaxPerson() * Conf.bingli_huifu;
 						fsVal += bukehuifu;
 						Conf.log("===战法 " + zf.getName() + " 不可恢复兵力杀伤力：" + bukehuifu);
+					//执行两次攻击
+					}else if(zf.getT().equals(ZFType.ZhiHui_JiaSuDu_JiaPuGong)) {
+						float solderRate = huihe.getSolderRate(null);
+						float rate = CalcDoRate.getCommRate(huihe, zf);
+						float doneRate = rate * wj.getMianyiVal() * wj.getMianyiGBVal();
+						float secondVal = doneRate * ((QiJiRuFeng) zf).getGongjiRate() * wj.getWJHarmVal() * solderRate;
+						fsVal += secondVal;
 					}
 				}
 				
@@ -174,7 +182,7 @@ public class CalcWJHarm {
 						float upallWjVal = huihe.getUpAllWjVal() * wj.getWJHarmVal();
 						gongjiVal += upallWjVal;
 						//免疫攻击 免疫规避
-						gongjiVal *= wj.getMianyiGJVal() * wj.getMianyiGBVal();
+						gongjiVal *= wj.getMianyiVal() * wj.getMianyiGBVal();
 						//始计 攻击加成伤害
 						float upval = 1.0f + huihe.getUpFaShaShangHaiVal() * 0.25f;
 						gongjiVal *= upval;
@@ -232,12 +240,12 @@ public class CalcWJHarm {
 			}
 		}
 		if(isHasHuanTian) {
-			upRate += huihe.getUpQuanShuXing() * huihe.getWj().getMianyiFSVal();
+			upRate += huihe.getUpQuanShuXing() * huihe.getWj().getMianyiVal();
 		}else {
 			int wjCount = (huihe.getWujiangCount() - 1);
 			wjCount = wjCount<=0?1:wjCount;
 			float rate = 1.0f / wjCount;
-			upRate += huihe.getUpQuanShuXing() * huihe.getWj().getMianyiFSVal() * rate ;
+			upRate += huihe.getUpQuanShuXing() * huihe.getWj().getMianyiVal() * rate ;
 		}
 		return upRate;
 	}
@@ -471,9 +479,7 @@ public class CalcWJHarm {
 				//TODO 免疫法术的概率
 				float rate = 1 - wj.getSpeed()/Conf.base_speed;
 				rate = rate>0?rate:0;
-				wj.setMianyiFSVal(Conf.min_mianyi_fashu + rate);
-				//免疫攻击的概率
-				wj.setMianyiGJVal(Conf.min_mianyi_fashu + rate);
+				wj.setMianyiVal(Conf.min_mianyi_val + rate);
 			}
 			//自身可以连击的概率值
 			if(zf.getT().equals(ZFType.BeiDong_LianJi_jiagongji)) {
@@ -640,8 +646,7 @@ public class CalcWJHarm {
 			}
 			//免疫控制
 			if(CheckUtil.isMianYiKongZhi(zf)) {
-				huihe.getWj().setMianyiFSVal(1.0f);
-				huihe.getWj().setMianyiGJVal(1.0f);
+				huihe.getWj().setMianyiVal(1.0f);
 			}
 			//先手战法
 			if(zf.getT().equals(ZFType.ZhiHui_YouXian_DongYao)) {

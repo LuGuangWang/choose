@@ -30,14 +30,15 @@ public enum ZFType {
 	ZhiHui_YouXian_DongYao,//指挥类 优先 动摇
 	ZhiHui_MianYi_jiagongji,//指挥类 免疫控制 加攻击
 	ZhiHui_MianYi_WushiGuiBi,//指挥类 免疫控制 无视规避
+	ZhiHui_JiaSuDu_JiaPuGong,//指挥类 加速度，两次普攻
 	ZhiHui_JiaShuXing_JiaJuLi,//指挥类 加属性 加距离
 	ZhiHui_SkipReady_Jiashang,//指挥类 跳过准备 下一次攻击加伤害
 	ZhiHui_DaYing_ZhongJun_QianFeng,//指挥类 大营加概率，中军加伤害，前锋减伤
 	ZhiHui_JiaFaShu_JianShang_MianYi,//指挥类 加攻击或法术伤害 减攻击或法术伤害 免疫被控制
+	ZhiHui_JiaJuLi_FenBing_KongHuang,//指挥类 加攻击距离 分兵 恐慌
 	ZhiHui_KongZhiGongJi_FaShuShangHai,//指挥类 先控制攻击 然后法术伤害
 	ZhiHui_JianshangFashu_KongZhiFaShu,//指挥类  降低法术伤害 控制法术伤害
 	ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi,//指挥类 法术加成 法术攻击 本身不造成攻击伤害
-	ZhiHui_JiaJuLi_FenBing_KongHuang,//指挥类 加攻击距离 分兵 恐慌
 	
 	BeiDong_huifu,//被动类 恢复
 	BeiDong_GongJi,//被动类，攻击伤害

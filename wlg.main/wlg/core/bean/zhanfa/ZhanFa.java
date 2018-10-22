@@ -239,7 +239,9 @@ public class ZhanFa implements Harm, Cloneable {
 			harmVal += upVal.getAddZiShenGJRate();
 		}
 		//发动概率
-		float pval = (doneRate + upVal.getDayingUpZFVal()) * harmVal;
+		float done = doneRate + upVal.getDayingUpZFVal();
+		done = done>1.0f?1.0f:done;
+		float pval = done * harmVal;
 		pval = addShuXingVal(pval,upVal);
 		if (persons.getPersons().length > 0) {
 			int len = getPersons().getPersons().length;

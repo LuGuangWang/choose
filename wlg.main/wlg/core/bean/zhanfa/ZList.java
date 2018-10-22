@@ -51,6 +51,8 @@ public abstract class ZList {
 	public static GuoTu guotu = new GuoTu("国土", ZFType.ZhiHui_MianYi_WushiGuiBi, 0, 1.0f, 3, new Person(1),4);
 	//夏侯渊 虎步关右
 	public static HuBuGuanYou hubuguanyou = new HuBuGuanYou("虎步关右", ZFType.ZhuDong_ShouCi_JiaGongJi, 0, 1.0f, 0.7f, 1, new Person(1));
+	//张辽 其疾如风
+	public static QiJiRuFeng qijirufeng = new QiJiRuFeng("其疾如风", ZFType.ZhiHui_JiaSuDu_JiaPuGong, 0, 1.0f, 41, 3, new Person(2,3),3,0.7f);
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

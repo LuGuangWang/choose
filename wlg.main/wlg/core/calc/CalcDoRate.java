@@ -48,7 +48,7 @@ public class CalcDoRate {
 		float rate = getSameRate(huihe, zhanfa);
 		// 免疫控制
 		if (CheckUtil.isBeiKongZhi(zhanfa)) {
-			rate *= huihe.getWj().getMianyiFSVal();
+			rate *= huihe.getWj().getMianyiVal();
 		} 
 		//先手效果
 		rate += huihe.getXianshouRate();
@@ -70,7 +70,7 @@ public class CalcDoRate {
 		float rate = getSameRate(huihe, zhanfa);
 		// 免疫控制
 		if (CheckUtil.isBeiKongZhi(zhanfa)) {
-			rate *= huihe.getWj().getMianyiFSVal();
+			rate *= huihe.getWj().getMianyiVal();
 		} 
 		//先手效果
 		rate += huihe.getXianshouRate();
@@ -218,8 +218,8 @@ public class CalcDoRate {
 
 	public static float calcMianyiVal(int speed) {
 		float mianyiVal = speed / Conf.base_speed;
-		mianyiVal = mianyiVal > Conf.max_mianyi_fashu ? Conf.max_mianyi_fashu
-				: (mianyiVal < Conf.min_mianyi_fashu ? Conf.min_mianyi_fashu : mianyiVal);
+		mianyiVal = mianyiVal > Conf.max_mianyi_val ? Conf.max_mianyi_val
+				: (mianyiVal < Conf.min_mianyi_val ? Conf.min_mianyi_val : mianyiVal);
 		return mianyiVal;
 	}
 
