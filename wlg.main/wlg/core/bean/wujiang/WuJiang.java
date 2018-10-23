@@ -31,6 +31,8 @@ public class WuJiang implements Cloneable{
 	private float mianyiVal = Conf.min_mianyi_val;
 	//免疫规避的能力值
 	private float mianyiGBVal = Conf.mianyi_guibi;
+	//不能发动主动战法
+	private boolean isNotFs = false;
 	
 	private WBType wbType;//兵种
 	private WZType wzType;//阵营
@@ -138,7 +140,6 @@ public class WuJiang implements Cloneable{
 		//免疫法术配置
 		float mianyiVal = CalcDoRate.calcMianyiVal(this.getSpeed());
 		this.mianyiVal = mianyiVal;
-		
 		this.mianyiGBVal = Conf.mianyi_guibi;
 	}
 	public int getDefense() {
@@ -251,7 +252,12 @@ public class WuJiang implements Cloneable{
 		s.append("\n");
 		return s.toString();
 	}
-	
+	public boolean isNotFs() {
+		return isNotFs;
+	}
+	public void setNotFs(boolean isNotFs) {
+		this.isNotFs = isNotFs;
+	}
 	@Override
 	public String toString() {
 		StringBuilder s = new StringBuilder(name).append(":");
@@ -278,6 +284,7 @@ public class WuJiang implements Cloneable{
 		this.zhanfaMap.clear();
 		this.zhanfaMap.put(1, finalZf.clone());
 		this.totalCount = Conf.totalCount;
+		this.isNotFs = false;
 		
 		float mianyiVal = CalcDoRate.calcMianyiVal(this.getSpeed());
 		this.mianyiVal = mianyiVal;

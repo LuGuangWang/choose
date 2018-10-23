@@ -640,6 +640,15 @@ public class CalcHarm {
 		for(int i=0;i<zhanfa.length;i++) {
 			T zf = zhanfa[i];
 			float shuaxinVal = 0.0f;
+			//不能发动主动战法
+			if(zf.isZhuDong() && huihe.getWj().isNotFs()) {
+				continue;
+			}
+			float rate = CalcDoRate.getCommRate(huihe, zf);
+			if(rate<=0) {
+				continue;
+			}
+			//法术战法
 			if(CheckUtil.isStrategy(zf)) {
 				//只对当前武将的战法生效
 				if( huihe.getShuaxinPos() == zf.getPosition()) {
@@ -654,8 +663,12 @@ public class CalcHarm {
 					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
 				}
 			}
-			
-			float rate = CalcDoRate.getCommRate(huihe, zf);
+			//攻击战法
+			if(CheckUtil.isAttack(zf)) {
+				if(huihe.getZishenUpGjPos()==zf.getPosition()) {
+					shuaxinVal += huihe.getZishenUpGjRate();
+				}
+			}
 			
 			if(zf.getT().equals(ZFType.ZhiHui_KongZhiGongJi_FaShuShangHai)) {
 				KongZhiAndHarmZhanFa tmp = (KongZhiAndHarmZhanFa) zf;
@@ -771,10 +784,6 @@ public class CalcHarm {
 					upVal.setDayingUpZFVal(huihe.getDayingUpZFVal());
 				}
 			}
-		}
-		
-		if(huihe.getWj().getPosition()==huihe.getZishenUpGjPos()) {
-			upVal.setAddZiShenGJRate(huihe.getZishenUpGjRate());
 		}
 		
 		upVal.setAddStrategyVal(addStrategyVal);

@@ -29,4 +29,6 @@ public interface Harm {
 	public float addShuXingVal(float val,UpVal upVal);
 	
 	public int getChiXuHuihe();
+	
+	public float getUpGongJiRate();
 }

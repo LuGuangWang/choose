@@ -174,6 +174,9 @@ public class HuiHe implements Cloneable{
 	public float getZishenUpGjRate() {
 		return zishenUpGjRate;
 	}
+	public void addZishenUpGjRate(float zishenUpGjRate) {
+		this.zishenUpGjRate += zishenUpGjRate;
+	}
 	public void setZishenUpGjRate(float zishenUpGjRate) {
 		this.zishenUpGjRate = zishenUpGjRate;
 	}

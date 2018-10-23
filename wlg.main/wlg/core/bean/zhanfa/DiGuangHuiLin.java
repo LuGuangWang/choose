@@ -1,6 +1,5 @@
 package wlg.core.bean.zhanfa;
 
-import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
 import wlg.core.calc.CalCDistance;
 import wlg.core.calc.CalcDoRate;
@@ -42,9 +41,6 @@ public class DiGuangHuiLin extends ZhanFa{
 		float mianyiVal = CalcDoRate.calcMianyiVal(this.getSpeed());
 		//伤害值
 		float harmVal = 1.0f + upVal.getAddAllWjVal();
-		if(CheckUtil.isAttack(this)) {
-			harmVal += upVal.getAddZiShenGJRate();
-		}
 		//发动概率
 		float pval = (mianyiVal + upVal.getDayingUpZFVal()) * secondHarmVal;
 		pval *= harmVal * (this.getAttack() + upVal.getAddQuanShuXingVal()) * Conf.gongji_rate;

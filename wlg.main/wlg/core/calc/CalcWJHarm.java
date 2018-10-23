@@ -29,12 +29,12 @@ import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.LianJiZhanFa;
 import wlg.core.bean.zhanfa.QiJiRuFeng;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
-import wlg.core.bean.zhanfa.QingXiaWangWei;
 import wlg.core.bean.zhanfa.ShengBingQiuZhan;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ShuaXinZhanFa;
 import wlg.core.bean.zhanfa.WeiWuZhiShiZhanFa;
 import wlg.core.bean.zhanfa.XingBingZhiJi;
+import wlg.core.bean.zhanfa.XueJianHuangSha;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanFa;
 
@@ -178,6 +178,11 @@ public class CalcWJHarm {
 					if (!huihe.isHasBuGong() && canGongJi) {
 						float solderRate = huihe.getSolderRate(null);
 						gongjiVal = CalcDoRate.getAttackRate() * wj.getWJHarmVal() * solderRate;
+						//增加自身攻击伤害
+						if(huihe.getZishenUpGjPos()==wj.getPosition()) {
+							float upGjVal = wj.getWJHarmVal() * huihe.getZishenUpGjRate();
+							gongjiVal+=upGjVal;
+						}
 						//增加全武将的谋略与攻击伤害
 						float upallWjVal = huihe.getUpAllWjVal() * wj.getWJHarmVal();
 						gongjiVal += upallWjVal;
@@ -468,29 +473,32 @@ public class CalcWJHarm {
 		wj.resetmianyiVal();
 		// 重新设置连击值
 		wj.setZishenlianjiVal(0.0f);
-
-		//添加控制战法
+		//重新设置不能发动主动战法
+		wj.setNotFs(false);
+		//武将自身的效果
 		for(ZhanFa zf:wj.getZhanfa()) {
+			//添加控制战法
 			if(!kongzhi.contains(zf)  && CheckUtil.isKongZhi(zf)) {
 				Conf.log("=========添加控制战法" + zf.getName());
 				kongzhi.add(zf);
 			}
+			//始计
 			if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
-				//TODO 免疫法术的概率
 				float rate = 1 - wj.getSpeed()/Conf.base_speed;
 				rate = rate>0?rate:0;
 				wj.setMianyiVal(Conf.min_mianyi_val + rate);
-			}
 			//自身可以连击的概率值
-			if(zf.getT().equals(ZFType.BeiDong_LianJi_jiagongji)) {
+			}else if(zf.getT().equals(ZFType.BeiDong_LianJi_jiagongji)) {
 				int lianjicount = ((LianJiZhanFa)zf).getLianjiCount();
 				float lianjiVal = CalcDoRate.getCommRate(huihe, zf) * (zf.getDoneRate() * lianjicount * (lianjicount-1) + 1.0f);
 				wj.setZishenlianjiVal(lianjiVal);
+			//血溅黄沙
+			}else if(zf.getT().equals(ZFType.BeiDong_WuFS_JiaGongJi)) {
+				wj.setNotFs(((XueJianHuangSha)zf).isNotFs());
 			}
 		}
 		//注意 重置回合中的属性
 		resetHuiHeProp(huihe);
-		
 		// 校验所有战法
 		Set<ZhanFa> allZfs = new HashSet<>(Arrays.asList(wj.getZhanfa()));
 		// 含有先发控制
@@ -502,14 +510,12 @@ public class CalcWJHarm {
 		for (ZhanFa zf : allZfs) {
 			ConflictList.$().checkChongTu(zf);
 		}
-
 		for (ZhanFa zf : allZfs) {
 			//先判断战法是否还生效
 			float rate = CalcDoRate.getCommRate(huihe, zf);
 			if(rate<=0) {
 				continue;
 			}
-			
 			if (CheckUtil.isZengYi(zf))
 				huihe.setHasZengYi(true);
 			if (CheckUtil.isBuGongJi(zf))
@@ -636,9 +642,9 @@ public class CalcWJHarm {
 				}
 			}
 			//自身攻击加成比
-			if(zf.getT().equals(ZFType.ZhiHui_MianYi_jiagongji)) {
+			if(CheckUtil.isUpGJRate(zf)) {
 				huihe.setZishenUpGjPos(zf.getPosition());
-				huihe.setZishenUpGjRate(((QingXiaWangWei)zf).getUpGongJiRate() * rate);
+				huihe.addZishenUpGjRate(zf.getUpGongJiRate() * rate);
 			//自身首次攻击加成比
 			}else if(zf.getT().equals(ZFType.ZhuDong_ShouCi_JiaGongJi)) {
 				huihe.setZishenSCUpGjPos(zf.getPosition());

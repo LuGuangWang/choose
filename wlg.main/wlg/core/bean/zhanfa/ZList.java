@@ -53,6 +53,8 @@ public abstract class ZList {
 	public static HuBuGuanYou hubuguanyou = new HuBuGuanYou("虎步关右", ZFType.ZhuDong_ShouCi_JiaGongJi, 0, 1.0f, 0.7f, 1, new Person(1));
 	//张辽 其疾如风
 	public static QiJiRuFeng qijirufeng = new QiJiRuFeng("其疾如风", ZFType.ZhiHui_JiaSuDu_JiaPuGong, 0, 1.0f, 41, 3, new Person(2,3),3,0.7f);
+	//马超 血溅黄沙
+	public static XueJianHuangSha xuejianhuangsha = new XueJianHuangSha("血溅黄沙", ZFType.BeiDong_WuFS_JiaGongJi, 0, 1.0f, 1.2f, 1, new Person(1),true);
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

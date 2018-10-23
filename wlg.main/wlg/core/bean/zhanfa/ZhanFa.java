@@ -182,9 +182,6 @@ public class ZhanFa implements Harm, Cloneable {
 		if(other.getHarmRate()>0) {
 			//伤害值
 			exharmVal += upVal.getAddAllWjVal();
-			if(CheckUtil.isAttack(this)) {
-				harmVal += upVal.getAddZiShenGJRate();
-			}
 			//发动概率
 			float val = exharmVal*(this.getDoneRate() + upVal.getDayingUpZFVal())*other.getDoneRate();
 			val = addShuXingVal(val,upVal);
@@ -235,9 +232,6 @@ public class ZhanFa implements Harm, Cloneable {
 		float sum = 0.0f;
 		//伤害值
 		harmVal += upVal.getAddAllWjVal();
-		if(CheckUtil.isAttack(this)) {
-			harmVal += upVal.getAddZiShenGJRate();
-		}
 		//发动概率
 		float done = doneRate + upVal.getDayingUpZFVal();
 		done = done>1.0f?1.0f:done;
@@ -307,5 +301,10 @@ public class ZhanFa implements Harm, Cloneable {
 	@Override
 	public int getChiXuHuihe() {
 		return 10;
+	}
+
+	@Override
+	public float getUpGongJiRate() {
+		return 0.0f;
 	}
 }

@@ -43,6 +43,7 @@ public enum ZFType {
 	BeiDong_huifu,//被动类 恢复
 	BeiDong_GongJi,//被动类，攻击伤害
 	BeiDong_JiaCheng,//被动类 加成 本身不造成伤害
+	BeiDong_WuFS_JiaGongJi,//被动类 无法发动主动战法 加攻击
 	BeiDong_LianJi_jiagongji,//被动类 连击 增加攻击属性
 	
 	ZhuiJi_FaShu,//追击类 法术伤害

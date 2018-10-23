@@ -264,6 +264,7 @@ public class CheckUtil {
 		case ZhuDong_QunTi_HuiFu:
 		case ZhiHui_KongZhiGongJi:
 		case ZhiHui_GuiBi_JianShang:
+		case BeiDong_WuFS_JiaGongJi:
 		case ZhiHui_MianYi_jiagongji:
 		case ZhuDong_Multiple_KongZhi:
 		case ZhuDong_ShouCi_JiaGongJi:
@@ -387,7 +388,20 @@ public class CheckUtil {
 		}
 		return isUpFashu;
 	}
-	
+	//增加攻击伤害比
+	public static boolean isUpGJRate(ZhanFa zf) {
+		boolean isUpGJRate = false;
+		switch (zf.getT()) {
+		case BeiDong_WuFS_JiaGongJi:
+		case ZhiHui_MianYi_jiagongji:
+			isUpGJRate = true;
+			break;
+		default:
+			isUpGJRate = false;
+			break;
+		}
+		return isUpGJRate;
+	}
 	/**
 	 * 是否是全体加伤法术和攻击战法
 	 * @param zf
@@ -568,9 +582,6 @@ public class CheckUtil {
 		case ZhuDong_ZiSheng_YouJun_HuiFu:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
-		/** 被动类攻击战法 **/
-		case BeiDong_GongJi:
-		case BeiDong_LianJi_jiagongji:
 		/** 追击类攻击战法 **/
 		case ZhuiJi_GongJi_KongZhiGongJi:
 			isBeiKongZhi = true;

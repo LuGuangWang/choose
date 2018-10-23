@@ -1,6 +1,5 @@
 package wlg.core.bean.zhanfa;
 
-import wlg.core.CheckUtil;
 import wlg.core.bean.conf.Conf;
 
 /**
@@ -50,9 +49,6 @@ public class GongJiZhanFa extends ZhanFa {
 		float sum = 0.0f;
 		//伤害值
 		harmVal += upVal.getAddAllWjVal();
-		if(CheckUtil.isAttack(this)) {
-			harmVal += upVal.getAddZiShenGJRate();
-		}
 		//受谋略影响
 		float newUpGjVal = this.getStrategy() * upVal.getAddStrategyVal() / Conf.shuxing_suoxiao + this.upGJVal;
 		
