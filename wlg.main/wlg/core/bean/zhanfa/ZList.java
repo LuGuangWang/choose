@@ -105,7 +105,8 @@ public abstract class ZList {
 	public static HuiFuZhanFa zengyuan = new HuiFuZhanFa("增援", ZFType.ZhuDong_QunTi_HuiFu, 1, 0.45f, 1.98f, 3, new Person(2));
 	//危崖困军 TODO 降低防御属性
 	public static ZhanFa weiyakunjun = new ZhanFa("危崖困军",ZFType.ZhuDong_FaShu, 1, 0.5f, 2.1f, 2, new Person(2));
-	
+	//一骑当千
+	public static ZhanFa yijidangqian = new ZhanFa("一骑当千", ZFType.ZhuDong_GongJi_YiJi, 1, 0.3f, 2.8f, 5, new Person(3));
 	
 	/**   =============S3 =================== **/
 	//形兵之极

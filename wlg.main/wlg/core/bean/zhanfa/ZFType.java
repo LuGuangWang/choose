@@ -8,6 +8,7 @@ public enum ZFType {
 	ZhuDong_KongZhi_ALL,//控制攻击与法术,本身不造成伤害
 	ZhuDong_FaShu_ZiDai,//主动类 法术伤害 武将自带战法
 	ZhuDong_QunTi_HuiFu,//主动类 群体类 恢复
+	ZhuDong_GongJi_YiJi,//主动类 一骑当千
 	ZhuDong_FaShu_GongJi,//主动类 攻击伤害 法术伤害
 	ZhuDong_FaShu_BaoZou,//主动类 法术伤害 暴走效果
 	ZhuDong_FaShu_KeepHuiHe,//主动类 法术伤害 持续回合
