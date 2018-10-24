@@ -48,5 +48,6 @@ public enum ZFType {
 	BeiDong_LianJi_jiagongji,//被动类 连击 增加攻击属性
 	
 	ZhuiJi_FaShu,//追击类 法术伤害
+	ZhuiJi_GongJi_FengFaShu,//追击类
 	ZhuiJi_GongJi_KongZhiGongJi,//追击类 攻击伤害
 } 

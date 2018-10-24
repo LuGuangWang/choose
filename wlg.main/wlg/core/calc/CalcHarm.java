@@ -85,7 +85,9 @@ public class CalcHarm {
 				unHurtVal = calcMuYiFuMeng(huihe,calcPrimy,kongzhiMap,zf,zhanfas);
 			}else if(zf.getT().equals(ZFType.ZhuDong_FaShu_jianGongJi)) {
 				unHurtVal = calcJianGongJi(huihe,calcPrimy,kongzhiMap,zf,zhanfas);
-			//其疾如风
+			//怯心夺志
+			}else if(zf.getT().equals(ZFType.ZhuiJi_GongJi_FengFaShu)) {
+				unHurtVal = calcQieXinDuoZhi(huihe,calcPrimy,kongzhiMap,zf,zhanfas);
 			}
 			
 			sum += unHurtVal;
@@ -105,6 +107,36 @@ public class CalcHarm {
 		return sum;
 	}
 	
+	private static float calcQieXinDuoZhi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
+			ZhanFa... zhanfas) {
+		ZhanFa b = zf;
+		float unHurtVal = 0.0f;
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,b);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		//每个人数的随机概率
+		float evrate = 1.0f/b.getPersons().getPersons().length;
+		for(int p:b.getPersons().getPersons()) {
+			int distance = CalCDistance.calcDistance(b.getDistance(), b.getPosition());
+			if(distance<=0) {
+				continue;
+			}else {
+				p = Math.min(p, distance);
+			}
+			float unHurt = evrate * p/1.0f/Conf.WuJiang_Count;
+			unHurt = unHurt>1 ? 1.0f:unHurt;
+			//控制主的概率
+			float kongzhiVal = rate*unHurt * b.getDoneRate();
+			float tmp = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengZhanfa(1.0f),calcPrimy,zhanfas);
+			kongzhiMap.put(b.getName(), kongzhiVal);
+			unHurtVal += tmp;
+		}
+		return unHurtVal;
+	}
+
 	private static float calcJianGongJi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
 			ZhanFa... allZfs) {
 		ShuiYanQiJun b = (ShuiYanQiJun)zf;

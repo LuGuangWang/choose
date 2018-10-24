@@ -332,7 +332,7 @@ public class Choose {
 //		one = WList.zhangliao.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
-		one = WList.zhangliao.setSecondZhanFa(ZList.yijidangqian);
+		one = WList.zhangliao.setSecondZhanFa(ZList.qiexinduozhi);
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		return result;

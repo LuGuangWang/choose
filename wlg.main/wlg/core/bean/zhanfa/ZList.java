@@ -107,7 +107,8 @@ public abstract class ZList {
 	public static ZhanFa weiyakunjun = new ZhanFa("危崖困军",ZFType.ZhuDong_FaShu, 1, 0.5f, 2.1f, 2, new Person(2));
 	//一骑当千
 	public static ZhanFa yijidangqian = new ZhanFa("一骑当千", ZFType.ZhuDong_GongJi_YiJi, 1, 0.3f, 2.8f, 5, new Person(3));
-	
+	//怯心夺志
+	public static ZhanFa qiexinduozhi = new ZhanFa("怯心夺志", ZFType.ZhuiJi_GongJi_FengFaShu, 0, 0.3f, 2.0f, 5, new Person(1));
 	/**   =============S3 =================== **/
 	//形兵之极
 	public static XingBingZhiJi xingbingzhiji = new XingBingZhiJi("形兵之极", ZFType.ZhiHui_DaYing_ZhongJun_QianFeng, 0, 1.0f, 2, new Person(3),0.1f,0.4f,0.5f);
