@@ -18,4 +18,9 @@ public class FanJiZhiCeZhanFa extends ZhanFa {
 		return keephuihe;
 	}
 	
+	@Override
+	public int getChiXuHuihe() {
+		return keephuihe;
+	}
+	
 }

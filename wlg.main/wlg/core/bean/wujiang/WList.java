@@ -20,7 +20,7 @@ public class WList {
 	//小凌统
 	public static WuJiang xiaolingtong = new WuJiang("小凌统", WZType.wu,WBType.gong,49, 85, 82, 41, 2, ZList.guotu);
 	/******     蜀国        *******/
-	//赵云
+	//SP赵云
 	public static WuJiang zhaoyun = new WuJiang("SP赵云",WZType.shu,WBType.bu,65,92,101,78,3,ZList.yinlonggudan);
 	//黄月英
 	public static WuJiang huangyueying = new WuJiang("黄月英",WZType.shu,WBType.bu,29,70,33,94,2,ZList.jiangxinbujie);
@@ -45,6 +45,8 @@ public class WList {
 	public static WuJiang xiahouyuan = new WuJiang("夏侯渊", WZType.wei, WBType.qi, 100, 90, 91, 66, 3, ZList.hubuguanyou);
 	//张辽
 	public static WuJiang zhangliao = new WuJiang("张辽", WZType.wei, WBType.qi, 105, 94, 91, 83, 3, ZList.qijirufeng);
+	//SP荀攸
+	public static WuJiang xunyou = new WuJiang("SP荀攸", WZType.wei, WBType.bu, 32, 83, 45, 98, 2, ZList.mouzhu);
 	/******     汉       *******/
 	//貂蝉
 	public static WuJiang handiaochan = new WuJiang("汉貂蝉", WZType.han, WBType.gong, 68, 74, 79, 88, 2, ZList.biyue);

@@ -161,6 +161,7 @@ public class CheckUtil {
 		case ZhiHui_MianYi_WushiGuiBi:
 		case ZhuDong_ShouCi_JiaGongJi:
 		case ZhiHui_JiaSuDu_JiaPuGong:
+		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
 			isKongZhi = true;
 			break;
 		default:
@@ -280,6 +281,7 @@ public class CheckUtil {
 		case ZhiHui_DaYing_ZhongJun_QianFeng:
 		case ZhiHui_JiaFaShu_JianShang_MianYi:
 		case ZhiHui_JianshangFashu_KongZhiFaShu:
+		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
 			isZeroHarm = true;
 			break;
 		default:
@@ -305,6 +307,7 @@ public class CheckUtil {
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
+		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
 			isKongZhiKeep = true;
 			break;
 		default:
@@ -514,6 +517,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu_KongZhiHuiFu:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
+		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
 			isZhuiJi = true;
 			break;
 		default:
@@ -586,6 +590,7 @@ public class CheckUtil {
 		case ZhuDong_ZiSheng_YouJun_HuiFu:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
+		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
 		/** 追击类攻击战法 **/
 		case ZhuiJi_GongJi_FengFaShu:
 		case ZhuiJi_GongJi_KongZhiGongJi:
@@ -652,5 +657,23 @@ public class CheckUtil {
 			break;
 		}
 		return isHuiFu;
+	}
+	/**
+	 * 是否先手
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isXianShou(ZhanFa zf) {
+		boolean isXianShou = false;
+		switch (zf.getT()) {
+		case ZhiHui_YouXian_DongYao:
+		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
+			isXianShou = true;
+			break;
+		default:
+			isXianShou = false;
+			break;
+		}
+		return isXianShou;
 	}
 }

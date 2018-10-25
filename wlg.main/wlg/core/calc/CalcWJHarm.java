@@ -27,6 +27,7 @@ import wlg.core.bean.zhanfa.HuiFuZhanFa;
 import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.LianJiZhanFa;
+import wlg.core.bean.zhanfa.MouZhu;
 import wlg.core.bean.zhanfa.QiJiRuFeng;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.ShengBingQiuZhan;
@@ -346,6 +347,10 @@ public class CalcWJHarm {
 			speedVal += 19;
 			strategyVal += 20;
 			break;
+		case wzz:
+			Conf.log("========该组合为称号【魏之智】");
+			strategyVal += 24;
+			break;
 		default:
 			Conf.log("========该组合没有称号。");
 			break;
@@ -523,44 +528,17 @@ public class CalcWJHarm {
 			if(CheckUtil.isMianYiGuiBi(zf)) {
 				huihe.getWj().setMianyiGBVal(1.0f);
 			}
-			//行兵之极
-			if(huihe.isIsxingbing() && zf.getT().equals(ZFType.ZhiHui_DaYing_ZhongJun_QianFeng)) {
-				XingBingZhiJi xb = (XingBingZhiJi)zf;
-				if(ConflictList.$().isCeluechongtu()) {
-					huihe.setDayingUpZFVal(xb.getDayingGaiLv() / 3.0f);
-				}else {
-					huihe.setDayingUpZFVal(xb.getDayingGaiLv());
-				}
-				huihe.setZhongjunUpVal(xb.getZhongjunJiaShang());
-				huihe.setQianfengUpVal(xb.getQianfengJianShang());
-			}
+			
 			// 自身战法加成 不攻 & 大赏三军 & 始计
 			if (CheckUtil.isZiShenJiaCheng(zf) && !ConflictList.$().isCeluechongtu()) {
 				wj.addJiaCheng();
 			}
-			//胜兵求战
-			if(zf.getT().equals(ZFType.ZhiHui_SkipReady_Jiashang)) {
-				ShengBingQiuZhan sbqz = (ShengBingQiuZhan)zf;
-				huihe.setSkipReadyVal(sbqz.getSkipRate());
-				huihe.setSkipReadyPos(zf.getPosition());
-				if(ConflictList.$().isCeluechongtu()) {
-					huihe.setShengbingUpVal(sbqz.getAddShangHai()/3.0f);
-				}else {
-					huihe.setShengbingUpVal(sbqz.getAddShangHai());
-				}
-			}
+			//需要特殊对待的战法
+			setSpecialZhanFa(huihe, zf,rate);
+			
 			if(CheckUtil.isLianJi(zf)) {
 				if(zf.getT().equals(ZFType.ZhuDong_JiaGongJi_LianJi)) {
 					setWeiWuZhiZeLianJiVal(huihe, zf);
-				}
-			}
-			if (zf instanceof ShuaXinZhanFa) {
-				float oldVal = huihe.getShuaxinVal();
-				float newVal = ((ShuaXinZhanFa) zf).getBaseRate();
-				if (newVal > oldVal) {
-					huihe.setShuaxinVal(newVal);
-					huihe.setShuaxinPos(zf.getPosition());
-					Conf.log("=====刷新战法" + zf.getName() + " 刷新谋略伤害基值：" + oldVal + "->" + newVal);
 				}
 			}
 			if(CheckUtil.isUpAllShuXing(zf)) {
@@ -612,20 +590,6 @@ public class CalcWJHarm {
 				Conf.log("=====战法"+hzf.getName()+"救援士兵：" + huifuCount);
 				huihe.addHuifuVal(huifuCount);
 			}
-			//始计
-			if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
-				float oldVal = huihe.getUpFaShaShangHaiVal();
-				//受谋略影响
-				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
-				float newVal = ((ShiJiZhanFa)zf).getUpVal() + val;
-				if(ConflictList.$().isCeluechongtu()) {
-					newVal /= 3.0f;
-				}
-				if (newVal > oldVal) {
-					huihe.setUpFaShaShangHaiVal(newVal);
-					Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
-				}
-			}
 			//增加谋略和攻击伤害
 			if(CheckUtil.isJiaShang(zf)) {
 				float oldVal = huihe.getUpFaShaShangHaiVal();
@@ -645,23 +609,77 @@ public class CalcWJHarm {
 			if(CheckUtil.isUpGJRate(zf)) {
 				huihe.setZishenUpGjPos(zf.getPosition());
 				huihe.addZishenUpGjRate(zf.getUpGongJiRate() * rate);
-			//自身首次攻击加成比
-			}else if(zf.getT().equals(ZFType.ZhuDong_ShouCi_JiaGongJi)) {
-				huihe.setZishenSCUpGjPos(zf.getPosition());
-				huihe.setZishenSCUpGjRate(((HuBuGuanYou)zf).getUpGJVal() * rate);
 			}
 			//免疫控制
 			if(CheckUtil.isMianYiKongZhi(zf)) {
 				huihe.getWj().setMianyiVal(1.0f);
 			}
 			//先手战法
-			if(zf.getT().equals(ZFType.ZhiHui_YouXian_DongYao)) {
+			if(CheckUtil.isXianShou(zf)) {
 				float pre = 1.0f * zf.getPersons().getMaxPerson()/Conf.WuJiang_Count;
-				pre *= rate;
-				huihe.setXianshouRate(pre);
+				pre *= rate * zf.getDoneRate();
+				huihe.addXianshouRate(pre);
 			}
 		}
 		
+	}
+
+	private static void setSpecialZhanFa(HuiHe huihe, ZhanFa zf,float rate) {
+		//行兵之极
+		if(huihe.isIsxingbing() && zf.getT().equals(ZFType.ZhiHui_DaYing_ZhongJun_QianFeng)) {
+			XingBingZhiJi xb = (XingBingZhiJi)zf;
+			if(ConflictList.$().isCeluechongtu()) {
+				huihe.setDayingUpZFVal(xb.getDayingGaiLv() / 3.0f);
+			}else {
+				huihe.setDayingUpZFVal(xb.getDayingGaiLv());
+			}
+			huihe.setZhongjunUpVal(xb.getZhongjunJiaShang());
+			huihe.setQianfengUpVal(xb.getQianfengJianShang());
+		//胜兵求战
+		}else if(zf.getT().equals(ZFType.ZhiHui_SkipReady_Jiashang)) {
+			ShengBingQiuZhan sbqz = (ShengBingQiuZhan)zf;
+			huihe.setSkipReadyVal(sbqz.getSkipRate());
+			huihe.setSkipReadyPos(zf.getPosition());
+			if(ConflictList.$().isCeluechongtu()) {
+				huihe.setShengbingUpVal(sbqz.getAddShangHai()/3.0f);
+			}else {
+				huihe.setShengbingUpVal(sbqz.getAddShangHai());
+			}
+		//始计
+		}else if(zf.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
+			float oldVal = huihe.getUpFaShaShangHaiVal();
+			//受谋略影响
+			float val = zf.getStrategy()/Conf.shuxing_suoxiao;
+			float newVal = ((ShiJiZhanFa)zf).getUpVal() + val;
+			if(ConflictList.$().isCeluechongtu()) {
+				newVal /= 3.0f;
+			}
+			if (newVal > oldVal) {
+				huihe.setUpFaShaShangHaiVal(newVal);
+				Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
+			}
+		//深谋远虑
+		}else if (zf.getT().equals(ZFType.BeiDong_JiaCheng)) {
+			float oldVal = huihe.getShuaxinVal();
+			float newVal = ((ShuaXinZhanFa) zf).getBaseRate();
+			if (newVal > oldVal) {
+				huihe.setShuaxinVal(newVal);
+				huihe.setShuaxinPos(zf.getPosition());
+				Conf.log("=====刷新战法" + zf.getName() + " 刷新谋略伤害基值：" + oldVal + "->" + newVal);
+			}
+		//虎步关右
+		}else if(zf.getT().equals(ZFType.ZhuDong_ShouCi_JiaGongJi)) {
+			huihe.setZishenSCUpGjPos(zf.getPosition());
+			huihe.setZishenSCUpGjRate(((HuBuGuanYou)zf).getUpGJVal() * rate);
+		//谋主
+		}else if(zf.getT().equals(ZFType.ZhuDong_YiChu_GuiBi_DongCha_XianShou)) {
+			MouZhu m = (MouZhu)zf;
+			float doneRate = rate * m.getDoneRate();
+			float mianyiVal = doneRate + doneRate * m.getDongChaRate() / Conf.WuJiang_Count * m.getKeepHuihe();
+			mianyiVal += huihe.getWj().getMianyiVal();
+			
+			huihe.getWj().setMianyiVal(mianyiVal);
+		}
 	}
 
 	private static void resetHuiHeProp(HuiHe huihe) {

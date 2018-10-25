@@ -186,6 +186,9 @@ public class HuiHe implements Cloneable{
 	public float getXianshouRate() {
 		return xianshouRate;
 	}
+	public void addXianshouRate(float xianshouRate) {
+		this.xianshouRate += xianshouRate;
+	}
 	public void setXianshouRate(float xianshouRate) {
 		this.xianshouRate = xianshouRate;
 	}

@@ -46,15 +46,16 @@ public class CalcDoRate {
 	 */
 	public static <T extends ZhanFa> float getCommRate(HuiHe huihe, T zhanfa) {
 		float rate = getSameRate(huihe, zhanfa);
-		// 免疫控制
-		if (CheckUtil.isBeiKongZhi(zhanfa)) {
-			rate *= huihe.getWj().getMianyiVal();
-		} 
-		//先手效果
-		rate += huihe.getXianshouRate();
-		
-		rate = rate>1.0f?1.0f:rate;
-		
+		if(rate>0) {
+			// 免疫控制
+			if (CheckUtil.isBeiKongZhi(zhanfa)) {
+				rate *= huihe.getWj().getMianyiVal();
+			} 
+			//先手效果
+			rate += huihe.getXianshouRate();
+			
+			rate = rate>1.0f?1.0f:rate;
+		}
 		Conf.log("======第" + huihe.getId() + "回合战法" + zhanfa.getName() + "成功发动的概率:" + rate);
 		return rate;
 	}
@@ -68,15 +69,24 @@ public class CalcDoRate {
 	 */
 	public static <T extends ZhanFa> float getKongZhiRate(HuiHe huihe, T zhanfa) {
 		float rate = getSameRate(huihe, zhanfa);
-		// 免疫控制
-		if (CheckUtil.isBeiKongZhi(zhanfa)) {
-			rate *= huihe.getWj().getMianyiVal();
-		} 
-		//先手效果
-		rate += huihe.getXianshouRate();
-		
-		rate = rate>1.0f?1.0f:rate;
-		
+		//十面埋伏
+		if (zhanfa.getT().equals(ZFType.ZhuDong_FaShu_JianShang)) {
+			rate = 0;
+			int ready = zhanfa.getReady() + 1;
+			if (huihe.getId() > ready) {
+				rate = 0.5f;
+			}
+		}
+		if(rate>0) {
+			// 免疫控制
+			if (CheckUtil.isBeiKongZhi(zhanfa)) {
+				rate *= huihe.getWj().getMianyiVal();
+			} 
+			//先手效果
+			rate += huihe.getXianshouRate();
+			
+			rate = rate>1.0f?1.0f:rate;
+		}
 		Conf.log("======第" + huihe.getId() + "回合战法" + zhanfa.getName() + "成功发动控制的概率:" + rate);
 		return rate;
 	}
@@ -177,14 +187,6 @@ public class CalcDoRate {
 				t.setHarmRate(0.0f);// 会影响增益战法的计算
 				rate = 0;
 			}
-		// 十面埋伏
-		} else if (zhanfa.getT().equals(ZFType.ZhuDong_FaShu_JianShang)) {
-			rate = 0;
-			int ready = zhanfa.getReady() + 1;
-			if (huihe.getId() > ready) {
-				rate = 0.5f;
-			}
-			// 始计
 		} else if (zhanfa.getT().equals(ZFType.ZhiHui_JiaFaShu_JianShang_MianYi)) {
 			boolean isXYDY = isXianYuDaying(huihe.getWujiangs());
 			int keephuihe = ((ShiJiZhanFa) zhanfa).getKeephuihe();
