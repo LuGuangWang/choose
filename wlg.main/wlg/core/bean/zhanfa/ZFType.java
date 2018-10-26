@@ -11,6 +11,7 @@ public enum ZFType {
 	ZhuDong_GongJi_YiJi,//主动类 一骑当千
 	ZhuDong_FaShu_GongJi,//主动类 攻击伤害 法术伤害
 	ZhuDong_FaShu_BaoZou,//主动类 法术伤害 暴走效果
+	ZhuDong_FaShu_HunLuan,//主动类 法术伤害 混乱
 	ZhuDong_FaShu_KeepHuiHe,//主动类 法术伤害 持续回合
 	ZhuDong_FaShu_JianShang,//主动类 法术伤害 减伤
 	ZhuDong_Multiple_KongZhi,//主动类 多重控制

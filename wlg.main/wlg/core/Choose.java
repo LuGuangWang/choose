@@ -247,7 +247,7 @@ public class Choose {
 		float sum27 = CalcWJHarm.calcVal(one,two,three);
 		String key27 = buildKey(one,two,three);
 		result.put(sum27, key27);
-//		
+		
 		one = WList.xunyv.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
 		two = WList.guojia.setSecondZhanFa(ZList.hunshuimoyv).setThreeZhanFa(ZList.shiji);
 		three= WList.xunyou.setSecondZhanFa(ZList.zhanbiduanjin).setThreeZhanFa(ZList.fanjizhice);
@@ -264,7 +264,7 @@ public class Choose {
 	 */
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
-//		WuJiang one;
+		WuJiang one;
 //		
 //		one = WList.luxun.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
@@ -334,6 +334,9 @@ public class Choose {
 //		
 //		one = WList.xunyou.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
+		
+		one = WList.xunyv.reset();
+		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		return result;
 	}

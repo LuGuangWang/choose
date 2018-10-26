@@ -107,6 +107,7 @@ public class CheckUtil {
 	private static boolean isKongZhiFaShu(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
+		case ZhuDong_FaShu_HunLuan:
 		case ZhuiJi_GongJi_FengFaShu:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhiHui_JianshangFashu_KongZhiFaShu:
@@ -211,6 +212,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu_GongJi:
 		case ZhuDong_FaShu_BaoZou:
 		case ZhiHui_Multiple_FaShu:
+		case ZhuDong_FaShu_HunLuan:
 		case ZhiHui_YouXian_DongYao:
 		case ZhuDong_FaShu_JianShang:
 		case ZhuDong_FaShu_KeepHuiHe:
@@ -578,6 +580,7 @@ public class CheckUtil {
 		case ZhuDong_GongJi_YiJi:
 		case ZhuDong_FaShu_GongJi:
 		case ZhuDong_FaShu_BaoZou:
+		case ZhuDong_FaShu_HunLuan:
 		case ZhuDong_FaShu_JianShang:
 		case ZhuDong_FaShu_KeepHuiHe:
 		case ZhuDong_FaShu_jianGongJi:
