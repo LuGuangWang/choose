@@ -145,7 +145,7 @@ public class CalcHarm {
 			kongzhiMap.put(b.getName(), kongzhiVal);
 			unHurtVal += tmp;
 		}
-		float kongzhiHarm = zf.getDoneRate()*Conf.SunShiCount*zf.getPersons().getMaxPerson()/Conf.WuJiang_Count;
+		float kongzhiHarm = zf.getDoneRate()*Conf.SunShiCount*zf.getPersons().getMaxPerson()/Conf.WuJiang_Count * ConflictList.$().hunluanChongTuRate();
 		return unHurtVal + kongzhiHarm;
 	}
 

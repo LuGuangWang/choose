@@ -15,6 +15,9 @@ public class ConflictList {
 	private final String baozou_chongtu = "|妖术|奇佐鬼谋|闭月|迷阵|鬼谋|";
 	private Set<String> baozou_list = new HashSet<>();
 	
+	private final String hunluan_chongtu = "|浑水摸鱼|落雷|";
+	private Set<String> hunluan_list = new HashSet<>();
+	
 	private final String zhihui_konghuang_chongtu = "|匠心不竭|帝临回光|";
 	private Set<String> zhihui_konghuang_list = new HashSet<>();
 	
@@ -61,6 +64,15 @@ public class ConflictList {
 		return rate;
 	}
 	
+	public float hunluanChongTuRate() {
+		float rate = 1.0f;
+		if(hunluan_list.size()>1) {
+			rate = 0.7f;
+			Conf.log("=========战法冲突：" + listToString(hunluan_list));
+		}
+		return rate;
+	}
+	
 	public float huogongChongTuRate() {
 		float rate = 1.0f;
 		if(huogong_list.size()>1) {
@@ -88,6 +100,9 @@ public class ConflictList {
 		if(huogong_chongtu.contains(zfName)) {
 			huogong_list.add(content);
 		}
+		if(hunluan_chongtu.contains(zfName)) {
+			hunluan_list.add(content);
+		}
 	}
 
 	private String listToString(Set<String> zfs) {
@@ -102,5 +117,6 @@ public class ConflictList {
 		zhihui_konghuang_list.clear();
 		celue_jiangshang_list.clear();
 		huogong_list.clear();
+		hunluan_list.clear();
 	}
 }
