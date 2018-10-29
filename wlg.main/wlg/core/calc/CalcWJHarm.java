@@ -25,7 +25,6 @@ import wlg.core.bean.zhanfa.GongJiZhanFa;
 import wlg.core.bean.zhanfa.HuBuGuanYou;
 import wlg.core.bean.zhanfa.HuiFuZhanFa;
 import wlg.core.bean.zhanfa.JiaChengZhanFa;
-import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.LianJiZhanFa;
 import wlg.core.bean.zhanfa.MouZhu;
 import wlg.core.bean.zhanfa.QiJiRuFeng;
@@ -548,18 +547,6 @@ public class CalcWJHarm {
 				upQuan *= rate * zf.getDoneRate();
 				huihe.setUpQuanShuXing(upQuan);
 			}
-			if(CheckUtil.isDownFangYu(zf)) {
-				BiYueZhanFa tmp = (BiYueZhanFa)zf;
-				float oldVal = huihe.getDownFangYuVal();
-				//受谋略影响
-				float val = zf.getStrategy()/Conf.shuxing_val_suoxiao;
-				float newVal = tmp.getDownFShuXingVal() + val;
-				newVal *= rate * zf.getDoneRate();
-				if (newVal > oldVal) {
-					huihe.setDownFangYuVal(newVal);
-					Conf.log("=====战法" + zf.getName() + " 降低防御属性值：" + oldVal + "->" + newVal);
-				}
-			}
 			//自身恢复
 			if(CheckUtil.isZiShenHuiFu(zf)) {
 				HuiFuZhanFa hzf = (HuiFuZhanFa)zf;
@@ -581,7 +568,19 @@ public class CalcWJHarm {
 				Conf.log("=====战法"+hzf.getName()+"救援士兵：" + huifuCount);
 				huihe.addHuifuVal(huifuCount);
 			}
-			
+			//神兵天降 大赏三军 诸葛锦囊
+			if(CheckUtil.isUpVal(zf)) {
+				float oldVal = huihe.getUpAllWjVal();
+				float pre = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
+				//受谋略影响
+				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
+				float newVal = rate * pre * zf.getUpVal() + val;
+				if(ConflictList.$().isCeluechongtu()) {
+					newVal /= 3.0f;
+				}
+				huihe.addUpAllWjVal(newVal);
+				Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + huihe.getUpAllWjVal());
+			}
 			//自身攻击加成比
 			if(CheckUtil.isUpZSGJRate(zf)) {
 				huihe.setZishenUpGjPos(zf.getPosition());
@@ -647,7 +646,7 @@ public class CalcWJHarm {
 		//虎步关右
 		}else if(zf.getT().equals(ZFType.ZhuDong_ShouCi_JiaGongJi)) {
 			huihe.setZishenSCUpGjPos(zf.getPosition());
-			huihe.setZishenSCUpGjRate(((HuBuGuanYou)zf).getUpGJVal() * rate);
+			huihe.setZishenSCUpGjRate(((HuBuGuanYou)zf).getUpGJVal() * rate * ConflictList.$().pugongChongTuRate());
 		//谋主
 		}else if(zf.getT().equals(ZFType.ZhuDong_YiChu_GuiBi_DongCha_XianShou)) {
 			MouZhu m = (MouZhu)zf;
@@ -665,21 +664,19 @@ public class CalcWJHarm {
 				huihe.setUpFaShuVal(newVal);
 				Conf.log("=====战法" + zf.getName() + " 提高策略属性值：" + oldVal + "->" + newVal);
 			}
-		//神兵天降
-		}else if(zf.getT().equals(ZFType.ZhiHui_FuZhu_ALL)) {
-				float oldVal = huihe.getUpFaShaShangHaiVal();
-				float pre = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
-				//受谋略影响
-				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
-				float newVal = rate * pre * ((JiaShangZhanFa)zf).getUpVal() + val;
-				if(ConflictList.$().isCeluechongtu()) {
-					newVal /= 3.0f;
-				}
-				if (newVal > oldVal) {
-					huihe.setUpAllWjVal(newVal);
-					Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
-				}
+		//闭月
+		}else if(zf.getT().equals(ZFType.ZhuDong_BaoZou_jianFangYu)) {
+			BiYueZhanFa tmp = (BiYueZhanFa)zf;
+			float oldVal = huihe.getDownFangYuVal();
+			//受谋略影响
+			float val = zf.getStrategy()/Conf.shuxing_val_suoxiao;
+			float newVal = tmp.getDownFShuXingVal() + val;
+			newVal *= rate * zf.getDoneRate();
+			if (newVal > oldVal) {
+				huihe.setDownFangYuVal(newVal);
+				Conf.log("=====战法" + zf.getName() + " 降低防御属性值：" + oldVal + "->" + newVal);
 			}
+		}
 	}
 
 	private static void resetHuiHeProp(HuiHe huihe) {

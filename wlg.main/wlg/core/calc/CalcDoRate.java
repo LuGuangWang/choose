@@ -177,7 +177,7 @@ public class CalcDoRate {
 		// 胜兵求战
 		if (huihe.getSkipReadyVal() > 0 && huihe.getSkipReadyPos() == zhanfa.getPosition()
 				&& CheckUtil.isZiDaiReady(zhanfa)) {
-			rate = rate < huihe.getSkipReadyVal() ? huihe.getSkipReadyVal() : rate;
+			rate = 1.0f;
 		}
 
 		// 持续多少回合后

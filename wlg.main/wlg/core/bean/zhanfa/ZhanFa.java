@@ -307,4 +307,9 @@ public class ZhanFa implements Harm, Cloneable {
 	public float getUpGongJiRate() {
 		return 0.0f;
 	}
+
+	@Override
+	public float getUpVal() {
+		return 0;
+	}
 }

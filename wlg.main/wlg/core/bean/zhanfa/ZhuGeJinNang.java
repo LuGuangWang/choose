@@ -23,4 +23,8 @@ public class ZhuGeJinNang extends ZhanFa {
 		return jianshangVal;
 	}
 	
+	public float getUpVal() {
+		return jiashangVal*keephuihe;
+	}
+	
 }

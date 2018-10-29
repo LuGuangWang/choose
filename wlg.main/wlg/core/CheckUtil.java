@@ -386,6 +386,24 @@ public class CheckUtil {
 		}
 		return isUpAllShuXing;
 	}
+	/**
+	 * 增加攻击和谋略伤害比
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isUpVal(ZhanFa zf) {
+		boolean isUpVal = false;
+		switch (zf.getT()) {
+		case ZhiHui_FuZhu_ALL:
+		case ZhuDong_JianShang_JiaShang:
+			isUpVal = true;
+			break;
+		default:
+			isUpVal = false;
+			break;
+		}
+		return isUpVal;
+	}
 	
 	//增加自身攻击伤害比
 	public static boolean isUpZSGJRate(ZhanFa zf) {
@@ -491,6 +509,7 @@ public class CheckUtil {
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_FaShu_KongZhiHuiFu:
+		case ZhuDong_JianShang_JiaShang:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
@@ -501,23 +520,6 @@ public class CheckUtil {
 			break;
 		}
 		return isZhuiJi;
-	}
-	/**
-	 * 降低敌军防御的战法
-	 * @param zf
-	 * @return
-	 */
-	public static boolean isDownFangYu(ZhanFa zf) {
-		boolean isDownFangYu = false;
-		switch (zf.getT()) {
-		case ZhuDong_BaoZou_jianFangYu:
-			isDownFangYu = true;
-			break;
-		default:
-			isDownFangYu = false;
-			break;
-		}
-		return isDownFangYu;
 	}
 	/**
 	 * 降低敌军攻击的战法
@@ -564,6 +566,7 @@ public class CheckUtil {
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_FaShu_KongZhiHuiFu:
+		case ZhuDong_JianShang_JiaShang:
 		case ZhuDong_ZiSheng_YouJun_HuiFu:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:

@@ -291,6 +291,9 @@ public class HuiHe implements Cloneable{
 	public float getUpAllWjVal() {
 		return upAllWjVal;
 	}
+	public void addUpAllWjVal(float upAllWjVal) {
+		this.upAllWjVal += upAllWjVal;
+	}
 	public void setUpAllWjVal(float upAllWjVal) {
 		this.upAllWjVal = upAllWjVal;
 	}

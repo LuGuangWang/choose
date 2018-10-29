@@ -31,4 +31,9 @@ public interface Harm {
 	public int getChiXuHuihe();
 	
 	public float getUpGongJiRate();
+	/**
+	 * 增加攻击和策略伤害
+	 * @return
+	 */
+	public float getUpVal();
 }
