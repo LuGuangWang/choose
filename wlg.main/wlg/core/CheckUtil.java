@@ -16,6 +16,24 @@ public class CheckUtil {
 		return isJiaCheng;
 	}
 	/**
+	 * 是否是法术加成战法
+	 * @param zf
+	 * @return
+	 */
+	public static boolean isFaShuJiaCheng(ZhanFa zf) {
+		boolean isJiaCheng = false;
+		switch (zf.getT()) {
+		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
+			isJiaCheng = true;
+			break;
+		default:
+			isJiaCheng = false;
+			break;
+		}
+		return isJiaCheng;
+	}
+	
+	/**
 	 * 先发类型的控制
 	 * @param zf
 	 * @return
@@ -39,24 +57,6 @@ public class CheckUtil {
 			break;
 		}
 		return isKongZhi;
-	}
-	
-	/**
-	 * 是否是法术加成战法
-	 * @param zf
-	 * @return
-	 */
-	public static boolean isFaShuJiaCheng(ZhanFa zf) {
-		boolean isJiaCheng = false;
-		switch (zf.getT()) {
-		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
-			isJiaCheng = true;
-			break;
-		default:
-			isJiaCheng = false;
-			break;
-		}
-		return isJiaCheng;
 	}
 	
 	/**
@@ -162,6 +162,7 @@ public class CheckUtil {
 		case ZhiHui_MianYi_WushiGuiBi:
 		case ZhuDong_ShouCi_JiaGongJi:
 		case ZhiHui_JiaSuDu_JiaPuGong:
+		case ZhuDong_JianShang_JiaShang:
 		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
 			isKongZhi = true;
 			break;
@@ -278,6 +279,7 @@ public class CheckUtil {
 		case ZhiHui_SkipReady_Jiashang:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
+		case ZhuDong_JianShang_JiaShang:
 		case ZhuDong_ZiSheng_YouJun_HuiFu:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhiHui_DaYing_ZhongJun_QianFeng:
@@ -307,6 +309,7 @@ public class CheckUtil {
 		case ZhuDong_Multiple_KongZhi:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
+		case ZhuDong_JianShang_JiaShang:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
@@ -383,21 +386,9 @@ public class CheckUtil {
 		}
 		return isUpAllShuXing;
 	}
-	//增加策略属性值比
-	public static boolean isUpFashu(ZhanFa zf) {
-		boolean isUpFashu = false;
-		switch (zf.getT()) {
-		case ZhuDong_JiaShuXing_KongZhi:
-			isUpFashu = true;
-			break;
-		default:
-			isUpFashu = false;
-			break;
-		}
-		return isUpFashu;
-	}
-	//增加攻击伤害比
-	public static boolean isUpGJRate(ZhanFa zf) {
+	
+	//增加自身攻击伤害比
+	public static boolean isUpZSGJRate(ZhanFa zf) {
 		boolean isUpGJRate = false;
 		switch (zf.getT()) {
 		case BeiDong_WuFS_JiaGongJi:
@@ -409,23 +400,6 @@ public class CheckUtil {
 			break;
 		}
 		return isUpGJRate;
-	}
-	/**
-	 * 是否是全体加伤法术和攻击战法
-	 * @param zf
-	 * @return
-	 */
-	public static boolean isJiaShang(ZhanFa zf) {
-		boolean isJiaShang = false;
-		switch (zf.getT()) {
-		case ZhiHui_FuZhu_ALL:
-			isJiaShang = true;
-			break;
-		default:
-			isJiaShang = false;
-			break;
-		}
-		return isJiaShang;
 	}
 	/**
 	 * 是否是连击战法

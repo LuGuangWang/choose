@@ -548,15 +548,6 @@ public class CalcWJHarm {
 				upQuan *= rate * zf.getDoneRate();
 				huihe.setUpQuanShuXing(upQuan);
 			}
-			if(CheckUtil.isUpFashu(zf)) {
-				QiZuoGuiMou tmp = (QiZuoGuiMou)zf;
-				float oldVal = huihe.getUpFaShuVal();
-				float newVal = tmp.getUpVal() + 1;
-				if (newVal > oldVal) {
-					huihe.setUpFaShuVal(newVal);
-					Conf.log("=====战法" + zf.getName() + " 提高策略属性值：" + oldVal + "->" + newVal);
-				}
-			}
 			if(CheckUtil.isDownFangYu(zf)) {
 				BiYueZhanFa tmp = (BiYueZhanFa)zf;
 				float oldVal = huihe.getDownFangYuVal();
@@ -590,23 +581,9 @@ public class CalcWJHarm {
 				Conf.log("=====战法"+hzf.getName()+"救援士兵：" + huifuCount);
 				huihe.addHuifuVal(huifuCount);
 			}
-			//增加谋略和攻击伤害
-			if(CheckUtil.isJiaShang(zf)) {
-				float oldVal = huihe.getUpFaShaShangHaiVal();
-				float pre = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
-				//受谋略影响
-				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
-				float newVal = rate * pre * ((JiaShangZhanFa)zf).getUpVal() + val;
-				if(ConflictList.$().isCeluechongtu()) {
-					newVal /= 3.0f;
-				}
-				if (newVal > oldVal) {
-					huihe.setUpAllWjVal(newVal);
-					Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
-				}
-			}
+			
 			//自身攻击加成比
-			if(CheckUtil.isUpGJRate(zf)) {
+			if(CheckUtil.isUpZSGJRate(zf)) {
 				huihe.setZishenUpGjPos(zf.getPosition());
 				huihe.addZishenUpGjRate(zf.getUpGongJiRate() * rate);
 			}
@@ -679,7 +656,30 @@ public class CalcWJHarm {
 			mianyiVal += huihe.getWj().getMianyiVal();
 			
 			huihe.getWj().setMianyiVal(mianyiVal);
-		}
+		//奇佐鬼谋
+		}else if(zf.getT().equals(ZFType.ZhuDong_JiaShuXing_KongZhi)) {
+			QiZuoGuiMou tmp = (QiZuoGuiMou)zf;
+			float oldVal = huihe.getUpFaShuVal();
+			float newVal = tmp.getUpVal() + 1;
+			if (newVal > oldVal) {
+				huihe.setUpFaShuVal(newVal);
+				Conf.log("=====战法" + zf.getName() + " 提高策略属性值：" + oldVal + "->" + newVal);
+			}
+		//神兵天降
+		}else if(zf.getT().equals(ZFType.ZhiHui_FuZhu_ALL)) {
+				float oldVal = huihe.getUpFaShaShangHaiVal();
+				float pre = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
+				//受谋略影响
+				float val = zf.getStrategy()/Conf.shuxing_suoxiao;
+				float newVal = rate * pre * ((JiaShangZhanFa)zf).getUpVal() + val;
+				if(ConflictList.$().isCeluechongtu()) {
+					newVal /= 3.0f;
+				}
+				if (newVal > oldVal) {
+					huihe.setUpAllWjVal(newVal);
+					Conf.log("=====战法" + zf.getName() + " 刷新谋略或攻击伤害基值：" + oldVal + "->" + newVal);
+				}
+			}
 	}
 
 	private static void resetHuiHeProp(HuiHe huihe) {

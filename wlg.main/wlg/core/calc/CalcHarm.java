@@ -1,6 +1,5 @@
 package wlg.core.calc;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import wlg.core.bean.zhanfa.BiYueZhanFa;
 import wlg.core.bean.zhanfa.ConflictList;
 import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
 import wlg.core.bean.zhanfa.GongJiZhanFa;
-import wlg.core.bean.zhanfa.JiaShangZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
 import wlg.core.bean.zhanfa.MouZhu;
@@ -738,7 +736,6 @@ public class CalcHarm {
 	@SuppressWarnings("unchecked")
 	public static <T extends ZhanFa> float calcCommHuiHe(HuiHe huihe, T... zhanfa) {
 		float sum = 0;
-		List<JiaShangZhanFa> jss = new ArrayList<>();
 		int executeJss = 0;
 		//主要伤害
 		for(int i=0;i<zhanfa.length;i++) {
@@ -780,14 +777,6 @@ public class CalcHarm {
 				if(tmp.getKeephuihe()+1 == huihe.getId()) {
 					shuaxinVal += tmp.getExHarmVal();
 				}else {
-					shuaxinVal = 0.0f;
-				}
-			}else if(CheckUtil.isJiaShang(zf)){
-				JiaShangZhanFa tmp = (JiaShangZhanFa)zf;
-				if(huihe.getId()<=tmp.getKeephuihe()) {
-					jss.add(tmp);
-					continue;
-				} else {//	方便查看日志
 					shuaxinVal = 0.0f;
 				}
 			}else if(zf.getT().equals(ZFType.BeiDong_GongJi)){
