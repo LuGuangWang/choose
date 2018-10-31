@@ -80,6 +80,9 @@ public class HuiHe implements Cloneable{
 	//提高自身攻击伤害
 	private int zishenUpGjPos = 0;
 	private float zishenUpGjRate = 0.0f;//提高自身攻击伤害比
+	//提高自身法术伤害
+	private int zishenUpFsPos = 0;
+	private float zishenUpFsRate = 0.0f;//提高自身法术伤害比
 	//提高自身首次攻击伤害
 	private int zishenSCUpGjPos = 0;
 	private float zishenSCUpGjRate = 0.0f;//提高自身首次攻击伤害比
@@ -180,6 +183,19 @@ public class HuiHe implements Cloneable{
 	public void setZishenUpGjRate(float zishenUpGjRate) {
 		this.zishenUpGjRate = zishenUpGjRate;
 	}
+	public int getZishenUpFsPos() {
+		return zishenUpFsPos;
+	}
+	public void setZishenUpFsPos(int zishenUpFsPos) {
+		this.zishenUpFsPos = zishenUpFsPos;
+	}
+	public float getZishenUpFsRate() {
+		return zishenUpFsRate;
+	}
+	public void setZishenUpFsRate(float zishenUpFsRate) {
+		this.zishenUpFsRate = zishenUpFsRate;
+	}
+
 	public WuJiang getWj() {
 		return wj;
 	}
@@ -480,9 +496,9 @@ public class HuiHe implements Cloneable{
 		if(this.isxingbing && finalP==Conf.qianfeng) {
 			sunShi *= (1.0f - this.getQianfengUpVal());
 		}
-		if(wj.getPosition()==Conf.zhongjun) {
-			position = 1.8f;
-		}else if(wj.getPosition()==Conf.daying) {
+		if(wj.getPosition()==Conf.daying) {
+			position = 1.0f;
+		}else if(wj.getPosition()==Conf.zhongjun) {
 			position = 2.0f;
 		}else if(wj.getPosition()==Conf.qianfeng) {
 			position = 2.3f;

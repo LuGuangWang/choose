@@ -53,4 +53,5 @@ public enum ZFType {
 	ZhuiJi_FaShu,//追击类 法术伤害
 	ZhuiJi_GongJi_FengFaShu,//追击类
 	ZhuiJi_GongJi_KongZhiGongJi,//追击类 攻击伤害
+	ZhuiJi_FaShu_BaoZou_JiaFaShu,//追击类 法术伤害 暴走 加自身策略
 } 

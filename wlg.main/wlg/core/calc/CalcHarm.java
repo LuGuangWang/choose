@@ -776,7 +776,7 @@ public class CalcHarm {
 			if(CheckUtil.isStrategy(zf)) {
 				//只对当前武将的战法生效
 				if( huihe.getShuaxinPos() == zf.getPosition()) {
-					shuaxinVal = huihe.getShuaxinVal() * huihe.getId();
+					shuaxinVal += huihe.getShuaxinVal();
 				}
 				//大营战法加成  法术加成概率为0.75
 				if(huihe.getWujiangCount()==3 && huihe.getWj().getFinalp()== Conf.daying) {
@@ -785,6 +785,10 @@ public class CalcHarm {
 					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
 				}else if(huihe.getWujiangCount()==1 && huihe.getWj().getFinalp()== Conf.qianfeng) {
 					shuaxinVal += huihe.getUpFaShaShangHaiVal() * 0.75f;
+				}
+				//自身策略加成
+				if(huihe.getZishenUpFsPos()==zf.getPosition()) {
+					shuaxinVal += huihe.getZishenUpFsRate();
 				}
 			}
 			//攻击战法

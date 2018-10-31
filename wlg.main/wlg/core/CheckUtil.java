@@ -163,6 +163,7 @@ public class CheckUtil {
 		case ZhuDong_ShouCi_JiaGongJi:
 		case ZhiHui_JiaSuDu_JiaPuGong:
 		case ZhuDong_JianShang_JiaShang:
+		case ZhuiJi_FaShu_BaoZou_JiaFaShu:
 		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
 			isKongZhi = true;
 			break;
@@ -219,6 +220,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu_KeepHuiHe:
 		case ZhuDong_FaShu_jianGongJi:
 		case ZhuDong_FaShu_KongZhiHuiFu:
+		case ZhuiJi_FaShu_BaoZou_JiaFaShu:
 		case ZhiHui_JiaJuLi_FenBing_KongHuang:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
@@ -449,6 +451,7 @@ public class CheckUtil {
 		case ZhuDong_Multiple_KongZhi:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
+		case ZhuiJi_FaShu_BaoZou_JiaFaShu:
 			isBaoZou = true;
 			break;
 		default:
@@ -574,6 +577,7 @@ public class CheckUtil {
 		/** 追击类攻击战法 **/
 		case ZhuiJi_GongJi_FengFaShu:
 		case ZhuiJi_GongJi_KongZhiGongJi:
+		case ZhuiJi_FaShu_BaoZou_JiaFaShu:
 			isBeiKongZhi = true;
 			break;
 		default:

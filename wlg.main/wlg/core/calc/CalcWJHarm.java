@@ -27,6 +27,7 @@ import wlg.core.bean.zhanfa.HuiFuZhanFa;
 import wlg.core.bean.zhanfa.JiaChengZhanFa;
 import wlg.core.bean.zhanfa.LianJiZhanFa;
 import wlg.core.bean.zhanfa.MouZhu;
+import wlg.core.bean.zhanfa.PoZhenQiangXi;
 import wlg.core.bean.zhanfa.QiJiRuFeng;
 import wlg.core.bean.zhanfa.QiZuoGuiMou;
 import wlg.core.bean.zhanfa.ShengBingQiuZhan;
@@ -144,6 +145,9 @@ public class CalcWJHarm {
 							break;
 						case ZhuDong_JiaShuXing_KongZhi://奇佐鬼谋
 							baozouVal *= ((QiZuoGuiMou)zf).getKeephuihe();
+							break;
+						case ZhuiJi_FaShu_BaoZou_JiaFaShu://破阵强袭
+							baozouVal *= ((PoZhenQiangXi)zf).getBaozouRate();
 							break;
 						default:
 							break;
@@ -637,7 +641,7 @@ public class CalcWJHarm {
 		//深谋远虑
 		}else if (zf.getT().equals(ZFType.BeiDong_JiaCheng)) {
 			float oldVal = huihe.getShuaxinVal();
-			float newVal = ((ShuaXinZhanFa) zf).getBaseRate();
+			float newVal = ((ShuaXinZhanFa) zf).getBaseRate() * huihe.getId();
 			if (newVal > oldVal) {
 				huihe.setShuaxinVal(newVal);
 				huihe.setShuaxinPos(zf.getPosition());
@@ -676,6 +680,11 @@ public class CalcWJHarm {
 				huihe.setDownFangYuVal(newVal);
 				Conf.log("=====战法" + zf.getName() + " 降低防御属性值：" + oldVal + "->" + newVal);
 			}
+		//破阵强袭
+		}else if(zf.getT().equals(ZFType.ZhuiJi_FaShu_BaoZou_JiaFaShu)) {
+			huihe.setZishenUpFsPos(zf.getPosition());
+			float upZSFSRate = rate * zf.getDoneRate() * ((PoZhenQiangXi)zf).getUpFSVal(huihe.getId());
+			huihe.setZishenUpFsRate(upZSFSRate);
 		}
 	}
 
@@ -706,6 +715,8 @@ public class CalcWJHarm {
 		huihe.setZishenUpGjRate(0.0f);
 		huihe.setZishenSCUpGjPos(0);
 		huihe.setZishenSCUpGjRate(0.0f);
+		huihe.setZishenUpFsPos(0);
+		huihe.setZishenUpFsRate(0.0f);
 	}
 
 	private static void setWeiWuZhiZeLianJiVal(HuiHe huihe, ZhanFa zf) {

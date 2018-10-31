@@ -59,6 +59,8 @@ public abstract class ZList {
 	public static MouZhu mouzhu = new MouZhu("谋主", ZFType.ZhuDong_YiChu_GuiBi_DongCha_XianShou, 0, 0.4f, 2, new Person(1),0.5f,0.5f,0.5f,2);
 	//诸葛亮 诸葛锦囊
 	public static ZhuGeJinNang zhugejinnang = new ZhuGeJinNang("诸葛锦囊", ZFType.ZhuDong_JianShang_JiaShang, 0, 0.35f, 2, new Person(3),0.35f,0.14f,2);
+	//SP徐庶 破阵强袭
+	public static PoZhenQiangXi pozhenqiangxi = new PoZhenQiangXi("破阵强袭", ZFType.ZhuiJi_FaShu_BaoZou_JiaFaShu, 0, 1.0f, 1.19f, 1, new Person(1),0.4f,0.05f,0.3f);
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

@@ -142,11 +142,7 @@ public class CalcDoRate {
 				// 有刷新，且有伤害，刷新对当武将自身战法生效
 				if (huihe.getShuaxinVal() > 0 && zhanfa.getHarmRate() > 0
 						&& huihe.getShuaxinPos() == zhanfa.getPosition()) {
-					if (zhanfa.getReady() > 0) {
-						rate = 0.5f;
-					} else {
-						rate = 1.0f;
-					}
+					rate = 1.0f;
 				} else {
 					int wjCount = Conf.WuJiang_Count;
 					int psize = zhanfa.getPersons().getPersons().length;
