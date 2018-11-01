@@ -129,7 +129,7 @@ public class Choose {
 		String key7 = buildKey(one,two,three);
 		result.put(sum7, key7);
 		
-		one = WList.luxun.setSecondZhanFa(ZList.chugesiqi).setThreeZhanFa(ZList.shenmouyuanlv);
+		one = WList.luxun.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shenmouyuanlv);
 		two = WList.zhangchunhua.setSecondZhanFa(ZList.yaoshu).setThreeZhanFa(ZList.luolei);
 		three= WList.caocao.setSecondZhanFa(ZList.xingbingzhiji).setThreeZhanFa(ZList.shenbingtianjiang);
 		float sum8 = CalcWJHarm.calcVal(one,two,three);
@@ -255,6 +255,13 @@ public class Choose {
 		String key28 = buildKey(one,two,three);
 		result.put(sum28, key28);
 		
+		one = WList.pangtong.setSecondZhanFa(ZList.shimianmaifu).setThreeZhanFa(ZList.shengdongjixi);
+		two = WList.buzhuge.setSecondZhanFa(ZList.hunshuimoyv).setThreeZhanFa(ZList.luolei);
+		three= WList.xushu.setSecondZhanFa(ZList.zhanbiduanjin).setThreeZhanFa(ZList.fanjizhice);
+		float sum29 = CalcWJHarm.calcVal(one,two,three);
+		String key29 = buildKey(one,two,three);
+		result.put(sum29, key29);
+		
 		return result;
 	}
 	
@@ -265,7 +272,7 @@ public class Choose {
 	public Map<Float, String> calcDanGeWuJiangVal() {
 		TreeMap<Float, String> result = new TreeMap<>();
 		WuJiang one;
-//		
+		
 //		one = WList.luxun.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
@@ -317,7 +324,7 @@ public class Choose {
 //		one = WList.zhangning.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
 //
-//		one = WList.zhujun.reset();
+//		one = WList.xiaozhujun.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
 //		
 //		one = WList.xiaoganning.reset();
@@ -337,8 +344,11 @@ public class Choose {
 //		
 //		one = WList.buzhuge.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
+//		
+//		one = WList.xushu.reset();
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
-		one = WList.xushu.reset();
+		one = WList.pangtong.reset();
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		return result;

@@ -16,8 +16,9 @@ public class MaiLeiZhanFa extends ZhanFa{
 	public int getKeep() {
 		return keep;
 	}
-
-	public float getHarmVal() {
-		return keep * super.getHarmVal();
+	
+	public int getKeephuihe() {
+		return keep;
 	}
+
 }

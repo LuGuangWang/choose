@@ -27,8 +27,16 @@ public interface Harm {
 	 * @return
 	 */
 	public float addShuXingVal(float val,UpVal upVal);
-	
+	/**
+	 * 战斗前/开始后 多少回合
+	 * @return
+	 */
 	public int getChiXuHuihe();
+	/**
+	 * 效果持续多少回合
+	 * @return
+	 */
+	public int getKeephuihe();
 	
 	public float getUpGongJiRate();
 	/**

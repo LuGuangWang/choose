@@ -33,5 +33,7 @@ public class MouZhu extends ZhanFa {
 	public int getKeepHuihe() {
 		return keepHuihe;
 	}
-
+	public int getKeephuihe() {
+		return keepHuihe;
+	}
 }

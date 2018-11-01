@@ -18,4 +18,8 @@ public class KongZhiZhanFa extends ZhanFa {
 	public int getKeep() {
 		return keep;
 	}
+	
+	public int getKeephuihe() {
+		return keep;
+	}
 }

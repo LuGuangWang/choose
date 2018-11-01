@@ -312,4 +312,9 @@ public class ZhanFa implements Harm, Cloneable {
 	public float getUpVal() {
 		return 0;
 	}
+
+	@Override
+	public int getKeephuihe() {
+		return 1;
+	}
 }

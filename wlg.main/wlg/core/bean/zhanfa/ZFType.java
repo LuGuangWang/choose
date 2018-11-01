@@ -24,6 +24,7 @@ public enum ZFType {
 	ZhuDong_FaShu_KongZhiHuiFu,//主动类 法术伤害 控制恢复
 	ZhuDong_ZiSheng_YouJun_HuiFu,//主动类 自身和友军恢复
 	ZhuDong_JianShang_KongZhiFaShu,//主动类 减伤 然后控制法术,本身不造成伤害
+	ZhuDong_jianshang_konghuang_zuzhou,//主动类 减伤 恐慌 妖术诅咒
 	ZhuDong_FaShuShangHai_KongZhiGongji,//主动类 先法术伤害 然后控制攻击
 	ZhuDong_YiChu_GuiBi_DongCha_XianShou,//主动类 移除有害 进入规避，洞察，先手
 	

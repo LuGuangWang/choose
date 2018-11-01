@@ -81,7 +81,7 @@ public class CheckUtil {
 	 * @param zf
 	 * @return
 	 */
-	public static boolean isKongZhiAll(ZhanFa zf) {
+	private static boolean isKongZhiAll(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
 		case ZhuDong_BaoZou:
@@ -91,6 +91,7 @@ public class CheckUtil {
 		case ZhuDong_Multiple_KongZhi:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
+		case ZhuDong_jianshang_konghuang_zuzhou:
 			isKongZhi = true;
 			break;
 		default:
@@ -223,6 +224,7 @@ public class CheckUtil {
 		case ZhuiJi_FaShu_BaoZou_JiaFaShu:
 		case ZhiHui_JiaJuLi_FenBing_KongHuang:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
+		case ZhuDong_jianshang_konghuang_zuzhou:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 		case ZhiHui_FaShuJiacheng_FaShuGongJi_BuGongJi:
 			isStrategy = true;
@@ -307,12 +309,12 @@ public class CheckUtil {
 		case ZhuDong_BaoZou:
 		case ZhuDong_KongZhi_ALL:
 		case ZhuDong_FaShu_KeepHuiHe:
-		case ZhuDong_FaShu_jianGongJi:
 		case ZhuDong_Multiple_KongZhi:
 		case ZhuDong_BaoZou_jianFangYu:
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_JianShang_JiaShang:
 		case ZhuDong_JianShang_KongZhiFaShu:
+		case ZhuDong_jianshang_konghuang_zuzhou:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
 			isKongZhiKeep = true;
@@ -514,6 +516,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu_KongZhiHuiFu:
 		case ZhuDong_JianShang_JiaShang:
 		case ZhuDong_JianShang_KongZhiFaShu:
+		case ZhuDong_jianshang_konghuang_zuzhou:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
 			isZhuiJi = true;
@@ -572,6 +575,7 @@ public class CheckUtil {
 		case ZhuDong_JianShang_JiaShang:
 		case ZhuDong_ZiSheng_YouJun_HuiFu:
 		case ZhuDong_JianShang_KongZhiFaShu:
+		case ZhuDong_jianshang_konghuang_zuzhou:
 		case ZhuDong_FaShuShangHai_KongZhiGongji:
 		case ZhuDong_YiChu_GuiBi_DongCha_XianShou:
 		/** 追击类攻击战法 **/

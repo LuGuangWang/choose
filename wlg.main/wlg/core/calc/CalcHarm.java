@@ -15,6 +15,7 @@ import wlg.core.bean.zhanfa.FanJiZhiCeZhanFa;
 import wlg.core.bean.zhanfa.GongJiZhanFa;
 import wlg.core.bean.zhanfa.KongZhiAndHarmZhanFa;
 import wlg.core.bean.zhanfa.KongZhiZhanFa;
+import wlg.core.bean.zhanfa.MiMouDingShu;
 import wlg.core.bean.zhanfa.MouZhu;
 import wlg.core.bean.zhanfa.MuYiFuMeng;
 import wlg.core.bean.zhanfa.MultipleHarmZhanFa;
@@ -97,6 +98,9 @@ public class CalcHarm {
 			//诸葛锦囊
 			}else if(zf.getT().equals(ZFType.ZhuDong_JianShang_JiaShang)) {
 				unHurtVal = calcZhuGeJinNang(huihe,calcPrimy, kongzhiMap, zf, zhanfas);
+			//密谋定蜀
+			}else if(zf.getT().equals(ZFType.ZhuDong_jianshang_konghuang_zuzhou)) {
+				unHurtVal = calcMiMouDingShu(huihe,calcPrimy, kongzhiMap, zf, zhanfas);
 			}
 			
 			sum += unHurtVal;
@@ -116,6 +120,26 @@ public class CalcHarm {
 		return sum;
 	}
 	
+	private static float calcMiMouDingShu(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
+			ZhanFa... zhanfas) {
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,zf);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		//控制主的概率
+		float kongzhiVal = rate * zf.getDoneRate();
+		//受谋略影响
+		float val = zf.getStrategy()/Conf.shuxing_suoxiao;
+		float fengVal = ((MiMouDingShu)zf).getJianshangVal() + val;
+		
+		float unHurtVal = kongzhiVal * ((MiMouDingShu)zf).getKeepHuihe() * calcKongZhiAllHuiHe(huihe.getAllFeng(fengVal),calcPrimy,zhanfas);
+		kongzhiMap.put(zf.getName(), kongzhiVal);
+		
+		return unHurtVal;
+	}
+
 	private static float calcZhuGeJinNang(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
 			ZhanFa... zhanfas) {
 		//控制战法发动成功的概率
