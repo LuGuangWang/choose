@@ -32,6 +32,8 @@ public class WList {
 	public static WuJiang xushu = new WuJiang("SP徐庶", WZType.shu, WBType.qi, 88, 90, 80, 97, 1, ZList.pozhenqiangxi);
 	//庞统
 	public static WuJiang pangtong = new WuJiang("庞统", WZType.shu,WBType.bu, 42, 88, 71, 98, 3, ZList.mimoudingshu);
+	//S3 弓诸葛
+	public static WuJiang gongzhuge = new WuJiang("弓诸葛", WZType.shu, WBType.gong, 55, 95, 49, 108, 3, ZList.mingqixushi);
 	/******     魏国        *******/
 	//荀彧
 	public static WuJiang xunyv = new WuJiang("荀彧", WZType.wei, WBType.qi, 85, 89, 47, 96, 2, ZList.quhutunlang);

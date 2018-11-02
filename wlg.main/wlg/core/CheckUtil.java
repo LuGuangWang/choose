@@ -46,6 +46,7 @@ public class CheckUtil {
 		case ZhiHui_GuiBi_JianShang:
 		case ZhiHui_YouXian_DongYao:
 		case ZhiHui_SkipReady_Jiashang:
+		case ZhiHui_JianMouLue_KongZhiFaShu:
 		case ZhiHui_DaYing_ZhongJun_QianFeng:
 		case ZhiHui_JiaFaShu_JianShang_MianYi:
 		case ZhiHui_KongZhiGongJi_FaShuShangHai:
@@ -285,6 +286,7 @@ public class CheckUtil {
 		case ZhuDong_JiaShuXing_KongZhi:
 		case ZhuDong_JianShang_JiaShang:
 		case ZhuDong_ZiSheng_YouJun_HuiFu:
+		case ZhiHui_JianMouLue_KongZhiFaShu:
 		case ZhuDong_JianShang_KongZhiFaShu:
 		case ZhiHui_DaYing_ZhongJun_QianFeng:
 		case ZhiHui_JiaFaShu_JianShang_MianYi:

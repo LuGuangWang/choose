@@ -38,6 +38,7 @@ public enum ZFType {
 	ZhiHui_JiaSuDu_JiaPuGong,//指挥类 加速度，两次普攻
 	ZhiHui_JiaShuXing_JiaJuLi,//指挥类 加属性 加距离
 	ZhiHui_SkipReady_Jiashang,//指挥类 跳过准备 下一次攻击加伤害
+	ZhiHui_JianMouLue_KongZhiFaShu,//指挥类 降低谋略属性 控制法术
 	ZhiHui_DaYing_ZhongJun_QianFeng,//指挥类 大营加概率，中军加伤害，前锋减伤
 	ZhiHui_JiaFaShu_JianShang_MianYi,//指挥类 加攻击或法术伤害 减攻击或法术伤害 免疫被控制
 	ZhiHui_JiaJuLi_FenBing_KongHuang,//指挥类 加攻击距离 分兵 恐慌

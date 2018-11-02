@@ -63,6 +63,8 @@ public abstract class ZList {
 	public static PoZhenQiangXi pozhenqiangxi = new PoZhenQiangXi("破阵强袭", ZFType.ZhuiJi_FaShu_BaoZou_JiaFaShu, 0, 1.0f, 1.19f, 1, new Person(1),0.4f,0.05f,0.3f);
 	//庞统 密谋定蜀
 	public static MiMouDingShu mimoudingshu = new MiMouDingShu("密谋定蜀", ZFType.ZhuDong_jianshang_konghuang_zuzhou, 0, 0.35f, 1.15f, 5, new Person(2),0.3f,1.33f,2);
+	//弓诸葛 明其虚实
+	public static MingQiXuShi mingqixushi = new MingQiXuShi("明其虚实", ZFType.ZhiHui_JianMouLue_KongZhiFaShu, 0, 1.0f, 0.06f, 5, new Person(2),2);
 	/*****    -------------   武将自带战法     end -------------   *****/
 	
 	

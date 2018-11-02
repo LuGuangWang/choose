@@ -51,6 +51,8 @@ public class HuiHe implements Cloneable{
 	private float fengZhanfa = 0.0f;
 	//封闭普攻
 	private float fengGongji = 0.0f;
+	//减敌军谋略
+	private float jianMouLue=0.0f;
 	//控制是否是 数值计算
 	private boolean isShuZhi = false;	
 	//规避伤害
@@ -89,77 +91,84 @@ public class HuiHe implements Cloneable{
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float jsRate) {
 		HuiHe huihe = this.clone();
+		resetHuiHe(huihe);
 		huihe.fengAll = jsRate;
-		
-		huihe.isShuZhi = false;
-		huihe.fengZhanfa = 0.0f;
-		huihe.fengGongji = 0.0f;
 		return huihe;
 	}
 	
 	//规避伤害
 	public HuiHe getGuiBi(float guibiVal,float kongzhiALl) {
 		HuiHe huihe = this.clone();
+		resetHuiHe(huihe);
 		huihe.guibiVal = guibiVal;
 		huihe.fengAll = kongzhiALl;
 		
-		huihe.isShuZhi = false;
-		huihe.fengZhanfa = 0.0f;
-		huihe.fengGongji = 0.0f;
 		return huihe;
 	}
 	
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float fengVal,boolean isShuZhi) {
 		HuiHe huihe = this.clone();
+		resetHuiHe(huihe);
 		huihe.fengAll = fengVal;
 		huihe.isShuZhi = isShuZhi;
 		
-		huihe.fengZhanfa = 0.0f;
-		huihe.fengGongji = 0.0f;
 		return huihe;
 	}
 	
 	//封战法 也封攻击
 	public HuiHe getAllFeng(float fashuRate,float gongjiRate) {
 		HuiHe huihe = this.clone();
+		resetHuiHe(huihe);
 		huihe.fengZhanfa = fashuRate;
 		huihe.fengGongji = gongjiRate;
 		
-		huihe.isShuZhi = false;
-		huihe.fengAll = 0.0f;
 		return huihe;
 	}
 	//封攻击 概率和人数
 	public HuiHe getFengGongji(float jsRate,boolean isShuZhi) {
 		HuiHe huihe = this.clone();
+		resetHuiHe(huihe);
 		huihe.fengGongji = jsRate;
 		huihe.isShuZhi = isShuZhi;
 		
-		huihe.fengAll = 0.0f;
-		huihe.fengZhanfa = 0.0f;
 		return huihe;
 	}
 	
 	//封攻击 概率和人数
 	public HuiHe getFengGongji(float jsRate) {
 		HuiHe huihe = this.clone();
+		resetHuiHe(huihe);
 		huihe.fengGongji = jsRate;
 		
-		huihe.isShuZhi = false;
-		huihe.fengAll = 0.0f;
-		huihe.fengZhanfa = 0.0f;
 		return huihe;
 	}
 	//封法术
 	public HuiHe getFengZhanfa(float jsRate) {
 		HuiHe huihe = this.clone();
+		resetHuiHe(huihe);
 		huihe.fengZhanfa = jsRate;
 		
+		return huihe;
+	}
+	
+	//封法术 降低敌军谋略
+	public HuiHe getFengZhanfa(float jsRate,float jianMouLue) {
+		HuiHe huihe = this.clone();
+		resetHuiHe(huihe);
+		huihe.fengZhanfa = jsRate;
+		huihe.jianMouLue=jianMouLue;
+		
+		return huihe;
+	}
+	
+	private void resetHuiHe(HuiHe huihe) {
+		huihe.fengZhanfa = 0.0f;
+		huihe.jianMouLue=0.0f;
 		huihe.isShuZhi = false;
 		huihe.fengAll = 0.0f;
 		huihe.fengGongji = 0.0f;
-		return huihe;
+		huihe.guibiVal = 0.0f;
 	}
 	
 	public float getFengGongji() {
@@ -447,6 +456,9 @@ public class HuiHe implements Cloneable{
 	 */
 	private float getSunShi(ZhanFa zf,float position, float defenseVal,float strategy,int finalP) {
 		float sunShi = 0.0f;
+		//谋略值降低
+		float jianMLVal = Conf.base_strategy * jianMouLue * Conf.fashu_rate;
+		
 		if(fengAll!=0) {
 			float sunshi = 0.0f;
 			if(isShuZhi) {
@@ -508,6 +520,9 @@ public class HuiHe implements Cloneable{
 			position -= this.guibiVal;
 			position = position>0?position:0;
 		}
+		
+		//降低谋略的值
+		sunShi -= jianMLVal;
 		
 		sunShi *= position;
 		

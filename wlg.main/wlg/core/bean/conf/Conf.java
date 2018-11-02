@@ -25,6 +25,8 @@ public abstract class Conf {
 	public static final float SunShiCount = 1000.0f;
 	//速度基准值
 	public static final float base_speed = 120.0f;
+	//谋略基准值
+	public static final float base_strategy = 120.0f;
 	//暴走造成敌军伤害的概率
 	public static final float baozou_rate = 0.8f;
 	//暴走伤害基数
