@@ -357,8 +357,11 @@ public class Choose {
 //		
 //		one = WList.pangtong.reset();
 //		result.put(CalcWJHarm.calcVal(one), one.toString());
+//		
+//		one = WList.gongzhuge.reset();
+//		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
-		one = WList.gongzhuge.reset();
+		one = WList.lvbu.reset();
 		result.put(CalcWJHarm.calcVal(one), one.toString());
 		
 		return result;

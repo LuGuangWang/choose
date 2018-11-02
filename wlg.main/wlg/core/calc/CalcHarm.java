@@ -26,6 +26,7 @@ import wlg.core.bean.zhanfa.QiangShiZhanFa;
 import wlg.core.bean.zhanfa.ShiJiZhanFa;
 import wlg.core.bean.zhanfa.ShuiYanQiJun;
 import wlg.core.bean.zhanfa.UpVal;
+import wlg.core.bean.zhanfa.YuanMenSheJi;
 import wlg.core.bean.zhanfa.ZFType;
 import wlg.core.bean.zhanfa.ZhanBiZhanFa;
 import wlg.core.bean.zhanfa.ZhanFa;
@@ -105,6 +106,9 @@ public class CalcHarm {
 			//明其虚实
 			}else if(zf.getT().equals(ZFType.ZhiHui_JianMouLue_KongZhiFaShu)) {
 				unHurtVal = calcMingQiXuShi(huihe,calcPrimy, kongzhiMap, zf, zhanfas);
+			//辕门射戟
+			}else if(zf.getT().equals(ZFType.ZhuDong_JianGongJi)) {
+				unHurtVal = calcYuanMenSheJi(huihe,calcPrimy, kongzhiMap, zf, zhanfas);
 			}
 			
 			sum += unHurtVal;
@@ -124,6 +128,28 @@ public class CalcHarm {
 		return sum;
 	}
 	
+	private static float calcYuanMenSheJi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
+			ZhanFa... zhanfas) {
+		//控制战法发动成功的概率
+		float rate = CalcDoRate.getKongZhiRate(huihe,zf);
+		//不能发动战法时，直接返回
+		if(rate<=0) {
+			return 0;
+		}
+		
+		float pVal = zf.getPersons().getMaxPerson()*1.0f/Conf.WuJiang_Count;
+		
+		//控制主的概率
+		float kongzhiVal = rate * zf.getDoneRate() * pVal;
+		//减谋略属性值 前两回合封战法
+		float fengVal = ((YuanMenSheJi)zf).getJianGJVal();
+		
+		float unHurtVal = kongzhiVal * calcKongZhiAllHuiHe(huihe.getFengGongji(fengVal),calcPrimy,zhanfas);
+		kongzhiMap.put(zf.getName(), kongzhiVal);
+		
+		return unHurtVal;
+	}
+
 	private static float calcMingQiXuShi(HuiHe huihe, boolean calcPrimy, Map<String, Float> kongzhiMap, ZhanFa zf,
 			ZhanFa... zhanfas) {
 		//控制战法发动成功的概率

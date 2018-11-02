@@ -4,6 +4,7 @@ public enum ZFType {
 	ZhuDong_FaShu,//主动类 法术伤害
 	ZhuDong_BaoZou,//主动类 暴走
 	ZhuDong_GongJi,//主动类 攻击伤害
+	ZhuDong_JianGongJi,//主动类 减攻击伤害
 	ZhuDong_JiaShuXing,//主动类 加属性
 	ZhuDong_KongZhi_ALL,//控制攻击与法术,本身不造成伤害
 	ZhuDong_FaShu_ZiDai,//主动类 法术伤害 武将自带战法
@@ -27,6 +28,7 @@ public enum ZFType {
 	ZhuDong_jianshang_konghuang_zuzhou,//主动类 减伤 恐慌 妖术诅咒
 	ZhuDong_FaShuShangHai_KongZhiGongji,//主动类 先法术伤害 然后控制攻击
 	ZhuDong_YiChu_GuiBi_DongCha_XianShou,//主动类 移除有害 进入规避，洞察，先手
+	
 	
 	ZhiHui_FuZhu_ALL,//指挥类 增加法术和攻击伤害
 	ZhiHui_KongZhiGongJi,//指挥类 控制攻击

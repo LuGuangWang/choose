@@ -129,6 +129,7 @@ public class CheckUtil {
 	private static boolean isKongZhiGongJi(ZhanFa zf) {
 		boolean isKongZhi = false;
 		switch (zf.getT()) {
+		case ZhuDong_JianGongJi:
 		case ZhiHui_KongZhiGongJi:
 		case ZhuDong_FaShu_JianShang:
 		case ZhuDong_FaShu_jianGongJi:
@@ -185,6 +186,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case BeiDong_GongJi:
 		case ZhuDong_GongJi:
+		case ZhuDong_JianGongJi:
 		case ZhuDong_GongJi_YiJi:
 		case ZhuDong_FaShu_GongJi:
 		case ZhuiJi_GongJi_FengFaShu:
@@ -510,6 +512,7 @@ public class CheckUtil {
 		switch (zf.getT()) {
 		case ZhuDong_GongJi:
 		case ZhuDong_JiaShuXing:
+		case ZhuDong_JianGongJi:
 		case ZhuDong_FaShu_ZiDai:
 		case ZhuDong_ShouCi_JiaGongJi:
 		case ZhuDong_JiaGongJi_LianJi:
@@ -529,23 +532,7 @@ public class CheckUtil {
 		}
 		return isZhuiJi;
 	}
-	/**
-	 * 降低敌军攻击的战法
-	 * @param zf
-	 * @return
-	 */
-	public static boolean isDownGongJi(ZhanFa zf) {
-		boolean isDownGongJi = false;
-		switch (zf.getT()) {
-		case ZhuDong_FaShu_jianGongJi:
-			isDownGongJi = true;
-			break;
-		default:
-			isDownGongJi = false;
-			break;
-		}
-		return isDownGongJi;
-	}
+	
 	/**
 	 * 被控制的战法 像：被混乱控制
 	 * @param zf
@@ -557,6 +544,7 @@ public class CheckUtil {
 		case ZhuDong_FaShu:
 		case ZhuDong_BaoZou:
 		case ZhuDong_GongJi:
+		case ZhuDong_JianGongJi:
 		case ZhuDong_JiaShuXing:
 		case ZhuDong_KongZhi_ALL:
 		case ZhuDong_FaShu_ZiDai:

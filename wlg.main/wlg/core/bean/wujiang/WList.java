@@ -69,4 +69,6 @@ public class WList {
 	public static WuJiang zhangning = new WuJiang("张宁", WZType.qun, WBType.bu, 47, 72, 37, 88, 2, ZList.huangtianyvyin);
 	//马超
 	public static WuJiang machao = new WuJiang("马超", WZType.qun, WBType.qi, 92, 91, 97, 45, 3, ZList.xuejianhuangsha);
+	//S2 吕布
+	public static WuJiang lvbu = new WuJiang("S2吕布", WZType.qun, WBType.gong, 77, 72, 101, 29, 4, ZList.yuanmensheji);
 }
